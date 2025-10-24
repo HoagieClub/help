@@ -40,12 +40,21 @@ const LinkedinIcon = () => (
 // Team data organized for easier management
 const teamLeads = [
 	{
-		name: 'Hoagie.io',
+		name: 'Spencer Doyle',
 		role: 'Team Lead',
-		bio: 'Hoagie is an experienced software engineer with a passion for building campus apps for Princeton students.',
-		imgSrc: 'https://github.com/HoagieClub/club/raw/refs/heads/source/src/assets/hoagie-hi.svg',
+		bio: '',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQFgKlbpu5PV9Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1710630696392?e=1762992000&v=beta&t=0BKZ_8Nv9L8OgZbItbsoHfuUL1xlXTTOMDpTzuU5a_w',
 		socials: {
-			linkedin: 'https://www.linkedin.com',
+			linkedin: 'https://www.linkedin.com/in/spencer-doyle3/',
+		},
+	},
+	{
+		name: 'Issac Li',
+		role: 'Team Lead',
+		bio: '',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEDK7V3q61jAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1690434142044?e=1762992000&v=beta&t=Xf393UgOpXgB_WpSMMNOUZazRfOsF7JMdKaHBvxNqIY',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/issactli/',
 		},
 	}
 ];
@@ -86,7 +95,7 @@ export function App() {
 					<h2 className='text-3xl font-bold text-slate-900 mb-12 text-center'>
 						Team Leadership
 					</h2>
-					<div className='grid grid-cols-1 lg:grid-cols-1 gap-10 max-w-lg mx-auto'>
+					<div className='grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl mx-auto'>
 						{teamLeads.map((lead) => (
 							<div
 								key={lead.name}
@@ -97,8 +106,8 @@ export function App() {
 										src={lead.imgSrc}
 										alt={lead.name}
 										className='w-32 h-32 rounded-full mb-6 sm:mb-0 sm:mr-8 flex-shrink-0 border-4 border-emerald-200 shadow-md'
-										height={0}
-										width={0}
+										height={128}
+										width={128}
 									/>
 									<div className='text-center sm:text-left'>
 										<h3 className='text-2xl font-bold text-slate-900'>
