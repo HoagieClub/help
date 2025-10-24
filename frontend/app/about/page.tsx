@@ -56,7 +56,7 @@ const teamLeads = [
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/issactli/',
 		},
-	}
+	},
 ];
 
 const teamMembers = [
