@@ -23,7 +23,7 @@ interface AuthButtonProps {
  * different Hoagie applications.
  */
 export function AuthButton({ variant = 'login', href = '' }: AuthButtonProps) {
-	const theme = useTheme();;
+	const theme = useTheme();
 	const logo = (
 		<h2
 			style={{

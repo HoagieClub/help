@@ -2,16 +2,8 @@
 
 import React from 'react';
 
-import {
-	Heading,
-	majorScale,
-	Pane,
-	Text,
-	useTheme
-} from 'evergreen-ui'
+import { Heading, majorScale, Pane, Text, useTheme } from 'evergreen-ui';
 import Image from 'next/image';
-
-
 
 // --- Helper Components & Data ---
 
@@ -97,13 +89,22 @@ export function App() {
 		<div className='min-h-screen font-sans text-slate-800'>
 			<div className='container mx-auto px-4 sm:px-6 lg:px-8 py-16'>
 				{/* Header */}
-				<Pane textAlign="center" marginBottom={majorScale(6)}>
-					<Heading size={900} fontSize="3rem" fontWeight={700} marginBottom={majorScale(4)}>
-						Meet the <Text size={900} fontSize="3rem" color={theme.colors.blue500}>HoagieSparks</Text> Team
+				<Pane textAlign='center' marginBottom={majorScale(6)}>
+					<Heading
+						size={900}
+						fontSize='3rem'
+						fontWeight={700}
+						marginBottom={majorScale(4)}
+					>
+						Meet the{' '}
+						<Text size={900} fontSize='3rem' color={theme.colors.blue500}>
+							HoagieSparks
+						</Text>{' '}
+						Team
 					</Heading>
-					<Text size={500} display="block" maxWidth={672} marginX="auto">
-						We&apos;re a passionate group of developers and designers
-						dedicated to improving your Princeton academic experience.
+					<Text size={500} display='block' maxWidth={672} marginX='auto'>
+						We&apos;re a passionate group of developers and designers dedicated to
+						improving your Princeton academic experience.
 					</Text>
 				</Pane>
 
@@ -125,10 +126,10 @@ export function App() {
 										marginRight={majorScale(4)}
 										width={128}
 										height={128}
-										borderRadius="50%"
+										borderRadius='50%'
 										border={`4px solid ${theme.colors.blue200}`}
-										boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
-										overflow="hidden"
+										boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+										overflow='hidden'
 									>
 										<Image
 											src={lead.imgSrc}
