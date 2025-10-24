@@ -1,6 +1,6 @@
-# Hoagie Template
+# HoagieSparks
 
-Hoagie Club's app template repository.
+Repository for HoagieSparks.
 
 ## Getting Started
 
