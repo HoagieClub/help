@@ -6,6 +6,15 @@ import Image from 'next/image';
 
 // --- Helper Components & Data ---
 
+interface member {
+	name: string;
+	role: string;
+	imgSrc: string;
+	socials: {
+		linkedin: string;
+	};
+}
+
 // Icon for social media links
 const SocialIcon = ({ href, children }: { href: string; children: React.ReactNode }) => (
 	<a
@@ -38,11 +47,10 @@ const LinkedinIcon = () => (
 );
 
 // Team data organized for easier management
-const teamLeads = [
+const teamLeads: member[] = [
 	{
 		name: 'Spencer Doyle',
 		role: 'Team Lead',
-		bio: '',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQFgKlbpu5PV9Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1710630696392?e=1762992000&v=beta&t=0BKZ_8Nv9L8OgZbItbsoHfuUL1xlXTTOMDpTzuU5a_w',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/spencer-doyle3/',
@@ -51,7 +59,6 @@ const teamLeads = [
 	{
 		name: 'Issac Li',
 		role: 'Team Lead',
-		bio: '',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEDK7V3q61jAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1690434142044?e=1762992000&v=beta&t=Xf393UgOpXgB_WpSMMNOUZazRfOsF7JMdKaHBvxNqIY',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/issactli/',
@@ -82,11 +89,11 @@ export function App() {
 				{/* Header */}
 				<header className='text-center mb-12'>
 					<h1 className='text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight'>
-						Meet the <span className='text-emerald-600'>HoagieMeal</span> Team
+						Meet the <span className='text-emerald-600'>HoagieSparks</span> Team
 					</h1>
 					<p className='mt-4 text-lg text-slate-600 max-w-2xl mx-auto'>
-						We&apos;re a passionate group of foodies, developers, and designers
-						dedicated to making your dining experience easier and more enjoyable.
+						We&apos;re a passionate group of developers and designers
+						dedicated to improving your Princeton academic experience.
 					</p>
 				</header>
 
@@ -116,7 +123,6 @@ export function App() {
 										<p className='text-md font-semibold text-emerald-600 mb-2'>
 											{lead.role}
 										</p>
-										<p className='text-slate-600 mb-4'>{lead.bio}</p>
 										<div className='flex justify-center sm:justify-start space-x-4'>
 											<SocialIcon href={lead.socials.linkedin}>
 												<LinkedinIcon />
