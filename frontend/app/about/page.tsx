@@ -2,9 +2,27 @@
 
 import React from 'react';
 
+import {
+	Heading,
+	majorScale,
+	Pane,
+	Text,
+	useTheme
+} from 'evergreen-ui'
 import Image from 'next/image';
 
+
+
 // --- Helper Components & Data ---
+
+interface member {
+	name: string;
+	role: string;
+	imgSrc: string;
+	socials: {
+		linkedin: string;
+	};
+}
 
 // Icon for social media links
 const SocialIcon = ({ href, children }: { href: string; children: React.ReactNode }) => (
@@ -38,16 +56,23 @@ const LinkedinIcon = () => (
 );
 
 // Team data organized for easier management
-const teamLeads = [
+const teamLeads: member[] = [
 	{
-		name: 'Hoagie.io',
+		name: 'Spencer Doyle',
 		role: 'Team Lead',
-		bio: 'Hoagie is an experienced software engineer with a passion for building campus apps for Princeton students.',
-		imgSrc: 'https://github.com/HoagieClub/club/raw/refs/heads/source/src/assets/hoagie-hi.svg',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQFgKlbpu5PV9Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1710630696392?e=1762992000&v=beta&t=0BKZ_8Nv9L8OgZbItbsoHfuUL1xlXTTOMDpTzuU5a_w',
 		socials: {
-			linkedin: 'https://www.linkedin.com',
+			linkedin: 'https://www.linkedin.com/in/spencer-doyle3/',
 		},
-	}
+	},
+	{
+		name: 'Issac Li',
+		role: 'Team Lead',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEDK7V3q61jAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1690434142044?e=1762992000&v=beta&t=Xf393UgOpXgB_WpSMMNOUZazRfOsF7JMdKaHBvxNqIY',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/issactli/',
+		},
+	},
 ];
 
 const teamMembers = [
@@ -67,39 +92,51 @@ const teamMembers = [
  * Features a clean, professional design with interactive cards.
  */
 export function App() {
+	const theme = useTheme();
 	return (
 		<div className='min-h-screen font-sans text-slate-800'>
 			<div className='container mx-auto px-4 sm:px-6 lg:px-8 py-16'>
 				{/* Header */}
-				<header className='text-center mb-12'>
-					<h1 className='text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight'>
-						Meet the <span className='text-emerald-600'>HoagieMeal</span> Team
-					</h1>
-					<p className='mt-4 text-lg text-slate-600 max-w-2xl mx-auto'>
-						We&apos;re a passionate group of foodies, developers, and designers
-						dedicated to making your dining experience easier and more enjoyable.
-					</p>
-				</header>
+				<Pane textAlign="center" marginBottom={majorScale(6)}>
+					<Heading size={900} fontSize="3rem" fontWeight={700} marginBottom={majorScale(4)}>
+						Meet the <Text size={900} fontSize="3rem" color={theme.colors.blue500}>HoagieSparks</Text> Team
+					</Heading>
+					<Text size={500} display="block" maxWidth={672} marginX="auto">
+						We&apos;re a passionate group of developers and designers
+						dedicated to improving your Princeton academic experience.
+					</Text>
+				</Pane>
 
 				{/* Team Leadership Section */}
 				<section className='mb-16'>
 					<h2 className='text-3xl font-bold text-slate-900 mb-12 text-center'>
 						Team Leadership
 					</h2>
-					<div className='grid grid-cols-1 lg:grid-cols-1 gap-10 max-w-lg mx-auto'>
+					<div className='grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl mx-auto'>
 						{teamLeads.map((lead) => (
 							<div
 								key={lead.name}
 								className='bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-transform duration-300 ease-in-out'
 							>
 								<div className='p-8 flex flex-col sm:flex-row items-center'>
-									<Image
-										src={lead.imgSrc}
-										alt={lead.name}
-										className='w-32 h-32 rounded-full mb-6 sm:mb-0 sm:mr-8 flex-shrink-0 border-4 border-emerald-200 shadow-md'
-										height={0}
-										width={0}
-									/>
+									<Pane
+										flexShrink={0}
+										marginBottom={majorScale(3)}
+										marginRight={majorScale(4)}
+										width={128}
+										height={128}
+										borderRadius="50%"
+										border={`4px solid ${theme.colors.blue200}`}
+										boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+										overflow="hidden"
+									>
+										<Image
+											src={lead.imgSrc}
+											alt={lead.name}
+											height={128}
+											width={128}
+										/>
+									</Pane>
 									<div className='text-center sm:text-left'>
 										<h3 className='text-2xl font-bold text-slate-900'>
 											{lead.name}
@@ -107,7 +144,6 @@ export function App() {
 										<p className='text-md font-semibold text-emerald-600 mb-2'>
 											{lead.role}
 										</p>
-										<p className='text-slate-600 mb-4'>{lead.bio}</p>
 										<div className='flex justify-center sm:justify-start space-x-4'>
 											<SocialIcon href={lead.socials.linkedin}>
 												<LinkedinIcon />
