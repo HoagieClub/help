@@ -1,8 +1,9 @@
 {
-	"name": "template",
+	"name": "sparks",
 	"version": "0.9.0",
 	"license": "MIT",
-	"private": false,
+	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev -p 3000",
 		"dev-https": "next dev -p 3000 --experimental-https",
