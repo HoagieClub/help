@@ -35,6 +35,7 @@
 		"@vercel/analytics": "^1.5.0",
 		"@vercel/speed-insights": "^1.2.0",
 		"babel-plugin-react-compiler": "^19.0.0-beta-e1e972c-20250221",
+		"clsx": "^2.1.1",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-prettier": "^5.2.3",
 		"evergreen-ui": "^7.1.9",
