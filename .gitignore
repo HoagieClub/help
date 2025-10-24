@@ -1,0 +1,209 @@
+# ===============================
+# Global Settings
+# ===============================
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# ===============================
+# Python Artifacts (Backend)
+# ===============================
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+**/*.py[cod]
+*$py.class
+
+# C extensions
+/backend/*.so
+
+# ===============================
+# Node Modules (Frontend)
+# ===============================
+# Dependencies
+**/node_modules/
+
+# ===============================
+# Build Artifacts
+# ===============================
+# Next.js build output (Frontend)
+**/.next/
+**/out/
+**/.empty/
+
+# Vercel serverless functions cache
+/frontend/.vercel/
+
+# Django static files (Backend)
+/backend/static/
+/backend/media/
+
+# ===============================
+# Environment Variables
+# ===============================
+# Environment variable files (Global)
+.env
+*.env
+
+# Frontend environment variables
+/frontend/.env
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+
+# Backend environment variables
+/backend/.env
+
+# ===============================
+# Databases (Backend)
+# ===============================
+# SQLite database
+/backend/db.sqlite3
+/backend/db.sqlite3-journal
+
+# Django test database
+/backend/test_db.sqlite3
+/backend/test_db.sqlite3-journal
+
+# ===============================
+# Logs
+# ===============================
+# Log files (Global)
+logs/
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===============================
+# OS & System Files
+# ===============================
+# macOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+ehthumbs.db
+
+# Linux temporary files
+*~
+
+# ===============================
+# Virtual Environments (Backend)
+# ===============================
+# Virtualenv and virtualenvwrapper
+/backend/venv/
+backend/ENV/
+backend/env/
+backend/.venv/
+
+# ===============================
+# Package Management
+# ===============================
+# Pipenv (Backend)
+/backend/Pipfile
+/backend/Pipfile.lock
+
+# Poetry (Backend)
+/backend/poetry.lock
+/backend/poetry.toml
+
+# Bun lock file (Frontend)
+/frontend/bun.lockb
+
+# Uncomment the following lines if you want to ignore lock files (not generally recommended)
+# package-lock.json
+# yarn.lock
+
+# ===============================
+# IDE & Editor Settings
+# ===============================
+# VSCode
+.vscode/
+.history/
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+
+# Emacs
+*~
+
+# ===============================
+# Testing & Coverage
+# ===============================
+# Coverage directory used by tools like Jest (Frontend)
+/frontend/coverage/
+
+# Unit test / coverage reports (Backend)
+/backend/htmlcov/
+/backend/.coverage
+/backend/.coverage.*
+/backend.cache
+/backend/nosetests.xml
+/backend/coverage.xml
+/backend/*.cover
+/backend/*.py,cover
+
+# ===============================
+# Temporary Files
+# ===============================
+# Temporary files (Global)
+tmp/
+temp/
+/backend/tmp/
+/backend/temp/
+/frontend/tmp/
+/frontend/temp/
+
+# ===============================
+# Deployment Artifacts
+# ===============================
+# Gunicorn and uWSGI logs (Backend)
+/backend/gunicorn.log
+/backend/gunicorn-access.log
+/backend/gunicorn-error.log
+
+# uWSGI config and logs (Backend)
+/backend/uwsgi.ini
+/backend/uwsgi_params
+/backend/*.pid
+/backend/*.sock
+
+# Heroku-specific files (Backend)
+/backend/.heroku/
+/backend/Procfile
+
+# ===============================
+# Migrations (Backend)
+# ===============================
+# Django migrations (optional)
+/backend/**/migrations/
+
+# ===============================
+# Miscellaneous
+# ===============================
+# Build scripts and directories
+/frontend/build/
+/frontend/public/static/
+
+# Ignore static files generated during build (Backend)
+/backend/hoagiemeal/static/
+
+# Ignore mock files (if not to be committed)
+/frontend/mock/
+
+# HTTPS Certificate
+/frontend/certificates/
+
+# ===============================
+# Custom Ignored Files
+# ===============================
+# Add any additional files or directories you wish to ignore here
