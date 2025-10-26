@@ -180,8 +180,8 @@ export function App() {
 									src={member.imgSrc}
 									alt={member.name}
 									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300'
-									height={0}
-									width={0}
+									height={128}
+									width={128}
 									style={{ objectFit: 'cover' }}
 								/>
 								<h4 className='font-bold text-slate-800 text-lg'>{member.name}</h4>
