@@ -73,14 +73,6 @@ const teamLeads: member[] = [
 			linkedin: 'https://www.linkedin.com/in/issactli/',
 		},
 	},
-	{
-		name: 'Maribel Crespo',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHOE2hLdzPWhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730483078731?e=2147483647&v=beta&t=BgVPzlj748EpPYDDtjMW2NBQpQamT5--CWHtLWh9xHM',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
-		},
-	},
 ];
 
 const teamMembers = [
@@ -91,6 +83,14 @@ const teamMembers = [
 		imgSrc: 'https://github.com/HoagieClub/club/raw/refs/heads/source/src/assets/hoagie-hi.svg',
 		socials: {
 			linkedin: 'https://www.linkedin.com',
+		},
+	},
+	{
+		name: 'Maribel Crespo',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHOE2hLdzPWhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730483078731?e=2147483647&v=beta&t=BgVPzlj748EpPYDDtjMW2NBQpQamT5--CWHtLWh9xHM',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
 		},
 	},
 ];
