@@ -26,7 +26,6 @@
 	],
 	"dependencies": {
 		"@auth0/nextjs-auth0": "^4.11.0",
-		"@eslint/js": "^9.21.0",
 		"@radix-ui/react-separator": "^1.1.7",
 		"@radix-ui/react-slot": "^1.2.3",
 		"@tailwindcss/forms": "^0.5.10",
@@ -52,16 +51,18 @@
 		"sonner": "^2.0.1",
 		"tailwind-merge": "^3.3.1",
 		"tailwindcss-animate": "^1.0.7",
-		"typescript-eslint": "^8.25.0",
+		"typescript-eslint": "^8.46.2",
 		"webpack": "^5.98.0"
 	},
 	"devDependencies": {
+		"@eslint/js": "^9.38.0",
 		"@next/eslint-plugin-next": "^15.1.7",
 		"@types/node": "^22.13.5",
 		"@types/react": "^19.0.10",
 		"@types/react-dom": "^19.0.4",
 		"eslint": "^9.38.0",
-		"eslint-config-next": "^15.1.7",
+		"eslint-config-next": "16.0.0",
+		"globals": "^16.4.0",
 		"postcss": "^8.5.6",
 		"tailwindcss": "^4.1.16",
 		"typescript": "^5.7.3"

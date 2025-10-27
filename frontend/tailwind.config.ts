@@ -10,6 +10,9 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
+import tailwindcssForms from '@tailwindcss/forms';
+import tailwindcssAnimate from 'tailwindcss-animate';
+
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -71,6 +74,6 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [require('tailwindcss-animate'), require('@tailwindcss/forms')],
+	plugins: [tailwindcssAnimate, tailwindcssForms],
 };
 export default config;
