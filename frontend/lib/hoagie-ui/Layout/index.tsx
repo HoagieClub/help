@@ -14,19 +14,18 @@
 
 import type { ReactNode } from 'react';
 
-import { Pane } from 'evergreen-ui';
+import { Pane, useTheme } from 'evergreen-ui';
 
 import Footer from '@/lib/hoagie-ui/Footer';
-import { hoagieTemplate } from '@/lib/hoagie-ui/Theme/themes';
 
 export function Layout({ children }: { children: ReactNode }) {
-	const theme = hoagieTemplate;
+	const theme = useTheme();
 	return (
 		<Pane
 			display='flex'
 			flexDirection='column'
 			minHeight='100vh'
-			background={theme.colors.teal100}
+			background={theme.colors.blue100}
 		>
 			<Pane flex='1'>{children}</Pane>
 			<Pane>

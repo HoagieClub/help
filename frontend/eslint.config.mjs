@@ -10,84 +10,39 @@
  * sublicense, and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
-import nextPlugin from '@next/eslint-plugin-next';
-import typescript from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import prettierConfig from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
-import prettierPlugin from 'eslint-plugin-prettier';
-import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import eslint from '@eslint/js';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
+import prettier from 'eslint-config-prettier/flat';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const compat = new FlatCompat({
-	baseDirectory: __dirname,
-	recommendedConfig: js.configs.recommended,
-});
-
-const eslintConfig = [
+export default defineConfig([
+	...nextVitals,
+	...nextTs,
+	eslint.configs.recommended,
+	globalIgnores([
+		'.next/**',
+		'out/**',
+		'build/**',
+		'next-env.d.ts',
+		'node_modules/**',
+		'dist/**',
+		'coverage/**',
+		'.git/**',
+		'next.config.mjs',
+	]),
 	{
-		ignores: [
-			'**/node_modules/**',
-			'**/dist/**',
-			'**/build/**',
-			'**/.next/**',
-			'**/coverage/**',
-			'**/.git/**',
-			'next.config.js',
-		],
-	},
-
-	// Base configurations
-	js.configs.recommended,
-	prettierConfig,
-	...compat.extends('next/core-web-vitals'),
-
-	// Global settings
-	{
-		linterOptions: {
-			reportUnusedDisableDirectives: true,
-		},
-		settings: {
-			'import/resolver': {
-				typescript: {
-					alwaysTryTypes: true,
-				},
-				node: true,
-			},
-			react: {
-				version: 'detect',
-			},
-		},
-	},
-
-	// TypeScript and React files
-	{
-		files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-		plugins: {
-			'@typescript-eslint': typescript,
-			import: importPlugin,
-			react: reactPlugin,
-			'react-hooks': reactHooksPlugin,
-			prettier: prettierPlugin,
-			next: nextPlugin,
-		},
+		files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		languageOptions: {
-			parser: tsParser,
+			parser: tseslint.parser,
 			parserOptions: {
-				ecmaVersion: 'latest',
-				sourceType: 'module',
-				ecmaFeatures: {
-					jsx: true,
-				},
-				project: './tsconfig.json',
-				tsconfigRootDir: __dirname,
+				projectService: true,
+			},
+			globals: {
+				...globals.browser,
+				...globals.node,
 			},
 		},
 		rules: {
@@ -168,6 +123,5 @@ const eslintConfig = [
 			'spaced-comment': ['error', 'always', { markers: ['/'] }],
 		},
 	},
-];
-
-export default eslintConfig;
+	prettier,
+]);

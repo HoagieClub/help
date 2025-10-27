@@ -40,7 +40,7 @@
 		"**/*.tsx",
 		"postcss.config.mjs",
 		".next/types/**/*.ts",
-		"eslint.config.ts",
+		"eslint.config.mjs",
 		".prettierrc",
 		".next/dev/types/**/*.ts"
 	],

@@ -22,14 +22,14 @@ import {
 	ArrowRightIcon,
 	ArrowLeftIcon,
 	Button,
+	useTheme,
 } from 'evergreen-ui';
 import Link from 'next/link';
 
 import AuthButton from '@/lib/hoagie-ui/AuthButton';
-import { hoagieTemplate } from '@/lib/hoagie-ui/Theme/themes';
 
 export function Home() {
-	const theme = hoagieTemplate;
+	const theme = useTheme();
 	const { user, error, isLoading } = useUser();
 
 	let Profile;
@@ -44,7 +44,7 @@ export function Home() {
 					<Button
 						height={56}
 						width={majorScale(35)}
-						backgroundColor={theme.colors.teal100}
+						backgroundColor={theme.colors.blue100}
 						marginBottom={20}
 						iconBefore={ArrowRightIcon}
 					>

@@ -1,15 +1,15 @@
-# Hoagie Template
+# HoagieSparks
 
-Hoagie Club's app template repository.
+Repository for HoagieSparks.
 
 ## Getting Started
 
 ### Prerequisites
 
-Before you begin, ensure you have [Bun](https://bun.sh/) installed. You can install Bun via [Homebrew](https://brew.sh/) using the following command:
+Before you begin, ensure you have [Yarn](https://yarnpkg.com/) installed. You can install Yarn via [Homebrew](https://brew.sh/) using the following command:
 
 ```bash
-brew install bun
+brew install yarn
 ```
 
 ### Installation
@@ -17,7 +17,7 @@ brew install bun
 To install the necessary dependencies, run:
 
 ```bash
-bun install
+yarn
 ```
 
 ### Running the App
@@ -25,7 +25,7 @@ bun install
 Once the dependencies are installed, you can start the development server by running:
 
 ```bash
-bun run dev
+yarn dev
 ```
 
 The app will now be running locally, and you can view it in your browser at localhost:3000.

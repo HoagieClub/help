@@ -10,9 +10,7 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-import { Button, Pane, majorScale, minorScale } from 'evergreen-ui';
-
-import { hoagieTemplate } from '@/lib/hoagie-ui/Theme/themes';
+import { Button, Pane, majorScale, minorScale, useTheme } from 'evergreen-ui';
 
 interface AuthButtonProps {
 	/** defines whether the button is for "login" or "logout" */
@@ -25,7 +23,7 @@ interface AuthButtonProps {
  * different Hoagie applications.
  */
 export function AuthButton({ variant = 'login', href = '' }: AuthButtonProps) {
-	const theme = hoagieTemplate;
+	const theme = useTheme();
 	const logo = (
 		<h2
 			style={{
