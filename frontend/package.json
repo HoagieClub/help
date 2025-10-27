@@ -17,7 +17,7 @@
 		"analyze": "webpack-bundle-analyzer dist/stats.json"
 	},
 	"engines": {
-		"node": "22.9.0"
+		"node": "^22.9.0"
 	},
 	"trustedDependencies": [
 		"@vercel/speed-insights",
@@ -26,7 +26,6 @@
 	],
 	"dependencies": {
 		"@auth0/nextjs-auth0": "^4.11.0",
-		"@eslint/js": "^9.21.0",
 		"@radix-ui/react-separator": "^1.1.7",
 		"@radix-ui/react-slot": "^1.2.3",
 		"@tailwindcss/forms": "^0.5.10",
@@ -35,34 +34,35 @@
 		"@types/next-pwa": "^5.6.9",
 		"@vercel/analytics": "^1.5.0",
 		"@vercel/speed-insights": "^1.2.0",
-		"babel-plugin-react-compiler": "^19.0.0-beta-e1e972c-20250221",
 		"clsx": "^2.1.1",
-		"eslint-config-prettier": "^10.0.1",
-		"eslint-plugin-prettier": "^5.2.3",
 		"evergreen-ui": "^7.1.9",
 		"next": "^16.0.0",
 		"next-pwa": "^5.6.0",
 		"next-themes": "^0.4.6",
 		"postcss-import": "^16.1.0",
-		"prettier": "^3.5.2",
-		"prettier-plugin-tailwindcss": "^0.7.1",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"shadcn-ui": "^0.9.4",
 		"sonner": "^2.0.1",
 		"tailwind-merge": "^3.3.1",
 		"tailwindcss-animate": "^1.0.7",
-		"typescript-eslint": "^8.25.0",
+		"typescript-eslint": "^8.46.2",
 		"webpack": "^5.98.0"
 	},
 	"devDependencies": {
+		"@eslint/js": "^9.38.0",
 		"@next/eslint-plugin-next": "^15.1.7",
 		"@types/node": "^22.13.5",
 		"@types/react": "^19.0.10",
 		"@types/react-dom": "^19.0.4",
+		"babel-plugin-react-compiler": "^1.0.0",
 		"eslint": "^9.38.0",
-		"eslint-config-next": "^15.1.7",
+		"eslint-config-next": "16.0.0",
+		"eslint-config-prettier": "^10.1.8",
+		"globals": "^16.4.0",
 		"postcss": "^8.5.6",
+		"prettier": "^3.6.2",
+		"prettier-plugin-tailwindcss": "^0.7.1",
 		"tailwindcss": "^4.1.16",
 		"typescript": "^5.7.3"
 	}
