@@ -80,7 +80,7 @@ const teamMembers = [
 	{
 		name: 'Charles Muehlberger',
 		role: 'Frontend Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEYBBOqY-sv4A/profile-displayphoto-scale_400_400/B56ZosDE4cH8Ak-/0/1761675595951?e=1762992000&v=beta&t=twJEv9ZvreU1d4hsId25m1155BF1MntkEJrqNF5ZmGA',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEiL4nYie2M0w/profile-displayphoto-scale_400_400/B56ZosMDtcJQAg-/0/1761677951076?e=1762992000&v=beta&t=PVSCfriKs3Ao9lg2Y1ka0XrTscDyqlXjEYbEX5HqdDE',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/charlesmuehl/',
 		}
