@@ -70,11 +70,12 @@ const teamLeads: member[] = [
 const teamMembers = [
 	// Add your name, role, and image here!
 	{
-		name: 'Hoagie Member',
+		name: 'Timothy Li',
 		role: 'Frontend Developer',
-		imgSrc: 'https://github.com/HoagieClub/club/raw/refs/heads/source/src/assets/hoagie-hi.svg',
+		imgSrc: 'https://avatars.githubusercontent.com/u/214003676?v=4',
 		socials: {
-			linkedin: 'https://www.linkedin.com',
+			linkedin: 'https://www.linkedin.com/in/timli5823/',
+			instagram: 'https://www.instagram.com/timothyli1331/',
 		},
 	},
 ];
