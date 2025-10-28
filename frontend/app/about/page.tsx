@@ -77,6 +77,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com',
 		},
 	},
+	{
+		name: 'Charles Muehlberger',
+		role: 'Frontend Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEYBBOqY-sv4A/profile-displayphoto-scale_400_400/B56ZosDE4cH8Ak-/0/1761675595951?e=1762992000&v=beta&t=twJEv9ZvreU1d4hsId25m1155BF1MntkEJrqNF5ZmGA',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/charlesmuehl/'
+		}
+	}
 ];
 
 /**
