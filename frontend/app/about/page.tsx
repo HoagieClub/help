@@ -111,7 +111,7 @@ const teamMembers = [
 	},
 	{
 		name: 'David Liu',
-		role: 'Developer',
+		role: 'Backend Developer',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHBROhhswIn4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1728969894574?e=1763596800&v=beta&t=01lDxnJDUYtJ6tmMR1JQ9bCmycdyv0rZ7u5w4XnRer8',
 		socials: {
 			linkedin: 'https://www.linkedin.com',
@@ -292,7 +292,7 @@ export function App() {
 								<Image
 									src={member.imgSrc}
 									alt={member.name}
-									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300'
+									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300 object-cover'
 									height={128}
 									width={128}
 									style={{ objectFit: 'cover' }}
