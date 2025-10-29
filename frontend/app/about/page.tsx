@@ -70,11 +70,11 @@ const teamLeads: member[] = [
 const teamMembers = [
 	// Add your name, role, and image here!
 	{
-		name: 'Hoagie Member',
+		name: 'Hellen Luo',
 		role: 'Frontend Developer',
-		imgSrc: 'https://github.com/HoagieClub/club/raw/refs/heads/source/src/assets/hoagie-hi.svg',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQGfbADce0FXwg/profile-displayphoto-shrink_400_400/B4EZUr4FgIHMAg-/0/1740197879737?e=1763596800&v=beta&t=bFaFo8e8mU3Svx6JOKf20ytzoj_uilHr2Dgvl8KFKPU',
 		socials: {
-			linkedin: 'https://www.linkedin.com',
+			linkedin: 'https://www.linkedin.com/in/hellen-luo',
 		},
 	},
 ];
@@ -172,8 +172,8 @@ export function App() {
 									src={member.imgSrc}
 									alt={member.name}
 									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300'
-									height={0}
-									width={0}
+									height={128}
+									width={128}
 								/>
 								<h4 className='font-bold text-slate-800 text-lg'>{member.name}</h4>
 								<p className='text-emerald-600 text-sm'>{member.role}</p>
