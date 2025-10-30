@@ -109,6 +109,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/adambelouad/',
 		},
 	},
+	{
+		name: 'Ray Kong',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQFkT_ZoR3450w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718298302044?e=1763596800&v=beta&t=BohlAyNiX2oqaLcwWBC_2Hov6TsK7WUYTWkNpUKzlHc',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/raykongcs/',
+		},
+	},
 ];
 
 /**
