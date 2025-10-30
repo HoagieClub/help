@@ -93,6 +93,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
 		},
 	},
+	{
+		name: 'Ray Kong',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQFkT_ZoR3450w/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1719014253726?e=1763596800&v=beta&t=OpTVZ_9bwxynAVLfpVqHdLcc_DVuiQJKhDH6j7QkFfU',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/raykongcs/',
+		},
+	}
 ];
 
 /**
