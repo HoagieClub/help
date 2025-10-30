@@ -93,6 +93,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
 		},
 	},
+	{
+		name: 'Adam Belouad',
+		role: 'Frontend Developer',
+		imgSrc: 'https://i.imgur.com/U5XnPnt.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/adambelouad/',
+		},
+	},
 ];
 
 /**
