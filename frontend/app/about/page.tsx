@@ -67,7 +67,6 @@ const teamLeads: member[] = [
 	},
 ];
 
-
 const teamMembers = [
 	{
 		name: 'Charles Muehlberger',
