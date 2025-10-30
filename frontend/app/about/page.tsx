@@ -77,6 +77,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com',
 		},
 	},
+	{
+		name: 'Maribel Crespo',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHOE2hLdzPWhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730483078731?e=2147483647&v=beta&t=BgVPzlj748EpPYDDtjMW2NBQpQamT5--CWHtLWh9xHM',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
+		},
+	},
 ];
 
 /**
@@ -136,6 +144,7 @@ export function App() {
 											alt={lead.name}
 											height={128}
 											width={128}
+											style={{ objectFit: 'cover' }}
 										/>
 									</Pane>
 									<div className='text-center sm:text-left'>
@@ -172,8 +181,9 @@ export function App() {
 									src={member.imgSrc}
 									alt={member.name}
 									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300'
-									height={0}
-									width={0}
+									height={128}
+									width={128}
+									style={{ objectFit: 'cover' }}
 								/>
 								<h4 className='font-bold text-slate-800 text-lg'>{member.name}</h4>
 								<p className='text-emerald-600 text-sm'>{member.role}</p>
