@@ -111,7 +111,7 @@ const teamMembers = [
 	},
 	{
 		name: 'David Liu',
-		role: 'Backend Developer',
+		role: 'Developer',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHBROhhswIn4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1728969894574?e=1763596800&v=beta&t=01lDxnJDUYtJ6tmMR1JQ9bCmycdyv0rZ7u5w4XnRer8',
 		socials: {
 			linkedin: 'https://www.linkedin.com',
