@@ -77,6 +77,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com',
 		},
 	},
+	{
+		name: 'Ryan Jensen',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEl6gWsYEypCA/profile-displayphoto-crop_800_800/B4EZd_Z.ouHIAI-/0/1750189207663?e=1763596800&v=beta&t=8IgKFNafS_g9qyuhL0nUo1h_bEMbvNWY-dxm0u4m_9c',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
+		},
+	},
 ];
 
 /**
