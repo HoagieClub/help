@@ -13,6 +13,7 @@
 'use client';
 
 import React from 'react';
+
 import { Post } from '@/components/ui/Post';
 
 export default function QAPage() {
@@ -47,14 +48,14 @@ export default function QAPage() {
 	];
 
 	return (
-		<div className="min-h-screen bg-background">
-			<div className="max-w-4xl mx-auto py-8 px-4">
-				<h1 className="text-3xl font-bold mb-2 text-foreground">Q&A Forum</h1>
-				<p className="text-muted-foreground mb-8">
+		<div className='min-h-screen bg-background'>
+			<div className='max-w-4xl mx-auto py-8 px-4'>
+				<h1 className='text-3xl font-bold mb-2 text-foreground'>Q&A Forum</h1>
+				<p className='text-muted-foreground mb-8'>
 					Ask questions and get help from your peers
 				</p>
 
-				<div className="space-y-4">
+				<div className='space-y-4'>
 					{samplePosts.map((post, index) => (
 						<Post
 							key={index}
@@ -65,7 +66,6 @@ export default function QAPage() {
 							tags={post.tags}
 							replies={post.replies}
 							views={post.views}
-							onClick={() => console.log(`Clicked: ${post.title}`)}
 						/>
 					))}
 				</div>
@@ -73,4 +73,3 @@ export default function QAPage() {
 		</div>
 	);
 }
-
