@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+.card {
+	width: 300px;
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+	overflow: hidden;
+}
+
+/* Top strip */
+.strip {
+	height: 6px;
+	width: 100%;
+	background-color: #53c251;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	margin-bottom: 10px;
+}
+
+/* Inner content */
+.content {
+	padding: 15px 15px 10px 15px;
+	font-family: 'Roboto', sans-serif;
+	text-align: left;
+}
+
+/* Section titles */
+.tag {
+	font-size: 0.6rem;
+	font-weight: 600;
+	color: #ff7119;
+	margin-bottom: 3px;
+}
+
+.title {
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: #000;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.description {
+	font-size: 0.6rem;
+	font-weight: 600;
+	color: #adadad;
+	margin-top: 0;
+	margin-bottom: 12px;
+}
+
+/* Divider line */
+.divider {
+	border: none;
+	height: 0.5px;
+	background-color: #e4e8e4;
+	width: 100%;
+	margin: 8px 0;
+}
+
+/* Icon text rows */
+.iconText {
+	display: flex;
+	align-items: center;
+	font-size: 0.75rem;
+	font-weight: 600;
+	margin-top: 0;
+}
+
+.iconText.dark {
+	color: #000;
+}
+
+.iconText.light {
+	color: #adadad;
+}
+
+.icon {
+	margin-right: 5px;
+}
+
+/* Footer row */
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 0;
+}
+
+/* Joined text */
+.joined {
+	display: flex;
+	align-items: center;
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #adadad;
+	margin: 0px;
+}
+
+/* Join button */
+.joinButton {
+	display: flex;
+	align-items: center;
+	background-color: #ff7119;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	padding: 6px 8px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.75rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		background-color 0.2s ease,
+		transform 0.2s ease;
+}
+
+.joinButton:hover {
+	background-color: #e85d00;
+	transform: scale(1.05);
+}
+
+.joinIcon {
+	margin-right: 3px;
+}
