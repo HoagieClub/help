@@ -15,6 +15,9 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import prettier from 'eslint-config-prettier/flat';
+import importPlugin from 'eslint-plugin-import';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -31,10 +34,16 @@ export default defineConfig([
 		'dist/**',
 		'coverage/**',
 		'.git/**',
+		'.yarn/**',
 		'next.config.mjs',
 	]),
 	{
 		files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+		plugins: {
+			import: importPlugin,
+			react: react,
+			'react-hooks': reactHooks,
+		},
 		languageOptions: {
 			parser: tseslint.parser,
 			parserOptions: {
