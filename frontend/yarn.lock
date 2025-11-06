@@ -4849,6 +4849,51 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hoagie-help@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "hoagie-help@workspace:."
+  dependencies:
+    "@auth0/nextjs-auth0": "npm:^4.11.0"
+    "@eslint/js": "npm:^9.38.0"
+    "@next/eslint-plugin-next": "npm:^15.1.7"
+    "@radix-ui/react-separator": "npm:^1.1.7"
+    "@radix-ui/react-slot": "npm:^1.2.3"
+    "@tailwindcss/forms": "npm:^0.5.10"
+    "@tailwindcss/postcss": "npm:^4.1.16"
+    "@types/eslint": "npm:^9.6.1"
+    "@types/next-pwa": "npm:^5.6.9"
+    "@types/node": "npm:^22.13.5"
+    "@types/react": "npm:^19.0.10"
+    "@types/react-dom": "npm:^19.0.4"
+    "@vercel/analytics": "npm:^1.5.0"
+    "@vercel/speed-insights": "npm:^1.2.0"
+    babel-plugin-react-compiler: "npm:^1.0.0"
+    clsx: "npm:^2.1.1"
+    eslint: "npm:^9.38.0"
+    eslint-config-next: "npm:16.0.0"
+    eslint-config-prettier: "npm:^10.1.8"
+    evergreen-ui: "npm:^7.1.9"
+    globals: "npm:^16.4.0"
+    next: "npm:^16.0.0"
+    next-pwa: "npm:^5.6.0"
+    next-themes: "npm:^0.4.6"
+    postcss: "npm:^8.5.6"
+    postcss-import: "npm:^16.1.0"
+    prettier: "npm:^3.6.2"
+    prettier-plugin-tailwindcss: "npm:^0.7.1"
+    react: "npm:^19.2.0"
+    react-dom: "npm:^19.2.0"
+    shadcn-ui: "npm:^0.9.4"
+    sonner: "npm:^2.0.1"
+    tailwind-merge: "npm:^3.3.1"
+    tailwindcss: "npm:^4.1.16"
+    tailwindcss-animate: "npm:^1.0.7"
+    typescript: "npm:^5.7.3"
+    typescript-eslint: "npm:^8.46.2"
+    webpack: "npm:^5.98.0"
+  languageName: unknown
+  linkType: soft
+
 "http-cache-semantics@npm:^4.1.1":
   version: 4.2.0
   resolution: "http-cache-semantics@npm:4.2.0"
@@ -7406,51 +7451,6 @@ __metadata:
   checksum: 10c0/f099279fdaae070ff156df7414bbe39aad69cdd615454947ed3e19136bfdfcb4544952685ee73f56e17038f4578091e12b17b283ed8ac013882916594d95b9e6
   languageName: node
   linkType: hard
-
-"sparks@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "sparks@workspace:."
-  dependencies:
-    "@auth0/nextjs-auth0": "npm:^4.11.0"
-    "@eslint/js": "npm:^9.38.0"
-    "@next/eslint-plugin-next": "npm:^15.1.7"
-    "@radix-ui/react-separator": "npm:^1.1.7"
-    "@radix-ui/react-slot": "npm:^1.2.3"
-    "@tailwindcss/forms": "npm:^0.5.10"
-    "@tailwindcss/postcss": "npm:^4.1.16"
-    "@types/eslint": "npm:^9.6.1"
-    "@types/next-pwa": "npm:^5.6.9"
-    "@types/node": "npm:^22.13.5"
-    "@types/react": "npm:^19.0.10"
-    "@types/react-dom": "npm:^19.0.4"
-    "@vercel/analytics": "npm:^1.5.0"
-    "@vercel/speed-insights": "npm:^1.2.0"
-    babel-plugin-react-compiler: "npm:^1.0.0"
-    clsx: "npm:^2.1.1"
-    eslint: "npm:^9.38.0"
-    eslint-config-next: "npm:16.0.0"
-    eslint-config-prettier: "npm:^10.1.8"
-    evergreen-ui: "npm:^7.1.9"
-    globals: "npm:^16.4.0"
-    next: "npm:^16.0.0"
-    next-pwa: "npm:^5.6.0"
-    next-themes: "npm:^0.4.6"
-    postcss: "npm:^8.5.6"
-    postcss-import: "npm:^16.1.0"
-    prettier: "npm:^3.6.2"
-    prettier-plugin-tailwindcss: "npm:^0.7.1"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
-    shadcn-ui: "npm:^0.9.4"
-    sonner: "npm:^2.0.1"
-    tailwind-merge: "npm:^3.3.1"
-    tailwindcss: "npm:^4.1.16"
-    tailwindcss-animate: "npm:^1.0.7"
-    typescript: "npm:^5.7.3"
-    typescript-eslint: "npm:^8.46.2"
-    webpack: "npm:^5.98.0"
-  languageName: unknown
-  linkType: soft
 
 "ssri@npm:^12.0.0":
   version: 12.0.0
