@@ -69,6 +69,14 @@ const teamLeads: member[] = [
 
 const teamMembers = [
 	{
+		name: 'Sai Nallani',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHfKe9zKdZkRg/profile-displayphoto-shrink_800_800/B56ZXyDYosGQAg-/0/1743522729003?e=1764201600&v=beta&t=5LkVzORPkckCyP2p8nl-veFY8_kn3VtbWxuri1RhrLg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/sai-nallani-6a5061262/',
+		},
+	},
+	{
 		name: 'Hellen Luo',
 		role: 'Frontend Developer',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQGfbADce0FXwg/profile-displayphoto-shrink_400_400/B4EZUr4FgIHMAg-/0/1740197879737?e=1763596800&v=beta&t=bFaFo8e8mU3Svx6JOKf20ytzoj_uilHr2Dgvl8KFKPU',
@@ -107,6 +115,14 @@ const teamMembers = [
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHOE2hLdzPWhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730483078731?e=2147483647&v=beta&t=BgVPzlj748EpPYDDtjMW2NBQpQamT5--CWHtLWh9xHM',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
+		},
+	},
+	{
+		name: 'Eric Guo',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHpk81yJQ8N0w/profile-displayphoto-scale_200_200/B4EZlF5PvoIMAY-/0/1757814259175?e=2147483647&v=beta&t=U6aune5Bp3z9pniiLgcrnJ3nQ5cbHddo9Nbyi6NRxR8',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/eric-guo1',
 		},
 	},
 	{
