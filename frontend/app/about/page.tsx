@@ -110,6 +110,14 @@ const teamMembers = [
 		},
 	},
 	{
+		name: 'Eric Guo',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHpk81yJQ8N0w/profile-displayphoto-scale_200_200/B4EZlF5PvoIMAY-/0/1757814259175?e=2147483647&v=beta&t=U6aune5Bp3z9pniiLgcrnJ3nQ5cbHddo9Nbyi6NRxR8',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/eric-guo1',
+		},
+	},
+	{
 		name: 'Adam Belouad',
 		role: 'Frontend Developer',
 		imgSrc: 'https://i.imgur.com/U5XnPnt.jpeg',
