@@ -68,14 +68,14 @@ const teamLeads: member[] = [
 ];
 
 const teamMembers = [
-  {
-    name: 'Sai Nallani',
+	{
+		name: 'Sai Nallani',
 		role: 'Developer',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHfKe9zKdZkRg/profile-displayphoto-shrink_800_800/B56ZXyDYosGQAg-/0/1743522729003?e=1764201600&v=beta&t=5LkVzORPkckCyP2p8nl-veFY8_kn3VtbWxuri1RhrLg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/sai-nallani-6a5061262/'
-    }
-  },
+		}
+	},
 	{
 		name: 'Hellen Luo',
 		role: 'Frontend Developer',
