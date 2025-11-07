@@ -4,12 +4,16 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Post, PostProps } from 'frontend/components/ui/Post';
-import { SearchBar } from './SearchBar';
+
+import { Post } from 'frontend/components/ui/Post';
+
 import { useSearchPosts } from './hooks/useSearchPosts';
+import { SearchBar } from './SearchBar';
+
+import type { PostProps } from 'frontend/components/ui/Post';
 
 export interface SearchPostsProps {
-	post: PostProps[];
+	posts: PostProps[];
 }
 
 export const SearchPosts: React.FC<SearchPostsProps> = ({ posts }) => {
@@ -24,18 +28,18 @@ export const SearchPosts: React.FC<SearchPostsProps> = ({ posts }) => {
 	const filteredPosts = useSearchPosts(posts, debouncedQuery);
 
 	return (
-		<div className='flex-col gap-4 w-full'>
+		<div className='flex flex-col gap-4 w-full'>
 			<SearchBar
 				value={query}
 				onChange={setQuery}
 				placeholder='Search posts by title, tag, or course...'
 			/>
-			<div className='flex gap-4'>
+			<div className='flex flex-col gap-4'>
 				{filteredPosts.length > 0 ? (
 					filteredPosts.map((post, idx) => <Post key={idx} {...post} />)
 				) : (
 					<p className='text-muted-foreground text-center mt-4'>
-						No results for "{debouncedQuery}".
+						No results for &quot;{debouncedQuery}&quot;.
 					</p>
 				)}
 			</div>
