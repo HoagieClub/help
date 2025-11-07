@@ -85,6 +85,14 @@ const teamMembers = [
 		},
 	},
 	{
+		name: 'Tom Wang',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEAijlufTxPiw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1706971701106?e=1763596800&v=beta&t=eh3wSvKyQBI4oqdff4hELLzXmRrGpgu-yfzcok0Wk_U',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/tom-wang-105a6722b/',
+		},
+	},
+	{
 		name: 'Charles Muehlberger',
 		role: 'Frontend Developer',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEiL4nYie2M0w/profile-displayphoto-scale_400_400/B56ZosMDtcJQAg-/0/1761677951076?e=1762992000&v=beta&t=PVSCfriKs3Ao9lg2Y1ka0XrTscDyqlXjEYbEX5HqdDE',
