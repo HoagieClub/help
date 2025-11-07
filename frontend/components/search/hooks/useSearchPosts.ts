@@ -4,9 +4,9 @@
 
 import { useMemo } from 'react';
 
-import { PostProps } from 'frontend/components/ui/Post';
+import type { PostProps } from 'frontend/components/ui/Post';
 
-export const useSearchPosts = (posts: PostProps[], query: String): PostProps[] => {
+export const useSearchPosts = (posts: PostProps[], query: string): PostProps[] => {
 	const filtered = useMemo(() => {
 		const q = query.toLowerCase().trim();
 		if (!q) return posts;
