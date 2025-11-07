@@ -1,0 +1,117 @@
+# ===============================
+# Project Metadata
+# ===============================
+[project]
+name = "hoagie-help"
+version = "2.0.0"
+description = "Dependency manager for the Hoagie Help repository."
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.12"
+
+authors = [
+    { name = "Hoagie Club", email = "hoagie@princeton.edu" },
+]
+
+maintainers = [
+    { name = "Hoagie Club", email = "hoagie@princeton.edu" },
+]
+
+# Project dependencies
+dependencies = [
+    "django>=5.1",
+]
+
+# ===============================
+# Project URLs
+# ===============================
+[project.urls]
+Homepage = "https://help.hoagie.io/"
+Repository = "https://github.com/hoagieclub/help/"
+
+# ===============================
+# Ruff Configuration
+# ===============================
+
+# Adopting Google-style docstrings for consistency across the project.
+
+[tool.ruff]
+# Exclude commonly ignored directories from linting
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+# General Ruff settings
+line-length = 119 # Slight deviation from Google style since we are using Django.
+indent-width = 4
+target-version = "py312"
+
+# -------------------------------
+# Ruff Linting Rules
+# -------------------------------
+[tool.ruff.lint]
+
+# Enable pydocstyle rules for Google-style docstrings
+select = ["E4", "E7", "E9", "F", "B", "Q", "D"] # Flake8 rules, Bugbear, Quotes, etc.
+
+ignore = [
+    "D203",  # Ignore conflicts for one-liner docstring style
+    "D213",  # Allow Google-style multi-line docstrings with different line breaks
+    "D100", # Allow public modules without docstrings
+    "D101", # Allow public classes without docstrings
+    "D103", # Allow public functions without docstrings
+    "D104", # Allow public packages without docstrings
+    "D105", # Allow public functions without docstrings
+    "D106", # Allow nested functions without docstrings
+    "E402", # Allow arbitrary import order to support django.setup() flow
+]
+
+# Define fixable and unfixable rules
+fixable = ["ALL"]
+unfixable = []
+
+# -------------------------------
+# Ruff Flake8-Quotes Settings
+# -------------------------------
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"  # Enforce double quotes for docstrings
+inline-quotes = "double"     # Enforce double quotes for inline strings
+
+# -------------------------------
+# Ruff Formatting Settings
+# -------------------------------
+[tool.ruff.format]
+quote-style = "double"                  # Use double quotes for auto-formatting
+indent-style = "space"                  # Indent with spaces instead of tabs
+skip-magic-trailing-comma = false       # Respect magic trailing commas
+line-ending = "auto"                    # Automatically detect line endings
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[tool.uv.workspace]
+members = ["hoagie-help", "uv-env"]
