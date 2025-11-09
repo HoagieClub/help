@@ -90,6 +90,13 @@ brew install uv
 ```
 
 #### Installation
+Before beginning with the installation, make sure you are in the backend directory by running:
+
+```bash
+cd backend
+```
+
+
 After installing uv, create a virtual environment using the following command:
 
 ```bash
