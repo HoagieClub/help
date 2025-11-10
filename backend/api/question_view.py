@@ -16,10 +16,6 @@ class QuestionView(APIView):
         """Update an existing question."""
         pass
 
-    def post(self, request, question_id: str) -> Response:
-        """Create a new answer associated with a given question."""
-        pass
-
     def delete(self, request, question_id: str) -> Response:
         """Delete an existing question."""
         pass

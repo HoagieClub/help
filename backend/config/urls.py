@@ -15,14 +15,29 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from api.answer_view import AnswerView, CreateAnswerView
+from api.comment_view import CommentView, CreateCommentView
+from api.question_list_view import QuestionListView
 from api.question_view import QuestionView
 from django.contrib import admin
 from django.urls import path
 
-from api.question_list_view import QuestionListView
-
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("questions/", QuestionListView.as_view(), name="questions-list"),
-    path("questions/<str:question_id>/", QuestionView.as_view(), name="questions"),
+    path("question/", QuestionListView.as_view(), name="question-list"),
+    path("question/<str:question_id>/", QuestionView.as_view(), name="question"),
+    
+    path(
+        "question/<str:question_id>/answer/",
+        CreateAnswerView.as_view(),
+        name="create-answer",
+    ),
+    path("answer/<str:answer_id>/", AnswerView.as_view(), name="answer"),
+    
+    path(
+        "answer/<str:answer_id>/comment/",
+        CreateCommentView.as_view(),
+        name="create-comment",
+    ),
+    path("comment/<str:comment_id>/", CommentView.as_view(), name="comment"),
 ]
