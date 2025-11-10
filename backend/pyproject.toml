@@ -1,0 +1,33 @@
+# ===============================
+# Project Metadata
+# ===============================
+[project]
+name = "hoagie-help"
+version = "0.1.0"
+description = "HoagieHelp backend."
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.12"
+
+authors = [
+    { name = "Hoagie Club", email = "hoagie@princeton.edu" },
+]
+
+maintainers = [
+    { name = "Hoagie Club", email = "hoagie@princeton.edu" },
+]
+
+# Project dependencies
+dependencies = [
+    "dj-database-url>=3.0.1",
+    "django>=5.1",
+    "postgres>=4.0",
+    "python-dotenv>=1.2.1",
+]
+
+# ===============================
+# Project URLs
+# ===============================
+[project.urls]
+Homepage = "https://help.hoagie.io/"
+Repository = "https://github.com/hoagieclub/help/"
