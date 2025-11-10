@@ -15,18 +15,7 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
-import {
-	Pane,
-	Heading,
-	Text,
-	Button,
-	TextInputField,
-	SelectField,
-	Alert,
-	Spinner,
-	majorScale,
-} from 'evergreen-ui';
-import { toast } from 'sonner';
+import { Pane, Heading, Text, Button, TextInputField, majorScale } from 'evergreen-ui';
 
 /**
  * A React component that renders a form for user interaction, allowing users to input their name
@@ -37,9 +26,8 @@ import { toast } from 'sonner';
  * @returns {JSX.Element} The form component with user interaction elements.
  */
 export function StudyGroups() {
-
 	/**
-	 * Handles the input field which can perform queries 
+	 * Handles the input field which can perform queries
 	 */
 	const [inputValue, setInputValue] = useState('');
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,11 +35,11 @@ export function StudyGroups() {
 	};
 
 	/**
-	 * Handles the button click 
+	 * Handles the button click
 	 */
 	const handleSubmit = () => {
-		console.log("You clicked a button!");
-	}
+		// Placeholder for button click action
+	};
 
 	return (
 		<Pane
@@ -60,7 +48,6 @@ export function StudyGroups() {
 			padding={majorScale(2)}
 			marginTop={majorScale(8)}
 		>
-
 			{/* Main header */}
 			<Heading size={900} marginBottom={24}>
 				Study Groups
@@ -71,11 +58,7 @@ export function StudyGroups() {
 				Find classmates and form study groups
 			</Text>
 
-			<TextInputField
-				placeholder="Type here..."
-				value={inputValue}
-				onChange={handleChange}
-			/>
+			<TextInputField placeholder='Type here...' value={inputValue} onChange={handleChange} />
 
 			<Button
 				appearance='primary'
@@ -85,7 +68,6 @@ export function StudyGroups() {
 			>
 				Click Me
 			</Button>
-
 		</Pane>
 	);
 }
