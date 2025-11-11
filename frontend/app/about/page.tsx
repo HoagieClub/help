@@ -69,11 +69,27 @@ const teamLeads: member[] = [
 
 const teamMembers = [
 	{
+		name: 'Sai Nallani',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHfKe9zKdZkRg/profile-displayphoto-shrink_800_800/B56ZXyDYosGQAg-/0/1743522729003?e=1764201600&v=beta&t=5LkVzORPkckCyP2p8nl-veFY8_kn3VtbWxuri1RhrLg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/sai-nallani-6a5061262/',
+		},
+	},
+	{
 		name: 'Hellen Luo',
 		role: 'Frontend Developer',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQGfbADce0FXwg/profile-displayphoto-shrink_400_400/B4EZUr4FgIHMAg-/0/1740197879737?e=1763596800&v=beta&t=bFaFo8e8mU3Svx6JOKf20ytzoj_uilHr2Dgvl8KFKPU',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/hellen-luo',
+		},
+	},
+	{
+		name: 'Tom Wang',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEAijlufTxPiw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1706971701106?e=1763596800&v=beta&t=eh3wSvKyQBI4oqdff4hELLzXmRrGpgu-yfzcok0Wk_U',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/tom-wang-105a6722b/',
 		},
 	},
 	{
@@ -110,11 +126,35 @@ const teamMembers = [
 		},
 	},
 	{
+		name: 'Eric Guo',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHpk81yJQ8N0w/profile-displayphoto-scale_200_200/B4EZlF5PvoIMAY-/0/1757814259175?e=2147483647&v=beta&t=U6aune5Bp3z9pniiLgcrnJ3nQ5cbHddo9Nbyi6NRxR8',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/eric-guo1',
+		},
+	},
+	{
 		name: 'Adam Belouad',
 		role: 'Frontend Developer',
 		imgSrc: 'https://i.imgur.com/U5XnPnt.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/adambelouad/',
+		},
+	},
+	{
+		name: 'Ryan Jensen',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEl6gWsYEypCA/profile-displayphoto-crop_800_800/B4EZd_Z.ouHIAI-/0/1750189207663?e=1763596800&v=beta&t=8IgKFNafS_g9qyuhL0nUo1h_bEMbvNWY-dxm0u4m_9c',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
+		},
+	},
+	{
+		name: 'Ray Kong',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQFkT_ZoR3450w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718298302044?e=1763596800&v=beta&t=BohlAyNiX2oqaLcwWBC_2Hov6TsK7WUYTWkNpUKzlHc',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/raykongcs/',
 		},
 	},
 ];

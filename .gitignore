@@ -110,6 +110,14 @@ backend/.venv/
 # Bun lock file (Frontend)
 /frontend/bun.lockb
 
+# Yarn (Frontend)
+frontend/.pnp.*
+frontend/.yarn/*
+!frontend/.yarn/patches
+!frontend/.yarn/plugins
+!frontend/.yarn/releases
+!frontend/.yarn/sdks
+!frontend/.yarn/versions
 # Uncomment the following lines if you want to ignore lock files (not generally recommended)
 # package-lock.json
 # yarn.lock
