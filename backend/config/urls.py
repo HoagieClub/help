@@ -15,12 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from api.answer_view import AnswerView, CreateAnswerView
-from api.comment_view import CommentView, CreateCommentView
-from api.question_list_view import QuestionListView
-from api.question_view import QuestionView
 from django.contrib import admin
 from django.urls import path
+
+from hoagiehelp.api.answer_view import AnswerView, CreateAnswerView
+from hoagiehelp.api.comment_view import CommentView, CreateCommentView
+from hoagiehelp.api.question_list_view import QuestionListView
+from hoagiehelp.api.question_view import QuestionView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
