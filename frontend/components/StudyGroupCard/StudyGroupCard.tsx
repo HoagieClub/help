@@ -4,7 +4,7 @@
  * A reusable React component that displays information about a study group in a clean, card-style layout.
  *
  * Features:
- * - Shows the study group's title, description, leader, date/time, and available spots.
+ * - Shows the study group's title, description, leader, date/time, taken spots, and total spots.
  * - Includes icons for visual clarity using React Icons.
  * - Formats date and time in a readable, localized format (e.g., "Oct 25, 2025 · 4:00 PM").
  * - Provides a "Join" button that triggers a callback function (onJoin) passed via props.
@@ -25,7 +25,7 @@ interface StudyGroupCardProps {
 	description: string;
 	groupLeader: string;
 	dateTime: Date;
-	availableSpots: number;
+	joinedCount: number;
 	totalSpots: number;
 	onJoin: () => void;
 }
@@ -54,7 +54,7 @@ const StudyGroupCard = ({
 	description,
 	groupLeader,
 	dateTime,
-	availableSpots,
+	joinedCount,
 	totalSpots,
 	onJoin,
 }: StudyGroupCardProps) => {
@@ -86,7 +86,7 @@ const StudyGroupCard = ({
 				<div className={styles.footer}>
 					<p className={styles.joined}>
 						<MdOutlinePeople className={styles.icon} />
-						{availableSpots}/{totalSpots} Available Spots
+						{joinedCount}/{totalSpots} Spots Filled
 					</p>
 
 					<button className={styles.joinButton} onClick={onJoin}>
