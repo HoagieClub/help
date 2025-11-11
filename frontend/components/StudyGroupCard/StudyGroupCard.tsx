@@ -25,18 +25,12 @@ interface StudyGroupCardProps {
 	description: string;
 	groupLeader: string;
 	dateTime: Date;
-	spots: string;
+	availableSpots: number;
+	totalSpots: number;
 	onJoin: () => void;
 }
 
-const StudyGroupCard = ({
-	title,
-	description,
-	groupLeader,
-	dateTime,
-	spots,
-	onJoin,
-}: StudyGroupCardProps) => {
+function formatDateTime(date: Date): string {
 	const parts = new Intl.DateTimeFormat('en-US', {
 		month: 'short',
 		day: 'numeric',
@@ -44,12 +38,27 @@ const StudyGroupCard = ({
 		hour: 'numeric',
 		minute: '2-digit',
 		hour12: true,
-	}).formatToParts(dateTime);
+	}).formatToParts(date);
 
-	const monthDay = `${parts.find((p) => p.type === 'month')?.value} ${parts.find((p) => p.type === 'day')?.value}`;
-	const year = parts.find((p) => p.type === 'year')?.value;
-	const time = `${parts.find((p) => p.type === 'hour')?.value}:${parts.find((p) => p.type === 'minute')?.value} ${parts.find((p) => p.type === 'dayPeriod')?.value.toUpperCase()}`;
-	const displayDateTime = `${monthDay}, ${year} · ${time}`;
+	const getPart = (type: string) => parts.find((p) => p.type === type)?.value || '';
+
+	const monthDay = `${getPart('month')} ${getPart('day')}`;
+	const year = getPart('year');
+	const time = `${getPart('hour')}:${getPart('minute')} ${getPart('dayPeriod').toUpperCase()}`;
+
+	return `${monthDay}, ${year} · ${time}`;
+}
+
+const StudyGroupCard = ({
+	title,
+	description,
+	groupLeader,
+	dateTime,
+	availableSpots,
+	totalSpots,
+	onJoin,
+}: StudyGroupCardProps) => {
+	const displayDateTime = formatDateTime(dateTime);
 
 	return (
 		<div className={styles.card}>
@@ -77,7 +86,7 @@ const StudyGroupCard = ({
 				<div className={styles.footer}>
 					<p className={styles.joined}>
 						<MdOutlinePeople className={styles.icon} />
-						{spots} Available Spots
+						{availableSpots}/{totalSpots} Available Spots
 					</p>
 
 					<button className={styles.joinButton} onClick={onJoin}>
