@@ -24,16 +24,17 @@ from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # Question
     path("question/", QuestionListView.as_view(), name="question-list"),
     path("question/<str:question_id>/", QuestionView.as_view(), name="question"),
-    
+    # Answer
     path(
         "question/<str:question_id>/answer/",
         CreateAnswerView.as_view(),
         name="create-answer",
     ),
     path("answer/<str:answer_id>/", AnswerView.as_view(), name="answer"),
-    
+    # Comment
     path(
         "answer/<str:answer_id>/comment/",
         CreateCommentView.as_view(),
