@@ -1,15 +1,14 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
 
 
 class Anonymous_Name(models.Model):
-    """Represents a daily menu for a specific meal at a dining hall."""
+    """Model to store anonymous names associated with users and questions."""
 
     id = models.AutoField(primary_key=True)
-    anonymous_name = models.CharField(max_length=255, unique=True)
+    anonymous_name = models.CharField(max_length=255)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    question = models.Foreign('Question', on_delete=models.CASCADE)
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
 
     class Meta:
         constraints = [
