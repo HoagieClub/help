@@ -1,8 +1,9 @@
 from django.db import models
 
 class Comment(models.Model):
+    '''Represents comments on an answer of a question'''
+    
     id = models.AutoField(primary_key=True)
-    answer = models.ForeignKey('Answer', on_delete=models.CASCADE)
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
     user = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
     text = models.TextField(blank=False)
