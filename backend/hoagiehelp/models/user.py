@@ -6,10 +6,10 @@ class CustomUser(AbstractUser):
     '''HoagieHelp user.'''
 
     net_id = models.CharField(
-        max_length=20, unique=True, null=True, blank=True, db_index=True
+        max_length=20, unique=True, db_index=True
     )
     class_year = models.PositiveSmallIntegerField(
-        null=True, blank=True, validators=[MinValueValidator(1900), MaxValueValidator(2100)]
+        validators=[MinValueValidator(1900), MaxValueValidator(2100)]
     )
     hearts = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
