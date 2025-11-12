@@ -7,9 +7,23 @@ class QuestionSerializer(serializers.ModelSerializer):
     pass
 
 
-class QuestionView(APIView):
+class QuestionListView(APIView):
+    """Handle collection operations for questions."""
+
+    def get(self, request) -> Response:
+        """List all questions."""
+        pass
+
+    def post(self, request) -> Response:
+        """Create a new question."""
+        pass
+
+
+class QuestionDetailView(APIView):
+    """Handle individual question operations."""
+
     def get(self, request, question_id: str) -> Response:
-        """Get all details associated with a given question. This includes info on answers and comments."""
+        """Get all details associated with a given question."""
         pass
 
     def put(self, request, question_id: str) -> Response:

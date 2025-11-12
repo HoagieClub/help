@@ -7,7 +7,21 @@ class CommentSerializer(serializers.ModelSerializer):
     pass
 
 
-class CommentView(APIView):
+class CommentListView(APIView):
+    """Handle collection operations for comments under an answer."""
+
+    def get(self, request, answer_id: str) -> Response:
+        """List all comments for a given answer."""
+        pass
+
+    def post(self, request, answer_id: str) -> Response:
+        """Create a new comment associated with a given answer."""
+        pass
+
+
+class CommentDetailView(APIView):
+    """Handle individual comment operations."""
+
     def get(self, request, comment_id: str) -> Response:
         """Get all details associated with a given comment."""
         pass
@@ -18,10 +32,4 @@ class CommentView(APIView):
 
     def delete(self, request, comment_id: str) -> Response:
         """Delete an existing comment."""
-        pass
-
-
-class CreateCommentView(APIView):
-    def post(self, request, answer_id: str) -> Response:
-        """Create a new comment associated with a given answer."""
         pass

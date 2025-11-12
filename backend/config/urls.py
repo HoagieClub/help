@@ -18,28 +18,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from hoagiehelp.api.answer_view import AnswerView, CreateAnswerView
-from hoagiehelp.api.comment_view import CommentView, CreateCommentView
-from hoagiehelp.api.question_list_view import QuestionListView
-from hoagiehelp.api.question_view import QuestionView
+from hoagiehelp.api.answer_views import AnswerDetailView, AnswerListView
+from hoagiehelp.api.comment_views import CommentDetailView, CommentListView
+from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # Question
-    path("question/", QuestionListView.as_view(), name="question-list"),
-    path("question/<str:question_id>/", QuestionView.as_view(), name="question"),
-    # Answer
-    path(
-        "question/<str:question_id>/answer/",
-        CreateAnswerView.as_view(),
-        name="create-answer",
-    ),
-    path("answer/<str:answer_id>/", AnswerView.as_view(), name="answer"),
-    # Comment
-    path(
-        "answer/<str:answer_id>/comment/",
-        CreateCommentView.as_view(),
-        name="create-comment",
-    ),
-    path("comment/<str:comment_id>/", CommentView.as_view(), name="comment"),
+    # Questions
+    path("questions/", QuestionListView.as_view(), name="question-list"),
+    path("questions/<str:question_id>/", QuestionDetailView.as_view(), name="question-detail"),
+    # Answers
+    path("questions/<str:question_id>/answers/", AnswerListView.as_view(), name="answer-list"),
+    path("answers/<str:answer_id>/", AnswerDetailView.as_view(), name="answer-detail"),
+    # Comments
+    path("answers/<str:answer_id>/comments/", CommentListView.as_view(), name="comment-list"),
+    path("comments/<str:comment_id>/", CommentDetailView.as_view(), name="comment-detail"),
 ]
