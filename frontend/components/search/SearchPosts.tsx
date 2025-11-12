@@ -3,27 +3,21 @@
  * USes SearchBar useSearchPosts hook and Post Component.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { Post } from 'frontend/components/ui/Post';
+import { Post, type PostProps } from '@/components/ui/Post';
 
+import { useDebounce } from './hooks/useDebounce';
 import { useSearchPosts } from './hooks/useSearchPosts';
 import { SearchBar } from './SearchBar';
 
-import type { PostProps } from 'frontend/components/ui/Post';
-
-export interface SearchPostsProps {
+interface SearchPostsProps {
 	posts: PostProps[];
 }
 
 export const SearchPosts: React.FC<SearchPostsProps> = ({ posts }) => {
 	const [query, setQuery] = useState('');
-	const [debouncedQuery, setDebouncedQuery] = useState(query);
-
-	useEffect(() => {
-		const handler = setTimeout(() => setDebouncedQuery(query), 200);
-		return () => clearTimeout(handler);
-	}, [query]);
+	const debouncedQuery = useDebounce(query, 200);
 
 	const filteredPosts = useSearchPosts(posts, debouncedQuery);
 
