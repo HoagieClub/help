@@ -54,4 +54,4 @@ class AnswerDetailView(APIView):
         except Answer.DoesNotExist:
             return Response({"detail":"Answer not found"}, status=status.HTTP_404_NOT_FOUND)
         answer.delete()
-        return Response({"detail":f" Answer {answer_id} deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
