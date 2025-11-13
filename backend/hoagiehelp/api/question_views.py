@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import status
+
+from models import Question
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -50,6 +53,6 @@ class QuestionDetailView(APIView):
         try:
             question = Question.objects.get(id=question_id)
         except Question.DoesNotExist:
-            return Response({"detaul":"Question not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"detail":"Question not found"}, status=status.HTTP_404_NOT_FOUND)
         question.delete()
         return Response({"detail":f"Question {question_id} deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
