@@ -55,4 +55,4 @@ class QuestionDetailView(APIView):
         except Question.DoesNotExist:
             return Response({"detail":"Question not found"}, status=status.HTTP_404_NOT_FOUND)
         question.delete()
-        return Response({"detail":f"Question {question_id} deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
