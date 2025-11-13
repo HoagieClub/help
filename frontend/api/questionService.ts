@@ -10,10 +10,12 @@ type Question = z.infer<typeof QuestionSchema>;
 
 export async function getAllQuestions(): Promise<Question[] | null> {
     // GET /questions
+    return null;
 }
 
 export async function createNewQuestion(): Promise<Question | null> {
     // POST /questions
+    return null;
 }
 
 export async function getQuestionDetails(questionId: string): Promise<Question | null> {

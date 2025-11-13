@@ -12,10 +12,12 @@ type Answer = z.infer<typeof AnswerSchema>;
 
 export async function getAllAnswers(): Promise<Answer[] | null> {
     // GET /questions/{questionId}/answers/
+    return null;
 }
 
 export async function createNewAnswer(): Promise<Answer | null> {
     // POST /questions/{questionId}/answers/
+    return null;
 }
 
 export async function getAnswerDetails(answerId: string): Promise<Answer | null> {

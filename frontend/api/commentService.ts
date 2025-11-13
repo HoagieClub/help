@@ -12,10 +12,12 @@ type Comment = z.infer<typeof CommentSchema>;
 
 export async function getAllComments(): Promise<Comment[] | null> {
     // GET answers/{answerId}/comments/
+    return null;
 }
 
 export async function createNewComment(): Promise<Comment | null> {
     // POST answers/{answerId}/comments/
+    return null;
 }
 
 export async function getCommentDetails(commentId: string): Promise<Comment | null> {
