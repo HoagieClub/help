@@ -98,7 +98,7 @@ export function App() {
 					>
 						Meet the{' '}
 						<Text size={900} fontSize='3rem' color={theme.colors.blue500}>
-							HoagieSparks
+							HoagieHelp
 						</Text>{' '}
 						Team
 					</Heading>

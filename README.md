@@ -1,6 +1,6 @@
-# HoagieSparks
+# HoagieHelp
 
-Repository for HoagieSparks.
+Repository for HoagieHelp.
 
 ## Getting Started
 
