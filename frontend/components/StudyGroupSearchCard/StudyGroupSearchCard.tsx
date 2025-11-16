@@ -5,9 +5,10 @@
  */
 'use client';
 
-import { Pane, Text } from 'evergreen-ui';
 import { useState, useRef } from 'react';
 import type { MouseEvent } from 'react';
+
+import { Pane, Text } from 'evergreen-ui';
 
 interface StudyGroupSearchCardProps {
 	onSearchChange?: (query: string) => void;
@@ -15,7 +16,14 @@ interface StudyGroupSearchCardProps {
 	onCategoryChange?: (category: string) => void;
 }
 
-const categories = ['All Groups', 'Science', 'Mathematics', 'Humanities', 'Engineering', 'Social Sciences'];
+const categories = [
+	'All Groups',
+	'Science',
+	'Mathematics',
+	'Humanities',
+	'Engineering',
+	'Social Sciences',
+];
 
 export function StudyGroupSearchCard({
 	onSearchChange,
@@ -47,7 +55,13 @@ export function StudyGroupSearchCard({
 	};
 
 	const handleDateInputClick = () => {
-		dateInputRef.current?.showPicker?.() || dateInputRef.current?.click();
+		if (dateInputRef.current) {
+			if (typeof dateInputRef.current.showPicker === 'function') {
+				dateInputRef.current.showPicker();
+			} else {
+				dateInputRef.current.click();
+			}
+		}
 	};
 
 	const handleCategoryChange = (category: string) => {
