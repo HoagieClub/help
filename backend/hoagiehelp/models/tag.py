@@ -17,10 +17,10 @@ class Tag(models.Model):
     '''Represents a tag on a question'''
     
     id = models.AutoField(primary_key=True)
-    tag = models.IntegerField(choices=QUESTION_TAG_CHOICES, db_index=True, null=True)
+    name = models.CharField(choices=QUESTION_TAG_CHOICES, unique=True)
 
     class Meta:
         db_table = 'Tag'
 
     def __str__(self):
-        return f'Question has tags: {self.tag}'
+        return f'Tag: {self.tag}'
