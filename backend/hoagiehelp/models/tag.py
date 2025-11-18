@@ -2,15 +2,15 @@ from django.db import models
 
 # Choices for question_tag
 QUESTION_TAG_CHOICES = (
-        (1, "exam prep"),
-        (2, "problem set"),
-        (3, "study tips"),
-        (4, "concepts"),
-        (5, "course selection"),
-        (6, "degree planning"),
-        (7, "citation"),
-        (8, "course advice"),
-        (9, "career"),
+        ("exam prep", "exam prep"),
+        ("problem set", "problem set"),
+        ("study tips", "study tips"),
+        ("concepts", "concepts"),
+        ("course selection", "course selection"),
+        ("degree planning", "degree planning"),
+        ("citation", "citation"),
+        ("course advice", "course advice"),
+        ("career", "career"),
     )
 
 class Tag(models.Model):
