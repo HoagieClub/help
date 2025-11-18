@@ -1,7 +1,7 @@
 from django.db import models
 
-class Question(models.Model):
-    '''Represents an answer to a question'''
+class Answer(models.Model):
+    """Represents an answer to a question"""
     
     id = models.AutoField(primary_key=True)
     question_id = models.ForeignKey('Question', on_delete=models.CASCADE)
