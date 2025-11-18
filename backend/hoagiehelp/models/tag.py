@@ -5,7 +5,7 @@ QUESTION_TAG_CHOICES = (
         (1, "exam prep"),
         (2, "problem set"),
         (3, "study tips"),
-        (4, "conceptual"),
+        (4, "concepts"),
         (5, "course selection"),
         (6, "degree planning"),
         (7, "citation"),
