@@ -23,4 +23,4 @@ class Tag(models.Model):
         db_table = 'Tag'
 
     def __str__(self):
-        return f'Tag: {self.tag}'
+        return f'Tag: {self.name}'
