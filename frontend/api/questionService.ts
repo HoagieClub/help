@@ -21,6 +21,18 @@ const QuestionSchema = z.object({
 
 type Question = z.infer<typeof QuestionSchema>;
 
+const QuestionPayloadSchema = z.object({
+	title: z.string(),
+	tags: z.array(z.number()),
+	course: z.string().nullable(),
+	details: z.string(),
+	heart: z.number().min(0),
+	view: z.number().min(0),
+	user_is_anonymous: z.boolean()
+})
+
+type QuestionPayload = z.infer<typeof QuestionPayloadSchema>
+
 export async function getAllQuestions(): Promise<Question[] | null> {
 	// GET /questions
 	try {
@@ -47,11 +59,18 @@ export async function getAllQuestions(): Promise<Question[] | null> {
 }
 
 export async function createNewQuestion(
-	payload: Record<string, unknown>
+	payload: QuestionPayload
 ): Promise<Question | null> {
 	// POST /questions
+
+	const validated = QuestionPayloadSchema.safeParse(payload)
+	if (!validated.success) {
+		console.error("Invalid question payload:", validated.error.issues);
+		return null;
+	}
+
 	try {
-		const response = await fetch(QUESTIONS_URL, buildRequest(HttpRequestType.POST, payload));
+		const response = await fetch(QUESTIONS_URL, buildRequest(HttpRequestType.POST, validated.data));
 
 		if (!response.ok) {
 			console.error('Failed to create question:', response.status, response.statusText);
@@ -107,13 +126,19 @@ export async function getQuestionDetails(questionId: string): Promise<Question |
 
 export async function updateQuestionDetails(
 	questionId: string,
-	payload: Record<string, unknown>
+	payload: QuestionPayload
 ): Promise<Question | null> {
 	// PUT /questions/{questionId}
+	const validated = QuestionPayloadSchema.safeParse(payload)
+	if (!validated.success) {
+		console.error("Invalid question payload:", validated.error.issues);
+		return null;
+	}
+
 	try {
 		const response = await fetch(
 			buildQuestionDetailsUrl(questionId),
-			buildRequest(HttpRequestType.PUT, payload)
+			buildRequest(HttpRequestType.PUT, validated.data)
 		);
 
 		if (!response.ok) {
@@ -140,7 +165,7 @@ export async function updateQuestionDetails(
 	}
 }
 
-export async function deleteQuestion(questionId: string): Promise<Question | null> {
+export async function deleteQuestion(questionId: string): Promise<boolean> {
 	// DELETE /questions/{questionId}
 	try {
 		const response = await fetch(
@@ -148,31 +173,19 @@ export async function deleteQuestion(questionId: string): Promise<Question | nul
 			buildRequest(HttpRequestType.DELETE)
 		);
 
-		if (!response.ok) {
+		if (response.status != 204) {
 			console.error(
 				`Failed to delete question ${questionId}:`,
 				response.status,
 				response.statusText
 			);
-			return null;
+			return false;
 		}
 
-		if (response.status === 204) {
-			return null; // No content case
-		}
-
-		const data = await response.json();
-		const parsed = QuestionSchema.safeParse(data);
-
-		if (!parsed.success) {
-			console.error(`Failed to parse deleted question ${questionId}:`, parsed.error.issues);
-			return null;
-		}
-
-		return parsed.data;
+		return true;
 	} catch (error) {
 		console.error(`Error deleting question ${questionId}:`, error);
-		return null;
+		return false;
 	}
 }
 
