@@ -28,10 +28,10 @@ const QuestionPayloadSchema = z.object({
 	details: z.string(),
 	heart: z.number().min(0),
 	view: z.number().min(0),
-	user_is_anonymous: z.boolean()
-})
+	user_is_anonymous: z.boolean(),
+});
 
-type QuestionPayload = z.infer<typeof QuestionPayloadSchema>
+type QuestionPayload = z.infer<typeof QuestionPayloadSchema>;
 
 export async function getAllQuestions(): Promise<Question[] | null> {
 	// GET /questions
@@ -58,19 +58,20 @@ export async function getAllQuestions(): Promise<Question[] | null> {
 	}
 }
 
-export async function createNewQuestion(
-	payload: QuestionPayload
-): Promise<Question | null> {
+export async function createNewQuestion(payload: QuestionPayload): Promise<Question | null> {
 	// POST /questions
 
-	const validated = QuestionPayloadSchema.safeParse(payload)
+	const validated = QuestionPayloadSchema.safeParse(payload);
 	if (!validated.success) {
-		console.error("Invalid question payload:", validated.error.issues);
+		console.error('Invalid question payload:', validated.error.issues);
 		return null;
 	}
 
 	try {
-		const response = await fetch(QUESTIONS_URL, buildRequest(HttpRequestType.POST, validated.data));
+		const response = await fetch(
+			QUESTIONS_URL,
+			buildRequest(HttpRequestType.POST, validated.data)
+		);
 
 		if (!response.ok) {
 			console.error('Failed to create question:', response.status, response.statusText);
@@ -129,9 +130,9 @@ export async function updateQuestionDetails(
 	payload: QuestionPayload
 ): Promise<Question | null> {
 	// PUT /questions/{questionId}
-	const validated = QuestionPayloadSchema.safeParse(payload)
+	const validated = QuestionPayloadSchema.safeParse(payload);
 	if (!validated.success) {
-		console.error("Invalid question payload:", validated.error.issues);
+		console.error('Invalid question payload:', validated.error.issues);
 		return null;
 	}
 
