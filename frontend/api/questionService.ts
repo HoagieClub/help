@@ -174,7 +174,7 @@ export async function deleteQuestion(questionId: string): Promise<boolean> {
 			buildRequest(HttpRequestType.DELETE)
 		);
 
-		if (response.status != 204) {
+		if (response.status !== 204) {
 			console.error(
 				`Failed to delete question ${questionId}:`,
 				response.status,
