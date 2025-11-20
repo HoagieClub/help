@@ -34,6 +34,9 @@ class AnswerListView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class AnswerSerializer(serializers.ModelSerializer):
+    pass    
 
 
 class AnswerDetailView(APIView):
