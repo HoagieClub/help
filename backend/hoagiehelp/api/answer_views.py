@@ -1,10 +1,23 @@
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .models import Answer
 
 
 class AnswerSerializer(serializers.ModelSerializer):
-    pass
+
+    class Meta:
+        model = Answer
+        fields = (
+            "id",
+            "question_id",
+            "user",
+            "text",
+            "heart",
+            "create_time",
+            "last_update_time",
+            "is_anonymous"
+        )
 
 
 class AnswerListView(APIView):
