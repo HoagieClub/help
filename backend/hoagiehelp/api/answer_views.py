@@ -1,12 +1,14 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from hoagiehelp.models import Answer
-from django.shortcuts import get_object_or_404
+from hoagiehelp.models.answer import Answer
+from hoagiehelp.models.question import Question
 
-from hoagiehelp.models import Answer, Question
-from hoagiehelp.serializers import AnswerSerializer
+
+class AnswerSerializer(serializers.ModelSerializer):
+    pass
 
 
 class AnswerListView(APIView):
@@ -16,7 +18,7 @@ class AnswerListView(APIView):
         """List all answers for a given question."""
         question = get_object_or_404(Question, pk=question_id)
 
-        queryset = Answer.objects.filter(question=question).order_by('-created_at')
+        queryset = Answer.objects.filter(question=question).order_by("-created_at")
 
         serializer = AnswerSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -35,9 +37,6 @@ class AnswerListView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class AnswerSerializer(serializers.ModelSerializer):
-    pass    
 
 
 class AnswerDetailView(APIView):
