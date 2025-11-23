@@ -6,8 +6,20 @@ from rest_framework.views import APIView
 from hoagiehelp.models.comment import Comment
 
 
+# Comment Serializer
 class CommentSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Comment
+        fields = (
+            "id",
+            "answer",
+            "user",
+            "text",
+            "hearts",
+            "is_anonymous",
+            "created_at",
+            "updated_at",
+        )
 
 
 class CommentListView(APIView):
