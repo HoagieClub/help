@@ -14,9 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
 
+from hoagiehelp.api.answer_views import AnswerDetailView, AnswerListView
+from hoagiehelp.api.comment_views import CommentDetailView, CommentListView
+from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    # Questions
+    path("questions/", QuestionListView.as_view(), name="question-list"),
+    path("questions/<str:question_id>/", QuestionDetailView.as_view(), name="question-detail"),
+    # Answers
+    path("questions/<str:question_id>/answers/", AnswerListView.as_view(), name="answer-list"),
+    path("answers/<str:answer_id>/", AnswerDetailView.as_view(), name="answer-detail"),
+    # Comments
+    path("answers/<str:answer_id>/comments/", CommentListView.as_view(), name="comment-list"),
+    path("comments/<str:comment_id>/", CommentDetailView.as_view(), name="comment-detail"),
 ]
