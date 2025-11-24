@@ -9,7 +9,19 @@ from models.question import Question
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = '__all__'
+        fields = [
+            "id",
+            "user",
+            "title",
+            "tags",
+            "course",
+            "details",
+            "create_time",
+            "last_updated_time",
+            "hearts",
+            "view",
+            "user_is_anonymous",
+        ]
 
 
 class QuestionListView(APIView):
