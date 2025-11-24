@@ -50,7 +50,7 @@ async function Content({ children }: ContentProps): Promise<JSX.Element> {
 	const tabs = [
 		{ title: 'About', href: '/about' },
 		{ title: 'Feature 1', href: '/feature1' },
-		{ title: 'Feature 2', href: '/feature2' },
+		{ title: 'Study Groups', href: '/StudyGroups' }, 
 		{ title: 'Feature 3', href: '/feature3' },
 	];
 
