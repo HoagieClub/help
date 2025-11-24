@@ -7,7 +7,9 @@ from models.question import Question
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Question
+        fields = '__all__'
 
 
 class QuestionListView(APIView):
