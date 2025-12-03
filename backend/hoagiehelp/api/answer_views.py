@@ -2,14 +2,12 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Answer
 
 from hoagiehelp.models.answer import Answer
 from hoagiehelp.models.question import Question
 
 
 class AnswerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Answer
         fields = (
@@ -20,7 +18,7 @@ class AnswerSerializer(serializers.ModelSerializer):
             "heart",
             "create_time",
             "last_update_time",
-            "is_anonymous"
+            "is_anonymous",
         )
 
 
