@@ -197,6 +197,22 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/raykongcs/',
 		},
 	},
+	{
+		name: 'Samantha Nosanchuk',
+		role: 'Product Manager',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQG5rx1A6_7sPw/profile-displayphoto-shrink_400_400/B4DZbqTRpsGYAg-/0/1747687648184?e=1765411200&v=beta&t=6WAlJu_gO01BQaotECxVMM1v2DarFyI0COcAVvdDMPA',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/samanthanicolenosanchuk/',
+		},
+	},
+	{
+		name: 'Gauri Kshettry',
+		role: 'Product Manager',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQGqgrIQV1OepQ/profile-displayphoto-scale_400_400/B4EZnuoeunIIAg-/0/1760645213589?e=1765411200&v=beta&t=5-Jl_obQGIJ-nAxY7Cx7KRYCGJ8JDrrLFFbEYCvIhlQ',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/gauri-kshettry/',
+		},
+	},
 ];
 
 /**
