@@ -68,13 +68,109 @@ const teamLeads: member[] = [
 ];
 
 const teamMembers = [
-	// Add your name, role, and image here!
 	{
-		name: 'Hoagie Member',
-		role: 'Frontend Developer',
-		imgSrc: 'https://github.com/HoagieClub/club/raw/refs/heads/source/src/assets/hoagie-hi.svg',
+		name: 'Sai Nallani',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHfKe9zKdZkRg/profile-displayphoto-shrink_800_800/B56ZXyDYosGQAg-/0/1743522729003?e=1764201600&v=beta&t=5LkVzORPkckCyP2p8nl-veFY8_kn3VtbWxuri1RhrLg',
 		socials: {
-			linkedin: 'https://www.linkedin.com',
+			linkedin: 'https://www.linkedin.com/in/sai-nallani-6a5061262/',
+		},
+	},
+	{
+		name: 'Hellen Luo',
+		role: 'Frontend Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQGfbADce0FXwg/profile-displayphoto-shrink_400_400/B4EZUr4FgIHMAg-/0/1740197879737?e=1763596800&v=beta&t=bFaFo8e8mU3Svx6JOKf20ytzoj_uilHr2Dgvl8KFKPU',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/hellen-luo',
+		},
+	},
+	{
+		name: 'Tom Wang',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEAijlufTxPiw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1706971701106?e=1763596800&v=beta&t=eh3wSvKyQBI4oqdff4hELLzXmRrGpgu-yfzcok0Wk_U',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/tom-wang-105a6722b/',
+		},
+	},
+	{
+		name: 'Charles Muehlberger',
+		role: 'Frontend Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEiL4nYie2M0w/profile-displayphoto-scale_400_400/B56ZosMDtcJQAg-/0/1761677951076?e=1762992000&v=beta&t=PVSCfriKs3Ao9lg2Y1ka0XrTscDyqlXjEYbEX5HqdDE',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/charlesmuehl/',
+		},
+	},
+	{
+		name: 'Timothy Li',
+		role: 'Frontend Developer',
+		imgSrc: 'https://avatars.githubusercontent.com/u/214003676?v=4',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/timli5823/',
+			instagram: 'https://www.instagram.com/timothyli1331/',
+		},
+	},
+	{
+		name: 'David Liu',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHBROhhswIn4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1728969894574?e=1763596800&v=beta&t=01lDxnJDUYtJ6tmMR1JQ9bCmycdyv0rZ7u5w4XnRer8',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/david-liu-71398523a/',
+		},
+	},
+	{
+		name: 'Maribel Crespo',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHOE2hLdzPWhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730483078731?e=2147483647&v=beta&t=BgVPzlj748EpPYDDtjMW2NBQpQamT5--CWHtLWh9xHM',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
+		},
+	},
+	{
+		name: 'Eric Guo',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHpk81yJQ8N0w/profile-displayphoto-scale_200_200/B4EZlF5PvoIMAY-/0/1757814259175?e=2147483647&v=beta&t=U6aune5Bp3z9pniiLgcrnJ3nQ5cbHddo9Nbyi6NRxR8',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/eric-guo1',
+		},
+	},
+	{
+		name: 'Adam Belouad',
+		role: 'Frontend Developer',
+		imgSrc: 'https://i.imgur.com/U5XnPnt.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/adambelouad/',
+		},
+	},
+	{
+		name: 'Ryan Jensen',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEl6gWsYEypCA/profile-displayphoto-crop_800_800/B4EZd_Z.ouHIAI-/0/1750189207663?e=1763596800&v=beta&t=8IgKFNafS_g9qyuhL0nUo1h_bEMbvNWY-dxm0u4m_9c',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
+		},
+	},
+	{
+		name: 'Ray Kong',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQFkT_ZoR3450w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718298302044?e=1763596800&v=beta&t=BohlAyNiX2oqaLcwWBC_2Hov6TsK7WUYTWkNpUKzlHc',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/raykongcs/',
+		},
+	},
+	{
+		name: 'Samantha Nosanchuk',
+		role: 'Product Manager',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQG5rx1A6_7sPw/profile-displayphoto-shrink_400_400/B4DZbqTRpsGYAg-/0/1747687648184?e=1765411200&v=beta&t=6WAlJu_gO01BQaotECxVMM1v2DarFyI0COcAVvdDMPA',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/samanthanicolenosanchuk/',
+		},
+	},
+	{
+		name: 'Gauri Kshettry',
+		role: 'Product Manager',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQGqgrIQV1OepQ/profile-displayphoto-scale_400_400/B4EZnuoeunIIAg-/0/1760645213589?e=1765411200&v=beta&t=5-Jl_obQGIJ-nAxY7Cx7KRYCGJ8JDrrLFFbEYCvIhlQ',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/gauri-kshettry/',
 		},
 	},
 ];
@@ -136,6 +232,7 @@ export function App() {
 											alt={lead.name}
 											height={128}
 											width={128}
+											style={{ objectFit: 'cover' }}
 										/>
 									</Pane>
 									<div className='text-center sm:text-left'>
@@ -172,8 +269,9 @@ export function App() {
 									src={member.imgSrc}
 									alt={member.name}
 									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300'
-									height={0}
-									width={0}
+									height={128}
+									width={128}
+									style={{ objectFit: 'cover' }}
 								/>
 								<h4 className='font-bold text-slate-800 text-lg'>{member.name}</h4>
 								<p className='text-emerald-600 text-sm'>{member.role}</p>
