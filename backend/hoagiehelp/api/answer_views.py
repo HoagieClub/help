@@ -8,7 +8,19 @@ from hoagiehelp.models.question import Question
 
 
 class AnswerSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Answer
+        fields = (
+            "id",
+            "question",
+            "user",
+            "text",
+            "hearts",
+            "created_at",
+            "updated_at",
+            "is_anonymous",
+        )
+        read_only_fields = ("question", "user")
 
 
 class AnswerListView(APIView):
