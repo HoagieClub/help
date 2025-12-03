@@ -114,47 +114,7 @@ const teamMembers = [
 		role: 'Developer',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHBROhhswIn4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1728969894574?e=1763596800&v=beta&t=01lDxnJDUYtJ6tmMR1JQ9bCmycdyv0rZ7u5w4XnRer8',
 		socials: {
-			linkedin: 'https://www.linkedin.com',
-		},
-	},
-	{
-		name: 'Maribel Crespo',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHOE2hLdzPWhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730483078731?e=2147483647&v=beta&t=BgVPzlj748EpPYDDtjMW2NBQpQamT5--CWHtLWh9xHM',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
-		},
-	},
-	{
-		name: 'Eric Guo',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHpk81yJQ8N0w/profile-displayphoto-scale_200_200/B4EZlF5PvoIMAY-/0/1757814259175?e=2147483647&v=beta&t=U6aune5Bp3z9pniiLgcrnJ3nQ5cbHddo9Nbyi6NRxR8',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/eric-guo1',
-		},
-	},
-	{
-		name: 'Adam Belouad',
-		role: 'Frontend Developer',
-		imgSrc: 'https://i.imgur.com/U5XnPnt.jpeg',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/adambelouad/',
-		},
-	},
-	{
-		name: 'Ryan Jensen',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEl6gWsYEypCA/profile-displayphoto-crop_800_800/B4EZd_Z.ouHIAI-/0/1750189207663?e=1763596800&v=beta&t=8IgKFNafS_g9qyuhL0nUo1h_bEMbvNWY-dxm0u4m_9c',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
-		},
-	},
-	{
-		name: 'Ray Kong',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQFkT_ZoR3450w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718298302044?e=1763596800&v=beta&t=BohlAyNiX2oqaLcwWBC_2Hov6TsK7WUYTWkNpUKzlHc',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/raykongcs/',
+			linkedin: 'https://www.linkedin.com/in/david-liu-71398523a/',
 		},
 	},
 	{
@@ -308,7 +268,7 @@ export function App() {
 								<Image
 									src={member.imgSrc}
 									alt={member.name}
-									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300 object-cover'
+									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300'
 									height={128}
 									width={128}
 									style={{ objectFit: 'cover' }}
