@@ -1,10 +1,27 @@
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import status
+
+from models.question import Question
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Question
+        fields = [
+            "id",
+            "user",
+            "title",
+            "tags",
+            "course",
+            "details",
+            "create_time",
+            "last_updated_time",
+            "hearts",
+            "view",
+            "user_is_anonymous",
+        ]
 
 
 class QuestionListView(APIView):
@@ -24,12 +41,32 @@ class QuestionDetailView(APIView):
 
     def get(self, request, question_id: str) -> Response:
         """Get all details associated with a given question."""
-        pass
+        try:
+            question = Question.objects.get(id=question_id)
+        except Question.DoesNotExist:
+            return Response({"detail": "Question not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = QuestionSerializer(question)
+        return Response(serializer.data)
 
     def put(self, request, question_id: str) -> Response:
         """Update an existing question."""
-        pass
+        try:
+            question = Question.objects.get(id=question_id)
+        except Question.DoesNotExist:
+            return Response({"detail": "Question not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = QuestionSerializer(question, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
 
     def delete(self, request, question_id: str) -> Response:
         """Delete an existing question."""
-        pass
+        try:
+            question = Question.objects.get(id=question_id)
+        except Question.DoesNotExist:
+            return Response({"detail":"Question not found"}, status=status.HTTP_404_NOT_FOUND)
+        question.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
