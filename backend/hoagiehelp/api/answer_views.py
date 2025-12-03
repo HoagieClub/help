@@ -12,14 +12,15 @@ class AnswerSerializer(serializers.ModelSerializer):
         model = Answer
         fields = (
             "id",
-            "question_id",
+            "question",
             "user",
             "text",
-            "heart",
-            "create_time",
-            "last_update_time",
+            "hearts",
+            "created_at",
+            "updated_at",
             "is_anonymous",
         )
+        read_only_fields = ("question", "user")
 
 
 class AnswerListView(APIView):
