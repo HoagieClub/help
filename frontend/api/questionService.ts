@@ -21,17 +21,15 @@ const QuestionSchema = z.object({
 
 type Question = z.infer<typeof QuestionSchema>;
 
-const QuestionPayloadSchema = z.object({
-	title: z.string(),
-	tags: z.array(z.number()),
-	course: z.string().nullable(),
-	details: z.string(),
-	heart: z.number().min(0),
-	view: z.number().min(0),
-	user_is_anonymous: z.boolean(),
-});
-
-type QuestionPayload = z.infer<typeof QuestionPayloadSchema>;
+type QuestionPayload = {
+	title: string;
+	tags: number[];
+	course: string | null;
+	details: string;
+	heart: number;
+	view: number;
+	user_is_anonymous: boolean;
+};
 
 export async function getAllQuestions(): Promise<Question[] | null> {
 	// GET /questions
@@ -60,18 +58,8 @@ export async function getAllQuestions(): Promise<Question[] | null> {
 
 export async function createNewQuestion(payload: QuestionPayload): Promise<Question | null> {
 	// POST /questions
-
-	const validated = QuestionPayloadSchema.safeParse(payload);
-	if (!validated.success) {
-		console.error('Invalid question payload:', validated.error.issues);
-		return null;
-	}
-
 	try {
-		const response = await fetch(
-			QUESTIONS_URL,
-			buildRequest(HttpRequestType.POST, validated.data)
-		);
+		const response = await fetch(QUESTIONS_URL, buildRequest(HttpRequestType.POST, payload));
 
 		if (!response.ok) {
 			console.error('Failed to create question:', response.status, response.statusText);
@@ -130,16 +118,10 @@ export async function updateQuestionDetails(
 	payload: QuestionPayload
 ): Promise<Question | null> {
 	// PUT /questions/{questionId}
-	const validated = QuestionPayloadSchema.safeParse(payload);
-	if (!validated.success) {
-		console.error('Invalid question payload:', validated.error.issues);
-		return null;
-	}
-
 	try {
 		const response = await fetch(
 			buildQuestionDetailsUrl(questionId),
-			buildRequest(HttpRequestType.PUT, validated.data)
+			buildRequest(HttpRequestType.PUT, payload)
 		);
 
 		if (!response.ok) {
