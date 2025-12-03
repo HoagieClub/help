@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import Q
 
 from hoagiehelp.models.question import Question
 from hoagiehelp.models.user import CustomUser
