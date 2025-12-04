@@ -1,18 +1,16 @@
 /**
- * @overview Standardized error handling component for the template app.
+ * @overview Standardized error handling component for the Help app.
  *
  * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE.
  *
  * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
 'use client';
-
-import React from 'react';
 
 import { Alert } from 'evergreen-ui';
 
@@ -94,4 +92,4 @@ export async function handleError<T>(
 	}
 }
 
-export { isErrorWithMessage, toErrorWithMessage, getErrorMessage };
+export { getErrorMessage, isErrorWithMessage, toErrorWithMessage };

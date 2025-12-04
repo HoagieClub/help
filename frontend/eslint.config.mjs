@@ -1,23 +1,23 @@
 /**
- * @overview ESLint configurations for the Hoagie Template app.
+ * @overview ESLint configurations for the Hoagie Help app.
  *
  * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE.
  *
  * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
 import eslint from '@eslint/js';
-import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import prettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 

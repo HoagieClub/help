@@ -1,10 +1,10 @@
 /**
- * @overview Landing page for the template app.
+ * @overview Landing page for the Help app.
  *
  * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE.
  *
  * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
@@ -14,14 +14,14 @@
 
 import { useUser } from '@auth0/nextjs-auth0';
 import {
+	ArrowLeftIcon,
+	ArrowRightIcon,
+	Button,
+	Heading,
 	Pane,
+	Spinner,
 	majorScale,
 	minorScale,
-	Heading,
-	Spinner,
-	ArrowRightIcon,
-	ArrowLeftIcon,
-	Button,
 	useTheme,
 } from 'evergreen-ui';
 import Link from 'next/link';
@@ -40,7 +40,7 @@ export function Home() {
 	} else {
 		Profile = (
 			<Pane>
-				<Link href='/feature1'>
+				<Link href='/about'>
 					<Button
 						height={56}
 						width={majorScale(35)}
@@ -80,7 +80,7 @@ export function Home() {
 			>
 				<ArrowLeftIcon size={48} color='gray800' />
 				<Heading size={900} className='hoagie'>
-					Hoagie Template App
+					Hoagie Help App
 					<br />
 					What will <b>you</b> build?
 				</Heading>
