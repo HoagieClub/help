@@ -232,15 +232,8 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 	},
 });
 
-/**
- * hoagieTemplate - Example theme that extends the base hoagieUI theme
- *
- * This template demonstrates how to create a custom theme by extending
- * the base hoagieUI theme with a new color palette. You can use this
- * as a starting point for creating your own branded themes.
- */
-export const hoagieTemplate = mergeTheme(hoagieUI, {
-	title: 'template',
+export const hoagieHelp = mergeTheme(hoagieUI, {
+	title: 'help',
 	colors: {
 		...hoagieUI.colors,
 		// Teal color palette - primary brand color
