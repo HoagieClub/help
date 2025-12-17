@@ -39,13 +39,10 @@ class CommentListView(APIView):
         """Create a new comment associated with a given answer."""
         answer = get_object_or_404(Answer, pk=answer_id)
 
-        data = request.data.copy()
-        data["answer"] = answer.id
-
-        serializer = CommentSerializer(data=data)
+        serializer = CommentSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(answer=answer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
