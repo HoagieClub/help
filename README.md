@@ -26,7 +26,6 @@ If your yarn version isn't applied globally, you can install a global version of
 corepack install --global yarn@4.10.3
 ```
 
-
 #### Installation
 
 First, make sure you're in the frontend directory:
@@ -90,12 +89,12 @@ brew install uv
 ```
 
 #### Installation
+
 Before beginning with the installation, make sure you are in the backend directory by running:
 
 ```bash
 cd backend
 ```
-
 
 After installing uv, create a virtual environment using the following command:
 
@@ -110,6 +109,7 @@ source .venv/bin/activate
 ```
 
 To install the relevant backend depedencies, run:
+
 ```bash
 uv sync
 ```
@@ -117,6 +117,7 @@ uv sync
 This will install all required backend dependencies in the virtual environment.
 
 #### Running the app
+
 ```bash
 uv run manage.py runserver
 ```
