@@ -18,23 +18,11 @@ const CommentSchema = z.object({
 
 type Comment = z.infer<typeof CommentSchema>;
 
-async function parseComment(res: Response): Promise<Comment | null> {
-	if (res.status === 204) return null;
-	const data = await res.json();
-	return CommentSchema.parse(data);
-}
-
-async function parseComments(res: Response): Promise<Comment[] | null> {
-	if (res.status === 204) return null;
-	const data = await res.json();
-	return z.array(CommentSchema).parse(data);
-}
-
-export async function getAllComments(answerId: string | number): Promise<Comment[] | null> {
+export async function getAllComments(answerId: string): Promise<Comment[] | null> {
 	// GET /answers/{answerId}/comments/
 	try {
 		const response = await fetch(
-			buildCommentListUrl(answerId.toString()),
+			buildCommentListUrl(answerId),
 			buildRequest(HttpRequestType.GET)
 		);
 
@@ -43,26 +31,24 @@ export async function getAllComments(answerId: string | number): Promise<Comment
 			return null;
 		}
 
-		return await parseComments(response);
+		const data = await response.json();
+		return z.array(CommentSchema).parse(data);
 	} catch (error) {
 		console.error('Error fetching comments:', error);
 		return null;
 	}
 }
 
-type CreateCommentPayload = {
-	text: string;
-	is_anonymous?: boolean;
-};
+type CreateCommentPayload = Comment;
 
 export async function createNewComment(
-	answerId: string | number,
+	answerId: string,
 	payload: CreateCommentPayload
 ): Promise<Comment | null> {
 	// POST /answers/{answerId}/comments/
 	try {
 		const response = await fetch(
-			buildCommentListUrl(answerId.toString()),
+			buildCommentListUrl(answerId),
 			buildRequest(HttpRequestType.POST, payload)
 		);
 
@@ -71,7 +57,8 @@ export async function createNewComment(
 			return null;
 		}
 
-		return await parseComment(response);
+		const data = await response.json();
+		return CommentSchema.parse(data);
 	} catch (error) {
 		console.error('Error creating comment:', error);
 		return null;
@@ -91,7 +78,8 @@ export async function getCommentDetails(commentId: string | number): Promise<Com
 			return null;
 		}
 
-		return await parseComment(response);
+		const data = await response.json();
+		return CommentSchema.parse(data);
 	} catch (error) {
 		console.error('Error fetching comment:', error);
 		return null;
@@ -116,7 +104,8 @@ export async function updateCommentDetails(
 			return null;
 		}
 
-		return await parseComment(response);
+		const data = await response.json();
+		return CommentSchema.parse(data);
 	} catch (error) {
 		console.error('Error updating comment:', error);
 		return null;
@@ -141,7 +130,7 @@ export async function deleteComment(commentId: string | number): Promise<boolean
 }
 
 function buildCommentListUrl(answerId: string): string {
-	const encodedAnswerId = encodeURIComponent(answerId.toString());
+	const encodedAnswerId = encodeURIComponent(answerId);
 	return `${COMMENT_LIST_URL}${encodedAnswerId}/comments/`;
 }
 
