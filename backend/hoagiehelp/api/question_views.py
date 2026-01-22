@@ -7,7 +7,21 @@ from hoagiehelp.models.question import Question
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Question
+        fields = [
+            "id",
+            "user",
+            "title",
+            "tags",
+            "course",
+            "details",
+            "create_time",
+            "last_updated_time",
+            "hearts",
+            "view",
+            "user_is_anonymous",
+        ]
 
 
 class QuestionListView(APIView):
