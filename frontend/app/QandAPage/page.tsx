@@ -12,10 +12,7 @@
 
 'use client';
 
-import type { ChangeEvent } from 'react';
-import { useState } from 'react';
-
-import { Button, Heading, Pane, Text, TextInputField, majorScale } from 'evergreen-ui';
+import { Button, Heading, Pane, Text, majorScale } from 'evergreen-ui';
 
 /**
  * A React component that renders a form for user interaction, allowing users to input their name
@@ -26,30 +23,26 @@ import { Button, Heading, Pane, Text, TextInputField, majorScale } from 'evergre
  * @returns {JSX.Element} The form component with user interaction elements.
  */
 export function QAPage() {
-	/**
-	 * Handles the input field which can perform queries
-	 */
-	const [inputValue, setInputValue] = useState('');
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setInputValue(e.target.value);
-	};
 
 	/**
-	 * Handles the button click
+	 * Handles the recent button click
 	 */
 	const recentButtonHandler = () => {
 		// Placeholder for button click action
-		console.log('Recent clicked');
 	};
 
+	/**
+	 * Handles the popular button click
+	 */
 	const popularButtonHandler = () => {
 		// Placeholder for button click action
-		console.log('Popular clicked');
 	};
 
+	/**
+	 * Handles the ask question button click
+	 */
 	const askQuestionHandler = () => {
 		// Placeholder for button click action
-		console.log('Ask Question clicked');
 	};
 
 	return (
