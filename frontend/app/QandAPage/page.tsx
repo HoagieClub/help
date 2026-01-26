@@ -23,7 +23,6 @@ import { Button, Heading, Pane, Text, majorScale } from 'evergreen-ui';
  * @returns {JSX.Element} The form component with user interaction elements.
  */
 export function QAPage() {
-
 	/**
 	 * Handles the recent button click
 	 */
