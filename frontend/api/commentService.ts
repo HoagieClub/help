@@ -42,7 +42,6 @@ export async function getAllComments(answerId: string): Promise<Comment[] | null
 	}
 }
 
-
 export async function createNewComment(
 	answerId: string,
 	payload: CreateCommentPayload
@@ -87,7 +86,6 @@ export async function getCommentDetails(commentId: string | number): Promise<Com
 		return null;
 	}
 }
-
 
 export async function updateCommentDetails(
 	commentId: string | number,
