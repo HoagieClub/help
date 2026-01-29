@@ -14,6 +14,7 @@
 
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
+import Link from 'next/link';
 
 import { Button, Heading, Pane, Text, TextInputField, majorScale } from 'evergreen-ui';
 
@@ -66,8 +67,11 @@ export function StudyGroups() {
 				width='100%'
 				marginBottom={majorScale(2)}
 			>
-				Click Me
+				Find Study Groups
 			</Button>
+			<Link href="/study-groups/form">
+            	<Button appearance="primary" marginBottom={majorScale(2)}>Create Study Group</Button>
+			</Link>
 		</Pane>
 	);
 }
