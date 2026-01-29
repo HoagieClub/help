@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from models.question import Question
+from hoagiehelp.models.question import Question
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -29,11 +29,20 @@ class QuestionListView(APIView):
 
     def get(self, request) -> Response:
         """List all questions."""
-        pass
+        queryset = Question.objects.all()
+        serializer = QuestionSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def post(self, request) -> Response:
         """Create a new question."""
-        pass
+        serializer = QuestionSerializer(data=request.data)
+        
+        # field checks and validation
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class QuestionDetailView(APIView):
