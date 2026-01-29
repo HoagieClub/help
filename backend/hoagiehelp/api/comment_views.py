@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from hoagiehelp.models.comment import Comment
-
+from hoagiehelp.models.answer import Answer
 
 # Comment Serializer
 class CommentSerializer(serializers.ModelSerializer):
@@ -27,11 +27,25 @@ class CommentListView(APIView):
 
     def get(self, request, answer_id: str) -> Response:
         """List all comments for a given answer."""
-        pass
+        answer = get_object_or_404(Answer, pk=answer_id)
+
+        queryset = Comment.objects.filter(answer=answer).order_by("-created_at")
+
+        serializer = CommentSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
     def post(self, request, answer_id: str) -> Response:
         """Create a new comment associated with a given answer."""
-        pass
+        answer = get_object_or_404(Answer, pk=answer_id)
+
+        serializer = CommentSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(answer=answer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CommentDetailView(APIView):
