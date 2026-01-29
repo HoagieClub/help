@@ -4,7 +4,6 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Heading, Pane, Text, TrendingUpIcon, majorScale } from 'evergreen-ui';
 
-
 export function QAPage() {
 	/**
 	 * Handles the recent button click
@@ -51,7 +50,7 @@ export function QAPage() {
 						onClick={askQuestionHandler}
 						width='200px'
 						paddingY={majorScale(2)}
-						backgroundColor="#FE791B"
+						backgroundColor='#FE791B'
 						borderRadius='8px'
 						borderWidth='2px'
 						borderColor='black'
@@ -59,7 +58,8 @@ export function QAPage() {
 						color='white'
 						fontWeight='bold'
 					>
-						<AddIcon fontSize = "small" style={{ marginRight: 25 }}/>Ask Question
+						<AddIcon fontSize='small' style={{ marginRight: 25 }} />
+						Ask Question
 					</Button>
 				</Pane>
 			</Pane>
@@ -76,7 +76,7 @@ export function QAPage() {
 					width='100px'
 					paddingY={majorScale(2)}
 					marginBottom={majorScale(2)}
-					backgroundColor="#FE791B"
+					backgroundColor='#FE791B'
 					borderRadius='8px'
 					borderWidth='2px'
 					borderColor='black'
@@ -84,7 +84,7 @@ export function QAPage() {
 					color='white'
 					fontWeight='bold'
 				>
-					<AccessTimeIcon fontSize = "small" style={{ marginRight: 6 }}/> Recent
+					<AccessTimeIcon fontSize='small' style={{ marginRight: 6 }} /> Recent
 				</Button>
 				<Button
 					appearance='primary'
@@ -99,7 +99,8 @@ export function QAPage() {
 					color='black'
 					fontWeight='bold'
 				>
-					<TrendingUpIcon fontSize = "small" style={{ marginRight: 6 }}/>Popular
+					<TrendingUpIcon fontSize='small' style={{ marginRight: 6 }} />
+					Popular
 				</Button>
 			</Pane>
 		</Pane>
