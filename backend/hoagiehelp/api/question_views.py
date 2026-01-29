@@ -29,12 +29,7 @@ class QuestionListView(APIView):
 
     def get(self, request) -> Response:
         """List all questions."""
-        try:
-            queryset = Question.objects.all()
-
-        except Exception as e:
-            return Response({"detail": str(e)}, status=status.HTTP_404_NOT_FOUND)
-        
+        queryset = Question.objects.all()
         serializer = QuestionSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -45,7 +40,7 @@ class QuestionListView(APIView):
         # field checks and validation
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
