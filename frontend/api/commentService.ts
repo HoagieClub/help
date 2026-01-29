@@ -17,6 +17,9 @@ const CommentSchema = z.object({
 });
 
 type Comment = z.infer<typeof CommentSchema>;
+type CommentWritableFields = Pick<Comment, 'text' | 'is_anonymous'>;
+type CreateCommentPayload = CommentWritableFields;
+type UpdateCommentPayload = Partial<CommentWritableFields>;
 
 export async function getAllComments(answerId: string): Promise<Comment[] | null> {
 	// GET /answers/{answerId}/comments/
@@ -39,7 +42,6 @@ export async function getAllComments(answerId: string): Promise<Comment[] | null
 	}
 }
 
-type CreateCommentPayload = Comment;
 
 export async function createNewComment(
 	answerId: string,
@@ -86,7 +88,6 @@ export async function getCommentDetails(commentId: string | number): Promise<Com
 	}
 }
 
-type UpdateCommentPayload = Partial<Pick<Comment, 'text' | 'is_anonymous' | 'hearts'>>;
 
 export async function updateCommentDetails(
 	commentId: string | number,
@@ -135,6 +136,6 @@ function buildCommentListUrl(answerId: string): string {
 }
 
 function buildCommentDetailUrl(commentId: string): string {
-	const encodedCommentId = encodeURIComponent(commentId.toString());
+	const encodedCommentId = encodeURIComponent(commentId);
 	return `${COMMENT_DETAIL_URL}${encodedCommentId}/`;
 }
