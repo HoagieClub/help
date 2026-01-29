@@ -1,27 +1,9 @@
-/**
- * @overview Study Group page for HoagieHelp.
- *
- * Copyright © 2021-2025 Hoagie Club and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE.
- *
- * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
- */
-
 'use client';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AddIcon from '@mui/icons-material/Add';
+import { Button, Heading, Pane, Text, TrendingUpIcon, majorScale } from 'evergreen-ui';
 
-import { Button, Heading, Pane, Text, majorScale } from 'evergreen-ui';
 
-/**
- * A React component that renders a form for user interaction, allowing users to input their name
- * and select an option from a dropdown menu. It uses Evergreen UI components for styling and
- * integrates with Auth0 for user authentication. The form submission triggers an async action that
- * simulates an API call and provides feedback through toast notifications.
- *
- * @returns {JSX.Element} The form component with user interaction elements.
- */
 export function QAPage() {
 	/**
 	 * Handles the recent button click
@@ -68,7 +50,7 @@ export function QAPage() {
 						onClick={askQuestionHandler}
 						width='200px'
 						paddingY={majorScale(2)}
-						backgroundColor='orange'
+						backgroundColor="#FE791B"
 						borderRadius='8px'
 						borderWidth='2px'
 						borderColor='black'
@@ -76,7 +58,7 @@ export function QAPage() {
 						color='white'
 						fontWeight='bold'
 					>
-						Ask Question
+						<AddIcon fontSize = "small" style={{ marginRight: 25 }}/>Ask Question
 					</Button>
 				</Pane>
 			</Pane>
@@ -93,7 +75,7 @@ export function QAPage() {
 					width='100px'
 					paddingY={majorScale(2)}
 					marginBottom={majorScale(2)}
-					backgroundColor='orange'
+					backgroundColor="#FE791B"
 					borderRadius='8px'
 					borderWidth='2px'
 					borderColor='black'
@@ -101,7 +83,7 @@ export function QAPage() {
 					color='white'
 					fontWeight='bold'
 				>
-					Recent
+					<AccessTimeIcon fontSize = "small" style={{ marginRight: 6 }}/> Recent
 				</Button>
 				<Button
 					appearance='primary'
@@ -116,7 +98,7 @@ export function QAPage() {
 					color='black'
 					fontWeight='bold'
 				>
-					Popular
+					<TrendingUpIcon fontSize = "small" style={{ marginRight: 6 }}/>Popular
 				</Button>
 			</Pane>
 		</Pane>
