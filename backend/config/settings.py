@@ -85,6 +85,7 @@ os.environ["DATABASE_URL"] = os.getenv("TEST_DATABASE_URL") if DEBUG else os.get
 DATABASES = {"default": dj_database_url.config(default=os.getenv("DATABASE_URL"), ssl_require=False)}
 DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
 
+AUTH_USER_MODEL = "hoagiehelp.CustomUser"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
