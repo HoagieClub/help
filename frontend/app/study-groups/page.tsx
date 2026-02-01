@@ -14,9 +14,8 @@
 
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
-import Link from 'next/link';
-
 import { Button, Heading, Pane, Text, TextInputField, majorScale } from 'evergreen-ui';
+import Link from 'next/link';
 
 /**
  * A React component that renders a form for user interaction, allowing users to input their name
@@ -69,8 +68,10 @@ export function StudyGroups() {
 			>
 				Find Study Groups
 			</Button>
-			<Link href="/study-groups/form">
-            	<Button appearance="primary" marginBottom={majorScale(2)}>Create Study Group</Button>
+			<Link href='/study-groups/form'>
+				<Button appearance='primary' marginBottom={majorScale(2)}>
+					Create Study Group
+				</Button>
 			</Link>
 		</Pane>
 	);

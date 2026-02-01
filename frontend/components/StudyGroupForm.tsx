@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import { Pane, Textarea, Button, majorScale, minorScale } from 'evergreen-ui';
 
