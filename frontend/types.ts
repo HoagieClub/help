@@ -25,7 +25,6 @@ export type HoagieUser = {
 
 export type Answer = {
 	name?: string;
-	profilePic?: string;
 	answerText?: string;
 	createdAt?: string;
 	likes?: number;
