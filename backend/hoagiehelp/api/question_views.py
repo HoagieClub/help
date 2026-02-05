@@ -28,8 +28,18 @@ class QuestionListView(APIView):
     """Handle collection operations for questions."""
 
     def get(self, request) -> Response:
-        """List all questions."""
+        """List all questions, filtered by title and tags."""
         queryset = Question.objects.all()
+
+        # Filter queries by following parameters
+        title_string = request.query_params.get('title')
+        tags_list = request.query_params.getlist('tags')
+        
+        if title_string:
+            queryset = queryset.filter(title__icontains=title_string)
+        if tags_list:
+            queryset = queryset.filter(tags__name__in=tags_list).distinct()
+        
         serializer = QuestionSerializer(queryset, many=True)
         return Response(serializer.data)
 
