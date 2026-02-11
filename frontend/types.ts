@@ -22,3 +22,10 @@ export type HoagieUser = {
 	name?: string;
 	email?: string;
 };
+
+export type Answer = {
+	name?: string;
+	answerText?: string;
+	createdAt?: string;
+	likes?: number;
+}
