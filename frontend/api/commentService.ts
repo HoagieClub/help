@@ -16,10 +16,10 @@ const CommentSchema = z.object({
 	updated_at: z.string(),
 });
 
-type Comment = z.infer<typeof CommentSchema>;
-type CommentWritableFields = Pick<Comment, 'text' | 'is_anonymous'>;
-type CreateCommentPayload = CommentWritableFields;
-type UpdateCommentPayload = Partial<CommentWritableFields>;
+export type Comment = z.infer<typeof CommentSchema>;
+export type CommentWritableFields = Pick<Comment, 'text' | 'is_anonymous'>;
+export type CreateCommentPayload = CommentWritableFields;
+export type UpdateCommentPayload = Partial<CommentWritableFields>;
 
 export async function getAllComments(answerId: string): Promise<Comment[] | null> {
 	// GET /answers/{answerId}/comments/
