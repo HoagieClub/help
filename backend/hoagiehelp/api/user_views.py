@@ -1,5 +1,5 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import serializers
+from rest_framework.views import APIView
 
 from hoagiehelp.models.user import User
 
@@ -17,3 +17,19 @@ class UserSerializer(serializers.ModelSerializer):
             "email",
         )
         read_only_fields = ("net_id", "email")
+
+
+class UserView(APIView):
+    pass
+
+
+def user_questions(request, user_id: str):
+    pass
+
+
+def user_answers(request, user_id: str):
+    pass
+
+
+def user_comments(request, user_id: str):
+    pass
