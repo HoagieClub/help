@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from rest_framework.views import APIView
 
-from hoagiehelp.models.user import User
+from hoagiehelp.models.user import CustomUser
 
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = CustomUser
         fields = (
             "net_id",
             "class_year",
