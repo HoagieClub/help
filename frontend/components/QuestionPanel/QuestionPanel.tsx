@@ -41,7 +41,7 @@ function formatMetadata(
 	create_time: Date,
 	user_is_anonymous: boolean
 ): string {
-	const displayUser = user_is_anonymous == true ? 'Anonymous' : user;
+	const displayUser = user_is_anonymous === true ? 'Anonymous' : user;
 	const displayTag = tags[0];
 	const displayTimePassed = formatTimePassed(create_time);
 
