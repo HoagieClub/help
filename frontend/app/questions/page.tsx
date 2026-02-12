@@ -3,8 +3,11 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Heading, Pane, Text, TrendingUpIcon, majorScale } from 'evergreen-ui';
+import { useRouter } from 'next/navigation';
 
 export function QAPage() {
+	const router = useRouter();
+
 	/**
 	 * Handles the recent button click
 	 */
@@ -23,7 +26,7 @@ export function QAPage() {
 	 * Handles the ask question button click
 	 */
 	const askQuestionHandler = () => {
-		// Placeholder for button click action
+		router.push('/questions/ask');
 	};
 
 	return (
