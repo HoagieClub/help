@@ -12,69 +12,16 @@
 
 'use client';
 
-import type { ChangeEvent } from 'react';
-import { useState } from 'react';
-
-import { Button, Heading, Pane, Text, TextInputField, majorScale } from 'evergreen-ui';
-import Link from 'next/link';
+import { StudyGroupsDashboard } from '@/components/StudyGroupsDashboard';
 
 /**
- * A React component that renders a form for user interaction, allowing users to input their name
- * and select an option from a dropdown menu. It uses Evergreen UI components for styling and
- * integrates with Auth0 for user authentication. The form submission triggers an async action that
- * simulates an API call and provides feedback through toast notifications.
- *
- * @returns {JSX.Element} The form component with user interaction elements.
+ * Study Groups page: find classmates and create study groups.
  */
 export function StudyGroups() {
-	/**
-	 * Handles the input field which can perform queries
-	 */
-	const [inputValue, setInputValue] = useState('');
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setInputValue(e.target.value);
-	};
-
-	/**
-	 * Handles the button click
-	 */
-	const handleSubmit = () => {
-		// Placeholder for button click action
-	};
-
 	return (
-		<Pane
-			maxWidth={majorScale(50)}
-			marginX='auto'
-			padding={majorScale(2)}
-			marginTop={majorScale(8)}
-		>
-			{/* Main header */}
-			<Heading size={900} marginBottom={24}>
-				Study Groups
-			</Heading>
-
-			{/* Subtitle */}
-			<Text size={500} marginBottom={24}>
-				Find classmates and form study groups
-			</Text>
-
-			<TextInputField placeholder='Type here...' value={inputValue} onChange={handleChange} />
-
-			<Button
-				appearance='primary'
-				onClick={handleSubmit}
-				width='100%'
-				marginBottom={majorScale(2)}
-			>
-				Find Study Groups
-			</Button>
-			<Link href='/study-groups/form'>
-				<Button appearance='primary' marginBottom={majorScale(2)}>
-					Create Study Group
-				</Button>
-			</Link>
-		</Pane>
+		<div className="min-h-screen border-t-4 border-b-4 border-sky-200 bg-white">
+			<StudyGroupsDashboard />
+		</div>
 	);
 }
 
