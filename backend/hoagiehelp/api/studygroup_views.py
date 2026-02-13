@@ -2,10 +2,11 @@ from rest_framework import serializers
 
 from hoagiehelp.models.studygroup import StudyGroup
 
+
 # Study Group Serializer
 class StudyGroupSerializer(serializers.ModelSerializer):
     class Meta:
-        model = StudyGroup,
+        model = StudyGroup
         fields = (
             "id",
             "title",
@@ -15,8 +16,5 @@ class StudyGroupSerializer(serializers.ModelSerializer):
             "max_spots",
             "members",
             "created_at",
-            "updated_at"
+            "updated_at",
         )
-
-
-
