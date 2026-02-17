@@ -1,3 +1,4 @@
+import { Pane, Heading, Button, Text, Paragraph } from 'evergreen-ui';
 import styles from './QuestionPanel.module.css';
 
 interface QuestionPanelProps {
@@ -60,18 +61,18 @@ const QuestionPanel = ({
 	const displayInformation = formatMetadata(user, tags, create_time, user_is_anonymous);
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.content}>
-				<div className={styles.header}>
-					<h2 className={styles.title}>{title}</h2>
-					<button className={styles.backButton} onClick={onBack}>
+		<Pane className={styles.container}>
+			<Pane className={styles.content}>
+				<Pane className={styles.header}>
+					<Heading className={styles.title}>{title}</Heading>
+					<Button className={styles.backButton} onClick={onBack}>
 						Back to Q&A
-					</button>
-				</div>
-				<p className={styles.metadata}>{displayInformation}</p>
-				<p className={styles.details}>{details}</p>
-			</div>
-		</div>
+					</Button>
+				</Pane>
+				<Text className={styles.metadata}>{displayInformation}</Text>
+				<Paragraph className={styles.details}>{details}</Paragraph>
+			</Pane>
+		</Pane>
 	);
 };
 
