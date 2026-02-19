@@ -17,20 +17,44 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-
 from hoagiehelp.api.answer_views import AnswerDetailView, AnswerListView
 from hoagiehelp.api.comment_views import CommentDetailView, CommentListView
 from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
+from hoagiehelp.api.user_views import (
+    UserView,
+    user_answers,
+    user_comments,
+    user_questions,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     # Questions
     path("questions/", QuestionListView.as_view(), name="question-list"),
-    path("questions/<str:question_id>/", QuestionDetailView.as_view(), name="question-detail"),
+    path(
+        "questions/<str:question_id>/",
+        QuestionDetailView.as_view(),
+        name="question-detail",
+    ),
     # Answers
-    path("questions/<str:question_id>/answers/", AnswerListView.as_view(), name="answer-list"),
+    path(
+        "questions/<str:question_id>/answers/",
+        AnswerListView.as_view(),
+        name="answer-list",
+    ),
     path("answers/<str:answer_id>/", AnswerDetailView.as_view(), name="answer-detail"),
     # Comments
-    path("answers/<str:answer_id>/comments/", CommentListView.as_view(), name="comment-list"),
-    path("comments/<str:comment_id>/", CommentDetailView.as_view(), name="comment-detail"),
+    path(
+        "answers/<str:answer_id>/comments/",
+        CommentListView.as_view(),
+        name="comment-list",
+    ),
+    path(
+        "comments/<str:comment_id>/", CommentDetailView.as_view(), name="comment-detail"
+    ),
+    # Users
+    path("users/<str:user_id>/", UserView.as_view(), name="user-detail"),
+    path("users/<str:user_id>/questions/", user_questions, name="user-questions"),
+    path("users/<str:user_id>/answers/", user_answers, name="user-answers"),
+    path("users/<str:user_id>/comments/", user_comments, name="user-comments"),
 ]
