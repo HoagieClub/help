@@ -181,14 +181,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
 		},
 	},
-		{
+	{
 		name: 'Ava Fonss',
 		role: 'Product Manager',
-		imgSrc: '	https://media.licdn.com/dms/image/v2/D4E16AQFdp-w1…eta&t=b4MNDRP7b6N2Qv44ZbPyg8FoggiulG0KXpvMw0VZsic',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEAqm8TFiNkmg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1684291824637?e=1773273600&v=beta&t=k1eIenTVWZxZ_xtZVF4wC3tRZLrNZjTax8Elmfndvmo',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/avafonss/',
 		},
-	},
+	}, 
 ];
 
 /**
