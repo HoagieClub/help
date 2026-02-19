@@ -196,7 +196,7 @@ const teamMembers = [
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/avafonss/',
 		},
-	}, 
+	},
 ];
 
 /**
