@@ -181,6 +181,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
 		},
 	},
+	{
+		name: 'Ethan Wen',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQGR38H137yD_g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1729893063310?e=1773273600&v=beta&t=-gQZPNCk6wg4dKNSZbxUPucNMR92aH6wDFxz6p47Mtk',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/wen-ethan/',
+		},
+	},
 ];
 
 /**
