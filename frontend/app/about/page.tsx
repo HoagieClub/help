@@ -182,13 +182,21 @@ const teamMembers = [
 		},
 	},
 	{
+		name: 'Ethan Wen',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQGR38H137yD_g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1729893063310?e=1773273600&v=beta&t=-gQZPNCk6wg4dKNSZbxUPucNMR92aH6wDFxz6p47Mtk',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/wen-ethan/',
+		},
+	},
+	{
 		name: 'Ava Fonss',
 		role: 'Product Manager',
 		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEAqm8TFiNkmg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1684291824637?e=1773273600&v=beta&t=k1eIenTVWZxZ_xtZVF4wC3tRZLrNZjTax8Elmfndvmo',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/avafonss/',
 		},
-	}, 
+	},
 ];
 
 /**
