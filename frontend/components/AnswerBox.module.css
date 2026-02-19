@@ -1,0 +1,42 @@
+.answerContainer {
+    display: flex;
+    flex-direction: column;
+    width: 65rem; /* Slightly narrower than QuestionPanel to show nesting */
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-left: 4px solid #f0f2f5;
+    background-color: #ffffff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.metadata {
+    font-size: 0.85rem;
+    color: #858ba4;
+    font-weight: 400;
+}
+
+.likesCount {
+    font-size: 0.9rem;
+    color: #1e2b49;
+    font-weight: 600;
+}
+
+.answerText {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    white-space: pre-wrap; /* Preserves line breaks in the answer */
+}
+
+.commentsWrapper {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
