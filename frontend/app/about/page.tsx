@@ -181,6 +181,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
 		},
 	},
+		{
+		name: 'Ava Fonss',
+		role: 'Product Manager',
+		imgSrc: '	https://media.licdn.com/dms/image/v2/D4E16AQFdp-w1…eta&t=b4MNDRP7b6N2Qv44ZbPyg8FoggiulG0KXpvMw0VZsic',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/avafonss/',
+		},
+	},
 ];
 
 /**
