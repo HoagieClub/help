@@ -10,11 +10,12 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-/*comment box implementation */
 'use client';
 
 import { useState } from 'react';
+
 import { FaHeart, FaEllipsisH } from 'react-icons/fa';
+
 import { FaUser } from 'react-icons/fa6';
 
 import type { Comment } from '../api/commentService';
@@ -71,9 +72,8 @@ export function CommentBox({
 	const displayName = comment.is_anonymous ? 'Anonymous' : username || 'Unknown User';
 	const isAnonymous = comment.is_anonymous;
 	const shouldTruncate = comment.text.length > maxLength;
-	const displayText = isExpanded || !shouldTruncate 
-		? comment.text 
-		: comment.text.slice(0, maxLength) + '...';
+	const displayText =
+		isExpanded || !shouldTruncate ? comment.text : comment.text.slice(0, maxLength) + '...';
 
 	return (
 		<div className='flex items-start gap-3 pb-4'>
