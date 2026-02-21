@@ -28,4 +28,15 @@ export type Answer = {
 	answerText?: string;
 	createdAt?: string;
 	likes?: number;
-}
+};
+
+export type Comment = {
+	id: number;
+	answer: number;
+	user: number;
+	text: string;
+	hearts: number;
+	is_anonymous: boolean;
+	created_at: string;
+	updated_at: string;
+};

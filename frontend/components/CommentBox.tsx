@@ -14,19 +14,23 @@
 
 import { useState } from 'react';
 
-import { FaHeart, FaEllipsisH } from 'react-icons/fa';
-import { FaUser } from 'react-icons/fa6';
+import {
+	Avatar,
+	Button,
+	HeartIcon,
+	IconButton,
+	majorScale,
+	MoreIcon,
+	Pane,
+	Text,
+	useTheme,
+} from 'evergreen-ui';
 
-import type { Comment } from '../api/commentService';
+import type { Comment } from '../types';
 
 export interface CommentBoxProps {
 	comment: Comment;
 	username?: string;
-	isLikedByCurrentUser?: boolean;
-	onHeartClick?: () => void;
-	onMoreClick?: () => void;
-	showThreadLine?: boolean;
-	maxLength?: number;
 }
 
 function formatDate(dateString: string): string {
@@ -58,94 +62,108 @@ function formatDate(dateString: string): string {
 
 const DEFAULT_MAX_LENGTH = 200;
 
-export function CommentBox({
-	comment,
-	username,
-	isLikedByCurrentUser = false,
-	onHeartClick,
-	onMoreClick,
-	showThreadLine = false,
-	maxLength = DEFAULT_MAX_LENGTH,
-}: CommentBoxProps) {
+export function CommentBox({ comment, username }: CommentBoxProps) {
+	const theme = useTheme();
 	const [isExpanded, setIsExpanded] = useState(false);
+	const [isLiked, setIsLiked] = useState(false);
+
+	const handleHeartClick = () => {
+		setIsLiked((prev) => !prev);
+		alert('Heart clicked');
+	};
+	const handleMoreClick = () => alert('More options clicked');
 	const displayName = comment.is_anonymous ? 'Anonymous' : username || 'Unknown User';
 	const isAnonymous = comment.is_anonymous;
-	const shouldTruncate = comment.text.length > maxLength;
+	const shouldTruncate = comment.text.length > DEFAULT_MAX_LENGTH;
 	const displayText =
-		isExpanded || !shouldTruncate ? comment.text : comment.text.slice(0, maxLength) + '...';
+		isExpanded || !shouldTruncate
+			? comment.text
+			: comment.text.slice(0, DEFAULT_MAX_LENGTH) + '...';
 
 	return (
-		<div className='flex items-start gap-3 pb-4'>
+		<Pane
+			display='flex'
+			alignItems='flex-start'
+			gap={majorScale(2)}
+			paddingBottom={majorScale(2)}
+		>
 			{/* Avatar and thread line */}
-			<div className='flex flex-col items-center flex-shrink-0'>
-				{/* Avatar */}
-				<div className='w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center'>
-					<FaUser className='w-4 h-4 text-gray-600' />
-				</div>
-				{/* Vertical thread line */}
-				{showThreadLine && (
-					<div className='w-0.5 h-full bg-gray-200 mt-2 flex-1 min-h-[20px]' />
-				)}
-			</div>
+			<Pane display='flex' flexDirection='column' alignItems='center' flexShrink={0}>
+				<Avatar
+					name={displayName}
+					size={32}
+					backgroundColor={isAnonymous ? theme.colors.orange100 : theme.colors.gray300}
+				/>
+				<Pane
+					width={2}
+					flex={1}
+					minHeight={20}
+					marginTop={majorScale(1)}
+					backgroundColor={theme.colors.gray200}
+				/>
+			</Pane>
 
 			{/* Comment content */}
-			<div className='flex-1 min-w-0'>
+			<Pane flex={1} minWidth={0}>
 				{/* Username and timestamp */}
-				<div className='flex items-center gap-2 mb-1'>
-					<span
-						className={`text-sm font-medium ${
-							isAnonymous ? 'text-orange-600' : 'text-gray-900'
-						}`}
+				<Pane display='flex' alignItems='center' gap={majorScale(1)} marginBottom={4}>
+					<Text
+						size={300}
+						fontWeight={500}
+						color={isAnonymous ? theme.colors.orange700 : theme.colors.gray900}
 					>
 						{displayName}
-					</span>
-					<span className='text-sm text-gray-500'>{formatDate(comment.created_at)}</span>
-				</div>
+					</Text>
+					<Text size={300} color='muted'>
+						{formatDate(comment.created_at)}
+					</Text>
+				</Pane>
 
 				{/* Comment text */}
-				<div className='text-gray-900 text-sm mb-3 whitespace-pre-wrap break-words'>
+				<Text
+					size={300}
+					color={theme.colors.gray900}
+					marginBottom={majorScale(1)}
+					whiteSpace='pre-wrap'
+					wordBreak='break-word'
+				>
 					{displayText}
-				</div>
+				</Text>
 
 				{/* Read more/less button */}
 				{shouldTruncate && (
-					<button
+					<Button
+						appearance='minimal'
+						height={24}
+						paddingX={0}
+						marginBottom={majorScale(1)}
 						onClick={() => setIsExpanded(!isExpanded)}
-						className='text-sm text-gray-500 hover:text-gray-700 mb-3 transition-colors cursor-pointer'
 					>
 						{isExpanded ? 'Read less' : 'Read more'}
-					</button>
+					</Button>
 				)}
 
 				{/* Interaction buttons */}
-				<div className='flex items-center gap-4'>
-					<button
-						onClick={onHeartClick}
-						className={`flex items-center gap-1 transition-colors ${
-							onHeartClick ? 'cursor-pointer hover:opacity-70' : 'cursor-default'
-						}`}
-						disabled={!onHeartClick}
-					>
-						<FaHeart
-							className={`${
-								isLikedByCurrentUser
-									? 'text-red-500 fill-red-500'
-									: 'text-gray-400 fill-none'
-							}`}
-							size={14}
-						/>
-					</button>
-					{onMoreClick && (
-						<button
-							onClick={onMoreClick}
-							className='text-gray-400 hover:text-gray-600 transition-colors cursor-pointer'
-						>
-							<FaEllipsisH size={14} />
-						</button>
-					)}
-				</div>
-			</div>
-		</div>
+				<Pane display='flex' alignItems='center' gap={majorScale(2)}>
+					<IconButton
+						icon={HeartIcon}
+						appearance='minimal'
+						height={24}
+						iconSize={14}
+						color={isLiked ? 'red500' : 'gray400'}
+						onClick={handleHeartClick}
+					/>
+					<IconButton
+						icon={MoreIcon}
+						appearance='minimal'
+						height={24}
+						iconSize={14}
+						color='gray400'
+						onClick={handleMoreClick}
+					/>
+				</Pane>
+			</Pane>
+		</Pane>
 	);
 }
 

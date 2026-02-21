@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import type { Comment } from '../types';
+
 import { HttpRequestType, buildRequest } from './common';
 
 const COMMENT_LIST_URL = `${process.env.BACKEND}/answers/`;
@@ -16,7 +18,7 @@ const CommentSchema = z.object({
 	updated_at: z.string(),
 });
 
-export type Comment = z.infer<typeof CommentSchema>;
+export type { Comment };
 export type CommentWritableFields = Pick<Comment, 'text' | 'is_anonymous'>;
 export type CreateCommentPayload = CommentWritableFields;
 export type UpdateCommentPayload = Partial<CommentWritableFields>;
