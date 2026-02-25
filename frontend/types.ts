@@ -24,19 +24,24 @@ export type HoagieUser = {
 };
 
 export type Answer = {
-	name?: string;
-	answerText?: string;
-	createdAt?: string;
-	likes?: number;
+	id: number;
+	question: number;
+	user: HoagieUser;
+	text: string;
+	hearts: number;
+	isAnonymous: boolean;
+	createdAt: string;
+	updatedAt: string;
+	comments: Comment[];
 };
 
 export type Comment = {
 	id: number;
 	answer: number;
-	user: number;
+	user: HoagieUser;
 	text: string;
 	hearts: number;
-	is_anonymous: boolean;
-	created_at: string;
-	updated_at: string;
+	isAnonymous: boolean;
+	createdAt: string;
+	updatedAt: string;
 };

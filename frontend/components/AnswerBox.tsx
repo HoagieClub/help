@@ -8,7 +8,7 @@ import CommentsPanel from '@/components/CommentsPanel';
 import type { Answer } from '@/types';
 
 interface AnswerBoxProps {
-	answerData: Answer;
+	answer: Answer;
 }
 
 /**
@@ -37,10 +37,10 @@ function formatMetadata(user: string, createdAt: Date | string, userIsAnonymous:
 	return `${displayUser} • ${displayTimePassed}`;
 }
 
-const AnswerBox = ({ answerData }: AnswerBoxProps) => {
-	const { author_name, text, created_at, likes, is_anonymous, comments } = answerData;
+const AnswerBox = ({ answer }: AnswerBoxProps) => {
+	const { text, createdAt, hearts, isAnonymous, comments } = answer;
 
-	const metadata = formatMetadata(author_name, created_at, is_anonymous);
+	const metadata = formatMetadata(answer.user.name || 'Unknown User', createdAt, isAnonymous);
 
 	return (
 		<Pane
@@ -62,8 +62,10 @@ const AnswerBox = ({ answerData }: AnswerBoxProps) => {
 					{metadata}
 				</Text>
 				<Text fontSize='0.85rem' fontWeight={500} color='#1e2b49'>
-					<Text fontWeight={400} color='#858ba4' marginRight={4}>Likes:</Text>
-					{likes}
+					<Text fontWeight={400} color='#858ba4' marginRight={4}>
+						Likes:
+					</Text>
+					{hearts}
 				</Text>
 			</Pane>
 

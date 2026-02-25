@@ -73,8 +73,8 @@ export function CommentBox({ comment, username, showThreadLine }: CommentBoxProp
 		alert('Heart clicked');
 	};
 	const handleMoreClick = () => alert('More options clicked');
-	const displayName = comment.is_anonymous ? 'Anonymous' : username || 'Unknown User';
-	const isAnonymous = comment.is_anonymous;
+	const displayName = comment.isAnonymous ? 'Anonymous' : username || 'Unknown User';
+	const isAnonymous = comment.isAnonymous;
 	const shouldTruncate = comment.text.length > DEFAULT_MAX_LENGTH;
 	const displayText =
 		isExpanded || !shouldTruncate
@@ -118,7 +118,7 @@ export function CommentBox({ comment, username, showThreadLine }: CommentBoxProp
 						{displayName}
 					</Text>
 					<Text size={300} color='muted'>
-						{formatDate(comment.created_at)}
+						{formatDate(comment.createdAt)}
 					</Text>
 				</Pane>
 
