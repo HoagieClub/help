@@ -8,7 +8,6 @@ import { AnswerBox } from './AnswerBox';
 
 import type { Answer } from '../types';
 
-
 type AnswerPanelProps = {
 	answers: Answer[];
 };
