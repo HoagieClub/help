@@ -1,0 +1,50 @@
+.answerContainer {
+    display: flex;
+    flex-direction: column;
+    width: 70rem; /* Matching QuestionPanel width */
+    margin: 0 auto 2rem auto;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #e1e4e8;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.metadata {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: #858ba4;
+}
+
+.likesCount {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #1e2b49;
+}
+
+.likesLabel {
+    font-weight: 400;
+    color: #858ba4;
+    margin-right: 4px;
+}
+
+.answerText {
+    width: 57rem; /* Matching the details width from QuestionPanel */
+    word-wrap: break-word;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.commentsWrapper {
+    margin-left: 2rem; /* Indent comments to show hierarchy */
+    border-left: 2px solid #f0f2f5;
+    padding-left: 1.5rem;
+}

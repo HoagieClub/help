@@ -9,6 +9,7 @@ MAX_TITLE_LENGTH = 255
 class StudyGroup(models.Model):
     """Represents a study group."""
 
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=MAX_TITLE_LENGTH)
     description = models.TextField(blank=True)
 

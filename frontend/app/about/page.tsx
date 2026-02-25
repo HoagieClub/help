@@ -173,6 +173,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/gauri-kshettry/',
 		},
 	},
+	{
+		name: 'Laahini Addagatla',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQFC6t6APmOlZg/profile-displayphoto-scale_400_400/B4EZluEyBlKYAg-/0/1758488384534?e=1772668800&v=beta&t=mQxRXk4K82j-mi-CDzjwG0jUc1-Y8S0FLK2eV0EKIok',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
+		},
+	},
 ];
 
 /**
