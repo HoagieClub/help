@@ -30,7 +30,8 @@ import type { Comment } from '../types';
 
 export interface CommentBoxProps {
 	comment: Comment;
-	username?: string;
+	username?: string; // TODO: Pass username into CommentBox and make it required
+	showThreadLine: boolean;
 }
 
 function formatDate(dateString: string): string {
@@ -62,7 +63,7 @@ function formatDate(dateString: string): string {
 
 const DEFAULT_MAX_LENGTH = 200;
 
-export function CommentBox({ comment, username }: CommentBoxProps) {
+export function CommentBox({ comment, username, showThreadLine }: CommentBoxProps) {
 	const theme = useTheme();
 	const [isExpanded, setIsExpanded] = useState(false);
 	const [isLiked, setIsLiked] = useState(false);
@@ -94,13 +95,15 @@ export function CommentBox({ comment, username }: CommentBoxProps) {
 					size={32}
 					backgroundColor={isAnonymous ? theme.colors.orange100 : theme.colors.gray300}
 				/>
-				<Pane
-					width={2}
-					flex={1}
-					minHeight={20}
-					marginTop={majorScale(1)}
-					backgroundColor={theme.colors.gray200}
-				/>
+				{showThreadLine && (
+					<Pane
+						width={2}
+						flex={1}
+						minHeight={20}
+						marginTop={majorScale(1)}
+						backgroundColor={theme.colors.gray200}
+					/>
+				)}
 			</Pane>
 
 			{/* Comment content */}
