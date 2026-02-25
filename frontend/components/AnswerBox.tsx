@@ -2,10 +2,10 @@
 
 import React from 'react';
 
+import { majorScale, Pane, Text } from 'evergreen-ui';
+
 import CommentsPanel from '@/components/CommentsPanel';
 import type { Answer } from '@/types';
-
-import styles from './AnswerBox.module.css';
 
 interface AnswerBoxProps {
 	answerData: Answer;
@@ -43,20 +43,50 @@ const AnswerBox = ({ answerData }: AnswerBoxProps) => {
 	const metadata = formatMetadata(author_name, created_at, is_anonymous);
 
 	return (
-		<div className={styles.answerContainer}>
-			<div className={styles.header}>
-				<span className={styles.metadata}>{metadata}</span>
-				<div className={styles.likesCount}>
-					<span className={styles.likesLabel}>Likes:</span> {likes}
-				</div>
-			</div>
+		<Pane
+			display='flex'
+			flexDirection='column'
+			width='70rem'
+			marginX='auto'
+			marginBottom={majorScale(4)}
+			paddingY={majorScale(3)}
+			borderBottom='1px solid #e1e4e8'
+		>
+			<Pane
+				display='flex'
+				justifyContent='space-between'
+				alignItems='center'
+				marginBottom={majorScale(2)}
+			>
+				<Text fontSize='0.8rem' fontWeight={300} color='#858ba4'>
+					{metadata}
+				</Text>
+				<Text fontSize='0.85rem' fontWeight={500} color='#1e2b49'>
+					<Text fontWeight={400} color='#858ba4' marginRight={4}>Likes:</Text>
+					{likes}
+				</Text>
+			</Pane>
 
-			<div className={styles.answerText}>{text}</div>
+			<Text
+				width='57rem'
+				wordWrap='break-word'
+				fontSize='1rem'
+				fontWeight={400}
+				color='#000000'
+				lineHeight={1.5}
+				marginBottom={majorScale(3)}
+			>
+				{text}
+			</Text>
 
-			<div className={styles.commentsWrapper}>
+			<Pane
+				marginLeft={majorScale(4)}
+				borderLeft='2px solid #f0f2f5'
+				paddingLeft={majorScale(3)}
+			>
 				<CommentsPanel comments={comments} />
-			</div>
-		</div>
+			</Pane>
+		</Pane>
 	);
 };
 
