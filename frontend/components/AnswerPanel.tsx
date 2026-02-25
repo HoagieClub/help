@@ -4,9 +4,8 @@ import React from 'react';
 
 import { Heading, majorScale, Pane } from 'evergreen-ui';
 
-import { AnswerBox } from './AnswerBox';
-
-import type { Answer } from '../types';
+import { AnswerBox } from '@/components/AnswerBox';
+import type { Answer } from '@/types';
 
 type AnswerPanelProps = {
 	answers: Answer[];

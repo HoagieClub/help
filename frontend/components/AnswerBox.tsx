@@ -2,11 +2,10 @@
 
 import React from 'react';
 
-import CommentsPanel from '../CommentsPanel/CommentsPanel';
+import CommentsPanel from '@/components/CommentsPanel';
+import type { Answer } from '@/types';
 
 import styles from './AnswerBox.module.css';
-
-import type { Answer } from '../types';
 
 interface AnswerBoxProps {
 	answerData: Answer;

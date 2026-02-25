@@ -4,9 +4,8 @@ import React from 'react';
 
 import { Pane } from 'evergreen-ui';
 
-import { CommentBox } from './CommentBox';
-
-import type { Comment } from '../api/commentService';
+import type { Comment } from '@/api/commentService';
+import { CommentBox } from '@/components/CommentBox';
 
 type CommentsPanelProps = {
 	comments: Comment[];
