@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 import { majorScale, Pane, Text } from 'evergreen-ui';
 
 import CommentsPanel from '@/components/CommentsPanel';

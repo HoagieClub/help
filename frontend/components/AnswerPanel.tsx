@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 import { Heading, majorScale, Pane } from 'evergreen-ui';
 
 import AnswerBox from '@/components/AnswerBox';
