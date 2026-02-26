@@ -20,6 +20,7 @@ from django.urls import path
 from hoagiehelp.api.answer_views import AnswerDetailView, AnswerListView
 from hoagiehelp.api.comment_views import CommentDetailView, CommentListView
 from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
+from backend.hoagiehelp.api.study_group_views import StudyGroupDetailView, StudyGroupListView
 from hoagiehelp.api.user_views import (
     UserView,
     user_answers,
@@ -51,6 +52,13 @@ urlpatterns = [
     ),
     path(
         "comments/<str:comment_id>/", CommentDetailView.as_view(), name="comment-detail"
+    ),
+    # Study Groups
+    path("study-groups/", StudyGroupListView.as_view(), name="studygroup-list"),
+    path(
+        "study-groups/<str:studygroup_id>/",
+        StudyGroupDetailView.as_view(),
+        name="studygroup-detail",
     ),
     # Users
     path("users/<str:user_id>/", UserView.as_view(), name="user-detail"),
