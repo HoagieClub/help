@@ -28,39 +28,14 @@ import {
 
 import type { Comment } from '@/types';
 
+import { formatTimePassed } from '../utils';
+
 const MAX_LENGTH_BEFORE_TRUNCATE = 200;
 
 export interface CommentBoxProps {
 	comment: Comment;
 	username?: string; // TODO: Pass username into CommentBox and make it required
 	showThreadLine: boolean;
-}
-
-function formatDate(dateString: string): string {
-	const date = new Date(dateString);
-	const now = new Date();
-	const diffInMs = now.getTime() - date.getTime();
-	const diffInMonths = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 30));
-
-	if (diffInMonths < 1) {
-		const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-		if (diffInDays < 1) {
-			const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
-			if (diffInHours < 1) {
-				const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
-				return diffInMinutes < 1 ? 'now' : `${diffInMinutes}m`;
-			}
-			return `${diffInHours}h`;
-		}
-		return `${diffInDays}d`;
-	}
-
-	if (diffInMonths < 12) {
-		return `${diffInMonths}mth`;
-	}
-
-	const diffInYears = Math.floor(diffInMonths / 12);
-	return `${diffInYears}yr`;
 }
 
 export function CommentBox({ comment, username, showThreadLine }: CommentBoxProps) {
@@ -118,7 +93,7 @@ export function CommentBox({ comment, username, showThreadLine }: CommentBoxProp
 						{displayName}
 					</Text>
 					<Text size={300} color='muted'>
-						{formatDate(comment.createdAt)}
+						{formatTimePassed(comment.createdAt)}
 					</Text>
 				</Pane>
 

@@ -13,30 +13,15 @@ import {
 	useTheme,
 } from 'evergreen-ui';
 
-import CommentsPanel from '@/components/CommentsPanel';
+import CommentsPanel from '@/components/comment/CommentsPanel';
 import type { Answer } from '@/types';
+
+import { formatTimePassed } from '../utils';
 
 const MAX_LENGTH_BEFORE_TRUNCATE = 2000;
 
 interface AnswerBoxProps {
 	answer: Answer;
-}
-
-function formatTimePassed(input: Date | string | number): string {
-	const now = Date.now();
-	const past = new Date(input).getTime();
-	const diffMs = now - past;
-	if (diffMs < 0) return 'just now';
-
-	const seconds = Math.floor(diffMs / 1000);
-	const minutes = Math.floor(seconds / 60);
-	const hours = Math.floor(minutes / 60);
-	const days = Math.floor(hours / 24);
-
-	if (seconds < 60) return 'just now';
-	if (minutes < 60) return `${minutes} min${minutes === 1 ? '' : 's'} ago`;
-	if (hours < 24) return `${hours} hr${hours === 1 ? '' : 's'} ago`;
-	return `${days} day${days === 1 ? '' : 's'} ago`;
 }
 
 const AnswerBox = ({ answer }: AnswerBoxProps) => {
