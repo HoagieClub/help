@@ -1,6 +1,6 @@
 'use client';
 
-import { majorScale, Pane, Text } from 'evergreen-ui';
+import { Avatar, HeartIcon, IconButton, majorScale, Pane, Text, useTheme } from 'evergreen-ui';
 
 import CommentsPanel from '@/components/CommentsPanel';
 import type { Answer } from '@/types';
@@ -9,9 +9,6 @@ interface AnswerBoxProps {
 	answer: Answer;
 }
 
-/**
- * Reusing the formatting logic consistent with QuestionPanel
- */
 function formatTimePassed(input: Date | string | number): string {
 	const now = Date.now();
 	const past = new Date(input).getTime();
@@ -29,16 +26,11 @@ function formatTimePassed(input: Date | string | number): string {
 	return `${days} day${days === 1 ? '' : 's'} ago`;
 }
 
-function formatMetadata(user: string, createdAt: Date | string, userIsAnonymous: boolean): string {
-	const displayUser = userIsAnonymous ? 'Anonymous' : user;
-	const displayTimePassed = formatTimePassed(createdAt);
-	return `${displayUser} • ${displayTimePassed}`;
-}
-
 const AnswerBox = ({ answer }: AnswerBoxProps) => {
+	const theme = useTheme();
 	const { text, createdAt, hearts, isAnonymous, comments } = answer;
 
-	const metadata = formatMetadata(answer.user.name || 'Unknown User', createdAt, isAnonymous);
+	const displayName = isAnonymous ? 'Anonymous' : answer.user.name || 'Unknown User';
 
 	return (
 		<Pane
@@ -50,39 +42,62 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 			paddingY={majorScale(3)}
 			borderBottom='1px solid #e1e4e8'
 		>
-			<Pane
-				display='flex'
-				justifyContent='space-between'
-				alignItems='center'
-				marginBottom={majorScale(2)}
-			>
-				<Text fontSize='0.8rem' fontWeight={300} color='#858ba4'>
-					{metadata}
-				</Text>
-				<Text fontSize='0.85rem' fontWeight={500} color='#1e2b49'>
-					<Text fontWeight={400} color='#858ba4' marginRight={4}>
-						Likes:
+			<Pane display='flex' alignItems='flex-start' gap={majorScale(2)}>
+				{/* Avatar and heart */}
+				<Pane display='flex' flexDirection='column' alignItems='center' flexShrink={0}>
+					<Avatar
+						name={displayName}
+						size={32}
+						backgroundColor={isAnonymous ? theme.colors.orange100 : theme.colors.gray300}
+					/>
+					<Pane display='flex' alignItems='center' gap={2} marginTop={majorScale(1)}>
+						<IconButton
+							icon={HeartIcon}
+							appearance='minimal'
+							height={24}
+							iconSize={14}
+							color='gray400'
+							onClick={() => alert('Heart clicked')}
+						/>
+						<Text size={300} color={theme.colors.gray500}>
+							{hearts}
+						</Text>
+					</Pane>
+				</Pane>
+
+				{/* Name, timestamp, answer text, and comments */}
+				<Pane flex={1} minWidth={0}>
+					<Pane display='flex' alignItems='center' gap={majorScale(1)} marginBottom={4}>
+						<Text
+							size={300}
+							fontWeight={500}
+							color={isAnonymous ? theme.colors.orange700 : theme.colors.gray900}
+						>
+							{displayName}
+						</Text>
+						<Text size={300} color='muted'>
+							{formatTimePassed(createdAt)}
+						</Text>
+					</Pane>
+
+					<Text
+						wordWrap='break-word'
+						fontSize='1rem'
+						fontWeight={400}
+						color='#000000'
+						lineHeight={1.5}
+					>
+						{text}
 					</Text>
-					{hearts}
-				</Text>
+				</Pane>
 			</Pane>
 
-			<Text
-				width='57rem'
-				wordWrap='break-word'
-				fontSize='1rem'
-				fontWeight={400}
-				color='#000000'
-				lineHeight={1.5}
-				marginBottom={majorScale(3)}
-			>
-				{text}
-			</Text>
-
+			{/* CommentsPanel with the list of comments */}
 			<Pane
 				marginLeft={majorScale(4)}
 				borderLeft='2px solid #f0f2f5'
 				paddingLeft={majorScale(3)}
+				marginTop={majorScale(3)}
 			>
 				<CommentsPanel comments={comments} />
 			</Pane>
