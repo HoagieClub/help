@@ -20,7 +20,7 @@ from django.urls import path
 from hoagiehelp.api.answer_views import AnswerDetailView, AnswerListView
 from hoagiehelp.api.comment_views import CommentDetailView, CommentListView
 from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
-from hoagiehelp.api.studygroup_views import StudyGroupDetailView, StudyGroupListView
+from backend.hoagiehelp.api.study_group_views import StudyGroupDetailView, StudyGroupListView
 from hoagiehelp.api.user_views import (
     UserView,
     user_answers,

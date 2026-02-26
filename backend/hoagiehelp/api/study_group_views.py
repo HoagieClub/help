@@ -48,7 +48,9 @@ class StudyGroupDetailView(APIView):
         try:
             study_group = StudyGroup.objects.get(id=studygroup_id)
         except StudyGroup.DoesNotExist:
-            return Response({"detail": "Study group not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Study group not found"}, status=status.HTTP_404_NOT_FOUND
+            )
         serializer = StudyGroupSerializer(study_group)
         return Response(serializer.data)
 
@@ -57,7 +59,9 @@ class StudyGroupDetailView(APIView):
         try:
             study_group = StudyGroup.objects.get(id=studygroup_id)
         except StudyGroup.DoesNotExist:
-            return Response({"detail": "Study group not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Study group not found"}, status=status.HTTP_404_NOT_FOUND
+            )
         serializer = StudyGroupSerializer(study_group, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -69,6 +73,8 @@ class StudyGroupDetailView(APIView):
         try:
             study_group = StudyGroup.objects.get(id=studygroup_id)
         except StudyGroup.DoesNotExist:
-            return Response({"detail": "Study group not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Study group not found"}, status=status.HTTP_404_NOT_FOUND
+            )
         study_group.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
