@@ -22,3 +22,5 @@ export type HoagieUser = {
 	name?: string;
 	email?: string;
 };
+
+export type Notification = Answer | Comment;
