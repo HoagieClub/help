@@ -14,8 +14,9 @@ import {
 } from 'evergreen-ui';
 
 import CommentsPanel from '@/components/CommentsPanel';
-import { DEFAULT_MAX_LENGTH } from '@/constants';
 import type { Answer } from '@/types';
+
+const MAX_LENGTH_BEFORE_TRUNCATE = 2000;
 
 interface AnswerBoxProps {
 	answer: Answer;
@@ -44,9 +45,9 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 	const { text, createdAt, hearts, isAnonymous, comments } = answer;
 
 	const displayName = isAnonymous ? 'Anonymous' : answer.user.name || 'Unknown User';
-	const shouldTruncate = text.length > DEFAULT_MAX_LENGTH;
+	const shouldTruncate = text.length > MAX_LENGTH_BEFORE_TRUNCATE;
 	const displayText =
-		isExpanded || !shouldTruncate ? text : text.slice(0, DEFAULT_MAX_LENGTH) + '...';
+		isExpanded || !shouldTruncate ? text : text.slice(0, MAX_LENGTH_BEFORE_TRUNCATE) + '...';
 
 	return (
 		<Pane

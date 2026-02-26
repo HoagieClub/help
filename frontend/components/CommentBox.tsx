@@ -26,8 +26,9 @@ import {
 	useTheme,
 } from 'evergreen-ui';
 
-import { DEFAULT_MAX_LENGTH } from '@/constants';
 import type { Comment } from '@/types';
+
+const MAX_LENGTH_BEFORE_TRUNCATE = 200;
 
 export interface CommentBoxProps {
 	comment: Comment;
@@ -74,11 +75,11 @@ export function CommentBox({ comment, username, showThreadLine }: CommentBoxProp
 	const handleMoreClick = () => alert('More options clicked');
 	const displayName = comment.isAnonymous ? 'Anonymous' : username || 'Unknown User';
 	const isAnonymous = comment.isAnonymous;
-	const shouldTruncate = comment.text.length > DEFAULT_MAX_LENGTH;
+	const shouldTruncate = comment.text.length > MAX_LENGTH_BEFORE_TRUNCATE;
 	const displayText =
 		isExpanded || !shouldTruncate
 			? comment.text
-			: comment.text.slice(0, DEFAULT_MAX_LENGTH) + '...';
+			: comment.text.slice(0, MAX_LENGTH_BEFORE_TRUNCATE) + '...';
 
 	return (
 		<Pane
