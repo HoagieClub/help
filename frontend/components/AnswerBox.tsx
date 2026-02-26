@@ -48,7 +48,9 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 					<Avatar
 						name={displayName}
 						size={32}
-						backgroundColor={isAnonymous ? theme.colors.orange100 : theme.colors.gray300}
+						backgroundColor={
+							isAnonymous ? theme.colors.orange100 : theme.colors.gray300
+						}
 					/>
 					<Pane display='flex' alignItems='center' gap={2} marginTop={majorScale(1)}>
 						<IconButton
