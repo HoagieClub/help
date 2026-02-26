@@ -19,6 +19,20 @@
 
 import React, { useState, useMemo } from 'react';
 
+import {
+	Avatar,
+	Card,
+	ChatIcon,
+	EyeOpenIcon,
+	Heading,
+	HeartIcon,
+	majorScale,
+	Pane,
+	Tab,
+	TabNavigation,
+	Text,
+} from 'evergreen-ui';
+
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
@@ -72,9 +86,9 @@ export interface UserPostsDashboardProps {
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
 
-type Tab = 'questions' | 'answers' | 'comments';
+type TabKey = 'questions' | 'answers' | 'comments';
 
-const TAB_LABELS: Record<Tab, string> = {
+const TAB_LABELS: Record<TabKey, string> = {
 	questions: 'Questions',
 	answers: 'Answers',
 	comments: 'Comments',
@@ -103,89 +117,22 @@ function timeAgo(dateString: string): string {
 	return `${years}y ago`;
 }
 
-function getInitials(name: string): string {
-	return name
-		.split(' ')
-		.map((part) => part[0])
-		.join('')
-		.toUpperCase()
-		.slice(0, 2);
-}
-
-/* ------------------------------------------------------------------ */
-/*  Inline icons (match Post.tsx pattern)                              */
-/* ------------------------------------------------------------------ */
-
-const HeartIcon = () => (
-	<svg
-		xmlns='http://www.w3.org/2000/svg'
-		width='16'
-		height='16'
-		viewBox='0 0 24 24'
-		fill='none'
-		stroke='currentColor'
-		strokeWidth='2'
-		strokeLinecap='round'
-		strokeLinejoin='round'
-		className='h-4 w-4'
-	>
-		<path d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' />
-	</svg>
-);
-
-const MessageCircleIcon = () => (
-	<svg
-		xmlns='http://www.w3.org/2000/svg'
-		width='16'
-		height='16'
-		viewBox='0 0 24 24'
-		fill='none'
-		stroke='currentColor'
-		strokeWidth='2'
-		strokeLinecap='round'
-		strokeLinejoin='round'
-		className='h-4 w-4'
-	>
-		<path d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' />
-	</svg>
-);
-
-const EyeIcon = () => (
-	<svg
-		xmlns='http://www.w3.org/2000/svg'
-		width='16'
-		height='16'
-		viewBox='0 0 24 24'
-		fill='none'
-		stroke='currentColor'
-		strokeWidth='2'
-		strokeLinecap='round'
-		strokeLinejoin='round'
-		className='h-4 w-4'
-	>
-		<path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z' />
-		<circle cx='12' cy='12' r='3' />
-	</svg>
-);
-
 /* ------------------------------------------------------------------ */
 /*  Sub-components                                                     */
 /* ------------------------------------------------------------------ */
 
+const BRAND_COLOR = '#1EA7AE';
+
 function UserAvatar({ user }: { user: UserPostsUser }) {
-	if (user.avatarUrl) {
-		return (
-			<div
-				className='h-20 w-20 shrink-0 rounded-full border-4 border-white bg-gray-200 bg-cover bg-center shadow-sm'
-				style={{ backgroundImage: `url(${user.avatarUrl})` }}
-			/>
-		);
-	}
 
 	return (
-		<div className='flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-4 border-white bg-[#1EA7AE] text-2xl font-bold text-white shadow-sm'>
-			{getInitials(user.name)}
-		</div>
+		<Avatar
+			name={user.name}
+			src={user.avatarUrl}
+			size={80}
+			backgroundColor={BRAND_COLOR}
+			color='white'
+		/>
 	);
 }
 
@@ -197,51 +144,78 @@ function QuestionCard({
 	onClick?: () => void;
 }) {
 	return (
-		<div
-			className='cursor-pointer rounded-lg border border-border bg-card p-5 transition-shadow hover:shadow-md'
+		<Card
+			elevation={0}
+			border='default'
+			borderRadius={8}
+			padding={majorScale(3)}
+			cursor='pointer'
 			onClick={onClick}
 		>
-			<div className='mb-1 flex items-center gap-2 text-xs text-muted-foreground'>
-				<span>Q&A</span>
-				<span>•</span>
-				<span>{timeAgo(question.createdAt)}</span>
-			</div>
+			<Pane display='flex' alignItems='center' gap={majorScale(1)} marginBottom={majorScale(1)}>
+				<Text size={300} color='muted'>
+					Q&A • {timeAgo(question.createdAt)}
+				</Text>
+			</Pane>
 
-			<h3 className='mb-2 text-base font-semibold text-foreground'>{question.title}</h3>
+			<Heading size={500} marginBottom={majorScale(2)}>
+				{question.title}
+			</Heading>
 
 			{question.details && (
-				<p className='mb-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground'>
+				<Text size={400} color='muted' marginBottom={majorScale(3)}>
 					{question.details}
-				</p>
+				</Text>
 			)}
 
-			<div className='mb-3 flex flex-wrap gap-2'>
+			<Pane display='flex' flexWrap='wrap' gap={majorScale(1)} marginBottom={majorScale(3)}>
 				{question.course && (
-					<span className='inline-flex items-center rounded-full bg-[#1EA7AE]/10 px-2.5 py-0.5 text-xs font-medium text-[#1EA7AE]'>
-						{question.course}
-					</span>
+					<Pane
+						display='inline-flex'
+						alignItems='center'
+						paddingX={majorScale(2)}
+						paddingY={majorScale(1)}
+						borderRadius={9999}
+						backgroundColor={`${BRAND_COLOR}1A`}
+					>
+						<Text size={300} color={BRAND_COLOR}>
+							{question.course}
+						</Text>
+					</Pane>
 				)}
 				{question.tags.map((tag, i) => (
-					<span
+					<Pane
 						key={i}
-						className='inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground'
+						display='inline-flex'
+						alignItems='center'
+						paddingX={majorScale(2)}
+						paddingY={majorScale(1)}
+						borderRadius={9999}
+						border='default'
+						backgroundColor='gray50'
 					>
-						{tag}
-					</span>
+						<Text size={300} color='muted'>
+							{tag}
+						</Text>
+					</Pane>
 				))}
-			</div>
+			</Pane>
 
-			<div className='flex items-center gap-4 text-xs text-muted-foreground'>
-				<span className='flex items-center gap-1.5'>
-					<HeartIcon />
-					{question.hearts}
-				</span>
-				<span className='flex items-center gap-1.5'>
-					<EyeIcon />
-					{question.views} {question.views === 1 ? 'view' : 'views'}
-				</span>
-			</div>
-		</div>
+			<Pane display='flex' alignItems='center' gap={majorScale(4)}>
+				<Pane display='flex' alignItems='center' gap={majorScale(1)}>
+					<HeartIcon size={14} color='muted' />
+					<Text size={300} color='muted'>
+						{question.hearts}
+					</Text>
+				</Pane>
+				<Pane display='flex' alignItems='center' gap={majorScale(1)}>
+					<EyeOpenIcon size={14} color='muted' />
+					<Text size={300} color='muted'>
+						{question.views} {question.views === 1 ? 'view' : 'views'}
+					</Text>
+				</Pane>
+			</Pane>
+		</Card>
 	);
 }
 
@@ -253,35 +227,41 @@ function AnswerCard({
 	onClick?: () => void;
 }) {
 	return (
-		<div
-			className='cursor-pointer rounded-lg border border-border bg-card p-5 transition-shadow hover:shadow-md'
+		<Card
+			elevation={0}
+			border='default'
+			borderRadius={8}
+			padding={majorScale(3)}
+			cursor='pointer'
 			onClick={onClick}
 		>
-			<div className='mb-1 flex items-center gap-2 text-xs text-muted-foreground'>
-				<span className='flex items-center gap-1'>
-					<MessageCircleIcon />
-					Answered
-				</span>
-				<span>•</span>
-				<span>{timeAgo(answer.createdAt)}</span>
-			</div>
+			<Pane display='flex' alignItems='center' gap={majorScale(1)} marginBottom={majorScale(1)}>
+				<ChatIcon size={14} color='muted' />
+				<Text size={300} color='muted'>
+					Answered • {timeAgo(answer.createdAt)}
+				</Text>
+			</Pane>
 
-			<p className='mb-2 text-xs text-muted-foreground'>
-				Re:{' '}
-				<span className='font-medium text-foreground'>{answer.questionTitle}</span>
-			</p>
+			<Pane marginBottom={majorScale(2)} display='flex' flexWrap='wrap' alignItems='baseline'>
+				<Text size={300} color='muted'>
+					Re:{' '}
+				</Text>
+				<Text size={300} fontWeight={500}>
+					{answer.questionTitle}
+				</Text>
+			</Pane>
 
-			<p className='mb-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground'>
+			<Text size={400} color='muted' marginBottom={majorScale(3)}>
 				{answer.text}
-			</p>
+			</Text>
 
-			<div className='flex items-center gap-4 text-xs text-muted-foreground'>
-				<span className='flex items-center gap-1.5'>
-					<HeartIcon />
+			<Pane display='flex' alignItems='center' gap={majorScale(1)}>
+				<HeartIcon size={14} color='muted' />
+				<Text size={300} color='muted'>
 					{answer.hearts}
-				</span>
-			</div>
-		</div>
+				</Text>
+			</Pane>
+		</Card>
 	);
 }
 
@@ -293,35 +273,41 @@ function CommentCard({
 	onClick?: () => void;
 }) {
 	return (
-		<div
-			className='cursor-pointer rounded-lg border border-border bg-card p-5 transition-shadow hover:shadow-md'
+		<Card
+			elevation={0}
+			border='default'
+			borderRadius={8}
+			padding={majorScale(3)}
+			cursor='pointer'
 			onClick={onClick}
 		>
-			<div className='mb-1 flex items-center gap-2 text-xs text-muted-foreground'>
-				<span className='flex items-center gap-1'>
-					<MessageCircleIcon />
-					Commented
-				</span>
-				<span>•</span>
-				<span>{timeAgo(comment.createdAt)}</span>
-			</div>
+			<Pane display='flex' alignItems='center' gap={majorScale(1)} marginBottom={majorScale(1)}>
+				<ChatIcon size={14} color='muted' />
+				<Text size={300} color='muted'>
+					Commented • {timeAgo(comment.createdAt)}
+				</Text>
+			</Pane>
 
-			<p className='mb-2 text-xs text-muted-foreground'>
-				Re:{' '}
-				<span className='font-medium text-foreground'>{comment.questionTitle}</span>
-			</p>
+			<Pane marginBottom={majorScale(2)} display='flex' flexWrap='wrap' alignItems='baseline'>
+				<Text size={300} color='muted'>
+					Re:{' '}
+				</Text>
+				<Text size={300} fontWeight={500}>
+					{comment.questionTitle}
+				</Text>
+			</Pane>
 
-			<p className='mb-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground'>
+			<Text size={400} color='muted' marginBottom={majorScale(3)}>
 				{comment.text}
-			</p>
+			</Text>
 
-			<div className='flex items-center gap-4 text-xs text-muted-foreground'>
-				<span className='flex items-center gap-1.5'>
-					<HeartIcon />
+			<Pane display='flex' alignItems='center' gap={majorScale(1)}>
+				<HeartIcon size={14} color='muted' />
+				<Text size={300} color='muted'>
 					{comment.hearts}
-				</span>
-			</div>
-		</div>
+				</Text>
+			</Pane>
+		</Card>
 	);
 }
 
@@ -337,9 +323,9 @@ export function UserPostsDashboard({
 	onQuestionClick,
 	onAnswerClick,
 }: UserPostsDashboardProps) {
-	const [activeTab, setActiveTab] = useState<Tab>('questions');
+	const [activeTab, setActiveTab] = useState<TabKey>('questions');
 
-	const counts: Record<Tab, number> = useMemo(
+	const counts: Record<TabKey, number> = useMemo(
 		() => ({
 			questions: questions.length,
 			answers: answers.length,
@@ -351,50 +337,42 @@ export function UserPostsDashboard({
 	const totalPosts = counts.questions + counts.answers + counts.comments;
 
 	return (
-		<div className='mx-auto w-full max-w-3xl px-4 py-8'>
+		<Pane maxWidth={majorScale(60)} marginX='auto' paddingX={majorScale(4)} paddingY={majorScale(6)}>
 			{/* ---- Profile header ---- */}
-			<div className='mb-8 flex items-center gap-5'>
+			<Pane display='flex' alignItems='center' gap={majorScale(5)} marginBottom={majorScale(6)}>
 				<UserAvatar user={user} />
-				<div>
-					<h1 className='text-2xl font-bold text-foreground'>{user.name}</h1>
+				<Pane>
+					<Heading size={700}>{user.name}</Heading>
 					{user.email && (
-						<p className='mt-0.5 text-sm text-muted-foreground'>{user.email}</p>
+						<Text size={400} color='muted' marginTop={2}>
+							{user.email}
+						</Text>
 					)}
-					<p className='mt-1 text-xs text-muted-foreground'>
+					<Text size={300} color='muted' marginTop={4}>
 						{totalPosts} {totalPosts === 1 ? 'post' : 'posts'} in Q&A
 						{user.classYear ? ` · Class of ${user.classYear}` : ''}
-					</p>
-				</div>
-			</div>
+					</Text>
+				</Pane>
+			</Pane>
 
 			{/* ---- Tab navigation ---- */}
-			<div className='mb-6 flex gap-1 border-b border-border'>
-				{(Object.keys(TAB_LABELS) as Tab[]).map((tab) => (
-					<button
+			<TabNavigation marginBottom={majorScale(4)}>
+				{(Object.keys(TAB_LABELS) as TabKey[]).map((tab) => (
+					<Tab
 						key={tab}
-						type='button'
-						onClick={() => setActiveTab(tab)}
-						className={`relative px-4 py-2.5 text-sm font-medium transition-colors ${
-							activeTab === tab
-								? 'text-[#1EA7AE]'
-								: 'text-muted-foreground hover:text-foreground'
-						}`}
+						id={tab}
+						isSelected={activeTab === tab}
+						appearance='primary'
+						onSelect={() => setActiveTab(tab)}
+						fontSize={14}
 					>
-						{TAB_LABELS[tab]}
-						<span className='ml-1.5 text-xs text-muted-foreground'>
-							{counts[tab]}
-						</span>
-
-						{/* Active indicator */}
-						{activeTab === tab && (
-							<span className='absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-[#1EA7AE]' />
-						)}
-					</button>
+						{TAB_LABELS[tab]} ({counts[tab]})
+					</Tab>
 				))}
-			</div>
+			</TabNavigation>
 
 			{/* ---- Feed ---- */}
-			<div className='flex flex-col gap-4'>
+			<Pane display='flex' flexDirection='column' gap={majorScale(4)}>
 				{activeTab === 'questions' &&
 					(questions.length > 0 ? (
 						questions.map((q) => (
@@ -429,22 +407,40 @@ export function UserPostsDashboard({
 					) : (
 						<EmptyState label='comments' />
 					))}
-			</div>
-		</div>
+			</Pane>
+		</Pane>
 	);
 }
 
 function EmptyState({ label }: { label: string }) {
 	return (
-		<div className='flex flex-col items-center justify-center py-16 text-center'>
-			<div className='mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-secondary'>
-				<MessageCircleIcon />
-			</div>
-			<p className='text-sm font-medium text-foreground'>No {label} yet</p>
-			<p className='mt-1 text-xs text-muted-foreground'>
+		<Pane
+			display='flex'
+			flexDirection='column'
+			alignItems='center'
+			justifyContent='center'
+			paddingY={majorScale(8)}
+			textAlign='center'
+		>
+			<Pane
+				marginBottom={majorScale(3)}
+				display='flex'
+				alignItems='center'
+				justifyContent='center'
+				width={majorScale(6)}
+				height={majorScale(6)}
+				borderRadius={9999}
+				backgroundColor='gray100'
+			>
+				<ChatIcon size={24} color='muted' />
+			</Pane>
+			<Text size={400} fontWeight={500}>
+				No {label} yet
+			</Text>
+			<Text size={300} color='muted' marginTop={4}>
 				Posts you make in Q&A will show up here.
-			</p>
-		</div>
+			</Text>
+		</Pane>
 	);
 }
 
