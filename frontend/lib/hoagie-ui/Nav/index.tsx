@@ -148,7 +148,6 @@ export function Nav({
 									isSelected={pathname === tab.href}
 									appearance='primary'
 									onSelect={() => router.push(tab.href)}
-									// fontSize={14}
 								>
 									{tab.title}
 								</Tab>
@@ -160,7 +159,7 @@ export function Nav({
 							justifyContent='center'
 							marginLeft={majorScale(4)}
 							cursor='pointer'
-							onClick={() => alert("Notifications clicked!")}
+							onClick={() => alert('Notifications clicked!')}
 						>
 							<NotificationsIcon
 								fontSize='medium'
