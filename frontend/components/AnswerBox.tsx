@@ -2,7 +2,16 @@
 
 import { useState } from 'react';
 
-import { Avatar, Button, HeartIcon, IconButton, majorScale, Pane, Text, useTheme } from 'evergreen-ui';
+import {
+	Avatar,
+	Button,
+	HeartIcon,
+	IconButton,
+	majorScale,
+	Pane,
+	Text,
+	useTheme,
+} from 'evergreen-ui';
 
 import CommentsPanel from '@/components/CommentsPanel';
 import { DEFAULT_MAX_LENGTH } from '@/constants';
@@ -36,13 +45,15 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 
 	const displayName = isAnonymous ? 'Anonymous' : answer.user.name || 'Unknown User';
 	const shouldTruncate = text.length > DEFAULT_MAX_LENGTH;
-	const displayText = isExpanded || !shouldTruncate ? text : text.slice(0, DEFAULT_MAX_LENGTH) + '...';
+	const displayText =
+		isExpanded || !shouldTruncate ? text : text.slice(0, DEFAULT_MAX_LENGTH) + '...';
 
 	return (
 		<Pane
 			display='flex'
 			flexDirection='column'
-			width='70rem'
+			width='100%'
+			maxWidth='70rem'
 			marginX='auto'
 			marginBottom={majorScale(4)}
 			paddingY={majorScale(3)}
@@ -89,7 +100,8 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 					</Pane>
 
 					<Text
-						wordWrap='break-word'
+						whiteSpace='pre-wrap'
+						wordBreak='break-word'
 						fontSize='1rem'
 						fontWeight={400}
 						color='#000000'
