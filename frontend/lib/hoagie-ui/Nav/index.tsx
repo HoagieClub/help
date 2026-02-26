@@ -102,7 +102,7 @@ export function Nav({
 					height='100%'
 					maxWidth={1200}
 					paddingX={majorScale(5)}
-					fontSize={25}
+					fontSize={18}
 				>
 					<Link href='/'>
 						<Pane cursor='pointer' position='relative'>
@@ -148,7 +148,7 @@ export function Nav({
 									isSelected={pathname === tab.href}
 									appearance='primary'
 									onSelect={() => router.push(tab.href)}
-									fontSize={14}
+									// fontSize={14}
 								>
 									{tab.title}
 								</Tab>
