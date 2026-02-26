@@ -1,8 +1,11 @@
 'use client';
 
-import { Avatar, HeartIcon, IconButton, majorScale, Pane, Text, useTheme } from 'evergreen-ui';
+import { useState } from 'react';
+
+import { Avatar, Button, HeartIcon, IconButton, majorScale, Pane, Text, useTheme } from 'evergreen-ui';
 
 import CommentsPanel from '@/components/CommentsPanel';
+import { DEFAULT_MAX_LENGTH } from '@/constants';
 import type { Answer } from '@/types';
 
 interface AnswerBoxProps {
@@ -28,9 +31,12 @@ function formatTimePassed(input: Date | string | number): string {
 
 const AnswerBox = ({ answer }: AnswerBoxProps) => {
 	const theme = useTheme();
+	const [isExpanded, setIsExpanded] = useState(false);
 	const { text, createdAt, hearts, isAnonymous, comments } = answer;
 
 	const displayName = isAnonymous ? 'Anonymous' : answer.user.name || 'Unknown User';
+	const shouldTruncate = text.length > DEFAULT_MAX_LENGTH;
+	const displayText = isExpanded || !shouldTruncate ? text : text.slice(0, DEFAULT_MAX_LENGTH) + '...';
 
 	return (
 		<Pane
@@ -89,8 +95,19 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 						color='#000000'
 						lineHeight={1.5}
 					>
-						{text}
+						{displayText}
 					</Text>
+
+					{shouldTruncate && (
+						<Button
+							appearance='minimal'
+							height={24}
+							paddingX={0}
+							onClick={() => setIsExpanded(!isExpanded)}
+						>
+							{isExpanded ? 'Read less' : 'Read more'}
+						</Button>
+					)}
 				</Pane>
 			</Pane>
 

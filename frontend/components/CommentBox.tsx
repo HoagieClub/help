@@ -26,6 +26,7 @@ import {
 	useTheme,
 } from 'evergreen-ui';
 
+import { DEFAULT_MAX_LENGTH } from '@/constants';
 import type { Comment } from '@/types';
 
 export interface CommentBoxProps {
@@ -60,8 +61,6 @@ function formatDate(dateString: string): string {
 	const diffInYears = Math.floor(diffInMonths / 12);
 	return `${diffInYears}yr`;
 }
-
-const DEFAULT_MAX_LENGTH = 200;
 
 export function CommentBox({ comment, username, showThreadLine }: CommentBoxProps) {
 	const theme = useTheme();
