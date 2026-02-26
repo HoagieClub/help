@@ -15,6 +15,7 @@
 import { type ComponentType } from 'react';
 
 import { type User } from '@auth0/nextjs-auth0/types';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
 	Avatar,
 	majorScale,
@@ -153,6 +154,20 @@ export function Nav({
 								</Tab>
 							))}
 						</TabNavigation>
+						<Pane
+							display='flex'
+							alignItems='center'
+							justifyContent='center'
+							marginLeft={majorScale(4)}
+							cursor='pointer'
+							onClick={() => alert("Notifications clicked!")}
+						>
+							<NotificationsIcon
+								fontSize='medium'
+								style={{ color: theme.colors.blue500 }}
+								titleAccess='Open Notifications'
+							/>
+						</Pane>
 						{user && (
 							<Popover
 								content={<ProfileCard user={user} />}
