@@ -27,6 +27,10 @@ from hoagiehelp.api.user_views import (
     user_comments,
     user_questions,
 )
+from hoagiehelp.api.notification_views import (
+    get_notifications,
+    NotificationView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -65,4 +69,15 @@ urlpatterns = [
     path("users/<str:user_id>/questions/", user_questions, name="user-questions"),
     path("users/<str:user_id>/answers/", user_answers, name="user-answers"),
     path("users/<str:user_id>/comments/", user_comments, name="user-comments"),
+    # Notifications
+    path(
+        "notifications/<str:user_id>/", 
+        get_notifications, 
+        name="get-notifications"
+    ),
+    path(
+        "notifications/<str:user_id>/<str:notification_id>/",
+        NotificationView.as_view(),
+        name="notification-detail",
+    ),
 ]
