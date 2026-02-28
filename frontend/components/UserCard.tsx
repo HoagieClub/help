@@ -1,7 +1,6 @@
 'use client';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
 import { Text, Card, majorScale, minorScale, Pane } from 'evergreen-ui';
 
 type UserCardProps = {
