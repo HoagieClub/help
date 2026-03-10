@@ -76,7 +76,7 @@ export function RootLayout({
 	children: ReactNode;
 }>) {
 	return (
-		<html lang='en' className='bg-hoagie-teal'>
+		<html lang='en' className='bg-hoagie-red'>
 			<head>
 				<script
 					dangerouslySetInnerHTML={{

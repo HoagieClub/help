@@ -217,7 +217,7 @@ export function App() {
 						marginBottom={majorScale(4)}
 					>
 						Meet the{' '}
-						<Text size={900} fontSize='3rem' color={theme.colors.blue500}>
+						<Text size={900} fontSize='3rem' color={theme.colors.red500}>
 							HoagieHelp
 						</Text>{' '}
 						Team
@@ -247,7 +247,7 @@ export function App() {
 										width={128}
 										height={128}
 										borderRadius='50%'
-										border={`4px solid ${theme.colors.blue200}`}
+										border={`4px solid ${theme.colors.red300}`}
 										boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
 										overflow='hidden'
 									>
