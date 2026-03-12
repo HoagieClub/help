@@ -318,19 +318,24 @@ export const hoagieHelp = mergeTheme(hoagieUI, {
 				primary: {
 					...hoagieUI.components.Tab.appearances.primary,
 
-					color: '#d33b3bff',
-
-					// Use pseudoSelectors instead of _hover
-					pseudoSelectors: {
+					// selectors
+					selectors: {
+						...hoagieUI.components.Tab.appearances.primary.selectors,
+						_before: {
+							...hoagieUI.components.Tab.appearances.primary.selectors?._before,
+							backgroundColor: '#d33b3bff',
+						},
 						_hover: {
 							color: '#6f0303ff',
 						},
-						_active: {
-							color: '#c83b3bff',
-						},
 						_current: {
 							color: '#c83b3bff',
-							fontWeight: '500', // Use string instead of number
+							'&:before': {
+								transform: 'scaleY(1)',
+							},
+							'&:focus': {
+								color: '#c83b3bff',
+							},
 						},
 					},
 				},
