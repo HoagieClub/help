@@ -2,7 +2,17 @@
 
 import React, { useState } from 'react';
 
-import { ArrowLeftIcon, Button, Heading, Pane, Text, Textarea, majorScale } from 'evergreen-ui';
+import {
+	ArrowLeftIcon,
+	Button,
+	Heading,
+	Pane,
+	SelectMenu,
+	Text,
+	TextInput,
+	Textarea,
+	majorScale,
+} from 'evergreen-ui';
 import { useRouter } from 'next/navigation';
 
 interface FormState {
@@ -19,6 +29,13 @@ const initialFormState: FormState = {
 	questionDetails: '',
 };
 
+const CATEGORY_OPTIONS = [
+	{ label: 'Assignments and PSETs', value: 'Assignments and PSETs' },
+	{ label: 'Exam Prep', value: 'Exam Prep' },
+	{ label: 'Resource Recommendations', value: 'Resource Recommendations' },
+	{ label: 'Other', value: 'Other' },
+];
+
 export default function AskQuestion(): React.ReactElement {
 	const router = useRouter();
 	const [form, setForm] = useState<FormState>(initialFormState);
@@ -30,10 +47,6 @@ export default function AskQuestion(): React.ReactElement {
 			...prevForm,
 			[name]: value,
 		}));
-	};
-
-	const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setForm((prev) => ({ ...prev, category: e.target.value }));
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -108,36 +121,32 @@ export default function AskQuestion(): React.ReactElement {
 							<label className='block text-sm font-semibold mb-1'>
 								Question Title
 							</label>
-							<input
+							<TextInput
 								name='questionTitle'
 								value={form.questionTitle}
 								onChange={handleChange}
 								required
 								placeholder='e.g. How do I approach the graph algorithms in COS 226?'
-								className='w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent'
+								width='100%'
 							/>
 						</div>
 
 						{/* Category */}
 						<div>
 							<label className='block text-sm font-semibold mb-1'>Category</label>
-							<select
-								name='category'
-								value={form.category}
-								onChange={handleCategoryChange}
-								required
-								className='w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent'
+							<SelectMenu
+								options={CATEGORY_OPTIONS}
+								selected={form.category}
+								onSelect={(item) =>
+									setForm((prev) => ({ ...prev, category: item.value as string }))
+								}
+								hasTitle={false}
+								hasFilter={false}
 							>
-								<option value='' disabled>
-									Select a category
-								</option>
-								<option value='Assignments and PSETs'>Assignments and PSETs</option>
-								<option value='Exam Prep'>Exam Prep</option>
-								<option value='Resource Recommendations'>
-									Resource Recommendations
-								</option>
-								<option value='Other'>Other</option>
-							</select>
+								<Button type='button' width='100%'>
+									{form.category || 'Select a category'}
+								</Button>
+							</SelectMenu>
 						</div>
 
 						{/* Course */}
@@ -145,12 +154,12 @@ export default function AskQuestion(): React.ReactElement {
 							<label className='block text-sm font-semibold mb-1'>
 								Course (Optional)
 							</label>
-							<input
+							<TextInput
 								name='course'
 								value={form.course}
 								onChange={handleChange}
 								placeholder='e.g. COS 226'
-								className='w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent'
+								width='100%'
 							/>
 						</div>
 
@@ -165,7 +174,6 @@ export default function AskQuestion(): React.ReactElement {
 								rows={6}
 								width='100%'
 								placeholder='Provide more details about your question...'
-								className='w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent'
 								style={{ borderRadius: 6, fontSize: '14px', resize: 'vertical' }}
 							/>
 							<Text size={300} color='muted' marginTop={4} display='block'>
@@ -175,19 +183,12 @@ export default function AskQuestion(): React.ReactElement {
 
 						{/* Buttons */}
 						<div className='flex gap-3 mt-2'>
-							<button
-								type='submit'
-								className='flex-1 rounded-md bg-red-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-600 transition-colors'
-							>
+							<Button type='submit' appearance='primary' flex={1}>
 								Post Question
-							</button>
-							<button
-								type='button'
-								onClick={handleCancel}
-								className='rounded-md border border-gray-300 bg-white px-6 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors'
-							>
+							</Button>
+							<Button type='button' onClick={handleCancel}>
 								Cancel
-							</button>
+							</Button>
 						</div>
 					</form>
 				)}
