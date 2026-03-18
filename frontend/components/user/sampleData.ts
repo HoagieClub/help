@@ -1,0 +1,72 @@
+import type { UserPostsProps } from './sampleTypes';
+
+export const SAMPLE_USER_POSTS_PROPS: UserPostsProps = {
+	user: {
+		name: 'John Doe',
+		email: 'jd4323@princeton.edu',
+		postsCount: 7,
+		classYear: 2026,
+		major: 'Computer Science',
+	},
+	questions: [
+		{
+			id: 1,
+			title: 'Best strategies for COS226 midterm prep?',
+			body: "I have my midterm coming up in two weeks and I'm looking for effective study strategies. Has anyone found particular resources or practice problems that helped them the most?",
+			type: 'Q&A',
+			course: 'COS 226',
+			tags: ['exam prep', 'study tips'],
+			hearts: 12,
+			views: 45,
+			createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
+		},
+		{
+			id: 2,
+			title: 'How to cite sources in ORF 245 final paper?',
+			body: "The professor mentioned APA format but I'm not sure if that applies to the statistical appendix as well. Any guidance from people who took this last semester?",
+			type: 'Q&A',
+			course: 'ORF 245',
+			tags: ['citation'],
+			hearts: 5,
+			views: 31,
+			createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(),
+		},
+		{
+			id: 3,
+			title: 'Should I take MAE 305 or ORF 309?',
+			body: "I need to complete my upper-level math requirement but I'm not sure if I should take MAE 305 or ORF 309. Any advice from people who have taken either/both? How difficult are the PSETs?",
+			type: 'Q&A',
+			course: 'MAE 305',
+			tags: ['course selection'],
+			hearts: 8,
+			views: 22,
+			createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(),
+		},
+	],
+	answers: [
+		{
+			id: 4,
+			title: 'Re: Best resources for COS 333 final project?',
+			body: 'I used the Princeton CS GitHub repos for reference. There are a lot of good examples from previous semesters that can help you understand the scope expected.',
+			type: 'Q&A',
+			course: 'COS 333',
+			tags: ['project', 'resources'],
+			hearts: 3,
+			views: 0,
+			createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1).toISOString(),
+		},
+	],
+	comments: [
+		{
+			id: 5,
+			title: 'Re: Tips for surviving junior fall?',
+			body: 'Make sure to take advantage of office hours early and often — professors are much more helpful before the deadline crunch.',
+			type: 'Q&A',
+			course: undefined,
+			tags: ['advice'],
+			hearts: 2,
+			views: 0,
+			createdAt: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(),
+		},
+	],
+};
