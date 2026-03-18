@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Avatar, Heading, majorScale, minorScale, Pane, Text } from 'evergreen-ui';
 
 import PostCard from './PostCard';
+
 import type { UserPost, UserPostsProps } from './sampleTypes';
 
 const TABS = ['Questions', 'Answers', 'Comments'] as const;
