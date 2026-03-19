@@ -25,8 +25,8 @@ export default function AnswerPanel(props: AnswerPanelProps) {
 			</Pane>
 			{/* Answers list */}
 			<Pane marginBottom={majorScale(2)}>
-				{props.answers.map((answer, index) => (
-					<AnswerBox key={index} answer={answer} />
+{props.answers.map((answer) => (
+				<AnswerBox key={answer.id} answer={answer} />
 				))}
 			</Pane>
 		</Pane>
