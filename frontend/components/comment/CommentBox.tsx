@@ -45,15 +45,8 @@ export function CommentBox({ comment, username, showThreadLine }: CommentBoxProp
 
 	const handleHeartClick = async () => {
 		setIsLiked((prev) => !prev);
-
-		// TODO: update implementation based on backend endpoint contract
-		// Option A - keep as is (backend infers toggle from repeated POST)
-		// Option B - toggle via body: body: JSON.stringify({ liked: !isLiked })
-		// Option C - toggle via method: method: isLiked ? 'DELETE' : 'POST'
 		try {
-			await fetch(`/api/comments/${comment.id}/heart`, {
-				method: 'POST', 
-			});
+			heart_response(username, comment.id); // TODO: align with implementation of heart_response();
 		} catch (error) {
 			setIsLiked((prev) => !prev);
 			console.error('Error hearting comment:', error);
