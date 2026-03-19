@@ -11,6 +11,7 @@
  */
 
 import 'evergreen-ui';
+import { NumberLiteralType } from 'typescript';
 
 declare module 'evergreen-ui' {
 	interface DefaultTheme {
@@ -46,4 +47,12 @@ export type Comment = {
 	updatedAt: string;
 };
 
-export type Notification = Answer | Comment;
+export type Notification = {
+	id: number;
+	user: HoagieUser;
+	question: number;
+	answer: number;
+	comment: number | null;
+	isRead: boolean;
+	createdAt: string;
+};
