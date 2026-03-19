@@ -10,8 +10,6 @@ import styles from './NotificationPanel.module.css';
 
 import type { IconType } from 'react-icons';
 
-
-
 const MAX_NOTIFICATIONS = 4;
 
 type NotificationType = 'answer' | 'comment';
