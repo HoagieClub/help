@@ -1,12 +1,16 @@
-import { Pane, Heading, Button, Text, Icon } from 'evergreen-ui';
+import { Pane, Heading, Button, Text } from 'evergreen-ui';
 import { MdOutlineQuestionAnswer, MdQuestionAnswer } from 'react-icons/md';
-import { IconType } from 'react-icons';
 
-import type { Notification } from '@/types';
 import { getQuestionDetails } from '@/api/questionService';
+import type { Notification } from '@/types';
+
+import { formatTimePassed } from '../utils';
 
 import styles from './NotificationPanel.module.css';
-import { formatTimePassed } from '../utils';
+
+import type { IconType } from 'react-icons';
+
+
 
 const MAX_NOTIFICATIONS = 4;
 

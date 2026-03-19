@@ -11,7 +11,6 @@
  */
 
 import 'evergreen-ui';
-import { NumberLiteralType } from 'typescript';
 
 declare module 'evergreen-ui' {
 	interface DefaultTheme {
