@@ -26,7 +26,7 @@ class Heart(models.Model):
             raise ValidationError("Heart must belong to a question, answer, or comment.")
 
         # If more than one is filled, throw a validation error
-        else if is_present > 1:
+        elif is_present > 1:
             raise ValidationError("Heart must belong to a question, answer, or comment exclusively.")
 
     def __str__(self):
