@@ -2,8 +2,6 @@ import { z } from 'zod';
 
 import { HttpRequestType, buildRequest } from './common';
 
-const HEARTS_URL = `${process.env.BACKEND}/hearts/`; // base URL for hearts
-
 const HeartSchema = z.object({
 	// Define the schema based on the backend model
 	user: z.number(),
@@ -19,7 +17,7 @@ type Heart = z.infer<typeof HeartSchema>;
 export async function heartQuestion(questionId: string): Promise<Heart | null> {
 	try {
 		const response = await fetch(
-			`${HEARTS_URL}/questions/${encodeURIComponent(questionId)}/`,
+			`questions/${encodeURIComponent(questionId)}/heart`,
 			buildRequest(HttpRequestType.POST)
 		);
 		if (!response.ok) {
@@ -39,7 +37,7 @@ export async function heartQuestion(questionId: string): Promise<Heart | null> {
 export async function heartAnswer(answerId: string): Promise<Heart | null> {
 	try {
 		const response = await fetch(
-			`${HEARTS_URL}/questions/${encodeURIComponent(answerId)}/`,
+			`answers/${encodeURIComponent(answerId)}/heart`,
 			buildRequest(HttpRequestType.POST)
 		);
 		if (!response.ok) {
@@ -59,7 +57,7 @@ export async function heartAnswer(answerId: string): Promise<Heart | null> {
 export async function heartComment(commentId: string): Promise<Heart | null> {
 	try {
 		const response = await fetch(
-			`${HEARTS_URL}/comments/${encodeURIComponent(commentId)}/`,
+			`comments/${encodeURIComponent(commentId)}/heart`,
 			buildRequest(HttpRequestType.POST)
 		);
 		if (!response.ok) {
