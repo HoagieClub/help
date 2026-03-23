@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class Heart(models.Model):
     """Represents a like on a question, answer, or comment"""
