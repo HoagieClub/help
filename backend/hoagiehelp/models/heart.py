@@ -12,6 +12,11 @@ class Heart(models.Model):
 
     class Meta:
         db_table = 'Heart'
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'question'], condition=models.Q(question__isnull=False), name='unique_heart_question'),
+            models.UniqueConstraint(fields=['user', 'answer'], condition=models.Q(answer__isnull=False), name='unique_heart_answer'),
+            models.UniqueConstraint(fields=['user', 'comment'], condition=models.Q(comment__isnull=False), name='unique_heart_comment'),
+        ]
 
     def clean(self):
         # Count number of present "belonging to" fields
