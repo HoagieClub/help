@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.exceptions import ValidationError
 
 class Heart(models.Model):
     """Represents a like on a question, answer, or comment"""
@@ -16,24 +15,15 @@ class Heart(models.Model):
             models.UniqueConstraint(fields=['user', 'question'], condition=models.Q(question__isnull=False), name='unique_heart_question'),
             models.UniqueConstraint(fields=['user', 'answer'], condition=models.Q(answer__isnull=False), name='unique_heart_answer'),
             models.UniqueConstraint(fields=['user', 'comment'], condition=models.Q(comment__isnull=False), name='unique_heart_comment'),
+            models.CheckConstraint(
+                condition=(
+                    models.Q(question__isnull=False, answer__isnull=True, comment__isnull=True) |
+                    models.Q(question__isnull=True, answer__isnull=False, comment__isnull=True) |
+                    models.Q(question__isnull=True, answer__isnull=True, comment__isnull=False)
+                ),
+                name='heart_exactly_one_target',
+            ),
         ]
-
-    def clean(self):
-        # Count number of present "belonging to" fields
-        present_fields = [
-            self.question,
-            self.answer,
-            self.comment,
-        ]
-        is_present = sum(1 for field in present_fields if field is not None and field != "")
-
-        # If none are filled, throw a validation error
-        if is_present == 0:
-            raise ValidationError("Heart must belong to a question, answer, or comment.")
-
-        # If more than one is filled, throw a validation error
-        elif is_present > 1:
-            raise ValidationError("Heart must belong to a question, answer, or comment exclusively.")
 
     def __str__(self):
         # Point heart to question, answer, or comment to which it pertains
