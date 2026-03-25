@@ -71,12 +71,12 @@ urlpatterns = [
     path("users/<str:user_id>/comments/", user_comments, name="user-comments"),
     # Notifications
     path(
-        "notifications/<str:user_id>/", 
+        "notifications/", 
         get_notifications, 
         name="get-notifications"
     ),
     path(
-        "notifications/<str:user_id>/<str:notification_id>/",
+        "notifications/<str:notification_id>/",
         NotificationView.as_view(),
         name="notification-detail",
     ),
