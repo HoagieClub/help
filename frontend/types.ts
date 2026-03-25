@@ -22,3 +22,26 @@ export type HoagieUser = {
 	name?: string;
 	email?: string;
 };
+
+export type Answer = {
+	id: number;
+	question: number;
+	user: HoagieUser;
+	text: string;
+	hearts: number;
+	isAnonymous: boolean;
+	createdAt: string;
+	updatedAt: string;
+	comments: Comment[];
+};
+
+export type Comment = {
+	id: number;
+	answer: number;
+	user: HoagieUser;
+	text: string;
+	hearts: number;
+	isAnonymous: boolean;
+	createdAt: string;
+	updatedAt: string;
+};
