@@ -59,7 +59,7 @@ class HeartView(APIView):
             return Response({"hearts": answer.hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
 
     @transaction.atomic
-    def heart_response(self, request, comment_id: int):
+    def heart_comment(self, request, comment_id: int):
         net_id = request.user.net_id
         user_obj = get_object_or_404(CustomUser, net_id=net_id)
         comment = get_object_or_404(Comment, id=comment_id)
