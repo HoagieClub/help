@@ -29,12 +29,10 @@ class NotificationSerializer(serializers.ModelSerializer):
 class NotificationView(APIView):
     """Handle collection operations for notifications."""
 
-    def get(self, request) -> Response:
-        """List all notifications for a given user."""
-        user = request.user
-        queryset = Notification.objects.filter(user=user).order_by("-created_at")
-
-        serializer = NotificationSerializer(queryset, many=True)
+    def get(self, request, notification_id: str) -> Response:
+        """Retrieve specific notification for a given user."""
+        notification = get_object_or_404(Notification, id=notification_id, user=request.user)
+        serializer = NotificationSerializer(notification)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, notification_id=None) -> Response:
