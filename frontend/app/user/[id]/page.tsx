@@ -5,8 +5,6 @@ import { Heading, Pane, majorScale } from 'evergreen-ui';
 import UserCard from '../../../components/UserCard';
 import { useParams } from '../../../node_modules/next/navigation'; // Import useParams from next/navigation
 
-
-
 const MOCK_USER = {
 	net_id: 'jsmith',
 	class_year: 2026,
