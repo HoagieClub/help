@@ -6,7 +6,7 @@ import UserCard from '../../../components/UserCard';
 import { useParams } from '../../../node_modules/next/navigation'; // Import useParams from next/navigation
 
 
-// Temporary mock — replace with a real fetch once your API is wired up
+
 const MOCK_USER = {
 	net_id: 'jsmith',
 	class_year: 2026,
@@ -18,11 +18,7 @@ export default function UserPage() {
 	const { id } = useParams<{ id: string }>();
 
 	return (
-		<Pane
-			marginX='auto'
-			paddingX={majorScale(16)}
-			marginTop={majorScale(8)}
-		>
+		<Pane marginX='auto' paddingX={majorScale(16)} marginTop={majorScale(8)}>
 			<Heading size={900} marginBottom={majorScale(1)} fontWeight={1000}>
 				User Profile
 			</Heading>
