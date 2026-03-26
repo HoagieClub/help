@@ -15,7 +15,7 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
-import { Button, Heading, Pane, Text, TextInputField, majorScale } from 'evergreen-ui';
+import { Button, Heading, Pane, Text, TextInputField, majorScale, useTheme } from 'evergreen-ui';
 import Link from 'next/link';
 
 /**
@@ -30,6 +30,7 @@ export function StudyGroups() {
 	/**
 	 * Handles the input field which can perform queries
 	 */
+	const theme = useTheme();
 	const [inputValue, setInputValue] = useState('');
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value);
@@ -61,19 +62,32 @@ export function StudyGroups() {
 
 			<TextInputField placeholder='Type here...' value={inputValue} onChange={handleChange} />
 
-			<Button
-				appearance='primary'
-				onClick={handleSubmit}
-				width='100%'
-				marginBottom={majorScale(2)}
-			>
-				Find Study Groups
-			</Button>
-			<Link href='/study-groups/form'>
-				<Button appearance='primary' marginBottom={majorScale(2)}>
-					Create Study Group
-				</Button>
-			</Link>
+			<Pane display='flex' gap={majorScale(2)} marginBottom={majorScale(2)}>
+				<Pane flex={1}>
+					<Button
+						appearance='primary'
+						backgroundColor={theme.colors.red500}
+						onClick={handleSubmit}
+						width='100%'
+						color='black'
+					>
+						Find Study Groups
+					</Button>
+				</Pane>
+
+				<Pane flex={1}>
+					<Link href='/study-groups/form'>
+						<Button
+							appearance='primary'
+							backgroundColor={theme.colors.red500}
+							width='100%'
+							color='black'
+						>
+							Create Study Group
+						</Button>
+					</Link>
+				</Pane>
+			</Pane>
 		</Pane>
 	);
 }

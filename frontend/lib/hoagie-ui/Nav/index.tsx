@@ -85,7 +85,7 @@ export function Nav({
 			{HeaderComponent ? (
 				<HeaderComponent />
 			) : (
-				<Pane width='100%' height={20} background={theme.colors.blue500} />
+				<Pane width='100%' height={20} background={theme.colors.red500} />
 			)}
 			<Pane
 				display='flex'
@@ -122,7 +122,7 @@ export function Nav({
 										is='h2'
 										display='inline-block'
 										className='hoagie logo'
-										color={theme.colors.blue500}
+										color={theme.colors.red500}
 									>
 										{name}
 									</Text>
@@ -163,7 +163,7 @@ export function Nav({
 						>
 							<NotificationsIcon
 								fontSize='medium'
-								style={{ color: theme.colors.blue500 }}
+								style={{ color: theme.colors.red500 }}
 								titleAccess='Open Notifications'
 							/>
 						</Pane>
@@ -176,9 +176,9 @@ export function Nav({
 									name={username}
 									style={{
 										cursor: 'pointer',
-										border: `2px solid ${theme.colors.tealTint}`,
+										border: `2px solid ${theme.colors.redTint}`,
 									}}
-									backgroundColor={theme.colors.blue100}
+									backgroundColor={theme.colors.red100}
 									size={40}
 									marginLeft={majorScale(4)}
 								/>
