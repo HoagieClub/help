@@ -31,6 +31,7 @@ from hoagiehelp.api.notification_views import (
     get_notifications,
     NotificationView,
 )
+from hoagiehelp.api.heart_views import heart_question, heart_answer, heart_comment
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -80,4 +81,8 @@ urlpatterns = [
         NotificationView.as_view(),
         name="notification-detail",
     ),
+    # Hearts
+    path("/questions/<str:question_id>/heart", heart_question, name="heart_question"),
+    path("/answers/<str:answer_id>/heart", heart_answer, name="heart_answer"),
+    path("/comments/<str:comments_id>/heart", heart_comment, name="heart_comment"),
 ]
