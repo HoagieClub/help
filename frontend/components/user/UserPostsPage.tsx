@@ -6,7 +6,22 @@ import { Avatar, Heading, majorScale, minorScale, Pane, Text } from 'evergreen-u
 
 import PostCard from './PostCard';
 
-import type { UserPost, UserPostsProps } from './sampleTypes';
+import type { UserPost } from './PostCard';
+
+type UserProfile = {
+	name: string;
+	email: string;
+	postsCount: number;
+	classYear: number;
+	major: string;
+};
+
+type UserPostsProps = {
+	user: UserProfile;
+	questions: UserPost[];
+	answers: UserPost[];
+	comments: UserPost[];
+};
 
 const TABS = ['Questions', 'Answers', 'Comments'] as const;
 type TabName = (typeof TABS)[number];

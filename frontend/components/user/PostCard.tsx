@@ -5,7 +5,17 @@ import { Card, Heading, majorScale, minorScale, Pane, Text } from 'evergreen-ui'
 
 import { formatTimePassed } from '@/components/utils';
 
-import type { UserPost } from './sampleTypes';
+export type UserPost = {
+	id: number;
+	title: string;
+	body: string;
+	type: string;
+	course?: string;
+	tags: string[];
+	hearts: number;
+	views: number;
+	createdAt: string;
+};
 
 export default function PostCard({ post }: { post: UserPost }) {
 	const allTags = post.course ? [post.course, ...post.tags] : post.tags;
