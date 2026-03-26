@@ -21,15 +21,22 @@ class HeartView(APIView):
         user_obj = get_object_or_404(CustomUser, net_id=net_id)
         question = get_object_or_404(Question, id=question_id)
 
-        if Heart.objects.filter(question=question, user=user_obj).exists():
-            return Response({"detail": "User has already hearted this question."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        Heart.objects.create(question=question, user=user_obj)
+        # If already hearted, delete the heart record from the db and decrement the hearts count
+        heart = Heart.objects.filter(question=question, user=user_obj)
+        if heart.exists():
+            heart.delete()
+            question.hearts = F('hearts') - 1
+            question.save()
+            question.refresh_from_db()
+            return Response({"hearts": question.hearts, "is_hearted": False}, status=status.HTTP_200_OK)
 
-        question.hearts = F('hearts') + 1
-        question.save()
-        question.refresh_from_db()
-        return Response({"hearts": question.hearts}, status=status.HTTP_201_CREATED)
+        # otherwise, create a new heart record and increment the hearts count
+        else:
+            Heart.objects.create(question=question, user=user_obj)
+            question.hearts = F('hearts') + 1
+            question.save()
+            question.refresh_from_db()
+            return Response({"hearts": question.hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
 
     @transaction.atomic
     def heart_answer(self, request, answer_id: int):
@@ -37,15 +44,19 @@ class HeartView(APIView):
         user_obj = get_object_or_404(CustomUser, net_id=net_id)
         answer = get_object_or_404(Answer, id=answer_id)
 
-        if Heart.objects.filter(answer=answer, user=user_obj).exists():
-            return Response({"detail": "User has already hearted this answer."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        Heart.objects.create(answer=answer, user=user_obj)
-
-        answer.hearts = F('hearts') + 1
-        answer.save()
-        answer.refresh_from_db()
-        return Response({"hearts": answer.hearts}, status=status.HTTP_201_CREATED)
+        heart = Heart.objects.filter(answer=answer, user=user_obj)
+        if heart.exists():
+            heart.delete()
+            answer.hearts = F('hearts') - 1
+            answer.save()
+            answer.refresh_from_db()
+            return Response({"hearts": answer.hearts, "is_hearted": False}, status=status.HTTP_200_OK)
+        else:
+            Heart.objects.create(answer=answer, user=user_obj)
+            answer.hearts = F('hearts') + 1
+            answer.save()
+            answer.refresh_from_db()
+            return Response({"hearts": answer.hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
 
     @transaction.atomic
     def heart_response(self, request, comment_id: int):
@@ -53,12 +64,16 @@ class HeartView(APIView):
         user_obj = get_object_or_404(CustomUser, net_id=net_id)
         comment = get_object_or_404(Comment, id=comment_id)
 
-        if Heart.objects.filter(comment=comment, user=user_obj).exists():
-            return Response({"detail": "User has already hearted this comment."}, status=status.HTTP_400_BAD_REQUEST)
-
-        Heart.objects.create(comment=comment, user=user_obj)
-
-        comment.hearts = F('hearts') + 1
-        comment.save()
-        comment.refresh_from_db()
-        return Response({"hearts": comment.hearts}, status=status.HTTP_201_CREATED)
+        heart = Heart.objects.filter(comment=comment, user=user_obj)
+        if heart.exists():
+            heart.delete()
+            comment.hearts = F('hearts') - 1
+            comment.save()
+            comment.refresh_from_db()
+            return Response({"hearts": comment.hearts, "is_hearted": False}, status=status.HTTP_200_OK)
+        else:
+            Heart.objects.create(comment=comment, user=user_obj)
+            comment.hearts = F('hearts') + 1
+            comment.save()
+            comment.refresh_from_db()
+            return Response({"hearts": comment.hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
