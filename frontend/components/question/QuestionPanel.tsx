@@ -32,20 +32,13 @@ const QuestionPanel = ({
 	);
 
 	return (
-		<Pane className="max-w-[700px] mx-auto justify-center">
+		<Pane className='max-w-[700px] mx-auto justify-center'>
 			{/* Title */}
-			<Heading className='text-3xl font-bold text-gray-900 mb-6'>
-				{title}
-			</Heading>
+			<Heading className='text-3xl font-bold text-gray-900 mb-6'>{title}</Heading>
 
 			{/* Author row */}
 			<Pane className='flex items-center gap-3 mb-6'>
-				<Avatar
-					name={displayName}
-					size={78}
-					color={'black'}
-					backgroundColor={'#e6e8f0'}
-				/>
+				<Avatar name={displayName} size={78} color={'black'} backgroundColor={'#e6e8f0'} />
 				<Pane>
 					<Text className='text-xl font-bold text-gray-900 block'>{displayName}</Text>
 					<Text className='text-sm text-gray-500'>Q&A • {timeAgo}</Text>
@@ -87,7 +80,9 @@ const QuestionPanel = ({
 					<CaretUpIcon size={14} weight='fill' />
 					<Text className='text-sm text-gray-600'>Upvote ({hearts})</Text>
 				</Pane>
-				<Text className='text-sm text-gray-600 hover:text-gray-900 cursor-pointer'>Reply</Text>
+				<Text className='text-sm text-gray-600 hover:text-gray-900 cursor-pointer'>
+					Reply
+				</Text>
 			</Pane>
 		</Pane>
 	);
