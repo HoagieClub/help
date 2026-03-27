@@ -1,11 +1,12 @@
+import React, { useState } from 'react';
+
 import { Button, Heading, Pane, Paragraph, Text, TextInput } from 'evergreen-ui';
 import { useRouter } from 'next/navigation';
 
-import { formatTimePassed } from '../utils';
 import { createNewAnswer } from '../../api/answerService';
+import { formatTimePassed } from '../utils';
 
 import styles from './QuestionPanel.module.css';
-import { useState } from 'react';
 
 interface QuestionPanelProps {
 	questionId: number;
@@ -51,12 +52,12 @@ const QuestionPanel = ({
 
 	const [answer, setAnswer] = useState('');
 
-	const handleSubmit = async (event: any) => {
+	const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		setAnswer(event.target.value);
-		// const newAnswer = await createNewAnswer(questionId, {
-		// 	content: event.target.value,
-		// 	user_is_anonymous,
-		// });
+		await createNewAnswer(questionId, {
+			content: event.target.value,
+			user_is_anonymous,
+		});
 	};
 
 	return (
