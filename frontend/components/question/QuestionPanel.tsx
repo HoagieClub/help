@@ -11,7 +11,7 @@ interface QuestionPanelProps {
 	tags: string[];
 	course: string | null;
 	details: string;
-	create_time: Date | string;
+	create_time: Date;
 	user_is_anonymous: boolean;
 	hearts: number;
 }
@@ -27,9 +27,7 @@ const QuestionPanel = ({
 	hearts,
 }: QuestionPanelProps) => {
 	const displayName = user_is_anonymous ? 'Anonymous' : user;
-	const timeAgo = formatTimePassed(
-		create_time instanceof Date ? create_time.toISOString() : create_time
-	);
+	const timeAgo = formatTimePassed(create_time.toISOString());
 
 	return (
 		<Pane className='max-w-[700px] mx-auto justify-center'>
