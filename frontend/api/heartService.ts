@@ -12,8 +12,8 @@ const HeartSchema = z.object({
 
 type Heart = z.infer<typeof HeartSchema>;
 
-// Hearts a question on behalf of the authenticated user.
-// POST /heart/questions/{questionId}
+// Hearts/unhearts a question on behalf of the authenticated user.
+// POST /questions/{questionId}/heart
 export async function heartQuestion(questionId: string): Promise<Heart | null> {
 	try {
 		const response = await fetch(
@@ -32,8 +32,8 @@ export async function heartQuestion(questionId: string): Promise<Heart | null> {
 	}
 }
 
-// Hearts a question on behalf of the authenticated user.
-// POST /heart/questions/{questionId}
+// Hearts/unhearts an answer on behalf of the authenticated user.
+// POST /answers/{answerId}/heart
 export async function heartAnswer(answerId: string): Promise<Heart | null> {
 	try {
 		const response = await fetch(
@@ -52,8 +52,8 @@ export async function heartAnswer(answerId: string): Promise<Heart | null> {
 	}
 }
 
-// Hearts a comment on behalf of the authenticated user.
-// POST /heart/comments/{commentId}
+// Hearts/unhearts a comment on behalf of the authenticated user.
+// POST /comments/{commentId}/heart
 export async function heartComment(commentId: string): Promise<Heart | null> {
 	try {
 		const response = await fetch(
