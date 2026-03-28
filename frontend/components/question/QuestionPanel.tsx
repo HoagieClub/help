@@ -1,7 +1,7 @@
 'use client';
 
-import { Avatar, Heading, Pane, Text } from 'evergreen-ui';
 import { CaretUpIcon } from '@phosphor-icons/react';
+import { Avatar, Heading, Pane, Text } from 'evergreen-ui';
 
 import { formatTimePassed } from '../utils';
 
@@ -38,7 +38,7 @@ const QuestionPanel = ({
 
 			{/* Author row */}
 			<Pane className='flex items-center gap-3 mb-6'>
-				<Avatar name={displayName} size={78} color={'black'} backgroundColor={'#e6e8f0'} />
+				<Avatar name={displayName} size={78} color='black' backgroundColor='#e6e8f0' />
 				<Pane>
 					<Text className='text-xl font-bold text-gray-900 block'>{displayName}</Text>
 					<Text className='text-sm text-gray-500'>Q&A • {timeAgo}</Text>
