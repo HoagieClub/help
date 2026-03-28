@@ -55,6 +55,7 @@ class NotificationView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 def get_notifications(request) -> Response:
     """Get all notifications for a given user."""
     user_id = request.user.id
