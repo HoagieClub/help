@@ -82,7 +82,7 @@ urlpatterns = [
         name="notification-detail",
     ),
     # Hearts
-    path("/questions/<str:question_id>/heart", heart_question, name="heart_question"),
-    path("/answers/<str:answer_id>/heart", heart_answer, name="heart_answer"),
-    path("/comments/<str:comments_id>/heart", heart_comment, name="heart_comment"),
+    path("questions/<str:question_id>/heart", heart_question, name="heart_question"),
+    path("answers/<str:answer_id>/heart", heart_answer, name="heart_answer"),
+    path("comments/<str:comment_id>/heart", heart_comment, name="heart_comment"),
 ]
