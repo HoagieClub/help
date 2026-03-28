@@ -54,3 +54,10 @@ class NotificationView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def get_notifications(request) -> Response:
+    """Get all notifications for a given user."""
+    user_id = request.user.id
+    notifications = Notification.objects.filter(user=user_id).order_by("-created_at")
+    serializer = NotificationSerializer(notifications, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
