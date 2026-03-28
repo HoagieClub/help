@@ -21,18 +21,16 @@ class HeartView(APIView):
         heart = Heart.objects.filter(question=question, user=request.user)
         if heart.exists():
             heart.delete()
-            question.hearts = F('hearts') - 1
-            question.save()
-            question.refresh_from_db()
-            return Response({"hearts": question.hearts, "is_hearted": False}, status=status.HTTP_200_OK)
+            Question.objects.filter(id=question_id).update(hearts=F('hearts') - 1)
+            updated_hearts = Question.objects.values_list('hearts', flat=True).get(id=question_id)
+            return Response({"hearts": updated_hearts, "is_hearted": False}, status=status.HTTP_200_OK)
 
         # otherwise, create a new heart record and increment the hearts count
         else:
             Heart.objects.create(question=question, user=request.user)
-            question.hearts = F('hearts') + 1
-            question.save()
-            question.refresh_from_db()
-            return Response({"hearts": question.hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
+            Question.objects.filter(id=question_id).update(hearts=F('hearts') + 1)
+            updated_hearts = Question.objects.values_list('hearts', flat=True).get(id=question_id)
+            return Response({"hearts": updated_hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
 
     @transaction.atomic
     def heart_answer(self, request, answer_id: int):
@@ -41,16 +39,14 @@ class HeartView(APIView):
         heart = Heart.objects.filter(answer=answer, user=request.user)
         if heart.exists():
             heart.delete()
-            answer.hearts = F('hearts') - 1
-            answer.save()
-            answer.refresh_from_db()
-            return Response({"hearts": answer.hearts, "is_hearted": False}, status=status.HTTP_200_OK)
+            Answer.objects.filter(id=answer_id).update(hearts=F('hearts') - 1)
+            updated_hearts = Answer.objects.values_list('hearts', flat=True).get(id=answer_id)
+            return Response({"hearts": updated_hearts, "is_hearted": False}, status=status.HTTP_200_OK)
         else:
             Heart.objects.create(answer=answer, user=request.user)
-            answer.hearts = F('hearts') + 1
-            answer.save()
-            answer.refresh_from_db()
-            return Response({"hearts": answer.hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
+            Answer.objects.filter(id=answer_id).update(hearts=F('hearts') + 1)
+            updated_hearts = Answer.objects.values_list('hearts', flat=True).get(id=answer_id)
+            return Response({"hearts": updated_hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
 
     @transaction.atomic
     def heart_comment(self, request, comment_id: int):
@@ -59,13 +55,11 @@ class HeartView(APIView):
         heart = Heart.objects.filter(comment=comment, user=request.user)
         if heart.exists():
             heart.delete()
-            comment.hearts = F('hearts') - 1
-            comment.save()
-            comment.refresh_from_db()
-            return Response({"hearts": comment.hearts, "is_hearted": False}, status=status.HTTP_200_OK)
+            Comment.objects.filter(id=comment_id).update(hearts=F('hearts') - 1)
+            updated_hearts = Comment.objects.values_list('hearts', flat=True).get(id=comment_id)
+            return Response({"hearts": updated_hearts, "is_hearted": False}, status=status.HTTP_200_OK)
         else:
             Heart.objects.create(comment=comment, user=request.user)
-            comment.hearts = F('hearts') + 1
-            comment.save()
-            comment.refresh_from_db()
-            return Response({"hearts": comment.hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
+            Comment.objects.filter(id=comment_id).update(hearts=F('hearts') + 1)
+            updated_hearts = Comment.objects.values_list('hearts', flat=True).get(id=comment_id)
+            return Response({"hearts": updated_hearts, "is_hearted": True}, status=status.HTTP_201_CREATED)
