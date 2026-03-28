@@ -5351,6 +5351,7 @@ __metadata:
     next: "npm:^16.0.7"
     next-pwa: "npm:^5.6.0"
     next-themes: "npm:^0.4.6"
+    phosphor-icons: "npm:^1.4.2"
     postcss: "npm:^8.5.6"
     postcss-import: "npm:^16.1.0"
     prettier: "npm:^3.6.2"
@@ -7046,6 +7047,13 @@ __metadata:
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
   checksum: 10c0/666f6973f332f27581371efaf303fd6c272cc43c2057b37aa99e3643158c7e4b2626549555d88626e99ea9e046f82f32e41bbde5f1508547e9a11b149b52387c
+  languageName: node
+  linkType: hard
+
+"phosphor-icons@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "phosphor-icons@npm:1.4.2"
+  checksum: 10c0/5c373c4b01cc8456bc5bb88130f062fbdb9382da00051795efd1a63fd94c6c050467c15b1a4b29477c80ebecd678fa3c0f4a37394fac424e1f8d6722cc779da9
   languageName: node
   linkType: hard
 
