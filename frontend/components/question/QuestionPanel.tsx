@@ -1,99 +1,86 @@
-import React, { useState } from 'react';
+'use client';
 
-import { Button, Heading, Pane, Paragraph, Text, TextInput } from 'evergreen-ui';
-import { useRouter } from 'next/navigation';
+import { CaretUpIcon } from '@phosphor-icons/react';
+import { Avatar, Heading, Pane, Text } from 'evergreen-ui';
 
-import { createNewAnswer } from '../../api/answerService';
 import { formatTimePassed } from '../utils';
 
-import styles from './QuestionPanel.module.css';
-
 interface QuestionPanelProps {
-	questionId: number;
 	user: string;
 	title: string;
 	tags: string[];
+	course: string | null;
 	details: string;
 	create_time: Date;
 	user_is_anonymous: boolean;
-}
-
-function formatMetadata(
-	user: string,
-	tags: string[],
-	create_time: Date,
-	user_is_anonymous: boolean
-): string {
-	const displayUser = user_is_anonymous === true ? 'Anonymous' : user;
-	const displayTag = tags[0];
-	const displayTimePassed = formatTimePassed(create_time);
-
-	return `${displayUser} • ${displayTag} • ${displayTimePassed}`;
+	hearts: number;
 }
 
 const QuestionPanel = ({
-	questionId,
 	user,
 	title,
 	tags,
+	course,
 	details,
 	create_time,
 	user_is_anonymous,
+	hearts,
 }: QuestionPanelProps) => {
-	const displayInformation = formatMetadata(user, tags, create_time, user_is_anonymous);
-
-	const router = useRouter();
-
-	const [showAnswerBox, setShowAnswerBox] = useState(false);
-
-	const handleAnswer = () => {
-		setShowAnswerBox(true);
-	};
-
-	const [answer, setAnswer] = useState('');
-
-	const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
-		setAnswer(event.target.value);
-		await createNewAnswer(questionId, {
-			content: event.target.value,
-			user_is_anonymous,
-		});
-	};
+	const displayName = user_is_anonymous ? 'Anonymous' : user;
+	const timeAgo = formatTimePassed(create_time.toISOString());
 
 	return (
-		<Pane className={styles.container}>
-			<Pane className={styles.content}>
-				<Pane className={styles.header}>
-					<Heading className={styles.title}>{title}</Heading>
-					<Button
-						className={styles.button}
-						onClick={() => {
-							router.push('/questions');
-						}}
-					>
-						Back to Q&A
-					</Button>
+		<Pane className='max-w-[700px] mx-auto justify-center'>
+			{/* Title */}
+			<Heading className='text-3xl font-bold text-gray-900 mb-6'>{title}</Heading>
+
+			{/* Author row */}
+			<Pane className='flex items-center gap-3 mb-6'>
+				<Avatar name={displayName} size={78} color='black' backgroundColor='#e6e8f0' />
+				<Pane>
+					<Text className='text-xl font-bold text-gray-900 block'>{displayName}</Text>
+					<Text className='text-sm text-gray-500'>Q&A • {timeAgo}</Text>
 				</Pane>
-				<Text className={styles.metadata}>{displayInformation}</Text>
-				<Paragraph className={styles.details}>{details}</Paragraph>
-				{!showAnswerBox && (
-					<Button className={styles.button} onClick={handleAnswer}>
-						Answer
-					</Button>
+			</Pane>
+
+			{/* Tags + upvotes row */}
+			<Pane className='flex items-center gap-2 mb-6 flex-wrap'>
+				{course && (
+					<Text className='px-3 py-1 rounded-[10px] bg-[#EF4343] text-white text-xs font-medium'>
+						{course}
+					</Text>
 				)}
-				{showAnswerBox && (
-					<>
-						<TextInput
-							className={styles.answerBox}
-							placeholder='Write your answer here...'
-							value={answer}
-							onChange={handleSubmit}
-						/>
-						<Button className={styles.button} onClick={handleSubmit}>
-							Submit
-						</Button>
-					</>
-				)}
+				{tags.map((tag) => (
+					<Text
+						key={tag}
+						className='px-3 py-1 rounded-[10px] bg-[#D9D9D9] text-gray-600 text-xs'
+					>
+						{tag}
+					</Text>
+				))}
+				<Pane className='flex items-center gap-1 ml-2'>
+					<CaretUpIcon size={14} weight='fill' color='#6b7280' />
+					<Text className='text-sm text-gray-500'>{hearts} Upvotes</Text>
+				</Pane>
+			</Pane>
+
+			{/* Question body */}
+			<Text className='text-gray-900  leading-relaxed mb-4 whitespace-pre-wrap break-words block'>
+				{details}
+			</Text>
+
+			{/* Action buttons */}
+			<Pane className='flex items-center gap-6'>
+				<Pane
+					className='flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 cursor-pointer'
+					onClick={() => {}}
+				>
+					<CaretUpIcon size={14} weight='fill' />
+					<Text className='text-sm text-gray-600'>Upvote ({hearts})</Text>
+				</Pane>
+				<Text className='text-sm text-gray-600 hover:text-gray-900 cursor-pointer'>
+					Reply
+				</Text>
 			</Pane>
 		</Pane>
 	);
