@@ -11,88 +11,47 @@ from hoagiehelp.models.heart import Heart
 from hoagiehelp.models.question import Question
 
 
-@api_view(["POST"])
-@transaction.atomic
-def heart_question(request, question_id: int):
-    question = get_object_or_404(Question, id=question_id)
+def _toggle_heart(request, model_class, obj_id: int, heart_field: str) -> Response:
+    # Lock the post to prevent race conditions
+    obj = get_object_or_404(model_class.objects.select_for_update(), id=obj_id)
 
-    # If already hearted, delete the heart record from the db and decrement the hearts count
-    heart = Heart.objects.filter(question=question, user=request.user)
-    if heart.exists():
-        heart.delete()
-        Question.objects.filter(id=question_id).update(hearts=F("hearts") - 1)
-        updated_hearts = Question.objects.values_list("hearts", flat=True).get(
-            id=question_id
-        )
+    # Find the heart associated with the post and user, and delete it if it exists
+    deleted, _ = Heart.objects.filter(
+        **{heart_field: obj, "user": request.user}
+    ).delete()
+
+    # Decrement heart count
+    if deleted:
+        model_class.objects.filter(id=obj_id).update(hearts=F("hearts") - 1)
+        obj.refresh_from_db(fields=["hearts"])
         return Response(
-            {"hearts": updated_hearts, "is_hearted": False},
+            {"hearts": obj.hearts, "is_hearted": False},
             status=status.HTTP_200_OK,
         )
 
-    # otherwise, create a new heart record and increment the hearts count
-    else:
-        Heart.objects.create(question=question, user=request.user)
-        Question.objects.filter(id=question_id).update(hearts=F("hearts") + 1)
-        updated_hearts = Question.objects.values_list("hearts", flat=True).get(
-            id=question_id
-        )
-        return Response(
-            {"hearts": updated_hearts, "is_hearted": True},
-            status=status.HTTP_201_CREATED,
-        )
+    # Otherwise, create a new heart and increment heart count
+    Heart.objects.create(**{heart_field: obj, "user": request.user})
+    model_class.objects.filter(id=obj_id).update(hearts=F("hearts") + 1)
+    obj.refresh_from_db(fields=["hearts"])
+    return Response(
+        {"hearts": obj.hearts, "is_hearted": True},
+        status=status.HTTP_200_OK,
+    )
+
+
+@api_view(["POST"])
+@transaction.atomic
+def heart_question(request, question_id: int):
+    return _toggle_heart(request, Question, question_id, "question")
 
 
 @api_view(["POST"])
 @transaction.atomic
 def heart_answer(request, answer_id: int):
-    answer = get_object_or_404(Answer, id=answer_id)
-
-    heart = Heart.objects.filter(answer=answer, user=request.user)
-    if heart.exists():
-        heart.delete()
-        Answer.objects.filter(id=answer_id).update(hearts=F("hearts") - 1)
-        updated_hearts = Answer.objects.values_list("hearts", flat=True).get(
-            id=answer_id
-        )
-        return Response(
-            {"hearts": updated_hearts, "is_hearted": False},
-            status=status.HTTP_200_OK,
-        )
-    else:
-        Heart.objects.create(answer=answer, user=request.user)
-        Answer.objects.filter(id=answer_id).update(hearts=F("hearts") + 1)
-        updated_hearts = Answer.objects.values_list("hearts", flat=True).get(
-            id=answer_id
-        )
-        return Response(
-            {"hearts": updated_hearts, "is_hearted": True},
-            status=status.HTTP_201_CREATED,
-        )
+    return _toggle_heart(request, Answer, answer_id, "answer")
 
 
 @api_view(["POST"])
 @transaction.atomic
 def heart_comment(request, comment_id: int):
-    comment = get_object_or_404(Comment, id=comment_id)
-
-    heart = Heart.objects.filter(comment=comment, user=request.user)
-    if heart.exists():
-        heart.delete()
-        Comment.objects.filter(id=comment_id).update(hearts=F("hearts") - 1)
-        updated_hearts = Comment.objects.values_list("hearts", flat=True).get(
-            id=comment_id
-        )
-        return Response(
-            {"hearts": updated_hearts, "is_hearted": False},
-            status=status.HTTP_200_OK,
-        )
-    else:
-        Heart.objects.create(comment=comment, user=request.user)
-        Comment.objects.filter(id=comment_id).update(hearts=F("hearts") + 1)
-        updated_hearts = Comment.objects.values_list("hearts", flat=True).get(
-            id=comment_id
-        )
-        return Response(
-            {"hearts": updated_hearts, "is_hearted": True},
-            status=status.HTTP_201_CREATED,
-        )
+    return _toggle_heart(request, Comment, comment_id, "comment")
