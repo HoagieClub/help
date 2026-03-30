@@ -16,7 +16,7 @@ class Question(models.Model):
     details = models.TextField()
     create_time = models.DateTimeField(auto_now_add=True)
     last_updated_time = models.DateTimeField(auto_now=True)
-    heart = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    hearts = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     view = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     user_is_anonymous = models.BooleanField(default=False)
 
