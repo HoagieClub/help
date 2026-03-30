@@ -6,20 +6,41 @@ import { useParams } from 'next/navigation';
 
 import AnswerPanel from '@/components/AnswerPanel';
 import QuestionPanel from '@/components/QuestionPanel';
+import { getAllAnswers } from '@/api/answerService';
 import { getQuestionDetails } from '@/api/questionService';
-import { getAnswersByQuestionId } from '@/api/answerService';
+import type { Answer } from '@/types';
+
+/** Map API answer payload to the shape expected by AnswerPanel / AnswerBox. */
+function mapApiAnswersToAnswers(
+	apiAnswers: NonNullable<Awaited<ReturnType<typeof getAllAnswers>>>
+): Answer[] {
+	return apiAnswers.map((a) => ({
+		id: a.id,
+		question: a.question,
+		user: { name: `User ${a.user}` },
+		text: a.text,
+		hearts: a.hearts,
+		isAnonymous: a.is_anonymous,
+		createdAt: a.created_at,
+		updatedAt: a.updated_at,
+		comments: [],
+	}));
+}
 
 export function QuestionPage() {
 	const params = useParams<{ id: string }>();
 	const questionId = params.id;
 
 	const [question, setQuestion] = useState<Awaited<ReturnType<typeof getQuestionDetails>>>(null);
-	const [answers, setAnswers] = useState<Awaited<ReturnType<typeof getAnswersByQuestionId>>>(null);
+	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		if (!questionId) return;
+		if (!questionId) {
+			setLoading(false);
+			return;
+		}
 
 		async function fetchData() {
 			setLoading(true);
@@ -27,7 +48,7 @@ export function QuestionPage() {
 
 			const [questionData, answersData] = await Promise.all([
 				getQuestionDetails(questionId),
-				getAnswersByQuestionId(questionId),
+				getAllAnswers(questionId),
 			]);
 
 			if (questionData === null) {
@@ -36,7 +57,7 @@ export function QuestionPage() {
 			} else {
 				setQuestion(questionData);
 			}
-			setAnswers(answersData ?? []);
+			setAnswers(answersData ? mapApiAnswersToAnswers(answersData) : []);
 			setLoading(false);
 		}
 
@@ -93,7 +114,7 @@ export function QuestionPage() {
 				view={question.view}
 				userIsAnonymous={question.user_is_anonymous}
 			/>
-			<AnswerPanel answers={answers ?? []} />
+			<AnswerPanel answers={answers} />
 		</Pane>
 	);
 }
