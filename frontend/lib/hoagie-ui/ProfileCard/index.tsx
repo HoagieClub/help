@@ -33,7 +33,7 @@ export function ProfileCard({ user }: { user: User }) {
 			flexDirection='column'
 			alignItems='center'
 		>
-			<Avatar name={name} backgroundColor={theme.colors.blue100} size={40} />
+			<Avatar name={name} backgroundColor={theme.colors.red100} size={40} />
 			<Heading size={500} marginTop={majorScale(1)}>
 				{name}
 			</Heading>

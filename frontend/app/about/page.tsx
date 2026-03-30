@@ -22,7 +22,7 @@ const SocialIcon = ({ href, children }: { href: string; children: React.ReactNod
 		href={href}
 		target='_blank'
 		rel='noopener noreferrer'
-		className='text-gray-400 hover:text-emerald-500 transition-colors duration-300'
+		className='text-gray-400 hover:text-red-500 transition-colors duration-300'
 	>
 		{children}
 	</a>
@@ -181,6 +181,22 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
 		},
 	},
+	{
+		name: 'Ethan Wen',
+		role: 'Developer',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQGR38H137yD_g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1729893063310?e=1773273600&v=beta&t=-gQZPNCk6wg4dKNSZbxUPucNMR92aH6wDFxz6p47Mtk',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/wen-ethan/',
+		},
+	},
+	{
+		name: 'Ava Fonss',
+		role: 'Product Manager',
+		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEAqm8TFiNkmg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1684291824637?e=1773273600&v=beta&t=k1eIenTVWZxZ_xtZVF4wC3tRZLrNZjTax8Elmfndvmo',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/avafonss/',
+		},
+	},
 ];
 
 /**
@@ -201,7 +217,7 @@ export function App() {
 						marginBottom={majorScale(4)}
 					>
 						Meet the{' '}
-						<Text size={900} fontSize='3rem' color={theme.colors.blue500}>
+						<Text size={900} fontSize='3rem' color={theme.colors.red500}>
 							HoagieHelp
 						</Text>{' '}
 						Team
@@ -231,7 +247,7 @@ export function App() {
 										width={128}
 										height={128}
 										borderRadius='50%'
-										border={`4px solid ${theme.colors.blue200}`}
+										border={`4px solid ${theme.colors.red300}`}
 										boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
 										overflow='hidden'
 									>
@@ -247,7 +263,7 @@ export function App() {
 										<h3 className='text-2xl font-bold text-slate-900'>
 											{lead.name}
 										</h3>
-										<p className='text-md font-semibold text-emerald-600 mb-2'>
+										<p className='text-md font-semibold text-red-600 mb-2'>
 											{lead.role}
 										</p>
 										<div className='flex justify-center sm:justify-start space-x-4'>
@@ -276,13 +292,13 @@ export function App() {
 								<Image
 									src={member.imgSrc}
 									alt={member.name}
-									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300'
+									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-red-300 transition-colors duration-300'
 									height={128}
 									width={128}
 									style={{ objectFit: 'cover' }}
 								/>
 								<h4 className='font-bold text-slate-800 text-lg'>{member.name}</h4>
-								<p className='text-emerald-600 text-sm'>{member.role}</p>
+								<p className='text-red-600 text-sm'>{member.role}</p>
 								<div className='flex mx-auto w-min mt-2 justify-center sm:justify-start space-x-4'>
 									<SocialIcon href={member.socials.linkedin}>
 										<LinkedinIcon />
