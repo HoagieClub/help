@@ -150,7 +150,10 @@ export default function AskQuestion(): React.ReactElement {
 									selected={form.category}
 									onSelect={(item) => {
 										setCategoryError(false);
-										setForm((prev) => ({ ...prev, category: item.value as string }));
+										setForm((prev) => ({
+											...prev,
+											category: item.value as string,
+										}));
 									}}
 									hasTitle={false}
 									hasFilter={false}
@@ -195,7 +198,11 @@ export default function AskQuestion(): React.ReactElement {
 									rows={6}
 									width='100%'
 									placeholder='Provide more details about your question...'
-									style={{ borderRadius: 6, fontSize: '14px', resize: 'vertical' }}
+									style={{
+										borderRadius: 6,
+										fontSize: '14px',
+										resize: 'vertical',
+									}}
 								/>
 								<Text size={300} color='muted' marginTop={4} display='block'>
 									Tip: Add specific details and context to get better answers
