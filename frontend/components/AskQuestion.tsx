@@ -6,6 +6,7 @@ import {
 	ArrowLeftIcon,
 	Button,
 	Heading,
+	Label,
 	Pane,
 	SelectMenu,
 	Text,
@@ -40,6 +41,7 @@ export default function AskQuestion(): React.ReactElement {
 	const router = useRouter();
 	const [form, setForm] = useState<FormState>(initialFormState);
 	const [submitted, setSubmitted] = useState(false);
+	const [categoryError, setCategoryError] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target as HTMLInputElement;
@@ -51,6 +53,11 @@ export default function AskQuestion(): React.ReactElement {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!form.category) {
+			setCategoryError(true);
+			return;
+		}
+		// TODO: API request to submit a question
 		setSubmitted(true);
 		setForm(initialFormState);
 	};
@@ -115,81 +122,96 @@ export default function AskQuestion(): React.ReactElement {
 						</Button>
 					</Pane>
 				) : (
-					<form className='flex flex-col gap-6' onSubmit={handleSubmit}>
-						{/* Question Title */}
-						<div>
-							<label className='block text-sm font-semibold mb-1'>
-								Question Title
-							</label>
-							<TextInput
-								name='questionTitle'
-								value={form.questionTitle}
-								onChange={handleChange}
-								required
-								placeholder='e.g. How do I approach the graph algorithms in COS 226?'
-								width='100%'
-							/>
-						</div>
+					<form onSubmit={handleSubmit}>
+						<Pane display='flex' flexDirection='column' gap={majorScale(3)}>
+							{/* Question Title */}
+							<Pane>
+								<Label htmlFor='questionTitle' display='block' marginBottom={4}>
+									Question Title
+								</Label>
+								<TextInput
+									id='questionTitle'
+									name='questionTitle'
+									value={form.questionTitle}
+									onChange={handleChange}
+									required
+									placeholder='e.g. How do I approach the graph algorithms in COS 226?'
+									width='100%'
+								/>
+							</Pane>
 
-						{/* Category */}
-						<div>
-							<label className='block text-sm font-semibold mb-1'>Category</label>
-							<SelectMenu
-								options={CATEGORY_OPTIONS}
-								selected={form.category}
-								onSelect={(item) =>
-									setForm((prev) => ({ ...prev, category: item.value as string }))
-								}
-								hasTitle={false}
-								hasFilter={false}
-							>
-								<Button type='button' width='100%'>
-									{form.category || 'Select a category'}
+							{/* Category */}
+							<Pane>
+								<Label htmlFor='category' display='block' marginBottom={4}>
+									Category
+								</Label>
+								<SelectMenu
+									options={CATEGORY_OPTIONS}
+									selected={form.category}
+									onSelect={(item) => {
+										setCategoryError(false);
+										setForm((prev) => ({ ...prev, category: item.value as string }));
+									}}
+									hasTitle={false}
+									hasFilter={false}
+								>
+									<Button id='category' type='button' width='100%'>
+										{form.category || 'Select a category'}
+									</Button>
+								</SelectMenu>
+								{categoryError && (
+									<Text size={300} color='danger' marginTop={4} display='block'>
+										Please select a category before submitting.
+									</Text>
+								)}
+							</Pane>
+
+							{/* Course */}
+							<Pane>
+								<Label htmlFor='course' display='block' marginBottom={4}>
+									Course (Optional)
+								</Label>
+								<TextInput
+									id='course'
+									name='course'
+									value={form.course}
+									onChange={handleChange}
+									placeholder='e.g. COS 226'
+									width='100%'
+								/>
+							</Pane>
+
+							{/* Details */}
+							<Pane>
+								<Label htmlFor='questionDetails' display='block' marginBottom={4}>
+									Details
+								</Label>
+								<Textarea
+									id='questionDetails'
+									name='questionDetails'
+									value={form.questionDetails}
+									onChange={handleChange}
+									required
+									rows={6}
+									width='100%'
+									placeholder='Provide more details about your question...'
+									style={{ borderRadius: 6, fontSize: '14px', resize: 'vertical' }}
+								/>
+								<Text size={300} color='muted' marginTop={4} display='block'>
+									Tip: Add specific details and context to get better answers
+								</Text>
+							</Pane>
+
+							{/* Buttons */}
+							<Pane display='flex' gap={majorScale(1)} marginTop={majorScale(1)}>
+								<Button type='submit' appearance='primary' flex={1}>
+									Post Question
 								</Button>
-							</SelectMenu>
-						</div>
-
-						{/* Course */}
-						<div>
-							<label className='block text-sm font-semibold mb-1'>
-								Course (Optional)
-							</label>
-							<TextInput
-								name='course'
-								value={form.course}
-								onChange={handleChange}
-								placeholder='e.g. COS 226'
-								width='100%'
-							/>
-						</div>
-
-						{/* Details */}
-						<div>
-							<label className='block text-sm font-semibold mb-1'>Details</label>
-							<Textarea
-								name='questionDetails'
-								value={form.questionDetails}
-								onChange={handleChange}
-								required
-								rows={6}
-								width='100%'
-								placeholder='Provide more details about your question...'
-								style={{ borderRadius: 6, fontSize: '14px', resize: 'vertical' }}
-							/>
-							<Text size={300} color='muted' marginTop={4} display='block'>
-								Tip: Add specific details and context to get better answers
-							</Text>
-						</div>
-
-						{/* Buttons */}
-						<div className='flex gap-3 mt-2'>
-							<Button type='submit' appearance='primary' flex={1}>
-								Post Question
-							</Button>
-							<Button type='button' onClick={handleCancel}>
-								Cancel
-							</Button>
-						</div>
+								<Button type='button' onClick={handleCancel}>
+									Cancel
+								</Button>
+							</Pane>
+						</Pane>
 					</form>
 				)}
 			</Pane>
