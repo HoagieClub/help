@@ -69,14 +69,19 @@ const QuestionPanel = ({
 				<Paragraph className={styles.details}>{details}</Paragraph>
 
 				<Pane className={styles.footer}>
-					<Button
-						icon={HeartIcon}
-						appearance='minimal'
-						height={24}
-						iconSize={14}
-						color={isHearted ? 'red500' : 'gray400'}
-						onClick={handleHeart}
-					/>
+					<Pane display="flex" flexDirection="column" alignItems="center">
+						<Button
+							icon={HeartIcon}
+							appearance="minimal"
+							height={24}
+							iconSize={14}
+							color={isHearted ? 'red500' : 'gray400'}
+							onClick={handleHeart}
+						/>
+						<Text size={300} color="muted">
+							{hearts}
+						</Text>
+					</Pane>
 				</Pane>
 			</Pane>
 		</Pane>
