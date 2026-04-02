@@ -1,8 +1,11 @@
-from rest_framework import serializers
+from django.shortcuts import get_object_or_404
+from rest_framework.response import Response
+from rest_framework import serializers, status
 from rest_framework.views import APIView
 
 from hoagiehelp.models.user import CustomUser
-
+from hoagiehelp.models.question import Question
+from backend.hoagiehelp.api.question_views import QuestionSerializer
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
@@ -20,11 +23,18 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserView(APIView):
-    pass
+    def get_questions_for_user(self, request, target_user_id: str):
+        target_user = get_object_or_404(CustomUser, net_id=target_user_id)
+        questions_set = Question.objects.filter(user=target_user)
 
-
-def user_questions(request, user_id: str):
-    pass
+        current_net_id = request.user.net_id
+        if current_net_id != target_user_id:
+            questions_set = questions_set.filter(user_is_anonymous=False)
+        
+        questions_set = questions_set.order_by("-created_at")
+        serializer = QuestionSerializer(questions_set, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
 
 
 def user_answers(request, user_id: str):
