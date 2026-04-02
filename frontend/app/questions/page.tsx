@@ -22,6 +22,9 @@ export function QAPage() {
 		// Placeholder for button click action
 	};
 
+	/**
+	 * Handles the ask question button click
+	 */
 	const askQuestionHandler = () => {
 		router.push('/questions/ask');
 	};
