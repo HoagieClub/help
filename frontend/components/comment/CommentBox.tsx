@@ -30,6 +30,8 @@ import type { Comment } from '@/types';
 
 import { formatTimePassed } from '../utils';
 
+import { heartComment } from '@/api/heartService';
+
 const MAX_LENGTH_BEFORE_TRUNCATE = 200;
 
 export interface CommentBoxProps {
@@ -46,10 +48,9 @@ export function CommentBox({ comment, username, showThreadLine }: CommentBoxProp
 	const handleHeartClick = async () => {
 		setIsLiked((prev) => !prev);
 		try {
-			heart_response(username, comment.id); // TODO: align with implementation of heart_response();
+			await heartComment(String(comment.id));
 		} catch (error) {
 			setIsLiked((prev) => !prev);
-			console.error('Error hearting comment:', error);
 		}
 	};
 	const handleMoreClick = () => alert('More options clicked');
