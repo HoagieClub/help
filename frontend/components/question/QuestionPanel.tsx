@@ -1,8 +1,10 @@
-import { Button, Heading, Pane, Paragraph, Text } from 'evergreen-ui';
+import { Button, Heading, Pane, Paragraph, Text, HeartIcon } from 'evergreen-ui';
 
 import { formatTimePassed } from '../utils';
+import { heartQuestion } from '../../api/heartService';
 
 import styles from './QuestionPanel.module.css';
+import { useState } from 'react';
 
 interface QuestionPanelProps {
 	user: string;
@@ -11,6 +13,9 @@ interface QuestionPanelProps {
 	details: string;
 	create_time: Date;
 	user_is_anonymous: boolean;
+	initialHearts: number;
+	initialIsHearted: boolean;
+	questionId: number;
 	onBack: () => void;
 }
 
@@ -34,9 +39,22 @@ const QuestionPanel = ({
 	details,
 	create_time,
 	user_is_anonymous,
+	initialHearts, 
+	initialIsHearted, 
+	questionId,
 	onBack,
 }: QuestionPanelProps) => {
 	const displayInformation = formatMetadata(user, tags, create_time, user_is_anonymous);
+	const [hearts, setHearts] = useState(initialHearts);
+  	const [isHearted, setIsHearted] = useState(initialIsHearted);
+
+	async function handleHeart() {
+		const response = await heartQuestion(questionId);
+		if (response) {
+			setHearts(response.hearts);
+			setIsHearted(response.is_hearted);
+		}
+	}
 
 	return (
 		<Pane className={styles.container}>
@@ -49,9 +67,22 @@ const QuestionPanel = ({
 				</Pane>
 				<Text className={styles.metadata}>{displayInformation}</Text>
 				<Paragraph className={styles.details}>{details}</Paragraph>
+
+				<Pane className={styles.footer}>
+					<Button
+						icon={HeartIcon}
+						appearance='minimal'
+						height={24}
+						iconSize={14}
+						color={isHearted ? 'red500' : 'gray400'}
+						onClick={handleHeart}
+					/>
+				</Pane>
 			</Pane>
 		</Pane>
 	);
+
+
 };
 
 export default QuestionPanel;
