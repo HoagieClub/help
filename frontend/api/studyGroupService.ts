@@ -5,27 +5,27 @@ import { HttpRequestType, buildRequest } from './common';
 const STUDY_GROUPS_URL = `${process.env.BACKEND}/studygroups/`;
 
 const StudyGroupSchema = z.object({
-    id: z.number(),
-    title: z.string(),
-    description: z.string(),
-    leader: z.number(),
-    meeting_datetime: z.string(),
-    max_spots: z.number(),
-    members: z.array(z.number()),
+	id: z.number(),
+	title: z.string(),
+	description: z.string(),
+	leader: z.number(),
+	meeting_datetime: z.string(),
+	max_spots: z.number(),
+	members: z.array(z.number()),
 });
 
 type StudyGroup = z.infer<typeof StudyGroupSchema>;
 
 type StudyGroupPayload = {
-    title: string;
-    description: string;
-    leader: number;
-    meeting_datetime: string;
-    max_spots: number;
+	title: string;
+	description: string;
+	leader: number;
+	meeting_datetime: string;
+	max_spots: number;
 };
 
 export async function getAllStudyGroup(): Promise<StudyGroup[] | null> {
-    try {
+	try {
 		const response = await fetch(STUDY_GROUPS_URL, buildRequest(HttpRequestType.GET));
 
 		if (!response.ok) {
@@ -49,7 +49,7 @@ export async function getAllStudyGroup(): Promise<StudyGroup[] | null> {
 }
 
 export async function createNewStudyGroup(payLoad: StudyGroupPayload): Promise<StudyGroup | null> {
-    try {
+	try {
 		const response = await fetch(STUDY_GROUPS_URL, buildRequest(HttpRequestType.POST, payLoad));
 
 		if (!response.ok) {
@@ -73,7 +73,7 @@ export async function createNewStudyGroup(payLoad: StudyGroupPayload): Promise<S
 }
 
 export async function getStudyGroup(studygroupId: string): Promise<StudyGroup | null> {
-    try {
+	try {
 		const response = await fetch(
 			buildStudyGroupUrl(studygroupId),
 			buildRequest(HttpRequestType.GET)
@@ -103,8 +103,11 @@ export async function getStudyGroup(studygroupId: string): Promise<StudyGroup | 
 	}
 }
 
-export async function updateStudyGroup(studygroupId: string, payLoad: StudyGroupPayload): Promise<StudyGroup | null> {
-    try {
+export async function updateStudyGroup(
+	studygroupId: string,
+	payLoad: StudyGroupPayload
+): Promise<StudyGroup | null> {
+	try {
 		const response = await fetch(
 			buildStudyGroupUrl(studygroupId),
 			buildRequest(HttpRequestType.PUT, payLoad)
@@ -123,7 +126,10 @@ export async function updateStudyGroup(studygroupId: string, payLoad: StudyGroup
 		const parsed = StudyGroupSchema.safeParse(data);
 
 		if (!parsed.success) {
-			console.error(`Failed to parse updated study group ${studygroupId}:`, parsed.error.issues);
+			console.error(
+				`Failed to parse updated study group ${studygroupId}:`,
+				parsed.error.issues
+			);
 			return null;
 		}
 
@@ -135,7 +141,7 @@ export async function updateStudyGroup(studygroupId: string, payLoad: StudyGroup
 }
 
 export async function deleteStudyGroup(studygroupId: string): Promise<boolean> {
-    try {
+	try {
 		const response = await fetch(
 			buildStudyGroupUrl(studygroupId),
 			buildRequest(HttpRequestType.DELETE)
