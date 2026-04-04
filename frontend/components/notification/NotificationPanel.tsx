@@ -1,7 +1,6 @@
 import { Pane, Heading, Button, Text } from 'evergreen-ui';
 import { MdOutlineQuestionAnswer, MdQuestionAnswer } from 'react-icons/md';
 
-import { getQuestionDetails } from '@/api/questionService';
 import type { Notification } from '@/types';
 
 import { formatTimePassed } from '../utils';
@@ -11,6 +10,16 @@ import styles from './NotificationPanel.module.css';
 import type { IconType } from 'react-icons';
 
 const MAX_NOTIFICATIONS = 4;
+
+const ICON_MAP: Record<NotificationType, IconType> = {
+	answer: MdQuestionAnswer,
+	comment: MdOutlineQuestionAnswer,
+};
+
+const TITLE_MAP: Record<NotificationType, string> = {
+	answer: 'Someone answered your question',
+	comment: 'Someone commented on your answer',
+};
 
 type NotificationType = 'answer' | 'comment';
 
@@ -26,46 +35,22 @@ function getNotificationType(notification: Notification): NotificationType {
 	return notification.comment !== null ? 'comment' : 'answer';
 }
 
-function getNotificationConfig(type: NotificationType): {
-	Icon: IconType;
-	title: string;
-} {
-	const iconMap: Record<NotificationType, IconType> = {
-		answer: MdQuestionAnswer,
-		comment: MdOutlineQuestionAnswer,
-	};
+function processNotifications(notifications: Notification[]): ProcessedNotification[] {
+	return notifications.map((notification) => {
+		const type = getNotificationType(notification);
+		const Icon = ICON_MAP[type];
+		const title = TITLE_MAP[type];
 
-	const titleMap: Record<NotificationType, string> = {
-		answer: 'Someone answered your question',
-		comment: 'Someone commented on your answer',
-	};
+		const questionTitle = notification.question.title;
 
-	return {
-		Icon: iconMap[type],
-		title: titleMap[type],
-	};
-}
-
-async function processNotifications(
-	notifications: Notification[]
-): Promise<ProcessedNotification[]> {
-	return Promise.all(
-		notifications.map(async (notification) => {
-			const type = getNotificationType(notification);
-			const { Icon, title } = getNotificationConfig(type);
-
-			const question = await getQuestionDetails(notification.question.toString());
-			const questionTitle = question?.title;
-
-			return {
-				id: notification.id,
-				Icon,
-				title,
-				subtitle: questionTitle,
-				time: formatTimePassed(notification.createdAt),
-			};
-		})
-	);
+		return {
+			id: notification.id,
+			Icon,
+			title,
+			subtitle: questionTitle,
+			time: formatTimePassed(notification.createdAt),
+		};
+	});
 }
 
 interface NotificationPanelProps {
@@ -73,11 +58,11 @@ interface NotificationPanelProps {
 	onViewAll: () => void;
 }
 
-const NotificationPanel = async ({ notifications, onViewAll }: NotificationPanelProps) => {
+const NotificationPanel = ({ notifications, onViewAll }: NotificationPanelProps) => {
 	const hasNotifications = notifications.length > 0;
 
 	const visible = notifications.slice(0, MAX_NOTIFICATIONS);
-	const processedNotifications = await processNotifications(visible);
+	const processedNotifications = processNotifications(visible);
 
 	return (
 		<Pane className={styles.notificationsCard}>
@@ -96,7 +81,7 @@ const NotificationPanel = async ({ notifications, onViewAll }: NotificationPanel
 							<Pane className={styles.notificationContent}>
 								<Text className={styles.notificationText}>
 									<>
-										{title}
+										{title}{' '}
 										<span className={styles.notificationHighlight}>
 											{subtitle}
 										</span>

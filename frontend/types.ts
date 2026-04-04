@@ -23,6 +23,25 @@ export type HoagieUser = {
 	email?: string;
 };
 
+export type Tag = {
+	id: number;
+	name: string;
+};
+
+export type Question = {
+	id: number;
+	user: HoagieUser;
+	title: string;
+	tags: Tag[];
+	course: string[];
+	details: string;
+	createTime: string;
+	lastUpdatedTime: string;
+	hearts: number;
+	view: number;
+	userIsAnonymous: boolean;
+};
+
 export type Answer = {
 	id: number;
 	question: number;
@@ -49,9 +68,9 @@ export type Comment = {
 export type Notification = {
 	id: number;
 	user: HoagieUser;
-	question: number;
-	answer: number;
-	comment: number | null;
+	question: Question;
+	answer: Answer;
+	comment: Comment | null;
 	isRead: boolean;
 	createdAt: string;
 };
