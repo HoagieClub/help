@@ -1,11 +1,16 @@
 'use client';
 
+import React, { useState } from 'react';
+
 import { CaretUpIcon } from '@phosphor-icons/react';
 import { Avatar, Heading, Pane, Text } from 'evergreen-ui';
+import { toast } from 'sonner';
 
+import { createNewAnswer } from '../../api/answerService';
 import { formatTimePassed } from '../utils';
 
 interface QuestionPanelProps {
+	questionId: number;
 	user: string;
 	title: string;
 	tags: string[];
@@ -17,6 +22,7 @@ interface QuestionPanelProps {
 }
 
 const QuestionPanel = ({
+	questionId,
 	user,
 	title,
 	tags,
@@ -28,6 +34,32 @@ const QuestionPanel = ({
 }: QuestionPanelProps) => {
 	const displayName = user_is_anonymous ? 'Anonymous' : user;
 	const timeAgo = formatTimePassed(create_time.toISOString());
+
+	const [showAnswerBox, setShowAnswerBox] = useState(false);
+
+	const handleReply = () => {
+		setShowAnswerBox(true);
+	};
+
+	const [answer, setAnswer] = useState('');
+
+	const handleInputChange = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setAnswer(event.target.value);
+	};
+
+	const handleSubmitAnswer = async () => {
+		if (answer.trim()) {
+			await createNewAnswer(questionId.toString(), {
+				text: answer,
+				is_anonymous: user_is_anonymous,
+			});
+			toast.success('Answer Submitted!', {
+				description: 'Your answer has been posted successfully.',
+			});
+			setAnswer('');
+			setShowAnswerBox(false);
+		}
+	};
 
 	return (
 		<Pane className='max-w-[700px] mx-auto justify-center'>
@@ -65,7 +97,7 @@ const QuestionPanel = ({
 			</Pane>
 
 			{/* Question body */}
-			<Text className='text-gray-900  leading-relaxed mb-4 whitespace-pre-wrap break-words block'>
+			<Text className='text-gray-900 leading-relaxed mb-4 whitespace-pre-wrap break-words block'>
 				{details}
 			</Text>
 
@@ -78,10 +110,33 @@ const QuestionPanel = ({
 					<CaretUpIcon size={14} weight='fill' />
 					<Text className='text-sm text-gray-600'>Upvote ({hearts})</Text>
 				</Pane>
-				<Text className='text-sm text-gray-600 hover:text-gray-900 cursor-pointer'>
-					Reply
-				</Text>
+				{!showAnswerBox && (
+					<Text
+						className='text-sm text-gray-600 hover:text-gray-900 cursor-pointer'
+						onClick={handleReply}
+					>
+						Reply
+					</Text>
+				)}
 			</Pane>
+
+			{showAnswerBox && (
+				<Pane className='mt-6 flex flex-col items-end gap-3'>
+					<textarea
+						value={answer}
+						onChange={handleInputChange}
+						placeholder='Write your answer here...'
+						rows={4}
+						className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EF4343] focus:border-transparent text-gray-900 resize-none'
+					/>
+					<button
+						onClick={handleSubmitAnswer}
+						className='px-6 py-2 bg-[#EF4343] text-white rounded-lg hover:bg-[#d63838] transition-colors duration-200 text-sm font-medium'
+					>
+						Submit
+					</button>
+				</Pane>
+			)}
 		</Pane>
 	);
 };
