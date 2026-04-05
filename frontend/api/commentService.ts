@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-import { HttpRequestType, buildRequest } from './common';
+import { api } from './common';
 
-const COMMENT_LIST_URL = `${process.env.BACKEND}/answers/`;
-const COMMENT_DETAIL_URL = `${process.env.BACKEND}/comments/`;
+const COMMENT_LIST_URL = `/api/hoagie/answers/`;
+const COMMENT_DETAIL_URL = `/api/hoagie/comments/`;
 
 const CommentSchema = z.object({
 	id: z.number().int(),
@@ -24,10 +24,7 @@ type UpdateCommentPayload = Partial<CommentWritableFields>;
 export async function getAllComments(answerId: string): Promise<Comment[] | null> {
 	// GET /answers/{answerId}/comments/
 	try {
-		const response = await fetch(
-			buildCommentListUrl(answerId),
-			buildRequest(HttpRequestType.GET)
-		);
+		const response = await fetch(buildCommentListUrl(answerId), api.get());
 
 		if (!response.ok) {
 			console.error('Failed to fetch comments:', response.statusText);
@@ -48,10 +45,7 @@ export async function createNewComment(
 ): Promise<Comment | null> {
 	// POST /answers/{answerId}/comments/
 	try {
-		const response = await fetch(
-			buildCommentListUrl(answerId),
-			buildRequest(HttpRequestType.POST, payload)
-		);
+		const response = await fetch(buildCommentListUrl(answerId), api.post(payload));
 
 		if (!response.ok) {
 			console.error('Failed to create comment:', response.statusText);
@@ -69,10 +63,7 @@ export async function createNewComment(
 export async function getCommentDetails(commentId: string | number): Promise<Comment | null> {
 	// GET /comments/{commentId}
 	try {
-		const response = await fetch(
-			buildCommentDetailUrl(commentId.toString()),
-			buildRequest(HttpRequestType.GET)
-		);
+		const response = await fetch(buildCommentDetailUrl(commentId.toString()), api.get());
 
 		if (!response.ok) {
 			console.error('Failed to fetch comment:', response.statusText);
@@ -93,10 +84,7 @@ export async function updateCommentDetails(
 ): Promise<Comment | null> {
 	// PUT /comments/{commentId}
 	try {
-		const response = await fetch(
-			buildCommentDetailUrl(commentId.toString()),
-			buildRequest(HttpRequestType.PUT, payload)
-		);
+		const response = await fetch(buildCommentDetailUrl(commentId.toString()), api.put(payload));
 
 		if (!response.ok) {
 			console.error('Failed to update comment:', response.statusText);
@@ -113,12 +101,9 @@ export async function updateCommentDetails(
 
 export async function deleteComment(commentId: string | number): Promise<boolean> {
 	try {
-		const res = await fetch(
-			buildCommentDetailUrl(commentId.toString()),
-			buildRequest(HttpRequestType.DELETE)
-		);
-		if (!res.ok) {
-			console.error('Failed to delete comment:', res.status, res.statusText);
+		const response = await fetch(buildCommentDetailUrl(commentId.toString()), api.delete());
+		if (!response.ok) {
+			console.error('Failed to delete comment:', response.status, response.statusText);
 			return false;
 		}
 		return true;
@@ -130,10 +115,10 @@ export async function deleteComment(commentId: string | number): Promise<boolean
 
 function buildCommentListUrl(answerId: string): string {
 	const encodedAnswerId = encodeURIComponent(answerId);
-	return `${COMMENT_LIST_URL}${encodedAnswerId}/comments/`;
+	return `${COMMENT_LIST_URL}${encodedAnswerId}/comments`;
 }
 
 function buildCommentDetailUrl(commentId: string): string {
 	const encodedCommentId = encodeURIComponent(commentId);
-	return `${COMMENT_DETAIL_URL}${encodedCommentId}/`;
+	return `${COMMENT_DETAIL_URL}${encodedCommentId}`;
 }

@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-import { HttpRequestType, buildRequest } from './common';
+import { api } from './common';
 
-const QUESTIONS_URL = `${process.env.BACKEND}/questions/`;
+const QUESTIONS_URL = `/api/hoagie/questions`;
 
 const QuestionSchema = z.object({
 	// Define the schema based on the backend model
@@ -34,7 +34,7 @@ type QuestionPayload = {
 export async function getAllQuestions(): Promise<Question[] | null> {
 	// GET /questions
 	try {
-		const response = await fetch(QUESTIONS_URL, buildRequest(HttpRequestType.GET));
+		const response = await fetch(QUESTIONS_URL, api.get());
 
 		if (!response.ok) {
 			console.error('Failed to fetch questions:', response.status, response.statusText);
@@ -59,7 +59,7 @@ export async function getAllQuestions(): Promise<Question[] | null> {
 export async function createNewQuestion(payload: QuestionPayload): Promise<Question | null> {
 	// POST /questions
 	try {
-		const response = await fetch(QUESTIONS_URL, buildRequest(HttpRequestType.POST, payload));
+		const response = await fetch(QUESTIONS_URL, api.post(payload));
 
 		if (!response.ok) {
 			console.error('Failed to create question:', response.status, response.statusText);
@@ -84,10 +84,7 @@ export async function createNewQuestion(payload: QuestionPayload): Promise<Quest
 export async function getQuestionDetails(questionId: string): Promise<Question | null> {
 	// GET /questions/{questionId}
 	try {
-		const response = await fetch(
-			buildQuestionDetailsUrl(questionId),
-			buildRequest(HttpRequestType.GET)
-		);
+		const response = await fetch(buildQuestionDetailsUrl(questionId), api.get());
 
 		if (!response.ok) {
 			console.error(
@@ -119,10 +116,7 @@ export async function updateQuestionDetails(
 ): Promise<Question | null> {
 	// PUT /questions/{questionId}
 	try {
-		const response = await fetch(
-			buildQuestionDetailsUrl(questionId),
-			buildRequest(HttpRequestType.PUT, payload)
-		);
+		const response = await fetch(buildQuestionDetailsUrl(questionId), api.put(payload));
 
 		if (!response.ok) {
 			console.error(
@@ -151,10 +145,7 @@ export async function updateQuestionDetails(
 export async function deleteQuestion(questionId: string): Promise<boolean> {
 	// DELETE /questions/{questionId}
 	try {
-		const response = await fetch(
-			buildQuestionDetailsUrl(questionId),
-			buildRequest(HttpRequestType.DELETE)
-		);
+		const response = await fetch(buildQuestionDetailsUrl(questionId), api.delete());
 
 		if (response.status !== 204) {
 			console.error(
@@ -174,6 +165,5 @@ export async function deleteQuestion(questionId: string): Promise<boolean> {
 
 function buildQuestionDetailsUrl(questionId: string): string {
 	const encodedQuestionId = encodeURIComponent(questionId.toString());
-
-	return `${QUESTIONS_URL}${encodedQuestionId}`;
+	return `${QUESTIONS_URL}/${encodedQuestionId}`;
 }
