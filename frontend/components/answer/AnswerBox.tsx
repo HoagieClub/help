@@ -44,7 +44,10 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 		setHeartLoading(true);
 
 		const result = await heartAnswer(String(answer.id));
-		if (!result) {
+		if (result) {
+			setHearted(result.is_hearted);
+			setHeartCount(result.hearts);
+		} else {
 			setHearted(prevHearted);
 			setHeartCount(prevCount);
 		}
