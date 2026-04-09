@@ -23,17 +23,19 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserView(APIView):
-    def get_questions_for_user(self, request, target_user_id: str):
-        target_user = get_object_or_404(CustomUser, net_id=target_user_id)
-        questions_set = Question.objects.filter(user=target_user)
+    pass
 
-        current_net_id = request.user.net_id
-        if current_net_id != target_user_id:
-            questions_set = questions_set.filter(user_is_anonymous=False)
-        
-        questions_set = questions_set.order_by("-created_at")
-        serializer = QuestionSerializer(questions_set, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+def get_questions_for_user(self, request, target_user_id: str):
+    target_user = get_object_or_404(CustomUser, net_id=target_user_id)
+    questions_set = Question.objects.filter(user=target_user)
+
+    current_net_id = request.user.net_id
+    if current_net_id != target_user_id:
+        questions_set = questions_set.filter(user_is_anonymous=False)
+    
+    questions_set = questions_set.order_by("-created_at")
+    serializer = QuestionSerializer(questions_set, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
     
 
 
