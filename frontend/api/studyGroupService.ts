@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { HttpRequestType, buildRequest } from './common';
 
-const STUDY_GROUPS_URL = `${process.env.BACKEND}/studygroups/`;
+const STUDY_GROUPS_URL = `${process.env.BACKEND}/study-groups/`;
 
 const StudyGroupSchema = z.object({
 	id: z.number(),
@@ -72,16 +72,16 @@ export async function createNewStudyGroup(payLoad: StudyGroupPayload): Promise<S
 	}
 }
 
-export async function getStudyGroup(studygroupId: string): Promise<StudyGroup | null> {
+export async function getStudyGroup(studyGroupId: string): Promise<StudyGroup | null> {
 	try {
 		const response = await fetch(
-			buildStudyGroupUrl(studygroupId),
+			buildStudyGroupUrl(studyGroupId),
 			buildRequest(HttpRequestType.GET)
 		);
 
 		if (!response.ok) {
 			console.error(
-				`Failed to fetch question ${studygroupId}:`,
+				`Failed to fetch study group ${studyGroupId}:`,
 				response.status,
 				response.statusText
 			);
@@ -92,30 +92,30 @@ export async function getStudyGroup(studygroupId: string): Promise<StudyGroup | 
 		const parsed = StudyGroupSchema.safeParse(data);
 
 		if (!parsed.success) {
-			console.error(`Failed to parse study group ${studygroupId}:`, parsed.error.issues);
+			console.error(`Failed to parse study group ${studyGroupId}:`, parsed.error.issues);
 			return null;
 		}
 
 		return parsed.data;
 	} catch (error) {
-		console.error(`Error fetching study group ${studygroupId}:`, error);
+		console.error(`Error fetching study group ${studyGroupId}:`, error);
 		return null;
 	}
 }
 
 export async function updateStudyGroup(
-	studygroupId: string,
+	studyGroupId: string,
 	payLoad: StudyGroupPayload
 ): Promise<StudyGroup | null> {
 	try {
 		const response = await fetch(
-			buildStudyGroupUrl(studygroupId),
+			buildStudyGroupUrl(studyGroupId),
 			buildRequest(HttpRequestType.PUT, payLoad)
 		);
 
 		if (!response.ok) {
 			console.error(
-				`Failed to update study group ${studygroupId}:`,
+				`Failed to update study group ${studyGroupId}:`,
 				response.status,
 				response.statusText
 			);
@@ -127,7 +127,7 @@ export async function updateStudyGroup(
 
 		if (!parsed.success) {
 			console.error(
-				`Failed to parse updated study group ${studygroupId}:`,
+				`Failed to parse updated study group ${studyGroupId}:`,
 				parsed.error.issues
 			);
 			return null;
@@ -135,21 +135,21 @@ export async function updateStudyGroup(
 
 		return parsed.data;
 	} catch (error) {
-		console.error(`Error updating study group ${studygroupId}:`, error);
+		console.error(`Error updating study group ${studyGroupId}:`, error);
 		return null;
 	}
 }
 
-export async function deleteStudyGroup(studygroupId: string): Promise<boolean> {
+export async function deleteStudyGroup(studyGroupId: string): Promise<boolean> {
 	try {
 		const response = await fetch(
-			buildStudyGroupUrl(studygroupId),
+			buildStudyGroupUrl(studyGroupId),
 			buildRequest(HttpRequestType.DELETE)
 		);
 
 		if (response.status !== 204) {
 			console.error(
-				`Failed to delete study group ${studygroupId}:`,
+				`Failed to delete study group ${studyGroupId}:`,
 				response.status,
 				response.statusText
 			);
@@ -158,13 +158,13 @@ export async function deleteStudyGroup(studygroupId: string): Promise<boolean> {
 
 		return true;
 	} catch (error) {
-		console.error(`Error deleting study group ${studygroupId}:`, error);
+		console.error(`Error deleting study group ${studyGroupId}:`, error);
 		return false;
 	}
 }
 
-function buildStudyGroupUrl(studygroupId: string): string {
-	const encodedStudyGroupId = encodeURIComponent(studygroupId.toString());
+function buildStudyGroupUrl(studyGroupId: string): string {
+	const encodedStudyGroupId = encodeURIComponent(studyGroupId.toString());
 
-	return `${STUDY_GROUPS_URL}${encodedStudyGroupId}`;
+	return `${STUDY_GROUPS_URL}${encodedStudyGroupId}/`;
 }
