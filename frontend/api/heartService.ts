@@ -2,19 +2,17 @@ import { z } from 'zod';
 
 import { HttpRequestType, buildRequest } from './common';
 
-const HeartSchema = z.object({
-	// Define the schema based on the backend model
-	user: z.number(),
-	question: z.number().nullable(),
-	answer: z.number().nullable(),
-	comment: z.number().nullable(),
+// Matches the backend response: {"hearts": <updated_count>, "is_hearted": <bool>}
+const HeartResponseSchema = z.object({
+	hearts: z.number(),
+	is_hearted: z.boolean(),
 });
 
-type Heart = z.infer<typeof HeartSchema>;
+type HeartResponse = z.infer<typeof HeartResponseSchema>;
 
 // Hearts/unhearts a question on behalf of the authenticated user.
 // POST /questions/{questionId}/heart
-export async function heartQuestion(questionId: string): Promise<Heart | null> {
+export async function heartQuestion(questionId: string): Promise<HeartResponse | null> {
 	try {
 		const response = await fetch(
 			`questions/${encodeURIComponent(questionId)}/heart`,
@@ -25,7 +23,7 @@ export async function heartQuestion(questionId: string): Promise<Heart | null> {
 			return null;
 		}
 		const data = await response.json();
-		return HeartSchema.parse(data);
+		return HeartResponseSchema.parse(data);
 	} catch (error) {
 		console.error('Error hearting question:', error);
 		return null;
@@ -34,7 +32,7 @@ export async function heartQuestion(questionId: string): Promise<Heart | null> {
 
 // Hearts/unhearts an answer on behalf of the authenticated user.
 // POST /answers/{answerId}/heart
-export async function heartAnswer(answerId: string): Promise<Heart | null> {
+export async function heartAnswer(answerId: string): Promise<HeartResponse | null> {
 	try {
 		const response = await fetch(
 			`answers/${encodeURIComponent(answerId)}/heart`,
@@ -45,7 +43,7 @@ export async function heartAnswer(answerId: string): Promise<Heart | null> {
 			return null;
 		}
 		const data = await response.json();
-		return HeartSchema.parse(data);
+		return HeartResponseSchema.parse(data);
 	} catch (error) {
 		console.error('Error hearting answer:', error);
 		return null;
@@ -54,7 +52,7 @@ export async function heartAnswer(answerId: string): Promise<Heart | null> {
 
 // Hearts/unhearts a comment on behalf of the authenticated user.
 // POST /comments/{commentId}/heart
-export async function heartComment(commentId: string): Promise<Heart | null> {
+export async function heartComment(commentId: string): Promise<HeartResponse | null> {
 	try {
 		const response = await fetch(
 			`comments/${encodeURIComponent(commentId)}/heart`,
@@ -65,7 +63,7 @@ export async function heartComment(commentId: string): Promise<Heart | null> {
 			return null;
 		}
 		const data = await response.json();
-		return HeartSchema.parse(data);
+		return HeartResponseSchema.parse(data);
 	} catch (error) {
 		console.error('Error hearting comment:', error);
 		return null;
