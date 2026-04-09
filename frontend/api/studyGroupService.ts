@@ -22,6 +22,7 @@ type StudyGroupPayload = {
 	leader: number;
 	meeting_datetime: string;
 	max_spots: number;
+	members: number[];
 };
 
 export async function getAllStudyGroup(): Promise<StudyGroup[] | null> {
