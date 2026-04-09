@@ -35,13 +35,13 @@ def user_answers(request, user_id: str):
     pass
 
 
-def user_comments(request, user_id: str) -> Response:
+def get_comments_for_user(request, user_id: str) -> Response:
     # retrieve all comments a user has posted
-    get_object_or_404(CustomUser, net_id=user_id)
+    target_user = get_object_or_404(CustomUser, id=user_id)
 
-    queryset = Comment.objects.filter(user__net_id=user_id).order_by("-created_at")
+    queryset = Comment.objects.filter(user=target_user).order_by("-created_at")
 
-    if user_id != request.user.net_id:
+    if request.user.net_id != target_user.net_id:
         # only show public comments for other users
         queryset = queryset.filter(is_anonymous=False)
 
