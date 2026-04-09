@@ -35,8 +35,6 @@ def get_questions_for_user(request, user_id: str):
     questions_set = questions_set.order_by("-created_at")
     serializer = QuestionSerializer(questions_set, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
-    
-
 
 def user_answers(request, user_id: str):
     pass
