@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, Heading, Pane, Paragraph, Text, HeartIcon } from 'evergreen-ui';
+import { IconButton, Button, Heading, Pane, Paragraph, Text, HeartIcon, majorScale } from 'evergreen-ui';
 
 import { heartQuestion } from '../../api/heartService';
 import { formatTimePassed } from '../utils';
@@ -66,24 +66,22 @@ const QuestionPanel = ({
 						Back to Q&A
 					</Button>
 				</Pane>
-				<Text className={styles.metadata}>{displayInformation}</Text>
-				<Paragraph className={styles.details}>{details}</Paragraph>
-
-				<Pane className={styles.footer}>
-					<Pane display='flex' flexDirection='column' alignItems='center'>
-						<Button
-							icon={HeartIcon}
+				<Pane display="flex" alignItems="center" gap = {majorScale(2)} marginBottom={majorScale(2)}>
+					<Pane display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+						<IconButton
+							icon={<HeartIcon size={majorScale(4)} />}
 							appearance='minimal'
-							height={24}
-							iconSize={14}
+							height={majorScale(4)}
 							color={isHearted ? 'red500' : 'gray400'}
 							onClick={handleHeart}
 						/>
-						<Text size={300} color='muted'>
-							{hearts}
-						</Text>
+						<Text size={300}>{hearts}</Text>
+					</Pane>
+					<Pane display="flex" flexDirection="column" justifyContent="center">
+						<Text className={styles.metadata}>{displayInformation}</Text>
 					</Pane>
 				</Pane>
+				<Paragraph className={styles.details}>{details}</Paragraph>
 			</Pane>
 		</Pane>
 	);
