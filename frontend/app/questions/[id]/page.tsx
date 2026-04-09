@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Heading, Pane, Spinner, Text, majorScale } from 'evergreen-ui';
 import { useParams } from 'next/navigation';
@@ -54,35 +54,47 @@ export function QuestionPage() {
 	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [loadError, setLoadError] = useState<string | null>(null);
 
-	const load = useCallback(async () => {
-		if (!questionId) {
-			setQuestion(null);
-			setAnswers([]);
-			return;
-		}
-
-		setLoadError(null);
-		setQuestion(undefined);
-
-		const q = await getQuestionDetails(questionId);
-		if (!q) {
-			setQuestion(null);
-			setAnswers([]);
-			setLoadError('Question not found or could not be loaded.');
-			return;
-		}
-
-		setQuestion(q);
-
-		const rawAnswers = await getAllAnswers(questionId);
-		const list = rawAnswers ?? [];
-		const mapped = await Promise.all(list.map((a) => mapApiAnswerToUi(a)));
-		setAnswers(mapped);
-	}, [questionId]);
-
 	useEffect(() => {
+		let cancelled = false;
+
+		async function load() {
+			if (!questionId) {
+				setQuestion(null);
+				setAnswers([]);
+				return;
+			}
+
+			setLoadError(null);
+			setQuestion(undefined);
+
+			const q = await getQuestionDetails(questionId);
+			if (cancelled) return;
+
+			if (!q) {
+				setQuestion(null);
+				setAnswers([]);
+				setLoadError('Question not found or could not be loaded.');
+				return;
+			}
+
+			setQuestion(q);
+
+			const rawAnswers = await getAllAnswers(questionId);
+			if (cancelled) return;
+
+			const list = rawAnswers ?? [];
+			const mapped = await Promise.all(list.map((a) => mapApiAnswerToUi(a)));
+			if (cancelled) return;
+
+			setAnswers(mapped);
+		}
+
 		void load();
-	}, [load]);
+
+		return () => {
+			cancelled = true;
+		};
+	}, [questionId]);
 
 	if (question === undefined) {
 		return (
