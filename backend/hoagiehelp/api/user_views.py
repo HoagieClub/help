@@ -1,6 +1,10 @@
-from rest_framework import serializers
+from django.shortcuts import get_object_or_404
+from rest_framework import serializers, status
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from hoagiehelp.api.comment_views import CommentSerializer
+from hoagiehelp.models.comment import Comment
 from hoagiehelp.models.user import CustomUser
 
 
@@ -31,5 +35,16 @@ def user_answers(request, user_id: str):
     pass
 
 
-def user_comments(request, user_id: str):
-    pass
+def get_comments_for_user(request, user_id: str) -> Response:
+    # retrieve all comments a user has posted
+    target_user = get_object_or_404(CustomUser, id=user_id)
+
+    queryset = Comment.objects.filter(user=target_user).order_by("-created_at")
+
+    if request.user.net_id != target_user.net_id:
+        # only show public comments for other users
+        queryset = queryset.filter(is_anonymous=False)
+
+    serializer = CommentSerializer(queryset, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
