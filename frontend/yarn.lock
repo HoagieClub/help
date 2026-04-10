@@ -5330,7 +5330,6 @@ __metadata:
     "@mui/icons-material": "npm:^7.3.7"
     "@mui/material": "npm:^7.3.7"
     "@next/eslint-plugin-next": "npm:^15.1.7"
-    "@phosphor-icons/react": "npm:^2.1.10"
     "@radix-ui/react-separator": "npm:^1.1.7"
     "@radix-ui/react-slot": "npm:^1.2.3"
     "@tailwindcss/forms": "npm:^0.5.10"
