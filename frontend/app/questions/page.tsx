@@ -11,7 +11,6 @@ import Link from 'next/link';
 export function QAPage() {
 	const [sort, setSort] = useState<'recent' | 'popular'>('recent');
 
-
 	return (
 		<Pane marginX='auto' maxWidth={800} padding={majorScale(5)} paddingTop={majorScale(4)}>
 			<Pane
