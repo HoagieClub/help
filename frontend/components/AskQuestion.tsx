@@ -14,7 +14,7 @@ import {
 	Textarea,
 	majorScale,
 } from 'evergreen-ui';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface FormState {
 	questionTitle: string;
@@ -38,13 +38,12 @@ const CATEGORY_OPTIONS = [
 ];
 
 export default function AskQuestion(): React.ReactElement {
-	const router = useRouter();
 	const [form, setForm] = useState<FormState>(initialFormState);
 	const [submitted, setSubmitted] = useState(false);
 	const [categoryError, setCategoryError] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const { name, value } = e.target as HTMLInputElement;
+		const { name, value } = e.target;
 		setForm((prevForm) => ({
 			...prevForm,
 			[name]: value,
@@ -59,16 +58,6 @@ export default function AskQuestion(): React.ReactElement {
 		}
 		// TODO: API request to submit a question
 		setSubmitted(true);
-		setForm(initialFormState);
-	};
-
-	const handleCancel = () => {
-		setForm(initialFormState);
-		router.push('/questions');
-	};
-
-	const handleBack = () => {
-		router.push('/questions');
 	};
 
 	return (
@@ -82,15 +71,16 @@ export default function AskQuestion(): React.ReactElement {
 		>
 			{/* Back button */}
 			<Pane width='100%' maxWidth='720px' marginBottom={majorScale(2)}>
-				<Button
-					appearance='minimal'
-					iconBefore={ArrowLeftIcon}
-					onClick={handleBack}
-					paddingLeft={0}
-					fontWeight={500}
-				>
-					Back
-				</Button>
+				<Link href='/questions' style={{ textDecoration: 'none' }}>
+					<Button
+						appearance='minimal'
+						iconBefore={ArrowLeftIcon}
+						paddingLeft={0}
+						fontWeight={500}
+					>
+						Back
+					</Button>
+				</Link>
 			</Pane>
 
 			{/* Header */}
@@ -117,9 +107,11 @@ export default function AskQuestion(): React.ReactElement {
 						<Heading size={600} marginBottom={majorScale(2)}>
 							Thank you for submitting your question!
 						</Heading>
-						<Button appearance='primary' onClick={handleBack}>
-							Back to Q&A
-						</Button>
+						<Link href='/questions' style={{ textDecoration: 'none' }}>
+							<Button appearance='primary'>
+								Back to Q&A
+							</Button>
+						</Link>
 					</Pane>
 				) : (
 					<form onSubmit={handleSubmit}>
@@ -214,9 +206,11 @@ export default function AskQuestion(): React.ReactElement {
 								<Button type='submit' appearance='primary' flex={1}>
 									Post Question
 								</Button>
-								<Button type='button' onClick={handleCancel}>
-									Cancel
-								</Button>
+								<Link href='/questions' style={{ textDecoration: 'none' }}>
+									<Button type='button'>
+										Cancel
+									</Button>
+								</Link>
 							</Pane>
 						</Pane>
 					</form>
