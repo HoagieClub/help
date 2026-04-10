@@ -10,7 +10,7 @@ import { createNewAnswer } from '@/api/answerService';
 import { formatTimePassed } from '@/components/utils';
 
 interface QuestionPanelProps {
-	questionId: number;
+	questionId: string;
 	user: string;
 	title: string;
 	tags: string[];

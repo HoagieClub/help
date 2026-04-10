@@ -48,7 +48,7 @@ async function mapApiAnswerToUi(api: ApiAnswer): Promise<Answer> {
 
 function QuestionPage() {
 	const params = useParams<{ id: string }>();
-	const questionId = Array.isArray(params.id) ? params.id[0] : params.id;
+	const questionId = params.id;
 
 	const [question, setQuestion] = useState<LoadedQuestion | null | undefined>(undefined);
 	const [answers, setAnswers] = useState<Answer[]>([]);
@@ -136,12 +136,13 @@ function QuestionPage() {
 			marginRight={majorScale(16)}
 		>
 			<QuestionPanel
+				questionId={questionId}
 				user={`User ${question.user}`}
 				title={question.title}
 				tags={question.tags.map(String)}
 				course={question.course}
 				details={question.details}
-				create_time={new Date(question.create_time)}
+				create_time={question.create_time}
 				user_is_anonymous={question.user_is_anonymous}
 				hearts={question.hearts}
 			/>
