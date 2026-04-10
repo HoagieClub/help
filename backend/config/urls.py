@@ -19,7 +19,13 @@ from django.contrib import admin
 from django.urls import path
 from hoagiehelp.api.answer_views import AnswerDetailView, AnswerListView
 from hoagiehelp.api.comment_views import CommentDetailView, CommentListView
+from hoagiehelp.api.heart_views import heart_answer, heart_comment, heart_question
+from hoagiehelp.api.notification_views import (
+    NotificationView,
+    get_notifications,
+)
 from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
+from hoagiehelp.api.study_group_views import StudyGroupDetailView, StudyGroupListView
 from hoagiehelp.api.user_views import (
     UserView,
     user_answers,
@@ -52,9 +58,27 @@ urlpatterns = [
     path(
         "comments/<str:comment_id>/", CommentDetailView.as_view(), name="comment-detail"
     ),
+    # Study Groups
+    path("study-groups/", StudyGroupListView.as_view(), name="studygroup-list"),
+    path(
+        "study-groups/<str:studygroup_id>/",
+        StudyGroupDetailView.as_view(),
+        name="studygroup-detail",
+    ),
     # Users
     path("users/<str:user_id>/", UserView.as_view(), name="user-detail"),
     path("users/<str:user_id>/questions/", user_questions, name="user-questions"),
     path("users/<str:user_id>/answers/", user_answers, name="user-answers"),
     path("users/<str:user_id>/comments/", user_comments, name="user-comments"),
+    # Notifications
+    path("notifications/", get_notifications, name="get-notifications"),
+    path(
+        "notifications/<str:notification_id>/",
+        NotificationView.as_view(),
+        name="notification-detail",
+    ),
+    # Hearts
+    path("questions/<str:question_id>/heart", heart_question, name="heart_question"),
+    path("answers/<str:answer_id>/heart", heart_answer, name="heart_answer"),
+    path("comments/<str:comment_id>/heart", heart_comment, name="heart_comment"),
 ]
