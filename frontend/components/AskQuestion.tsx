@@ -108,9 +108,7 @@ export default function AskQuestion(): React.ReactElement {
 							Thank you for submitting your question!
 						</Heading>
 						<Link href='/questions' style={{ textDecoration: 'none' }}>
-							<Button appearance='primary'>
-								Back to Q&A
-							</Button>
+							<Button appearance='primary'>Back to Q&A</Button>
 						</Link>
 					</Pane>
 				) : (
@@ -207,9 +205,7 @@ export default function AskQuestion(): React.ReactElement {
 									Post Question
 								</Button>
 								<Link href='/questions' style={{ textDecoration: 'none' }}>
-									<Button type='button'>
-										Cancel
-									</Button>
+									<Button type='button'>Cancel</Button>
 								</Link>
 							</Pane>
 						</Pane>
