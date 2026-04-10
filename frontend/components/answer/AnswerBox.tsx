@@ -45,8 +45,9 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 
 		const result = await heartAnswer(String(answer.id));
 		if (result) {
-			setHearted(result.is_hearted);
-			setHeartCount(result.hearts);
+			// TODO: Update API response to match something similar to this
+			// setHearted(result.is_hearted);
+			// setHeartCount(result.hearts);
 		} else {
 			setHearted(prevHearted);
 			setHeartCount(prevCount);
