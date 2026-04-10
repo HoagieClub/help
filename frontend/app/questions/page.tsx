@@ -3,6 +3,7 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Heading, Pane, Text, TrendingUpIcon, majorScale } from 'evergreen-ui';
+import Link from 'next/link';
 
 export function QAPage() {
 	/**
@@ -16,13 +17,6 @@ export function QAPage() {
 	 * Handles the popular button click
 	 */
 	const popularButtonHandler = () => {
-		// Placeholder for button click action
-	};
-
-	/**
-	 * Handles the ask question button click
-	 */
-	const askQuestionHandler = () => {
 		// Placeholder for button click action
 	};
 
@@ -45,22 +39,23 @@ export function QAPage() {
 					Q&A
 				</Heading>
 				<Pane display='flex' gap={majorScale(2)}>
-					<Button
-						appearance='primary'
-						onClick={askQuestionHandler}
-						width='200px'
-						paddingY={majorScale(2)}
-						backgroundColor='#FE791B'
-						borderRadius='8px'
-						borderWidth='2px'
-						borderColor='black'
-						marginLeft={0}
-						color='white'
-						fontWeight='bold'
-					>
-						<AddIcon fontSize='small' style={{ marginRight: 25 }} />
-						Ask Question
-					</Button>
+					<Link href='/questions/ask' style={{ textDecoration: 'none' }}>
+						<Button
+							appearance='primary'
+							width='200px'
+							paddingY={majorScale(2)}
+							backgroundColor='#FE791B'
+							borderRadius='8px'
+							borderWidth='2px'
+							borderColor='black'
+							marginLeft={0}
+							color='white'
+							fontWeight='bold'
+						>
+							<AddIcon fontSize='small' style={{ marginRight: 25 }} />
+							Ask Question
+						</Button>
+					</Link>
 				</Pane>
 			</Pane>
 
