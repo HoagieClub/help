@@ -1,102 +1,123 @@
 'use client';
 
+import { useState } from 'react';
+
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddIcon from '@mui/icons-material/Add';
-import { Button, Heading, Pane, Text, TrendingUpIcon, majorScale } from 'evergreen-ui';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { Pane, Text, majorScale } from 'evergreen-ui';
 import Link from 'next/link';
 
 export function QAPage() {
-	/**
-	 * Handles the recent button click
-	 */
-	const recentButtonHandler = () => {
-		// Placeholder for button click action
-	};
-
-	/**
-	 * Handles the popular button click
-	 */
-	const popularButtonHandler = () => {
-		// Placeholder for button click action
-	};
+	const [sort, setSort] = useState<'recent' | 'popular'>('recent');
 
 	return (
-		<Pane
-			marginX='auto'
-			padding={majorScale(2)}
-			marginLeft={majorScale(16)}
-			marginTop={majorScale(8)}
-			marginRight={majorScale(16)}
-		>
-			{/* Main header */}
+		<Pane marginX='auto' maxWidth={800} padding={majorScale(5)} paddingTop={majorScale(4)}>
 			<Pane
 				display='flex'
 				justifyContent='space-between'
-				alignItems='center'
-				marginBottom={majorScale(1)}
+				alignItems='flex-start'
+				marginBottom={majorScale(3)}
 			>
-				<Heading size={900} marginBottom={12} fontWeight={1000}>
-					Q&A
-				</Heading>
-				<Pane display='flex' gap={majorScale(2)}>
-					<Link href='/questions/ask' style={{ textDecoration: 'none' }}>
-						<Button
-							appearance='primary'
-							width='200px'
-							paddingY={majorScale(2)}
-							backgroundColor='#FE791B'
-							borderRadius='8px'
-							borderWidth='2px'
-							borderColor='black'
-							marginLeft={0}
-							color='white'
-							fontWeight='bold'
-						>
-							<AddIcon fontSize='small' style={{ marginRight: 25 }} />
+				<Pane>
+					<Text
+						fontSize={32}
+						fontWeight={700}
+						color='#1F2937'
+						display='block'
+						marginBottom={majorScale(1)}
+					>
+						Q&A
+					</Text>
+					<Text size={500} color='#6B7280'>
+						Ask questions, share knowledge, help classmates
+					</Text>
+				</Pane>
+				<Link href='/questions/ask' style={{ textDecoration: 'none', flexShrink: 0 }}>
+					<Pane
+						display='flex'
+						alignItems='center'
+						justifyContent='center'
+						paddingX={majorScale(3)}
+						paddingY={majorScale(2)}
+						background='#FE791B'
+						border='2px solid black'
+						borderRadius={8}
+						padding='8px'
+					>
+						<AddIcon sx={{ color: 'white', fontSize: 20, marginRight: 1 }} />
+						<Text color='white' fontWeight={600} fontSize={18}>
 							Ask Question
-						</Button>
-					</Link>
+						</Text>
+					</Pane>
+				</Link>
+			</Pane>
+
+			<Pane display='flex' gap={majorScale(2)} marginBottom={majorScale(4)}>
+				<Pane
+					display='flex'
+					alignItems='center'
+					justifyContent='center'
+					paddingX={majorScale(3)}
+					paddingY={majorScale(2)}
+					background={sort === 'recent' ? '#FE791B' : 'white'}
+					borderRadius={8}
+					border='2px solid black'
+					cursor='pointer'
+					onClick={() => setSort('recent')}
+				>
+					<AccessTimeIcon
+						sx={{
+							color: sort === 'recent' ? 'white' : '#6B7280',
+							fontSize: 32,
+							marginRight: 1,
+							borderRadius: '50%',
+							padding: '4px',
+							backgroundColor: 'transparent',
+						}}
+					/>
+					<Text
+						fontWeight={600}
+						fontSize={18}
+						color={sort === 'recent' ? 'white' : '#374151'}
+					>
+						Recent
+					</Text>
+				</Pane>
+				<Pane
+					display='flex'
+					alignItems='center'
+					justifyContent='center'
+					paddingX={majorScale(3)}
+					paddingY={majorScale(2)}
+					background={sort === 'popular' ? '#FE791B' : 'white'}
+					borderRadius={8}
+					border='2px solid black'
+					cursor='pointer'
+					onClick={() => setSort('popular')}
+				>
+					<TrendingUpIcon
+						sx={{
+							color: sort === 'popular' ? 'white' : '#6B7280',
+							fontSize: 32,
+							marginRight: 1,
+							borderRadius: '50%',
+							padding: '4px',
+							backgroundColor: 'transparent',
+						}}
+					/>
+					<Text
+						fontWeight={600}
+						fontSize={18}
+						color={sort === 'popular' ? 'white' : '#374151'}
+					>
+						Popular
+					</Text>
 				</Pane>
 			</Pane>
 
-			{/* Subtitle */}
-			<Pane marginBottom={majorScale(4)}>
-				<Text size={500}>Ask questions, share knowledge, help classmates</Text>
-			</Pane>
-
-			<Pane display='flex' gap={majorScale(2)}>
-				<Button
-					appearance='primary'
-					onClick={recentButtonHandler}
-					width='100px'
-					paddingY={majorScale(2)}
-					marginBottom={majorScale(2)}
-					backgroundColor='#FE791B'
-					borderRadius='8px'
-					borderWidth='2px'
-					borderColor='black'
-					marginLeft={0}
-					color='white'
-					fontWeight='bold'
-				>
-					<AccessTimeIcon fontSize='small' style={{ marginRight: 6 }} /> Recent
-				</Button>
-				<Button
-					appearance='primary'
-					onClick={popularButtonHandler}
-					width='100px'
-					paddingY={majorScale(2)}
-					marginBottom={majorScale(2)}
-					backgroundColor='white'
-					borderRadius='8px'
-					borderWidth='2px'
-					borderColor='black'
-					color='black'
-					fontWeight='bold'
-				>
-					<TrendingUpIcon fontSize='small' style={{ marginRight: 6 }} />
-					Popular
-				</Button>
+			<Pane display='flex' flexDirection='column' gap={majorScale(3)}>
+				{/* TODO: Fetch and render posts from API */}
 			</Pane>
 		</Pane>
 	);
