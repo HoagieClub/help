@@ -175,5 +175,5 @@ export async function deleteQuestion(questionId: string): Promise<boolean> {
 function buildQuestionDetailsUrl(questionId: string): string {
 	const encodedQuestionId = encodeURIComponent(questionId.toString());
 
-	return `${QUESTIONS_URL}${encodedQuestionId}`;
+	return `${QUESTIONS_URL}${encodedQuestionId}/`;
 }
