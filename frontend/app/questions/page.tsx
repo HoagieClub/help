@@ -1,10 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddIcon from '@mui/icons-material/Add';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Pane, Text, majorScale } from 'evergreen-ui';
-import { useState } from 'react';
 
 import { Post, type PostProps } from '@/components/ui/Post';
 
@@ -55,64 +56,59 @@ export function QAPage() {
 	};
 
 	return (
-		<Pane
-			marginX="auto"
-			maxWidth={800}
-			padding={majorScale(5)}
-			paddingTop={majorScale(4)}
-		>
+		<Pane marginX='auto' maxWidth={800} padding={majorScale(5)} paddingTop={majorScale(4)}>
 			<Pane
-				display="flex"
-				justifyContent="space-between"
-				alignItems="flex-start"
+				display='flex'
+				justifyContent='space-between'
+				alignItems='flex-start'
 				marginBottom={majorScale(3)}
 			>
 				<Pane>
 					<Text
 						fontSize={32}
 						fontWeight={700}
-						color="#1F2937"
-						display="block"
+						color='#1F2937'
+						display='block'
 						marginBottom={majorScale(1)}
 					>
 						Q&A
 					</Text>
-					<Text size={500} color="#6B7280">
+					<Text size={500} color='#6B7280'>
 						Ask questions, share knowledge, help classmates
 					</Text>
 				</Pane>
 				<Pane
-					display="flex"
-					alignItems="center"
-					justifyContent="center"
+					display='flex'
+					alignItems='center'
+					justifyContent='center'
 					paddingX={majorScale(3)}
 					paddingY={majorScale(2)}
-					background="#FE791B"
-					border="2px solid black"
+					background='#FE791B'
+					border='2px solid black'
 					borderRadius={8}
-					padding="8px"
-					cursor="pointer"
+					padding='8px'
+					cursor='pointer'
 					onClick={askQuestionHandler}
 					style={{ flexShrink: 0 }}
 				>
 					<AddIcon sx={{ color: 'white', fontSize: 20, marginRight: 1 }} />
-					<Text color="white" fontWeight={600} fontSize={18}>
+					<Text color='white' fontWeight={600} fontSize={18}>
 						Ask Question
 					</Text>
 				</Pane>
 			</Pane>
 
-			<Pane display="flex" gap={majorScale(2)} marginBottom={majorScale(4)}>
+			<Pane display='flex' gap={majorScale(2)} marginBottom={majorScale(4)}>
 				<Pane
-					display="flex"
-					alignItems="center"
-					justifyContent="center"
+					display='flex'
+					alignItems='center'
+					justifyContent='center'
 					paddingX={majorScale(3)}
 					paddingY={majorScale(2)}
 					background={sort === 'recent' ? '#FE791B' : 'white'}
 					borderRadius={8}
-					border="2px solid black"
-					cursor="pointer"
+					border='2px solid black'
+					cursor='pointer'
 					onClick={() => setSort('recent')}
 				>
 					<AccessTimeIcon
@@ -134,15 +130,15 @@ export function QAPage() {
 					</Text>
 				</Pane>
 				<Pane
-					display="flex"
-					alignItems="center"
-					justifyContent="center"
+					display='flex'
+					alignItems='center'
+					justifyContent='center'
 					paddingX={majorScale(3)}
 					paddingY={majorScale(2)}
 					background={sort === 'popular' ? '#FE791B' : 'white'}
 					borderRadius={8}
-					border="2px solid black"
-					cursor="pointer"
+					border='2px solid black'
+					cursor='pointer'
 					onClick={() => setSort('popular')}
 				>
 					<TrendingUpIcon
@@ -165,7 +161,7 @@ export function QAPage() {
 				</Pane>
 			</Pane>
 
-			<Pane display="flex" flexDirection="column" gap={majorScale(3)}>
+			<Pane display='flex' flexDirection='column' gap={majorScale(3)}>
 				{SAMPLE_POSTS.map((post, index) => (
 					<Post key={index} {...post} />
 				))}
