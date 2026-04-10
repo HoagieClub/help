@@ -46,8 +46,8 @@ async function mapApiAnswerToUi(api: ApiAnswer): Promise<Answer> {
 	};
 }
 
-export function QuestionPage() {
-	const params = useParams<{ id: string | string[] }>();
+function QuestionPage() {
+	const params = useParams<{ id: string }>();
 	const questionId = Array.isArray(params.id) ? params.id[0] : params.id;
 
 	const [question, setQuestion] = useState<LoadedQuestion | null | undefined>(undefined);
@@ -130,7 +130,6 @@ export function QuestionPage() {
 
 	return (
 		<Pane
-			marginX='auto'
 			padding={majorScale(2)}
 			marginLeft={majorScale(16)}
 			marginTop={majorScale(8)}
@@ -144,7 +143,7 @@ export function QuestionPage() {
 				details={question.details}
 				create_time={new Date(question.create_time)}
 				user_is_anonymous={question.user_is_anonymous}
-				hearts={question.heart}
+				hearts={question.hearts}
 			/>
 			<Pane marginTop={majorScale(6)} maxWidth='700px' marginX='auto'>
 				<AnswerPanel answers={answers} />

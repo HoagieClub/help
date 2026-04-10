@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 import { HttpRequestType, buildRequest } from './common';
 
-const ANSWER_LIST_URL = `${process.env.BACKEND}/questions/`;
-const ANSWER_DETAIL_URL = `${process.env.BACKEND}/answers/`;
+const ANSWER_LIST_URL = `/api/hoagie/questions/`;
+const ANSWER_DETAIL_URL = `/api/hoagie/answers/`;
 
 const AnswerSchema = z.object({
 	id: z.number().int(),

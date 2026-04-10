@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { HttpRequestType, buildRequest } from './common';
 
-const STUDY_GROUPS_URL = `${process.env.BACKEND}/study-groups/`;
+const STUDY_GROUPS_URL = `/api/hoagie/study-groups/`;
 
 const StudyGroupSchema = z.object({
 	id: z.number(),
