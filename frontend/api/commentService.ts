@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 import { HttpRequestType, buildRequest } from './common';
 
-const COMMENT_LIST_URL = `${process.env.BACKEND}/answers/`;
-const COMMENT_DETAIL_URL = `${process.env.BACKEND}/comments/`;
+const COMMENT_LIST_URL = `/api/hoagie/answers/`;
+const COMMENT_DETAIL_URL = `/api/hoagie/comments/`;
 
 const CommentSchema = z.object({
 	id: z.number().int(),

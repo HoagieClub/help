@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { HttpRequestType, buildRequest } from './common';
 
-const QUESTIONS_URL = `${process.env.BACKEND}/questions/`;
+const QUESTIONS_URL = `/api/hoagie/questions/`;
 
 const QuestionSchema = z.object({
 	// Define the schema based on the backend model
@@ -14,7 +14,7 @@ const QuestionSchema = z.object({
 	details: z.string(),
 	create_time: z.string(),
 	last_updated_time: z.string(),
-	heart: z.number().min(0),
+	hearts: z.number().min(0),
 	view: z.number().min(0),
 	user_is_anonymous: z.boolean(),
 });
@@ -26,7 +26,7 @@ type QuestionPayload = {
 	tags: number[];
 	course: string | null;
 	details: string;
-	heart: number;
+	hearts: number;
 	view: number;
 	user_is_anonymous: boolean;
 };
@@ -175,5 +175,5 @@ export async function deleteQuestion(questionId: string): Promise<boolean> {
 function buildQuestionDetailsUrl(questionId: string): string {
 	const encodedQuestionId = encodeURIComponent(questionId.toString());
 
-	return `${QUESTIONS_URL}${encodedQuestionId}`;
+	return `${QUESTIONS_URL}${encodedQuestionId}/`;
 }
