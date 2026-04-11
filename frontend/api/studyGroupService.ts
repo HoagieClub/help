@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { HttpRequestType, buildRequest } from './common';
+import { api } from './common';
 
 const STUDY_GROUPS_URL = `/api/hoagie/study-groups/`;
 
@@ -27,7 +27,7 @@ type StudyGroupPayload = {
 
 export async function getAllStudyGroup(): Promise<StudyGroup[] | null> {
 	try {
-		const response = await fetch(STUDY_GROUPS_URL, buildRequest(HttpRequestType.GET));
+		const response = await fetch(STUDY_GROUPS_URL, api.get());
 
 		if (!response.ok) {
 			console.error('Failed to fetch study groups:', response.status, response.statusText);
@@ -49,9 +49,9 @@ export async function getAllStudyGroup(): Promise<StudyGroup[] | null> {
 	}
 }
 
-export async function createNewStudyGroup(payLoad: StudyGroupPayload): Promise<StudyGroup | null> {
+export async function createNewStudyGroup(payload: StudyGroupPayload): Promise<StudyGroup | null> {
 	try {
-		const response = await fetch(STUDY_GROUPS_URL, buildRequest(HttpRequestType.POST, payLoad));
+		const response = await fetch(STUDY_GROUPS_URL, api.post(payload));
 
 		if (!response.ok) {
 			console.error('Failed to create study group:', response.status, response.statusText);
@@ -77,7 +77,7 @@ export async function getStudyGroup(studyGroupId: string): Promise<StudyGroup | 
 	try {
 		const response = await fetch(
 			buildStudyGroupUrl(studyGroupId),
-			buildRequest(HttpRequestType.GET)
+			api.get()
 		);
 
 		if (!response.ok) {
@@ -106,12 +106,12 @@ export async function getStudyGroup(studyGroupId: string): Promise<StudyGroup | 
 
 export async function updateStudyGroup(
 	studyGroupId: string,
-	payLoad: StudyGroupPayload
+	payload: StudyGroupPayload
 ): Promise<StudyGroup | null> {
 	try {
 		const response = await fetch(
 			buildStudyGroupUrl(studyGroupId),
-			buildRequest(HttpRequestType.PUT, payLoad)
+			api.put(payload)
 		);
 
 		if (!response.ok) {
@@ -145,7 +145,7 @@ export async function deleteStudyGroup(studyGroupId: string): Promise<boolean> {
 	try {
 		const response = await fetch(
 			buildStudyGroupUrl(studyGroupId),
-			buildRequest(HttpRequestType.DELETE)
+			api.delete()
 		);
 
 		if (response.status !== 204) {
