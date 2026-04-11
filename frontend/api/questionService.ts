@@ -14,7 +14,7 @@ const QuestionSchema = z.object({
 	details: z.string(),
 	create_time: z.string(),
 	last_updated_time: z.string(),
-	heart: z.number().min(0),
+	hearts: z.number().min(0),
 	view: z.number().min(0),
 	user_is_anonymous: z.boolean(),
 });
@@ -26,7 +26,7 @@ type QuestionPayload = {
 	tags: number[];
 	course: string | null;
 	details: string;
-	heart: number;
+	hearts: number;
 	view: number;
 	user_is_anonymous: boolean;
 };

@@ -2,7 +2,19 @@
 
 import React, { useState } from 'react';
 
-import { Pane, Textarea, Button, majorScale, minorScale } from 'evergreen-ui';
+import {
+	ArrowLeftIcon,
+	Button,
+	Heading,
+	Label,
+	Pane,
+	SelectMenu,
+	Text,
+	TextInput,
+	Textarea,
+	majorScale,
+} from 'evergreen-ui';
+import Link from 'next/link';
 
 interface FormState {
 	questionTitle: string;
@@ -18,126 +30,188 @@ const initialFormState: FormState = {
 	questionDetails: '',
 };
 
+const CATEGORY_OPTIONS = [
+	{ label: 'Assignments and PSETs', value: 'Assignments and PSETs' },
+	{ label: 'Exam Prep', value: 'Exam Prep' },
+	{ label: 'Resource Recommendations', value: 'Resource Recommendations' },
+	{ label: 'Other', value: 'Other' },
+];
+
 export default function AskQuestion(): React.ReactElement {
 	const [form, setForm] = useState<FormState>(initialFormState);
 	const [submitted, setSubmitted] = useState(false);
-	const [canceled, setCanceled] = useState(false);
+	const [categoryError, setCategoryError] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const { name, value } = e.target as HTMLInputElement;
+		const { name, value } = e.target;
 		setForm((prevForm) => ({
 			...prevForm,
 			[name]: value,
 		}));
 	};
 
-	const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setForm((prev) => ({ ...prev, category: e.target.value }));
-	};
-
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!form.category) {
+			setCategoryError(true);
+			return;
+		}
+		// TODO: API request to submit a question
 		setSubmitted(true);
-		setCanceled(false);
-		setForm(initialFormState);
-	};
-
-	const handleCancel = () => {
-		setForm(initialFormState);
-		setSubmitted(false);
-		setCanceled(true);
 	};
 
 	return (
-		<Pane padding={majorScale(2)} marginTop={minorScale(2)} marginBottom={minorScale(2)}>
-			<h2 className='text-3xl font-bold mb-2 text-left'>Ask a Question</h2>
-			<h3 className='text-base font-normal mb-12 text-left'>
-				Get help from the Princeton academics community
-			</h3>
-			<form className='flex flex-col gap-6' onSubmit={handleSubmit}>
-				<div style={{ marginBottom: minorScale(2) }}>
-					<label style={{ display: 'block' }}>Question Title</label>
-					<input
-						name='questionTitle'
-						value={form.questionTitle}
-						onChange={handleChange}
-						required
-						style={{ width: '100%', padding: 8 }}
-						placeholder='E.g., How do I approach the graph algorithms in COS 226?'
-						className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
-					/>
-				</div>
-
-				<div style={{ marginBottom: minorScale(2) }}>
-					<label style={{ display: 'block' }}>Category</label>
-					<select
-						name='category'
-						value={form.category}
-						onChange={handleCategoryChange}
-						required
-						style={{ width: '100%', padding: 8 }}
-						className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
+		<Pane
+			display='flex'
+			flexDirection='column'
+			alignItems='center'
+			paddingTop={majorScale(4)}
+			paddingBottom={majorScale(6)}
+			paddingX={majorScale(2)}
+		>
+			{/* Back button */}
+			<Pane width='100%' maxWidth='720px' marginBottom={majorScale(2)}>
+				<Link href='/questions' style={{ textDecoration: 'none' }}>
+					<Button
+						appearance='minimal'
+						iconBefore={ArrowLeftIcon}
+						paddingLeft={0}
+						fontWeight={500}
 					>
-						<option value='' disabled>
-							Select a category
-						</option>
-						<option value='Assignments and PSETs'>Assignments and PSETs</option>
-						<option value='Exam Prep'>Exam Prep</option>
-						<option value='Resource Recommendations'>Resource Recommendations</option>
-						<option value='Other'>Other</option>
-					</select>
-				</div>
-
-				<div style={{ marginBottom: minorScale(2) }}>
-					<label style={{ display: 'block' }}>Course (Optional)</label>
-					<input
-						name='course'
-						value={form.course}
-						onChange={handleChange}
-						style={{ width: '100%', padding: 8 }}
-						placeholder='E.g., COS 226'
-						className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
-					/>
-				</div>
-
-				<div style={{ marginBottom: minorScale(2) }}>
-					<label style={{ display: 'block' }}>Details</label>
-					<Textarea
-						name='questionDetails'
-						value={form.questionDetails}
-						onChange={handleChange}
-						style={{ borderRadius: 8, fontSize: '16px' }}
-						required
-						rows={10}
-						width='100%'
-						placeholder='Provide more details about your question...'
-						className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
-					/>
-					<span className='text-base font-normal mt-1'>
-						Tip: Add specific details and context to get better answers
-					</span>
-				</div>
-
-				<div
-					style={{
-						display: 'flex',
-						gap: 12,
-						width: '100%',
-					}}
-				>
-					<Button appearance='primary' type='submit' size='large' style={{ flex: 8 }}>
-						Post Question
+						Back
 					</Button>
-					<Button onClick={handleCancel} type='button' size='large' style={{ flex: 2 }}>
-						Cancel
-					</Button>
-				</div>
-			</form>
+				</Link>
+			</Pane>
 
-			{submitted && (
-				<Pane marginTop={minorScale(2)}>Thank you for submitting your question!</Pane>
-			)}
-			{canceled && <Pane marginTop={minorScale(2)}>Edit canceled.</Pane>}
+			{/* Header */}
+			<Pane width='100%' maxWidth='720px' marginBottom={majorScale(3)}>
+				<Heading size={800} fontWeight={700} marginBottom={4}>
+					Ask a Question
+				</Heading>
+				<Text size={400} color='muted'>
+					Get help from the Hoagie academics community
+				</Text>
+			</Pane>
+
+			{/* Form card */}
+			<Pane
+				width='100%'
+				maxWidth='720px'
+				background='white'
+				border='default'
+				borderRadius={8}
+				padding={majorScale(4)}
+			>
+				{submitted ? (
+					<Pane textAlign='center' paddingY={majorScale(4)}>
+						<Heading size={600} marginBottom={majorScale(2)}>
+							Thank you for submitting your question!
+						</Heading>
+						<Link href='/questions' style={{ textDecoration: 'none' }}>
+							<Button appearance='primary'>Back to Q&A</Button>
+						</Link>
+					</Pane>
+				) : (
+					<form onSubmit={handleSubmit}>
+						<Pane display='flex' flexDirection='column' gap={majorScale(3)}>
+							{/* Question Title */}
+							<Pane>
+								<Label htmlFor='questionTitle' display='block' marginBottom={4}>
+									Question Title
+								</Label>
+								<TextInput
+									id='questionTitle'
+									name='questionTitle'
+									value={form.questionTitle}
+									onChange={handleChange}
+									required
+									placeholder='e.g. How do I approach the graph algorithms in COS 226?'
+									width='100%'
+								/>
+							</Pane>
+
+							{/* Category */}
+							<Pane>
+								<Label htmlFor='category' display='block' marginBottom={4}>
+									Category
+								</Label>
+								<SelectMenu
+									options={CATEGORY_OPTIONS}
+									selected={form.category}
+									onSelect={(item) => {
+										setCategoryError(false);
+										setForm((prev) => ({
+											...prev,
+											category: item.value as string,
+										}));
+									}}
+									hasTitle={false}
+									hasFilter={false}
+								>
+									<Button id='category' type='button' width='100%'>
+										{form.category || 'Select a category'}
+									</Button>
+								</SelectMenu>
+								{categoryError && (
+									<Text size={300} color='danger' marginTop={4} display='block'>
+										Please select a category before submitting.
+									</Text>
+								)}
+							</Pane>
+
+							{/* Course */}
+							<Pane>
+								<Label htmlFor='course' display='block' marginBottom={4}>
+									Course (Optional)
+								</Label>
+								<TextInput
+									id='course'
+									name='course'
+									value={form.course}
+									onChange={handleChange}
+									placeholder='e.g. COS 226'
+									width='100%'
+								/>
+							</Pane>
+
+							{/* Details */}
+							<Pane>
+								<Label htmlFor='questionDetails' display='block' marginBottom={4}>
+									Details
+								</Label>
+								<Textarea
+									id='questionDetails'
+									name='questionDetails'
+									value={form.questionDetails}
+									onChange={handleChange}
+									required
+									rows={6}
+									width='100%'
+									placeholder='Provide more details about your question...'
+									style={{
+										borderRadius: 6,
+										fontSize: '14px',
+										resize: 'vertical',
+									}}
+								/>
+								<Text size={300} color='muted' marginTop={4} display='block'>
+									Tip: Add specific details and context to get better answers
+								</Text>
+							</Pane>
+
+							{/* Buttons */}
+							<Pane display='flex' gap={majorScale(1)} marginTop={majorScale(1)}>
+								<Button type='submit' appearance='primary' flex={1}>
+									Post Question
+								</Button>
+								<Link href='/questions' style={{ textDecoration: 'none' }}>
+									<Button type='button'>Cancel</Button>
+								</Link>
+							</Pane>
+						</Pane>
+					</form>
+				)}
+			</Pane>
 		</Pane>
 	);
 }
