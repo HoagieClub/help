@@ -75,10 +75,7 @@ export async function createNewStudyGroup(payload: StudyGroupPayload): Promise<S
 
 export async function getStudyGroup(studyGroupId: string): Promise<StudyGroup | null> {
 	try {
-		const response = await fetch(
-			buildStudyGroupUrl(studyGroupId),
-			api.get()
-		);
+		const response = await fetch(buildStudyGroupUrl(studyGroupId), api.get());
 
 		if (!response.ok) {
 			console.error(
@@ -109,10 +106,7 @@ export async function updateStudyGroup(
 	payload: StudyGroupPayload
 ): Promise<StudyGroup | null> {
 	try {
-		const response = await fetch(
-			buildStudyGroupUrl(studyGroupId),
-			api.put(payload)
-		);
+		const response = await fetch(buildStudyGroupUrl(studyGroupId), api.put(payload));
 
 		if (!response.ok) {
 			console.error(
@@ -143,10 +137,7 @@ export async function updateStudyGroup(
 
 export async function deleteStudyGroup(studyGroupId: string): Promise<boolean> {
 	try {
-		const response = await fetch(
-			buildStudyGroupUrl(studyGroupId),
-			api.delete()
-		);
+		const response = await fetch(buildStudyGroupUrl(studyGroupId), api.delete());
 
 		if (response.status !== 204) {
 			console.error(
