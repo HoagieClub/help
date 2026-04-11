@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { api } from './common';
 
-const QUESTIONS_URL = `/api/hoagie/questions/`;
+const QUESTIONS_URL = `/api/hoagie/questions`;
 
 const QuestionSchema = z.object({
 	// Define the schema based on the backend model
@@ -165,5 +165,5 @@ export async function deleteQuestion(questionId: string): Promise<boolean> {
 
 function buildQuestionDetailsUrl(questionId: string): string {
 	const encodedQuestionId = encodeURIComponent(questionId.toString());
-	return `${QUESTIONS_URL}/${encodedQuestionId}/`;
+	return `${QUESTIONS_URL}/${encodedQuestionId}`;
 }
