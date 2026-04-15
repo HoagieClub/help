@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 import { CaretUpIcon } from '@phosphor-icons/react';
-import { Avatar, Checkbox, Heading, HeartIcon, IconButton, majorScale, Pane, Text } from 'evergreen-ui';
+import { Avatar, Checkbox, Heading, Pane, Text } from 'evergreen-ui';
 import { toast } from 'sonner';
 
 import { createNewAnswer } from '@/api/answerService';
@@ -20,7 +20,6 @@ interface QuestionPanelProps {
 	create_time: string;
 	user_is_anonymous: boolean;
 	initialHearts: number;
-	initialIsHearted: boolean;
 }
 
 const QuestionPanel = ({
@@ -33,12 +32,10 @@ const QuestionPanel = ({
 	create_time,
 	user_is_anonymous,
 	initialHearts,
-	initialIsHearted,
 }: QuestionPanelProps) => {
 	const displayName = user_is_anonymous ? 'Anonymous' : user;
 	const timeAgo = formatTimePassed(create_time);
 	const [hearts, setHearts] = useState(initialHearts);
-	const [isHearted, setIsHearted] = useState(initialIsHearted);
 	const [showAnswerBox, setShowAnswerBox] = useState(false);
 	const [answer, setAnswer] = useState('');
 	const [answerAnonymous, setAnswerAnonymous] = useState(false);
@@ -47,7 +44,6 @@ const QuestionPanel = ({
 		const response = await heartQuestion(questionId);
 		if (response) {
 			setHearts(response.hearts);
-			setIsHearted(response.is_hearted);
 		}
 	}
 
@@ -86,16 +82,6 @@ const QuestionPanel = ({
 				<Pane>
 					<Text className='text-xl font-bold text-gray-900 block'>{displayName}</Text>
 					<Text className='text-sm text-gray-500'>Q&A • {timeAgo}</Text>
-				</Pane>
-				<Pane display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
-					<IconButton
-						icon={<HeartIcon size={majorScale(4)} />}
-						appearance='minimal'
-						height={majorScale(4)}
-						color={isHearted ? 'red500' : 'gray400'}
-						onClick={handleHeart}
-					/>
-					<Text size={300}>{hearts}</Text>
 				</Pane>
 			</Pane>
 
