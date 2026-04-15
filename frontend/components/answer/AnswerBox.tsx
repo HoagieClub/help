@@ -27,7 +27,7 @@ interface AnswerBoxProps {
 const AnswerBox = ({ answer }: AnswerBoxProps) => {
 	const theme = useTheme();
 	const [isExpanded, setIsExpanded] = useState(false);
-	const { text, createdAt, hearts, isAnonymous, comments } = answer;
+	const { id, text, createdAt, hearts, isAnonymous, comments } = answer;
 
 	const displayName = isAnonymous ? 'Anonymous' : answer.user.name || 'Unknown User';
 	const shouldTruncate = text.length > MAX_LENGTH_BEFORE_TRUNCATE;
@@ -116,7 +116,7 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 				paddingLeft={majorScale(3)}
 				marginTop={majorScale(3)}
 			>
-				<CommentsPanel comments={comments} />
+				<CommentsPanel comments={comments} answerId={String(id)}/>
 			</Pane>
 		</Pane>
 	);
