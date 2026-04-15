@@ -50,6 +50,7 @@ function QuestionPage() {
 	const params = useParams<{ id: string }>();
 	const questionId = params.id;
 
+
 	const [question, setQuestion] = useState<LoadedQuestion | null | undefined>(undefined);
 	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [loadError, setLoadError] = useState<string | null>(null);
@@ -144,7 +145,7 @@ function QuestionPage() {
 				details={question.details}
 				create_time={question.create_time}
 				user_is_anonymous={question.user_is_anonymous}
-				hearts={question.hearts}
+				initialHearts={question.hearts}
 			/>
 			<Pane marginTop={majorScale(6)} maxWidth='700px' marginX='auto'>
 				<AnswerPanel answers={answers} />
