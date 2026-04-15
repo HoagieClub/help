@@ -19,6 +19,14 @@ const CommentsPanel: React.FC<CommentsPanelProps> = ({ comments, answerId }) => 
 
 	return (
 		<Pane className='comments-panel flex flex-col gap-6'>
+			
+			{/* List of existing comments */}
+			{comments.map((comment, idx) => (
+				<Pane key={comment.id}>
+					<CommentBox comment={comment} showThreadLine={idx < comments.length - 1} />
+				</Pane>
+			))}
+
 			{/* Toggle button to reveal the comment form, hidden while the form is open */}
 			{!showForm && (
 				<Button
@@ -35,13 +43,6 @@ const CommentsPanel: React.FC<CommentsPanelProps> = ({ comments, answerId }) => 
 			{showForm && (
 				<CommentForm answerId={answerId} onCommentCreated={() => setShowForm(false)} />
 			)}
-
-			{/* List of existing comments */}
-			{comments.map((comment, idx) => (
-				<Pane key={comment.id}>
-					<CommentBox comment={comment} showThreadLine={idx < comments.length - 1} />
-				</Pane>
-			))}
 		</Pane>
 	);
 };
