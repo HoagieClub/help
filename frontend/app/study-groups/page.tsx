@@ -12,81 +12,66 @@
 
 'use client';
 
-import type { ChangeEvent } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Button, Heading, Pane, Text, TextInputField, majorScale, useTheme } from 'evergreen-ui';
+import { Button, Heading, Pane, Text, majorScale, useTheme } from 'evergreen-ui';
 import Link from 'next/link';
 
-/**
- * A React component that renders a form for user interaction, allowing users to input their name
- * and select an option from a dropdown menu. It uses Evergreen UI components for styling and
- * integrates with Auth0 for user authentication. The form submission triggers an async action that
- * simulates an API call and provides feedback through toast notifications.
- *
- * @returns {JSX.Element} The form component with user interaction elements.
- */
-export function StudyGroups() {
-	/**
-	 * Handles the input field which can perform queries
-	 */
-	const theme = useTheme();
-	const [inputValue, setInputValue] = useState('');
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setInputValue(e.target.value);
-	};
+import { getAllStudyGroup } from '@/api/studyGroupService';
+import StudyGroupCard from '@/components/StudyGroupCard/StudyGroupCard';
 
-	/**
-	 * Handles the button click
-	 */
-	const handleSubmit = () => {
-		// Placeholder for button click action
-	};
+export function StudyGroups() {
+	const theme = useTheme();
+	const [studyGroups, setStudyGroups] = useState<Awaited<ReturnType<typeof getAllStudyGroup>>>(null);
+
+	useEffect(() => {
+		getAllStudyGroup().then(setStudyGroups);
+	}, []);
 
 	return (
 		<Pane
-			maxWidth={majorScale(50)}
+			maxWidth={majorScale(100)}
 			marginX='auto'
 			padding={majorScale(2)}
 			marginTop={majorScale(8)}
 		>
-			{/* Main header */}
-			<Heading size={900} marginBottom={24}>
+			<Heading size={900} marginBottom={8}>
 				Study Groups
 			</Heading>
 
-			{/* Subtitle */}
-			<Text size={500} marginBottom={24}>
-				Find classmates and form study groups
-			</Text>
+			<Text size={500}>Find classmates and form study groups</Text>
 
-			<TextInputField placeholder='Type here...' value={inputValue} onChange={handleChange} />
-
-			<Pane display='flex' gap={majorScale(2)} marginBottom={majorScale(2)}>
-				<Pane flex={1}>
+			<Pane display='flex' gap={majorScale(2)} marginY={majorScale(3)}>
+				<Link href='/study-groups/form'>
 					<Button
 						appearance='primary'
 						backgroundColor={theme.colors.red500}
-						onClick={handleSubmit}
-						width='100%'
 						color='black'
 					>
-						Find Study Groups
+						Create Study Group
 					</Button>
-				</Pane>
+				</Link>
+			</Pane>
 
-				<Pane flex={1}>
-					<Link href='/study-groups/form'>
-						<Button
-							appearance='primary'
-							backgroundColor={theme.colors.red500}
-							width='100%'
-							color='black'
-						>
-							Create Study Group
-						</Button>
-					</Link>
-				</Pane>
+			<Pane display='flex' flexWrap='wrap' gap={majorScale(3)}>
+				{studyGroups === null ? (
+					<Text>Loading study groups...</Text>
+				) : studyGroups.length === 0 ? (
+					<Text>No study groups found.</Text>
+				) : (
+					studyGroups.map((group) => (
+						<StudyGroupCard
+							key={group.id}
+							title={group.title}
+							description={group.description}
+							groupLeader={String(group.leader)}
+							dateTime={new Date(group.meeting_datetime)}
+							joinedCount={group.members.length}
+							totalSpots={group.max_spots}
+							onJoin={() => {}}
+						/>
+					))
+				)}
 			</Pane>
 		</Pane>
 	);
