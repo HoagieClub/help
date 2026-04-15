@@ -3,7 +3,7 @@ from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from backend.hoagiehelp.api.question_views import QuestionSerializer
+from hoagiehelp.api.question_views import QuestionSerializer
 from hoagiehelp.api.comment_views import CommentSerializer
 from hoagiehelp.models.comment import Comment
 from hoagiehelp.models.question import Question
