@@ -35,6 +35,7 @@ export function CommentForm({ answerId }: CommentFormProps) {
 			setText('');
 			setIsAnonymous(false);
 			setIsOpen(false);
+			// TODO: refresh comment list in AnswerBox after successful submission
 		}
 		// TODO: handle error for failed submissions
 	};
