@@ -22,7 +22,8 @@ import StudyGroupCard from '@/components/StudyGroupCard/StudyGroupCard';
 
 export function StudyGroups() {
 	const theme = useTheme();
-	const [studyGroups, setStudyGroups] = useState<Awaited<ReturnType<typeof getAllStudyGroup>>>(null);
+	const [studyGroups, setStudyGroups] =
+		useState<Awaited<ReturnType<typeof getAllStudyGroup>>>(null);
 
 	useEffect(() => {
 		getAllStudyGroup().then(setStudyGroups);
