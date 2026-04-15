@@ -26,6 +26,7 @@ import {
 	useTheme,
 } from 'evergreen-ui';
 
+import { heartComment } from '@/api/heartService';
 import type { Comment } from '@/types';
 
 import { formatTimePassed } from '../utils';
@@ -41,11 +42,25 @@ export interface CommentBoxProps {
 export function CommentBox({ comment, username, showThreadLine }: CommentBoxProps) {
 	const theme = useTheme();
 	const [isExpanded, setIsExpanded] = useState(false);
+	// TODO: Initialize isLiked from the API (e.g. comment.is_hearted) once available
 	const [isLiked, setIsLiked] = useState(false);
+	const [heartCount, setHeartCount] = useState(comment.hearts);
+	const [isHeartLoading, setIsHeartLoading] = useState(false);
 
-	const handleHeartClick = () => {
+	const handleHeartClick = async () => {
+		if (isHeartLoading) return;
+		setIsHeartLoading(true);
 		setIsLiked((prev) => !prev);
-		alert('Heart clicked');
+		setHeartCount((prev) => (isLiked ? prev - 1 : prev + 1));
+		const result = await heartComment(String(comment.id));
+		if (result) {
+			setIsLiked(result.is_hearted);
+			setHeartCount(result.hearts);
+		} else {
+			setIsLiked((prev) => !prev);
+			setHeartCount((prev) => (isLiked ? prev + 1 : prev - 1));
+		}
+		setIsHeartLoading(false);
 	};
 	const handleMoreClick = () => alert('More options clicked');
 	const displayName = comment.isAnonymous ? 'Anonymous' : username || 'Unknown User';
@@ -123,14 +138,20 @@ export function CommentBox({ comment, username, showThreadLine }: CommentBoxProp
 
 				{/* Interaction buttons */}
 				<Pane display='flex' alignItems='center' gap={majorScale(2)}>
-					<IconButton
-						icon={HeartIcon}
-						appearance='minimal'
-						height={24}
-						iconSize={14}
-						color={isLiked ? 'red500' : 'gray400'}
-						onClick={handleHeartClick}
-					/>
+					<Pane display='flex' alignItems='center'>
+						<IconButton
+							icon={HeartIcon}
+							appearance='minimal'
+							height={24}
+							iconSize={14}
+							color={isLiked ? 'red500' : 'gray400'}
+							disabled={isHeartLoading}
+							onClick={handleHeartClick}
+						/>
+						<Text size={300} color='muted'>
+							{heartCount}
+						</Text>
+					</Pane>
 					<IconButton
 						icon={MoreIcon}
 						appearance='minimal'

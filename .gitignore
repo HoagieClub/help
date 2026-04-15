@@ -27,6 +27,7 @@
 **/.next/
 **/out/
 **/.empty/
+/frontend/next-env.d.ts
 
 # Vercel serverless functions cache
 /frontend/.vercel/
@@ -187,13 +188,6 @@ temp/
 
 # Heroku-specific files (Backend)
 /backend/.heroku/
-/backend/Procfile
-
-# ===============================
-# Migrations (Backend)
-# ===============================
-# Django migrations (optional)
-/backend/**/migrations/
 
 # ===============================
 # Miscellaneous
@@ -201,9 +195,6 @@ temp/
 # Build scripts and directories
 /frontend/build/
 /frontend/public/static/
-
-# Ignore static files generated during build (Backend)
-/backend/hoagiemeal/static/
 
 # Ignore mock files (if not to be committed)
 /frontend/mock/

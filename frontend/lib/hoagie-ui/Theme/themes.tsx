@@ -49,6 +49,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		red600: '#A73636',
 		red500: '#D14343',
 		red300: '#EE9191',
+		red200: '#ffafafff',
 		red100: '#F9DADA',
 		red25: '#FDF4F4',
 
@@ -236,54 +237,50 @@ export const hoagieHelp = mergeTheme(hoagieUI, {
 	title: 'help',
 	colors: {
 		...hoagieUI.colors,
-		// Teal color palette - primary brand color
-		blue900: '#0A2E2F',
-		blue800: '#0F5156',
-		blue700: '#146D73',
-		blue600: '#198A91',
-		blue500: '#1EA7AE',
-		blue400: '#4BBDC3',
-		blue300: '#7CE0E6',
-		blue200: '#A9EDF1',
-		blue100: '#D3F5F7',
-		blue50: '#E9FAFB',
-		blue25: '#F4FDFD',
+		// red color palette - primary brand color
+		red700: '#7D2828',
+		red600: '#A73636',
+		red500: '#D14343',
+		red300: '#EE9191',
+		red200: '#ffafafff',
+		red100: '#F9DADA',
+		red25: '#FDF4F4',
 
-		// Override the selected color to use primary blue
-		selected: '#1EA7AE',
+		// Override the selected color to use primary red
+		selected: '#d33b3bff',
 
 		// Set the tints for custom theme
-		tint1: '#F4FDFD',
+		tint1: '#fdf4f4ff',
 		tint2: '#F9FCFC',
 
 		icon: {
 			...hoagieUI.colors.icon,
-			selected: '#1EA7AE',
+			selected: '#d33b3bff',
 		},
 
 		text: {
 			...hoagieUI.colors.text,
-			info: '#1EA7AE',
+			info: '#d33b3bff',
 		},
 
 		// Add a custom brand color
-		'hoagie-teal': '#1EA7AE',
+		'hoagie-red': '#d33b3bff',
 	},
 
 	// Have the shadows use our brand color for focus rings
 	shadows: {
 		...hoagieUI.shadows,
-		focusRing: '0 0 0 2px #D3F5F7',
+		focusRing: '0 0 0 2px #f7d3d3ff',
 	},
 
 	// Have the intents use our teal colors
 	intents: {
 		...hoagieUI.intents,
 		info: {
-			background: '#F4FDFD',
-			border: '#1EA7AE',
-			text: '#0F5156',
-			icon: '#1EA7AE',
+			background: '#fdf4f4ff',
+			border: '#d33b3bff',
+			text: '#7D2828',
+			icon: '#d33b3bff',
 		},
 	},
 
@@ -297,17 +294,17 @@ export const hoagieHelp = mergeTheme(hoagieUI, {
 				...hoagieUI.components.Button.appearances,
 				primary: {
 					...hoagieUI.components.Button.appearances.primary,
-					backgroundColor: '#1EA7AE',
+					backgroundColor: '#d33b3bff',
 					// Use pseudoSelectors instead of _hover
 					pseudoSelectors: {
 						_hover: {
-							backgroundColor: '#198A91',
+							backgroundColor: '#911919ff',
 						},
 						_active: {
-							backgroundColor: '#146D73',
+							backgroundColor: '#c83b3bff',
 						},
 						_focus: {
-							boxShadow: '0 0 0 2px #D3F5F7',
+							boxShadow: '0 0 0 2px #f7d3d3ff',
 						},
 					},
 				},
@@ -321,19 +318,24 @@ export const hoagieHelp = mergeTheme(hoagieUI, {
 				primary: {
 					...hoagieUI.components.Tab.appearances.primary,
 
-					// color: '#1EA7AE',
-
-					// Use pseudoSelectors instead of _hover
-					pseudoSelectors: {
-						_hover: {
-							color: '#198A91',
+					// selectors
+					selectors: {
+						...hoagieUI.components.Tab.appearances.primary.selectors,
+						_before: {
+							...hoagieUI.components.Tab.appearances.primary.selectors?._before,
+							backgroundColor: '#d33b3bff',
 						},
-						_active: {
-							color: '#146D73',
+						_hover: {
+							color: '#6f0303ff',
 						},
 						_current: {
-							color: '#1EA7AE',
-							fontWeight: '500', // Use string instead of number
+							color: '#c83b3bff',
+							'&:before': {
+								transform: 'scaleY(1)',
+							},
+							'&:focus': {
+								color: '#c83b3bff',
+							},
 						},
 					},
 				},

@@ -44,7 +44,7 @@ export function Home() {
 					<Button
 						height={56}
 						width={majorScale(35)}
-						backgroundColor={theme.colors.blue100}
+						backgroundColor={theme.colors.red100}
 						marginBottom={20}
 						iconBefore={ArrowRightIcon}
 					>
