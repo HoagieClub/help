@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
 	Avatar,
@@ -13,6 +13,7 @@ import {
 	useTheme,
 } from 'evergreen-ui';
 
+import { heartAnswer } from '@/api/heartService';
 import CommentsPanel from '@/components/comment/CommentsPanel';
 import type { Answer } from '@/types';
 
@@ -28,6 +29,32 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 	const theme = useTheme();
 	const [isExpanded, setIsExpanded] = useState(false);
 	const { id, text, createdAt, hearts, isAnonymous, comments } = answer;
+	const [hearted, setHearted] = useState(false);
+	const [heartCount, setHeartCount] = useState(answer.hearts);
+	const [heartLoading, setHeartLoading] = useState(false);
+
+	const handleHeart = useCallback(async () => {
+		if (heartLoading) return;
+
+		const prevHearted = hearted;
+		const prevCount = heartCount;
+
+		setHearted(!hearted);
+		setHeartCount(hearted ? heartCount - 1 : heartCount + 1);
+		setHeartLoading(true);
+
+		const result = await heartAnswer(String(answer.id));
+		if (result) {
+			// TODO: Update API response to match something similar to this
+			// setHearted(result.is_hearted);
+			// setHeartCount(result.hearts);
+		} else {
+			setHearted(prevHearted);
+			setHeartCount(prevCount);
+		}
+
+		setHeartLoading(false);
+	}, [hearted, heartCount, heartLoading, answer.id]);
 
 	const displayName = isAnonymous ? 'Anonymous' : answer.user.name || 'Unknown User';
 	const shouldTruncate = text.length > MAX_LENGTH_BEFORE_TRUNCATE;
@@ -61,11 +88,15 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 							appearance='minimal'
 							height={24}
 							iconSize={14}
-							color='gray400'
-							onClick={() => alert('Heart clicked')}
+							color={hearted ? 'danger' : 'gray400'}
+							disabled={heartLoading}
+							onClick={handleHeart}
 						/>
-						<Text size={300} color={theme.colors.gray500}>
-							{hearts}
+						<Text
+							size={300}
+							color={hearted ? theme.colors.red500 : theme.colors.gray500}
+						>
+							{heartCount}
 						</Text>
 					</Pane>
 				</Pane>

@@ -71,9 +71,12 @@ export const Post: React.FC<PostProps> = ({
 }) => {
 	return (
 		<div className='border border-border rounded-lg p-4 bg-card hover:shadow-md transition-shadow cursor-pointer'>
-			{/* header with bullet point */}
+			{/* header with orange bullet point */}
 			<div className='flex items-start gap-3 mb-2'>
-				<div className='w-2 h-2 rounded-full bg-foreground mt-2 flex-shrink-0' />
+				<div
+					className='w-2 h-2 rounded-full mt-2 flex-shrink-0'
+					style={{ backgroundColor: '#FE791B' }}
+				/>
 				<div className='flex-1'>
 					{/* title */}
 					<h3
@@ -96,32 +99,29 @@ export const Post: React.FC<PostProps> = ({
 						)}
 					</div>
 
-					{/* tags */}
+					{/* tags - oval, light grey background */}
 					<div className='flex flex-wrap gap-2 mb-3'>
 						{tags.map((tag, index) => (
 							<span
 								key={index}
-								className='inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-secondary text-secondary-foreground border border-border hover:bg-accent transition-colors'
+								className='inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-gray-700 border border-gray-200 transition-colors'
+								style={{ backgroundColor: '#F3F4F6' }}
 							>
 								{tag}
 							</span>
 						))}
 					</div>
 
-					{/* footer with replies and views */}
+					{/* footer: X replies  Y views */}
 					<div className='flex items-center gap-4 text-sm text-muted-foreground'>
-						<div className='flex items-center gap-1.5'>
+						<span className='flex items-center gap-1.5'>
 							<MessageCircleIcon />
-							<span>
-								{replies} {replies === 1 ? 'reply' : 'replies'}
-							</span>
-						</div>
-						<div className='flex items-center gap-1.5'>
+							{replies} {replies === 1 ? 'reply' : 'replies'}
+						</span>
+						<span className='flex items-center gap-1.5'>
 							<EyeIcon />
-							<span>
-								{views} {views === 1 ? 'view' : 'views'}
-							</span>
-						</div>
+							{views} {views === 1 ? 'view' : 'views'}
+						</span>
 					</div>
 				</div>
 			</div>

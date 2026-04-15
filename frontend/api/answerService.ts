@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-import { HttpRequestType, buildRequest } from './common';
+import { api } from './common';
 
-const ANSWER_LIST_URL = `${process.env.BACKEND}/questions/`;
-const ANSWER_DETAIL_URL = `${process.env.BACKEND}/answers/`;
+const ANSWER_LIST_URL = `/api/hoagie/questions/`;
+const ANSWER_DETAIL_URL = `/api/hoagie/answers/`;
 
 const AnswerSchema = z.object({
 	id: z.number().int(),
@@ -24,10 +24,7 @@ type UpdateAnswerPayload = Partial<AnswerWritableFields>;
 export async function getAllAnswers(questionId: string): Promise<Answer[] | null> {
 	// GET /questions/{questionId}/answers/
 	try {
-		const response = await fetch(
-			buildAnswerListUrl(questionId),
-			buildRequest(HttpRequestType.GET)
-		);
+		const response = await fetch(buildAnswerListUrl(questionId), api.get());
 
 		if (!response.ok) {
 			console.error('Failed to fetch answers:', response.statusText);
@@ -48,10 +45,7 @@ export async function createNewAnswer(
 ): Promise<Answer | null> {
 	// POST /questions/{questionId}/answers/
 	try {
-		const response = await fetch(
-			buildAnswerListUrl(questionId),
-			buildRequest(HttpRequestType.POST, payload)
-		);
+		const response = await fetch(buildAnswerListUrl(questionId), api.post(payload));
 
 		if (!response.ok) {
 			console.error('Failed to create answer:', response.statusText);
@@ -69,10 +63,7 @@ export async function createNewAnswer(
 export async function getAnswerDetails(answerId: string | number): Promise<Answer | null> {
 	// GET /answers/{answerId}
 	try {
-		const response = await fetch(
-			buildAnswerDetailUrl(answerId.toString()),
-			buildRequest(HttpRequestType.GET)
-		);
+		const response = await fetch(buildAnswerDetailUrl(answerId.toString()), api.get());
 
 		if (!response.ok) {
 			console.error('Failed to fetch answer:', response.statusText);
@@ -93,10 +84,7 @@ export async function updateAnswerDetails(
 ): Promise<Answer | null> {
 	// PUT /answers/{answerId}
 	try {
-		const response = await fetch(
-			buildAnswerDetailUrl(answerId.toString()),
-			buildRequest(HttpRequestType.PUT, payload)
-		);
+		const response = await fetch(buildAnswerDetailUrl(answerId.toString()), api.put(payload));
 
 		if (!response.ok) {
 			console.error('Failed to update answer:', response.statusText);
@@ -114,10 +102,7 @@ export async function updateAnswerDetails(
 export async function deleteAnswer(answerId: string | number): Promise<boolean> {
 	// DELETE /answers/{answerId}
 	try {
-		const response = await fetch(
-			buildAnswerDetailUrl(answerId.toString()),
-			buildRequest(HttpRequestType.DELETE)
-		);
+		const response = await fetch(buildAnswerDetailUrl(answerId.toString()), api.delete());
 
 		if (!response.ok) {
 			console.error('Failed to delete answer:', response.status, response.statusText);
@@ -133,10 +118,10 @@ export async function deleteAnswer(answerId: string | number): Promise<boolean> 
 
 function buildAnswerListUrl(questionId: string): string {
 	const encodedQuestionId = encodeURIComponent(questionId);
-	return `${ANSWER_LIST_URL}${encodedQuestionId}/answers/`;
+	return `${ANSWER_LIST_URL}${encodedQuestionId}/answers`;
 }
 
 function buildAnswerDetailUrl(answerId: string): string {
 	const encodedAnswerId = encodeURIComponent(answerId);
-	return `${ANSWER_DETAIL_URL}${encodedAnswerId}/`;
+	return `${ANSWER_DETAIL_URL}${encodedAnswerId}`;
 }
