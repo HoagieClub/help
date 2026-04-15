@@ -8,16 +8,15 @@ import { createNewComment } from '@/api/commentService';
 
 interface CommentFormProps {
 	answerId: string;
-	onCommentCreated?: () => void;
 }
 
 /**
- * A form that lets users write and submit a comment for a given answer.
- * Includes a textarea for the comment body, an anonymous toggle, and
- * submit / cancel actions.
+ * Renders an "Add Comment" button that expands into a form
+ * with a textarea, anonymous toggle, and submit/cancel actions.
  */
-export function CommentForm({ answerId, onCommentCreated }: CommentFormProps) {
+export function CommentForm({ answerId }: CommentFormProps) {
 	const theme = useTheme();
+	const [isOpen, setIsOpen] = useState(false);
 	const [text, setText] = useState('');
 	const [isAnonymous, setIsAnonymous] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,16 +34,32 @@ export function CommentForm({ answerId, onCommentCreated }: CommentFormProps) {
 		if (result) {
 			setText('');
 			setIsAnonymous(false);
-			onCommentCreated?.();
+			setIsOpen(false);
 		}
+		// TODO: handle error for failed submissions
 	};
 
 	const handleCancel = () => {
 		setText('');
 		setIsAnonymous(false);
-		onCommentCreated?.();
+		setIsOpen(false);
 	};
 
+	// If the form is not open, show the "Add Comment" button
+	if (!isOpen) {
+		return (
+			<Button
+				appearance='primary'
+				backgroundColor={theme.colors.red500}
+				color='white'
+				onClick={() => setIsOpen(true)}
+			>
+				Add Comment
+			</Button>
+		);
+	}
+
+	// If the form is open, show the comment form
 	return (
 		<Pane
 			display='flex'
@@ -84,7 +99,7 @@ export function CommentForm({ answerId, onCommentCreated }: CommentFormProps) {
 					isLoading={isSubmitting}
 					disabled={!text.trim()}
 				>
-					Add Comment
+					Submit
 				</Button>
 				<Button appearance='minimal' color={theme.colors.gray700} onClick={handleCancel}>
 					Cancel
