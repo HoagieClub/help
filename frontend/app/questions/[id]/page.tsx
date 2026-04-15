@@ -50,7 +50,6 @@ function QuestionPage() {
 	const params = useParams<{ id: string }>();
 	const questionId = params.id;
 
-
 	const [question, setQuestion] = useState<LoadedQuestion | null | undefined>(undefined);
 	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [loadError, setLoadError] = useState<string | null>(null);
