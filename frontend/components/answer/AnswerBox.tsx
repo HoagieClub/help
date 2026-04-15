@@ -28,10 +28,10 @@ interface AnswerBoxProps {
 const AnswerBox = ({ answer }: AnswerBoxProps) => {
 	const theme = useTheme();
 	const [isExpanded, setIsExpanded] = useState(false);
+	const { id, text, createdAt, isAnonymous, comments } = answer;
 	const [hearted, setHearted] = useState(false);
 	const [heartCount, setHeartCount] = useState(answer.hearts);
 	const [heartLoading, setHeartLoading] = useState(false);
-	const { text, createdAt, isAnonymous, comments } = answer;
 
 	const handleHeart = useCallback(async () => {
 		if (heartLoading) return;
@@ -147,7 +147,7 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 				paddingLeft={majorScale(3)}
 				marginTop={majorScale(3)}
 			>
-				<CommentsPanel comments={comments} />
+				<CommentsPanel comments={comments} answerId={String(id)} />
 			</Pane>
 		</Pane>
 	);
