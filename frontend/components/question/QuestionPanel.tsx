@@ -7,6 +7,7 @@ import { Avatar, Checkbox, Heading, Pane, Text } from 'evergreen-ui';
 import { toast } from 'sonner';
 
 import { createNewAnswer } from '@/api/answerService';
+import { heartQuestion } from '@/api/heartService';
 import { formatTimePassed } from '@/components/utils';
 
 interface QuestionPanelProps {
@@ -18,7 +19,7 @@ interface QuestionPanelProps {
 	details: string;
 	create_time: string;
 	user_is_anonymous: boolean;
-	hearts: number;
+	initialHearts: number;
 }
 
 const QuestionPanel = ({
@@ -30,14 +31,21 @@ const QuestionPanel = ({
 	details,
 	create_time,
 	user_is_anonymous,
-	hearts,
+	initialHearts,
 }: QuestionPanelProps) => {
 	const displayName = user_is_anonymous ? 'Anonymous' : user;
 	const timeAgo = formatTimePassed(create_time);
-
+	const [hearts, setHearts] = useState(initialHearts);
 	const [showAnswerBox, setShowAnswerBox] = useState(false);
 	const [answer, setAnswer] = useState('');
 	const [answerAnonymous, setAnswerAnonymous] = useState(false);
+
+	async function handleHeart() {
+		const response = await heartQuestion(questionId);
+		if (response) {
+			setHearts(response.hearts);
+		}
+	}
 
 	const handleReply = () => {
 		setShowAnswerBox(true);
@@ -107,8 +115,7 @@ const QuestionPanel = ({
 			<Pane className='flex items-center gap-6'>
 				<Pane
 					className='flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 cursor-pointer'
-					// TODO: Implement upvote functionality
-					onClick={() => {}}
+					onClick={handleHeart}
 				>
 					<CaretUpIcon size={14} weight='fill' />
 					<Text className='text-sm text-gray-600'>Upvote ({hearts})</Text>

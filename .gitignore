@@ -27,6 +27,7 @@
 **/.next/
 **/out/
 **/.empty/
+/frontend/next-env.d.ts
 
 # Vercel serverless functions cache
 /frontend/.vercel/
