@@ -23,7 +23,7 @@ const initialFormState: FormState = {
 	date: '',
 	time: '',
 	location: '',
-	maxParticipants: 0,
+	maxParticipants: 5,
 	description: '',
 };
 
