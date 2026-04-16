@@ -33,7 +33,8 @@ class StudyGroupListView(APIView):
 
     def post(self, request) -> Response:
         """Create a new study group."""
-        serializer = StudyGroupSerializer(data=request.data)
+        user = request.user
+        serializer = StudyGroupSerializer(data=request.data, user=user)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

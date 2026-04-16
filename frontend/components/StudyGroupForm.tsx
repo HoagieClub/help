@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import { Pane, Textarea, Button, majorScale, minorScale } from 'evergreen-ui';
 
+import { createNewStudyGroup } from '@/api/studyGroupService';
 interface FormState {
 	title: string;
 	category: string;
@@ -44,6 +45,13 @@ export default function StudyGroupForm(): React.ReactElement {
 		setSubmitted(true);
 		setCanceled(false);
 		setForm(initialFormState);
+		createNewStudyGroup({
+			title: form.title,
+			description: form.description,
+			meeting_datetime: form.date + ' ' + form.time,
+			max_spots: form.maxParticipants,
+			members: [],
+		});
 	};
 
 	const handleCancel = () => {
