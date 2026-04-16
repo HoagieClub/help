@@ -52,7 +52,7 @@ const teamLeads: member[] = [
 	{
 		name: 'Spencer Doyle',
 		role: 'Team Lead',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQFgKlbpu5PV9Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1710630696392?e=1762992000&v=beta&t=0BKZ_8Nv9L8OgZbItbsoHfuUL1xlXTTOMDpTzuU5a_w',
+		imgSrc: 'https://i.imgur.com/c0UVvJQ.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/spencer-doyle3/',
 		},
@@ -60,123 +60,98 @@ const teamLeads: member[] = [
 	{
 		name: 'Issac Li',
 		role: 'Team Lead',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEDK7V3q61jAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1690434142044?e=1762992000&v=beta&t=Xf393UgOpXgB_WpSMMNOUZazRfOsF7JMdKaHBvxNqIY',
+		imgSrc: 'https://i.imgur.com/otc6I8r.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/issactli/',
 		},
 	},
-];
-
-const teamMembers = [
-	{
-		name: 'Sai Nallani',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHfKe9zKdZkRg/profile-displayphoto-shrink_800_800/B56ZXyDYosGQAg-/0/1743522729003?e=1764201600&v=beta&t=5LkVzORPkckCyP2p8nl-veFY8_kn3VtbWxuri1RhrLg',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/sai-nallani-6a5061262/',
-		},
-	},
-	{
-		name: 'Hellen Luo',
-		role: 'Frontend Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQGfbADce0FXwg/profile-displayphoto-shrink_400_400/B4EZUr4FgIHMAg-/0/1740197879737?e=1763596800&v=beta&t=bFaFo8e8mU3Svx6JOKf20ytzoj_uilHr2Dgvl8KFKPU',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/hellen-luo',
-		},
-	},
-	{
-		name: 'Tom Wang',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEAijlufTxPiw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1706971701106?e=1763596800&v=beta&t=eh3wSvKyQBI4oqdff4hELLzXmRrGpgu-yfzcok0Wk_U',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/tom-wang-105a6722b/',
-		},
-	},
-	{
-		name: 'Charles Muehlberger',
-		role: 'Frontend Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEiL4nYie2M0w/profile-displayphoto-scale_400_400/B56ZosMDtcJQAg-/0/1761677951076?e=1762992000&v=beta&t=PVSCfriKs3Ao9lg2Y1ka0XrTscDyqlXjEYbEX5HqdDE',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/charlesmuehl/',
-		},
-	},
-	{
-		name: 'Timothy Li',
-		role: 'Frontend Developer',
-		imgSrc: 'https://avatars.githubusercontent.com/u/214003676?v=4',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/timli5823/',
-			instagram: 'https://www.instagram.com/timothyli1331/',
-		},
-	},
-	{
-		name: 'David Liu',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHBROhhswIn4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1728969894574?e=1763596800&v=beta&t=01lDxnJDUYtJ6tmMR1JQ9bCmycdyv0rZ7u5w4XnRer8',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/david-liu-71398523a/',
-		},
-	},
 	{
 		name: 'Maribel Crespo',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQHOE2hLdzPWhQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730483078731?e=2147483647&v=beta&t=BgVPzlj748EpPYDDtjMW2NBQpQamT5--CWHtLWh9xHM',
+		role: 'Team Lead',
+		imgSrc: 'https://i.imgur.com/AKrqIVf.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
 		},
 	},
 	{
 		name: 'Eric Guo',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQHpk81yJQ8N0w/profile-displayphoto-scale_200_200/B4EZlF5PvoIMAY-/0/1757814259175?e=2147483647&v=beta&t=U6aune5Bp3z9pniiLgcrnJ3nQ5cbHddo9Nbyi6NRxR8',
+		role: 'Team Lead',
+		imgSrc: 'https://i.imgur.com/NkONjut.png',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/eric-guo1',
 		},
 	},
 	{
-		name: 'Adam Belouad',
-		role: 'Frontend Developer',
-		imgSrc: 'https://i.imgur.com/U5XnPnt.jpeg',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/adambelouad/',
-		},
-	},
-	{
-		name: 'Ryan Jensen',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEl6gWsYEypCA/profile-displayphoto-crop_800_800/B4EZd_Z.ouHIAI-/0/1750189207663?e=1763596800&v=beta&t=8IgKFNafS_g9qyuhL0nUo1h_bEMbvNWY-dxm0u4m_9c',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
-		},
-	},
-	{
 		name: 'Ray Kong',
-		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQFkT_ZoR3450w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718298302044?e=1763596800&v=beta&t=BohlAyNiX2oqaLcwWBC_2Hov6TsK7WUYTWkNpUKzlHc',
+		role: 'Team Lead',
+		imgSrc: 'https://i.imgur.com/AnBUc2F.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/raykongcs/',
+		},
+	},
+];
+
+const teamMembers = [
+	{
+		name: 'Ava Fonss',
+		role: 'Product Manager',
+		imgSrc: 'https://i.imgur.com/Xi5yu3I.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/avafonss/',
 		},
 	},
 	{
 		name: 'Samantha Nosanchuk',
 		role: 'Product Manager',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4D03AQG5rx1A6_7sPw/profile-displayphoto-shrink_400_400/B4DZbqTRpsGYAg-/0/1747687648184?e=1765411200&v=beta&t=6WAlJu_gO01BQaotECxVMM1v2DarFyI0COcAVvdDMPA',
+		imgSrc: 'https://i.imgur.com/bVPQZND.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/samanthanicolenosanchuk/',
 		},
 	},
 	{
-		name: 'Gauri Kshettry',
-		role: 'Product Manager',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQGqgrIQV1OepQ/profile-displayphoto-scale_400_400/B4EZnuoeunIIAg-/0/1760645213589?e=1765411200&v=beta&t=5-Jl_obQGIJ-nAxY7Cx7KRYCGJ8JDrrLFFbEYCvIhlQ',
+		name: 'Hellen Luo',
+		role: 'Frontend Developer',
+		imgSrc: 'https://i.imgur.com/C6xKJWC.png',
 		socials: {
-			linkedin: 'https://www.linkedin.com/in/gauri-kshettry/',
+			linkedin: 'https://www.linkedin.com/in/hellen-luo',
+		},
+	},
+	{
+		name: 'Timothy Li',
+		role: 'Frontend Developer',
+		imgSrc: 'https://i.imgur.com/pAb7Amj.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/timli5823/',
+		},
+	},
+	{
+		name: 'Adam Belouad',
+		role: 'Frontend Developer',
+		imgSrc: 'https://i.imgur.com/6t7TwGU.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/adambelouad/',
+		},
+	},
+	{
+		name: 'David Liu',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/EzXKE9B.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/david-liu-71398523a/',
+		},
+	},
+	{
+		name: 'Ryan Jensen',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/WxoQ4Kg.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
 		},
 	},
 	{
 		name: 'Laahini Addagatla',
 		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQFC6t6APmOlZg/profile-displayphoto-scale_400_400/B4EZluEyBlKYAg-/0/1758488384534?e=1772668800&v=beta&t=mQxRXk4K82j-mi-CDzjwG0jUc1-Y8S0FLK2eV0EKIok',
+		imgSrc: 'https://i.imgur.com/DUWtHcR.png',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
 		},
@@ -184,17 +159,9 @@ const teamMembers = [
 	{
 		name: 'Ethan Wen',
 		role: 'Developer',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQGR38H137yD_g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1729893063310?e=1773273600&v=beta&t=-gQZPNCk6wg4dKNSZbxUPucNMR92aH6wDFxz6p47Mtk',
+		imgSrc: 'https://i.imgur.com/SdAZWIc.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/wen-ethan/',
-		},
-	},
-	{
-		name: 'Ava Fonss',
-		role: 'Product Manager',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQEAqm8TFiNkmg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1684291824637?e=1773273600&v=beta&t=k1eIenTVWZxZ_xtZVF4wC3tRZLrNZjTax8Elmfndvmo',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/avafonss/',
 		},
 	},
 ];
