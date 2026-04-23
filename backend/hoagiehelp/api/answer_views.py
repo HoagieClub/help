@@ -37,7 +37,6 @@ class AnswerListView(APIView):
 
     def post(self, request, question_id: str) -> Response:
         """Create a new answer associated with a given question."""
-
         question = get_object_or_404(Question, pk=question_id)
 
         data = request.data.copy()

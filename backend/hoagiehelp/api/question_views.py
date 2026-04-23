@@ -32,8 +32,8 @@ class QuestionListView(APIView):
         queryset = Question.objects.all()
 
         # Filter queries by following parameters
-        title_string = request.query_params.get('title')
-        tags_list = request.query_params.getlist('tags')
+        title_string = request.query_params.get("title")
+        tags_list = request.query_params.getlist("tags")
         
         if title_string:
             queryset = queryset.filter(title__icontains=title_string)

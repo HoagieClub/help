@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class CustomUser(AbstractUser):
-    '''HoagieHelp user.'''
+    """HoagieHelp user."""
 
     net_id = models.CharField(
         max_length=20, unique=True, db_index=True
