@@ -40,7 +40,7 @@ export default function StudyGroupForm(): React.ReactElement {
 		}));
 	};
 
-	const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setSubmitted(true);
 		setCanceled(false);
