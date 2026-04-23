@@ -256,7 +256,7 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "ruff", specifier = ">=0.15.11" }]
+dev = [{ name = "ruff", specifier = ">=0.15.4" }]
 
 [[package]]
 name = "idna"
