@@ -15,17 +15,19 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v5
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
 
       - name: Install Node.js dependencies
-        run: bun install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Run ESLint
-        run: bun run lint:strict
+        run: yarn lint
 
       - name: Run Prettier format check
-        run: bun run format:check
+        run: yarn format
 
   ruff:
     name: Ruff (backend)
