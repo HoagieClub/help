@@ -20,6 +20,7 @@ class StudyGroupSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
+        read_only_fields = ("id", "leader", "created_at", "updated_at")
 
 
 class StudyGroupListView(APIView):
@@ -33,11 +34,9 @@ class StudyGroupListView(APIView):
 
     def post(self, request) -> Response:
         """Create a new study group."""
-        user = request.user    
-        serializer = StudyGroupSerializer(data=request.data)    
+        serializer = StudyGroupSerializer(data=request.data)
         if serializer.is_valid():
-            serializer = StudyGroupSerializer(data=request.data, leader=user)
-            serializer.save()
+            serializer.save(leader=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
