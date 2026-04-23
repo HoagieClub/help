@@ -7,11 +7,11 @@ from .tag import Tag
 from .user import CustomUser
 
 __all__ = [
-    "CustomUser",
-    "Question",
-    "Answer",
-    "Comment",
-    "Tag",
-    "StudyGroup",
-    "AnonymousName",
+	"CustomUser",
+	"Question",
+	"Answer",
+	"Comment",
+	"Tag",
+	"StudyGroup",
+	"AnonymousName",
 ]
