@@ -40,18 +40,18 @@ export default function StudyGroupForm(): React.ReactElement {
 		}));
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setSubmitted(true);
 		setCanceled(false);
-		setForm(initialFormState);
-		createNewStudyGroup({
+		await createNewStudyGroup({
 			title: form.title,
 			description: form.description,
 			meeting_datetime: form.date + ' ' + form.time,
 			max_spots: form.maxParticipants,
 			members: [],
 		});
+		setForm(initialFormState);
 	};
 
 	const handleCancel = () => {
@@ -187,7 +187,7 @@ export default function StudyGroupForm(): React.ReactElement {
 					</div>
 				</form>
 				{submitted && (
-					<Pane marginTop={minorScale(2)}>Sutdy Group created successfully!</Pane>
+					<Pane marginTop={minorScale(2)}>Study Group created successfully!</Pane>
 				)}
 				{canceled && <Pane marginTop={minorScale(2)}>Edit canceled.</Pane>}
 			</Pane>
