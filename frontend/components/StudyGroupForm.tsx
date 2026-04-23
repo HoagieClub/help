@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import { Pane, Textarea, Button, majorScale, minorScale } from 'evergreen-ui';
 
+import { createNewStudyGroup } from '@/api/studyGroupService';
 interface FormState {
 	title: string;
 	category: string;
@@ -22,7 +23,7 @@ const initialFormState: FormState = {
 	date: '',
 	time: '',
 	location: '',
-	maxParticipants: 0,
+	maxParticipants: 5,
 	description: '',
 };
 
@@ -39,10 +40,17 @@ export default function StudyGroupForm(): React.ReactElement {
 		}));
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setSubmitted(true);
 		setCanceled(false);
+		await createNewStudyGroup({
+			title: form.title,
+			description: form.description,
+			meeting_datetime: form.date + ' ' + form.time,
+			max_spots: form.maxParticipants,
+			members: [],
+		});
 		setForm(initialFormState);
 	};
 
@@ -179,7 +187,7 @@ export default function StudyGroupForm(): React.ReactElement {
 					</div>
 				</form>
 				{submitted && (
-					<Pane marginTop={minorScale(2)}>Sutdy Group created successfully!</Pane>
+					<Pane marginTop={minorScale(2)}>Study Group created successfully!</Pane>
 				)}
 				{canceled && <Pane marginTop={minorScale(2)}>Edit canceled.</Pane>}
 			</Pane>

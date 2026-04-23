@@ -19,7 +19,6 @@ type StudyGroup = z.infer<typeof StudyGroupSchema>;
 type StudyGroupPayload = {
 	title: string;
 	description: string;
-	leader: number;
 	meeting_datetime: string;
 	max_spots: number;
 	members: number[];
