@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import {
 	ArrowLeftIcon,
 	Button,
+	Checkbox,
 	Heading,
 	Label,
 	Pane,
@@ -16,11 +17,14 @@ import {
 } from 'evergreen-ui';
 import Link from 'next/link';
 
+import { createNewQuestion } from '../api/questionService';
+
 interface FormState {
 	questionTitle: string;
 	category: string;
 	course: string;
 	questionDetails: string;
+	postAnonymously: boolean;
 }
 
 const initialFormState: FormState = {
@@ -28,6 +32,7 @@ const initialFormState: FormState = {
 	category: '',
 	course: '',
 	questionDetails: '',
+	postAnonymously: false,
 };
 
 const CATEGORY_OPTIONS = [
@@ -41,6 +46,8 @@ export default function AskQuestion(): React.ReactElement {
 	const [form, setForm] = useState<FormState>(initialFormState);
 	const [submitted, setSubmitted] = useState(false);
 	const [categoryError, setCategoryError] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitError, setSubmitError] = useState<string | null>(null);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
@@ -50,13 +57,33 @@ export default function AskQuestion(): React.ReactElement {
 		}));
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!form.category) {
 			setCategoryError(true);
 			return;
 		}
-		// TODO: API request to submit a question
+
+		setSubmitError(null);
+		setIsSubmitting(true);
+
+		const created = await createNewQuestion({
+			title: form.questionTitle,
+			tags: [],
+			course: form.course.trim() ? form.course.trim() : null,
+			details: form.questionDetails,
+			hearts: 0,
+			view: 0,
+			user_is_anonymous: form.postAnonymously,
+		});
+
+		setIsSubmitting(false);
+
+		if (created === null) {
+			setSubmitError('Something went wrong submitting your question. Please try again.');
+			return;
+		}
+
 		setSubmitted(true);
 	};
 
@@ -199,13 +226,42 @@ export default function AskQuestion(): React.ReactElement {
 								</Text>
 							</Pane>
 
+							{/* Post anonymously */}
+							<Pane>
+								<Checkbox
+									label='Post anonymously'
+									checked={form.postAnonymously}
+									onChange={(e) =>
+										setForm((prev) => ({
+											...prev,
+											postAnonymously: e.target.checked,
+										}))
+									}
+								/>
+							</Pane>
+
+							{/* Submit error */}
+							{submitError && (
+								<Text size={300} color='danger' display='block'>
+									{submitError}
+								</Text>
+							)}
+
 							{/* Buttons */}
 							<Pane display='flex' gap={majorScale(1)} marginTop={majorScale(1)}>
-								<Button type='submit' appearance='primary' flex={1}>
+								<Button
+									type='submit'
+									appearance='primary'
+									flex={1}
+									disabled={isSubmitting}
+									isLoading={isSubmitting}
+								>
 									Post Question
 								</Button>
 								<Link href='/questions' style={{ textDecoration: 'none' }}>
-									<Button type='button'>Cancel</Button>
+									<Button type='button' disabled={isSubmitting}>
+										Cancel
+									</Button>
 								</Link>
 							</Pane>
 						</Pane>
