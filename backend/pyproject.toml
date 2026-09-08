@@ -65,7 +65,7 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
-    "hoagieplan/migrations",
+    "hoagiehelp/migrations",
 ]
 
 # General Ruff settings
@@ -110,5 +110,5 @@ line-ending = "auto"                    # Automatically detect line endings
 
 [dependency-groups]
 dev = [
-    "ruff>=0.15.4",
+    "ruff==0.15.11",
 ]

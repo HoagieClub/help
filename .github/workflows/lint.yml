@@ -3,6 +3,10 @@ name: Lint
 on:
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   run-linters:
     name: ESLint + Prettier (frontend)
@@ -50,7 +54,7 @@ jobs:
         run: uv python install
 
       - name: Install backend dependencies
-        run: uv sync --group dev
+        run: uv sync --locked --group dev
 
       - name: Run Ruff lint check
         run: uv run ruff check
