@@ -1,33 +1,63 @@
 name: Lint
-on: pull_request
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-    run-linters:
-        name: Run linters
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./frontend
+  run-linters:
+    name: ESLint + Prettier (frontend)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
 
-        steps:
-            - name: Check out Git repository
-              uses: actions/checkout@v5
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v5
 
-            - name: Enable corepack
-              run: corepack enable
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v5
-              with:
-                  node-version: 22
+      - name: Enable Corepack
+        run: corepack enable
 
-            # ESLint and Prettier must be in `package.json`
-            - name: Install Node.js dependencies
-              run: yarn install
+      - name: Install Node.js dependencies
+        run: yarn install --immutable
 
-            - name: Run linters
-              uses: wearerequired/lint-action@v2.3.0
-              with:
-                  eslint: true
-                  eslint_dir: ./frontend
-                  prettier: true
-                  prettier_dir: ./frontend
+      - name: Run ESLint
+        run: yarn lint
+
+      - name: Run Prettier format check
+        run: yarn format
+
+  ruff:
+    name: Ruff (backend)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install backend dependencies
+        run: uv sync --locked --group dev
+
+      - name: Run Ruff lint check
+        run: uv run ruff check
+
+      - name: Run Ruff format check
+        run: uv run ruff format --check
