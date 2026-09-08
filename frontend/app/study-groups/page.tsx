@@ -26,8 +26,33 @@ export function StudyGroups() {
 		useState<Awaited<ReturnType<typeof getAllStudyGroup>>>(null);
 
 	useEffect(() => {
-		getAllStudyGroup().then(setStudyGroups);
+		void (async () => {
+			setStudyGroups(await getAllStudyGroup());
+		})();
 	}, []);
+
+	function renderStudyGroups() {
+		if (studyGroups === null) {
+			return <Text>Loading study groups...</Text>;
+		}
+
+		if (studyGroups.length === 0) {
+			return <Text>No study groups found.</Text>;
+		}
+
+		return studyGroups.map((group) => (
+			<StudyGroupCard
+				key={group.id}
+				title={group.title}
+				description={group.description}
+				groupLeader={String(group.leader)}
+				dateTime={new Date(group.meeting_datetime)}
+				joinedCount={group.members.length}
+				totalSpots={group.max_spots}
+				onJoin={() => {}}
+			/>
+		));
+	}
 
 	return (
 		<Pane
@@ -55,24 +80,7 @@ export function StudyGroups() {
 			</Pane>
 
 			<Pane display='flex' flexWrap='wrap' gap={majorScale(3)}>
-				{studyGroups === null ? (
-					<Text>Loading study groups...</Text>
-				) : studyGroups.length === 0 ? (
-					<Text>No study groups found.</Text>
-				) : (
-					studyGroups.map((group) => (
-						<StudyGroupCard
-							key={group.id}
-							title={group.title}
-							description={group.description}
-							groupLeader={String(group.leader)}
-							dateTime={new Date(group.meeting_datetime)}
-							joinedCount={group.members.length}
-							totalSpots={group.max_spots}
-							onJoin={() => {}}
-						/>
-					))
-				)}
+				{renderStudyGroups()}
 			</Pane>
 		</Pane>
 	);
