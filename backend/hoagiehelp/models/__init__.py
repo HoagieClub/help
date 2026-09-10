@@ -14,4 +14,6 @@ __all__ = [
 	"Tag",
 	"StudyGroup",
 	"AnonymousName",
+    "Heart",
+    "Notification",
 ]

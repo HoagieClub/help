@@ -27,9 +27,9 @@ from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
 from hoagiehelp.api.study_group_views import StudyGroupDetailView, StudyGroupListView
 from hoagiehelp.api.user_views import (
 	UserView,
-	user_answers,
-	user_comments,
-	user_questions,
+    get_questions_for_user,
+    get_comments_for_user,
+	get_answers_for_user,
 )
 
 urlpatterns = [
