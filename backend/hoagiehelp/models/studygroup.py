@@ -32,6 +32,7 @@ class StudyGroup(models.Model):
 	updated_at = models.DateTimeField(auto_now=True)
 
 	class Meta:
+		db_table = "StudyGroup"
 		ordering = ["-created_at"]
 		constraints = [
 			models.UniqueConstraint(
