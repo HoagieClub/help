@@ -1,4 +1,3 @@
-from django.core.validators import MinValueValidator
 from django.db import models
 
 from hoagiehelp.models.tag import Tag
@@ -16,9 +15,12 @@ class Question(models.Model):
 	details = models.TextField()
 	create_time = models.DateTimeField(auto_now_add=True)
 	last_updated_time = models.DateTimeField(auto_now=True)
-	hearts = models.IntegerField(default=0, validators=[MinValueValidator(0)])
-	view = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+	hearts = models.PositiveIntegerField(default=0)
+	view = models.PositiveIntegerField(default=0)
 	user_is_anonymous = models.BooleanField(default=False)
+
+	class Meta:
+		db_table = "Question"
 
 	def __str__(self):
 		return f"Question(id={self.id}, title={self.title})"

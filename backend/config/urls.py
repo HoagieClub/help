@@ -27,9 +27,9 @@ from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
 from hoagiehelp.api.study_group_views import StudyGroupDetailView, StudyGroupListView
 from hoagiehelp.api.user_views import (
 	UserView,
-    get_questions_for_user,
-    get_comments_for_user,
 	get_answers_for_user,
+	get_comments_for_user,
+	get_questions_for_user,
 )
 
 urlpatterns = [
@@ -64,9 +64,9 @@ urlpatterns = [
 	),
 	# Users
 	path("users/<str:user_id>/", UserView.as_view(), name="user-detail"),
-	path("users/<str:user_id>/questions/", user_questions, name="user-questions"),
-	path("users/<str:user_id>/answers/", user_answers, name="user-answers"),
-	path("users/<str:user_id>/comments/", user_comments, name="user-comments"),
+	path("users/<str:user_id>/questions/", get_questions_for_user, name="user-questions"),
+	path("users/<str:user_id>/answers/", get_answers_for_user, name="user-answers"),
+	path("users/<str:user_id>/comments/", get_comments_for_user, name="user-comments"),
 	# Notifications
 	path("notifications/", get_notifications, name="get-notifications"),
 	path(
