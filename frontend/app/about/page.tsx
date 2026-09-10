@@ -49,22 +49,22 @@ const LinkedinIcon = () => (
 
 // Team data organized for easier management
 const teamLeads: member[] = [
-	{
-		name: 'Spencer Doyle',
-		role: 'Team Lead',
-		imgSrc: 'https://i.imgur.com/c0UVvJQ.jpeg',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/spencer-doyle3/',
-		},
-	},
-	{
-		name: 'Issac Li',
-		role: 'Team Lead',
-		imgSrc: 'https://i.imgur.com/otc6I8r.jpeg',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/issactli/',
-		},
-	},
+	// {
+	// 	name: 'Spencer Doyle',
+	// 	role: 'Team Lead',
+	// 	imgSrc: 'https://i.imgur.com/c0UVvJQ.jpeg',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/spencer-doyle3/',
+	// 	},
+	// },
+	// {
+	// 	name: 'Issac Li',
+	// 	role: 'Team Lead',
+	// 	imgSrc: 'https://i.imgur.com/otc6I8r.jpeg',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/issactli/',
+	// 	},
+	// },
 	{
 		name: 'Maribel Crespo',
 		role: 'Team Lead',
@@ -100,17 +100,17 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/avafonss/',
 		},
 	},
-	{
-		name: 'Samantha Nosanchuk',
-		role: 'Product Manager',
-		imgSrc: 'https://i.imgur.com/bVPQZND.jpeg',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/samanthanicolenosanchuk/',
-		},
-	},
+	// {
+	// 	name: 'Samantha Nosanchuk',
+	// 	role: 'Product Manager',
+	// 	imgSrc: 'https://i.imgur.com/bVPQZND.jpeg',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/samanthanicolenosanchuk/',
+	// 	},
+	// },
 	{
 		name: 'Hellen Luo',
-		role: 'Frontend Developer',
+		role: 'Developer',
 		imgSrc: 'https://i.imgur.com/C6xKJWC.png',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/hellen-luo',
@@ -118,7 +118,7 @@ const teamMembers = [
 	},
 	{
 		name: 'Timothy Li',
-		role: 'Frontend Developer',
+		role: 'Developer',
 		imgSrc: 'https://i.imgur.com/pAb7Amj.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/timli5823/',
@@ -126,7 +126,7 @@ const teamMembers = [
 	},
 	{
 		name: 'Adam Belouad',
-		role: 'Frontend Developer',
+		role: 'Developer',
 		imgSrc: 'https://i.imgur.com/6t7TwGU.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/adambelouad/',
@@ -140,28 +140,44 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/david-liu-71398523a/',
 		},
 	},
-	{
-		name: 'Ryan Jensen',
-		role: 'Developer',
-		imgSrc: 'https://i.imgur.com/WxoQ4Kg.jpeg',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
-		},
-	},
-	{
-		name: 'Laahini Addagatla',
-		role: 'Developer',
-		imgSrc: 'https://i.imgur.com/DUWtHcR.png',
-		socials: {
-			linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
-		},
-	},
+	// {
+	// 	name: 'Ryan Jensen',
+	// 	role: 'Developer',
+	// 	imgSrc: 'https://i.imgur.com/WxoQ4Kg.jpeg',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
+	// 	},
+	// },
+	// {
+	// 	name: 'Laahini Addagatla',
+	// 	role: 'Developer',
+	// 	imgSrc: 'https://i.imgur.com/DUWtHcR.png',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
+	// 	},
+	// },
 	{
 		name: 'Ethan Wen',
 		role: 'Developer',
 		imgSrc: 'https://i.imgur.com/SdAZWIc.jpeg',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/wen-ethan/',
+		},
+	},
+	{
+		name: 'Faylinn Wong',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/pZxmcGJ.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/faylinnwong/',
+		},
+	},
+	{
+		name: 'Andrew Wu',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/QDwARGQ.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/andrew-wu-b833052a6/',
 		},
 	},
 ];
