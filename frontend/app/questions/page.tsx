@@ -1,16 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddIcon from '@mui/icons-material/Add';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { Pane, Text, majorScale } from 'evergreen-ui';
+import { Pane, Text, majorScale, Spinner } from 'evergreen-ui';
 import Link from 'next/link';
+
+import { getAllQuestions } from '@/api/questionService';
+import { Post } from '@/components/ui/Post';
 
 export function QAPage() {
 	const [sort, setSort] = useState<'recent' | 'popular'>('recent');
+	const [questions, setQuestions] = useState<any[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 
+	useEffect(() => {
+        async function fetchQuestions() {
+            setIsLoading(true);
+            const data = await getAllQuestions();
+            if (data) {
+                setQuestions(data);
+            }
+            setIsLoading(false);
+        }
+        
+        fetchQuestions();
+    }, []);
+	
 	return (
 		<Pane marginX='auto' maxWidth={800} padding={majorScale(5)} paddingTop={majorScale(4)}>
 			<Pane
@@ -117,7 +135,30 @@ export function QAPage() {
 			</Pane>
 
 			<Pane display='flex' flexDirection='column' gap={majorScale(3)}>
-				{/* TODO: Fetch and render posts from API */}
+				{isLoading && (
+                    <Pane display='flex' justifyContent='center' paddingY={majorScale(4)}>
+                        <Spinner />
+                    </Pane>
+                )}
+
+                {!isLoading && questions.length === 0 && (
+                    <Text color='#6B7280' textAlign='center' display='block' paddingY={majorScale(4)}>
+                        No questions found. Be the first to ask!
+                    </Text>
+                )}
+
+                {!isLoading && questions.length > 0 && questions.map((q) => (
+                    <Post
+                        key={q.id}
+                        title={q.title}
+                        author={q.user_is_anonymous ? 'Anonymous' : `User ${q.user}`}
+                        date={new Date(q.create_time).toLocaleDateString()}
+                        tags={q.tags.map(String)}
+                        replies={0}
+                        views={q.view}
+                        courseTag={q.course || undefined}
+                    />
+                ))}
 			</Pane>
 		</Pane>
 	);
