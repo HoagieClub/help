@@ -13,6 +13,7 @@ class AnonymousName(models.Model):
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
 	class Meta:
+		db_table = "AnonymousName"
 		constraints = [
 			models.UniqueConstraint(
 				fields=["question", "user"],

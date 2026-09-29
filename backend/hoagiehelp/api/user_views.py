@@ -52,7 +52,7 @@ def get_questions_for_user(request, user_id: str):
 	return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-def user_answers(request, user_id: str):
+def get_answers_for_user(request, user_id: str):
 	pass
 
 
