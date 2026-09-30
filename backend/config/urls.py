@@ -63,7 +63,7 @@ urlpatterns = [
 		name="studygroup-detail",
 	),
 	# Users
-	path("users/<str:user_id>/", UserView.as_view(), name="user-detail"),
+	path("users/me/", UserView.as_view(), name="user-me"),
 	path("users/<str:user_id>/questions/", get_questions_for_user, name="user-questions"),
 	path("users/<str:user_id>/answers/", get_answers_for_user, name="user-answers"),
 	path("users/<str:user_id>/comments/", get_comments_for_user, name="user-comments"),
