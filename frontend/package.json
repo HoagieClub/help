@@ -47,7 +47,8 @@
 		"tailwind-merge": "^3.3.1",
 		"tailwindcss-animate": "^1.0.7",
 		"typescript-eslint": "^8.46.2",
-		"webpack": "^5.98.0"
+		"webpack": "^5.98.0",
+		"zod": "^4.6.5"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.38.0",
@@ -71,6 +72,5 @@
 			"react": "$react",
 			"react-dom": "$react-dom"
 		}
-	},
-	"packageManager": "yarn@4.13.0"
+	}
 }
