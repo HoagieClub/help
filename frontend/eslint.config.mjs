@@ -34,7 +34,6 @@ export default defineConfig([
 		'dist/**',
 		'coverage/**',
 		'.git/**',
-		'.yarn/**',
 		'next.config.mjs',
 	]),
 	{
