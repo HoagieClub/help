@@ -180,6 +180,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/andrew-wu-b833052a6/',
 		},
 	},
+	{
+		name: 'Wilson Yi',
+		role: 'Developer',
+		imgSrc: 'https://imgur.com/NpgAt8b.jpeg',
+		socials: {
+			linkedin: "https://www.linkedin.com/in/wilson-yi-456212328/",
+		}
+	}
 ];
 
 /**
