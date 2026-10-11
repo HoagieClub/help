@@ -180,6 +180,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/andrew-wu-b833052a6/',
 		},
 	},
+	{
+		name: 'Jon Dong',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/LdljV01.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/jon-dong-876725291/',
+		},
+	},
 ];
 
 /**
