@@ -186,8 +186,8 @@ const teamMembers = [
 		imgSrc: 'https://imgur.com/NpgAt8b.jpeg',
 		socials: {
 			linkedin: "https://www.linkedin.com/in/wilson-yi-456212328/",
-		}
-	}
+		},
+	},
 ];
 
 /**
