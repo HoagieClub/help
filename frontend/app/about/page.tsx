@@ -183,7 +183,7 @@ const teamMembers = [
 	{
 		name: 'Wilson Yi',
 		role: 'Developer',
-		imgSrc: 'https://imgur.com/NpgAt8b.jpeg',
+		imgSrc: 'https://i.imgur.com/NpgAt8b.jpeg',
 		socials: {
 			linkedin: "https://www.linkedin.com/in/wilson-yi-456212328/",
 		},
