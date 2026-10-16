@@ -180,6 +180,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/andrew-wu-b833052a6/',
 		},
 	},
+	{
+		name: 'Henry Cantor',
+		role: 'Developer',
+		imgSrc: 'https://imgur.com/a/i6ik3p3',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/henry-cantor123/',
+		},
+	},
 ];
 
 /**
