@@ -183,7 +183,7 @@ const teamMembers = [
 	{
 		name: 'Henry Cantor',
 		role: 'Developer',
-		imgSrc: 'https://imgur.com/a/i6ik3p3',
+		imgSrc: 'https://imgur.com/jiFAWwh',
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/henry-cantor123/',
 		},
