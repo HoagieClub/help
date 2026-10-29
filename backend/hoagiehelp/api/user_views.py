@@ -4,8 +4,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from hoagiehelp.api.question_views import QuestionSerializer
+from hoagiehelp.api.answer_views import AnswerSerializer
 from hoagiehelp.api.comment_views import CommentSerializer
 from hoagiehelp.models.comment import Comment
+from hoagiehelp.models.answer import Answer
 from hoagiehelp.models.question import Question
 from hoagiehelp.models.user import CustomUser
 
@@ -42,28 +44,34 @@ class UserView(APIView):
 
 def get_questions_for_user(request, user_id: str):
 	target_user = get_object_or_404(CustomUser, id=user_id)
-	questions_set = Question.objects.filter(user=target_user)
+	queryset = Question.objects.filter(user=target_user).order_by("-created_at")
 
+	# only show public comments for other users
 	if request.user.net_id != target_user.net_id:
-		questions_set = questions_set.filter(user_is_anonymous=False)
+		queryset = queryset.filter(user_is_anonymous=False)
 
-	questions_set = questions_set.order_by("-created_at")
-	serializer = QuestionSerializer(questions_set, many=True)
+	serializer = QuestionSerializer(queryset, many=True)
 	return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 def get_answers_for_user(request, user_id: str):
-	pass
+	target_user = get_object_or_404(CustomUser, id=user_id)
+	queryset = Answer.objects.filter(user=target_user).order_by("-created_at")
 
+	# only show public answers for other users
+	if request.user.net_id != target_user.net_id:
+		queryset = queryset.filter(user_is_anonymous=False)
+
+	serializer = AnswerSerializer(queryset, many=True)
+	return Response(serializer.data, status=status.HTTP_200_OK)
 
 def get_comments_for_user(request, user_id: str) -> Response:
 	# retrieve all comments a user has posted
 	target_user = get_object_or_404(CustomUser, id=user_id)
-
 	queryset = Comment.objects.filter(user=target_user).order_by("-created_at")
 
+	# only show public comments for other users
 	if request.user.net_id != target_user.net_id:
-		# only show public comments for other users
 		queryset = queryset.filter(is_anonymous=False)
 
 	serializer = CommentSerializer(queryset, many=True)
