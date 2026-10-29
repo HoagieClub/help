@@ -42,6 +42,7 @@ class UserView(APIView):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# retrieve all questions a user has posted
 def get_questions_for_user(request, user_id: str):
 	target_user = get_object_or_404(CustomUser, id=user_id)
 	queryset = Question.objects.filter(user=target_user).order_by("-created_at")
@@ -54,6 +55,7 @@ def get_questions_for_user(request, user_id: str):
 	return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+# retrieve all answers a user has posted
 def get_answers_for_user(request, user_id: str):
 	target_user = get_object_or_404(CustomUser, id=user_id)
 	queryset = Answer.objects.filter(user=target_user).order_by("-created_at")
@@ -65,8 +67,9 @@ def get_answers_for_user(request, user_id: str):
 	serializer = AnswerSerializer(queryset, many=True)
 	return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+# retrieve all comments a user has posted
 def get_comments_for_user(request, user_id: str) -> Response:
-	# retrieve all comments a user has posted
 	target_user = get_object_or_404(CustomUser, id=user_id)
 	queryset = Comment.objects.filter(user=target_user).order_by("-created_at")
 
