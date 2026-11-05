@@ -20,6 +20,8 @@ class AnswerSerializer(serializers.ModelSerializer):
 			"updated_at",
 			"is_anonymous",
 		)
+		# The question comes from the URL and the author is always the authenticated
+		# user, so neither can be client-supplied
 		read_only_fields = ("question", "user")
 
 
@@ -39,12 +41,9 @@ class AnswerListView(APIView):
 		"""Create a new answer associated with a given question."""
 		question = get_object_or_404(Question, pk=question_id)
 
-		data = request.data.copy()
-		data["question"] = question.id
-
-		serializer = AnswerSerializer(data=data)
+		serializer = AnswerSerializer(data=request.data)
 		if serializer.is_valid():
-			serializer.save()
+			serializer.save(question=question, user=request.user)
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
