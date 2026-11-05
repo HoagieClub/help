@@ -52,6 +52,7 @@
 
 # Backend environment variables
 /backend/.env
+/backend/.env.local
 
 # ===============================
 # Databases (Backend)
