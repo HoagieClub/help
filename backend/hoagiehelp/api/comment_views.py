@@ -21,6 +21,9 @@ class CommentSerializer(serializers.ModelSerializer):
 			"created_at",
 			"updated_at",
 		)
+		# The answer comes from the URL and the author is always the authenticated
+		# user, so neither can be client-supplied
+		read_only_fields = ("answer", "user")
 
 
 class CommentListView(APIView):
@@ -42,7 +45,7 @@ class CommentListView(APIView):
 		serializer = CommentSerializer(data=request.data)
 
 		if serializer.is_valid():
-			serializer.save(answer=answer)
+			serializer.save(answer=answer, user=request.user)
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
