@@ -181,6 +181,14 @@ const teamMembers = [
 		},
 	},
 	{
+		name: 'Wilson Yi',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/NpgAt8b.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/wilson-yi-456212328/',
+		},
+	},
+	{
 		name: 'Jon Dong',
 		role: 'Developer',
 		imgSrc: 'https://i.imgur.com/LdljV01.jpeg',
