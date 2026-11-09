@@ -13,7 +13,33 @@
  */
 
 import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { extendTailwindMerge } from 'tailwind-merge';
+
+import {
+	COLOR_NAMES,
+	FONT_NAMES,
+	RADIUS_NAMES,
+	SHADOW_NAMES,
+	SPACING_STEPS,
+	TYPE_STYLES,
+} from '@/lib/design-tokens';
+
+/**
+ * tailwind-merge only knows Tailwind's default names. Teach it our tokens so it knows that
+ * `text-body` is a font size and `text-ink` is a color (otherwise it would drop one of them).
+ */
+const twMerge = extendTailwindMerge({
+	extend: {
+		theme: {
+			color: [...COLOR_NAMES],
+			text: [...TYPE_STYLES],
+			font: [...FONT_NAMES],
+			radius: [...RADIUS_NAMES],
+			shadow: [...SHADOW_NAMES],
+			spacing: [...SPACING_STEPS],
+		},
+	},
+});
 
 /**
  * Utility function to combine and merge Tailwind CSS class names.
