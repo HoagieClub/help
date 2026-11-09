@@ -2,6 +2,15 @@
 
 So every page looks like HoagieHelp without you having to think about it. To see everything live, run `npm run dev` and open **[localhost:3000/design](http://localhost:3000/design)**.
 
+| Page                                                  | Figma frame                     |
+| ----------------------------------------------------- | ------------------------------- |
+| `/design/colors`                                      | Foundations / Colors            |
+| `/design/type`                                        | Foundations / Typography        |
+| `/design/spacing`                                     | Foundations / Spacing & radius  |
+| `/design/logo`                                        | Foundations / Logo & mascot     |
+| `/design/components/button`, `tag`, `input`           | Components                      |
+| `/design/components/card`, `stack`, `text`, `heading` | (no frame; listed under Layout) |
+
 ## What tokens are
 
 A **token** is a named design value: a color, a spacing step, a corner radius, a text style. `brand` is our red (`#D14343`), `4` on the spacing scale is 16px, `card` is a 20px corner.
@@ -46,9 +55,11 @@ Props only accept the options listed on `/design`; there's no `className` or `st
 
 30 of the 39 `.tsx` files use Evergreen (`evergreen-ui`) and many use hex colors and inline styles. **New code uses `components/ui`.** Old code is migrated **one file at a time when you touch it**, not in one big rewrite. Each file has a migration ticket; `npm run lint` shows what's left.
 
-Still around for now, so old pages keep their look:
+Still around for now so old pages keep their look. **Don't use these in new code** (ESLint warns):
 
 - **Tailwind's default palette and spacing** (`text-gray-500`, `mb-12`). The last migration ticket turns them off by uncommenting `--color-*: initial` and `--spacing-*: initial` in `tokens.css`.
 - **Old shadcn colors** (`bg-background`, `text-foreground`, `bg-card`, `text-primary`, `text-muted-foreground`, `border-border`): deprecated aliases at the bottom of the `@theme` block.
-- **`p { font-size: 14pt }`** in `lib/hoagie-ui/Theme/theme.css`, which makes any `<p>` without classes about 18.67px. `<Text>` isn't affected. `/design` shows the difference.
+- **`p { font-size: 14pt }`** in `lib/hoagie-ui/Theme/theme.css`, which makes any `<p>` without classes about 18.67px. `<Text>` isn't affected, because Tailwind classes are `!important`; `theme.css` loads outside any CSS layer.
+- **Evergreen components** (`Pane`, `Text`, `Heading`, `Button` from `evergreen-ui`). Replace them when you touch a page.
+- **Off-scale spacing** like `mb-12`, `py-16`, `gap-1.5`: the lint warning names the nearest allowed step.
 - **The Evergreen theme** (`lib/hoagie-ui/Theme/themes.tsx`) reads brand colors from the tokens, so old Evergreen code and new code use the same red.

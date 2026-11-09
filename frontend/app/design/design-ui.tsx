@@ -2,17 +2,14 @@
 
 import { useState, useSyncExternalStore, type ReactNode } from 'react';
 
-import { Button, Card, Heading, Stack, Text } from '@/components/ui';
+import { Button, Heading, Stack, Text } from '@/components/ui';
 
-/** Helpers for the /design page only. Not part of the app's component library. */
+/** Helpers for the /design pages only. Not part of the app's component library. */
 
 const noopSubscribe = () => () => {};
 
-/**
- * Reads a token's value straight from the CSS (app/tokens.css), so this page never
- * has its own copy of the values.
- */
-export function useCssVar(name: string) {
+/** Reads a token's value from app/tokens.css, so these pages never keep their own copy. */
+function useCssVar(name: string) {
 	return useSyncExternalStore(
 		noopSubscribe,
 		() => getComputedStyle(document.documentElement).getPropertyValue(name).trim(),
@@ -20,13 +17,12 @@ export function useCssVar(name: string) {
 	);
 }
 
-/**
- * The CSS minifier shortens colors (#808080 → gray, #ffffff → #fff). A canvas turns any CSS
- * color back into #rrggbb so the value matches what Figma shows.
- */
+/** The CSS minifier shortens colors (#808080 → gray); a canvas turns them back into #RRGGBB. */
 function toHex(color: string) {
 	const ctx = document.createElement('canvas').getContext('2d');
-	if (!ctx) return color;
+	if (!ctx) {
+		return color;
+	}
 	ctx.fillStyle = color;
 	return ctx.fillStyle.toUpperCase();
 }
@@ -39,6 +35,20 @@ export function TokenValue({ name }: { name: string }) {
 			{value || '…'}
 		</Text>
 	);
+}
+
+export function PageHeader({ title, summary }: { title: string; summary?: string }) {
+	return (
+		<Stack gap='2'>
+			<Heading variant='h1'>{title}</Heading>
+			{summary && <Text tone='muted'>{summary}</Text>}
+		</Stack>
+	);
+}
+
+/** Bordered box that holds live examples. */
+export function Preview({ children }: { children: ReactNode }) {
+	return <div className='rounded-md border border-line-neutral p-6'>{children}</div>;
 }
 
 /** A copyable code example. */
@@ -71,57 +81,11 @@ export function CodeBlock({ code }: { code: string }) {
 	);
 }
 
-/** One top-level section of the page, with an anchor for the sidebar. */
-export function Section({
-	id,
-	title,
-	intro,
-	children,
-}: {
-	id: string;
-	title: string;
-	intro?: ReactNode;
-	children: ReactNode;
-}) {
+export function Wordmark({ size = 'h1' }: { size?: 'h1' | 'display' }) {
 	return (
-		<section id={id} className='scroll-mt-6'>
-			<Card padding='lg'>
-				<Stack gap='6'>
-					<Stack gap='2'>
-						<Heading variant='h2'>{title}</Heading>
-						{intro && <Text tone='muted'>{intro}</Text>}
-					</Stack>
-					{children}
-				</Stack>
-			</Card>
-		</section>
+		<span className={size === 'display' ? 'font-heading text-display' : 'font-heading text-h1'}>
+			<span className='text-ink'>hoagie</span>
+			<span className='text-brand'>help</span>
+		</span>
 	);
-}
-
-/** A labeled example: live preview on top, code underneath. */
-export function Example({
-	title,
-	code,
-	children,
-}: {
-	title: string;
-	code: string;
-	children: ReactNode;
-}) {
-	return (
-		<Stack gap='3'>
-			<Heading variant='h3'>{title}</Heading>
-			<div className='rounded-md border border-line-neutral p-6'>{children}</div>
-			<CodeBlock code={code} />
-		</Stack>
-	);
-}
-
-/** Measures the font size an element actually renders at. */
-export function useMeasuredFontSize() {
-	const [size, setSize] = useState('');
-	const ref = (el: HTMLElement | null) => {
-		if (el) setSize(getComputedStyle(el).fontSize);
-	};
-	return [size, ref] as const;
 }
