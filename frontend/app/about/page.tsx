@@ -196,6 +196,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/jon-dong-876725291/',
 		},
 	},
+	{
+		name: 'Henry Cantor',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/jiFAWwh.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/henry-cantor123/',
+		},
+	},
 ];
 
 /**
