@@ -22,6 +22,9 @@ class QuestionSerializer(serializers.ModelSerializer):
 			"view",
 			"user_is_anonymous",
 		]
+		# The author is always the authenticated user, never client-supplied
+		read_only_fields = ["user"]
+		extra_kwargs = {"tags": {"required": False, "allow_empty": True}}
 
 
 class QuestionListView(APIView):
@@ -49,7 +52,7 @@ class QuestionListView(APIView):
 
 		# field checks and validation
 		if serializer.is_valid():
-			serializer.save()
+			serializer.save(user=request.user)
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
