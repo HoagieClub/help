@@ -1,0 +1,188 @@
+/**
+ * @overview HoagieHelp design tokens. The ONLY file where raw colors, sizes and shadows live.
+ *
+ * Every value here matches the HoagieHelp brand kit in Figma, using the same names.
+ * Change Figma and this file in the same PR. See frontend/DESIGN_SYSTEM.md and /design.
+ *
+ * Tailwind v4 turns each token into utilities: --color-brand → bg-brand, text-brand, border-brand;
+ * --spacing-4 → p-4, gap-4; --radius-card → rounded-card; --text-h1 → text-h1; and so on.
+ *
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE.
+ *
+ * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
+ */
+
+/* `static` keeps every token in the CSS output, even ones only used from JS (the Evergreen theme). */
+@theme static {
+	/*
+	 * Tailwind's default palette (text-gray-500, bg-white…) and its "any number" spacing (p-13)
+	 * are still ON while existing pages are migrated. ESLint warns when new code uses them.
+	 * The last migration ticket turns them off by uncommenting these two lines:
+	 *
+	 * --color-*: initial;
+	 * --spacing-*: initial;
+	 *
+	 * bg-transparent, text-current and bg-inherit keep working after the flip (they don't use
+	 * the --color namespace).
+	 */
+
+	/* ---------- Color: brand ---------- */
+	--color-brand: #d14343;
+	--color-brand-hover: #a73636;
+	--color-brand-deep: #7d2828;
+	--color-brand-bright: #ea4040; /* display text 24px+ only */
+	--color-brand-soft: #f9dada;
+	--color-brand-wash: #fdecec;
+	--color-brand-tint: #fdf4f4;
+	--color-focus: #d14343;
+
+	/* ---------- Color: text and surfaces ---------- */
+	--color-ink: #190c30;
+	--color-heading: #57309b;
+	--color-muted: #58427f;
+	--color-placeholder: #808080;
+	--color-surface: #ffffff;
+	--color-surface-gray: #f7f7f7;
+	--color-line: #e4daf5;
+	--color-line-neutral: #eeeeee;
+	--color-control-border: #808080;
+
+	/* ---------- Color: status ---------- */
+	--color-success: #317159;
+	--color-success-soft: #dcf2ea;
+	--color-warning: #996a13;
+	--color-warning-soft: #ffefd2;
+	--color-danger: #a73636;
+	--color-danger-soft: #f9dada;
+
+	/* ---------- Color: club and mascot (mint and orange are fills only, never text) ---------- */
+	--color-club-purple: #57309b;
+	--color-mascot-mint: #73ffd3;
+	--color-mascot-orange: #ff6708;
+
+	/*
+	 * ---------- Color: DEPRECATED shadcn aliases ----------
+	 * Kept with their old values so sonner.tsx, Post.tsx and SearchBar.tsx look the same.
+	 * Don't use these in new code; a migration ticket replaces them and deletes this block.
+	 * (shadcn's "muted" background is gone: the brand kit owns the name "muted".)
+	 */
+	--color-background: #ffffff;
+	--color-foreground: #020817;
+	--color-card: #ffffff;
+	--color-primary: #0f172a;
+	--color-primary-foreground: #f8fafc;
+	--color-muted-foreground: #64748b;
+	--color-border: #e2e8f0;
+
+	/* ---------- Spacing (4px grid; these values only) ---------- */
+	--spacing-0: 0px;
+	--spacing-1: 4px;
+	--spacing-2: 8px;
+	--spacing-3: 12px;
+	--spacing-4: 16px;
+	--spacing-6: 24px;
+	--spacing-8: 32px;
+	--spacing-10: 40px;
+	--spacing-15: 60px;
+
+	/* ---------- Radius ---------- */
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-tag: 10px;
+	--radius-card: 20px;
+	--radius-pill: 9999px;
+
+	/* ---------- Shadows (all share the 0 0 1px base layer) ---------- */
+	--shadow-card-hover: 0 0 1px rgba(100, 100, 100, 0.3), 0 2px 4px -2px rgba(100, 100, 100, 0.47);
+	--shadow-dropdown: 0 0 1px rgba(100, 100, 100, 0.3), 0 5px 8px -4px rgba(100, 100, 100, 0.47);
+	--shadow-dialog: 0 0 1px rgba(100, 100, 100, 0.3), 0 16px 24px -8px rgba(100, 100, 100, 0.47);
+
+	/* ---------- Fonts ---------- */
+	--font-heading: 'Poppins', sans-serif; /* wordmark, titles, headings (600) */
+	--font-body: 'Inter', Arial, Helvetica, sans-serif; /* everything you read (400/500) */
+	--font-mono: 'JetBrains Mono', monospace; /* eyebrow labels and code (400) */
+
+	/* ---------- Type scale: size / line-height / weight ---------- */
+	--text-display: 48px;
+	--text-display--line-height: 1.1;
+	--text-display--font-weight: 600;
+	--text-h1: 32px;
+	--text-h1--line-height: 1.2;
+	--text-h1--font-weight: 600;
+	--text-h2: 24px;
+	--text-h2--line-height: 1.3;
+	--text-h2--font-weight: 600;
+	--text-h3: 18px;
+	--text-h3--line-height: 1.4;
+	--text-h3--font-weight: 600;
+	--text-lead: 18px;
+	--text-lead--line-height: 1.55;
+	--text-lead--font-weight: 400;
+	--text-body-lg: 16px;
+	--text-body-lg--line-height: 1.5;
+	--text-body-lg--font-weight: 400;
+	--text-body: 14px;
+	--text-body--line-height: 1.55;
+	--text-body--font-weight: 400;
+	--text-label: 14px;
+	--text-label--line-height: 1.4;
+	--text-label--font-weight: 500;
+	--text-small: 12px;
+	--text-small--line-height: 1.5;
+	--text-small--font-weight: 400;
+	--text-caption: 10px;
+	--text-caption--line-height: 1.4;
+	--text-caption--font-weight: 500;
+	--text-eyebrow: 12px;
+	--text-eyebrow--line-height: 1.4;
+	--text-eyebrow--font-weight: 400;
+	--text-code: 13px;
+	--text-code--line-height: 1.5;
+	--text-code--font-weight: 400;
+}
+
+/*
+ * Short aliases so values copied from Figma Dev Mode (var(--brand), var(--space-3)) work as-is.
+ * They point at the Tailwind tokens above; never give them their own values.
+ */
+:root {
+	--brand: var(--color-brand);
+	--brand-hover: var(--color-brand-hover);
+	--brand-deep: var(--color-brand-deep);
+	--brand-bright: var(--color-brand-bright);
+	--brand-soft: var(--color-brand-soft);
+	--brand-wash: var(--color-brand-wash);
+	--brand-tint: var(--color-brand-tint);
+	--focus: var(--color-focus);
+	--ink: var(--color-ink);
+	--heading: var(--color-heading);
+	--muted: var(--color-muted);
+	--placeholder: var(--color-placeholder);
+	--surface: var(--color-surface);
+	--surface-gray: var(--color-surface-gray);
+	--line: var(--color-line);
+	--line-neutral: var(--color-line-neutral);
+	--control-border: var(--color-control-border);
+	--success: var(--color-success);
+	--success-soft: var(--color-success-soft);
+	--warning: var(--color-warning);
+	--warning-soft: var(--color-warning-soft);
+	--danger: var(--color-danger);
+	--danger-soft: var(--color-danger-soft);
+	--club-purple: var(--color-club-purple);
+	--mascot-mint: var(--color-mascot-mint);
+	--mascot-orange: var(--color-mascot-orange);
+
+	--space-1: var(--spacing-1);
+	--space-2: var(--spacing-2);
+	--space-3: var(--spacing-3);
+	--space-4: var(--spacing-4);
+	--space-6: var(--spacing-6);
+	--space-8: var(--spacing-8);
+	--space-10: var(--spacing-10);
+	--space-15: var(--spacing-15);
+}

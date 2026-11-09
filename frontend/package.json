@@ -45,7 +45,6 @@
 		"shadcn-ui": "^0.9.5",
 		"sonner": "^2.0.1",
 		"tailwind-merge": "^3.3.1",
-		"tailwindcss-animate": "^1.0.7",
 		"typescript-eslint": "^8.46.2",
 		"webpack": "^5.98.0",
 		"zod": "^4.6.5"
