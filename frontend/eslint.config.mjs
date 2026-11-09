@@ -21,6 +21,8 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
+import designSystem from './eslint-rules/design-system.mjs';
+
 export default defineConfig([
 	...nextVitals,
 	...nextTs,
@@ -130,6 +132,24 @@ export default defineConfig([
 			'no-unneeded-ternary': 'error',
 			'spaced-comment': ['error', 'always', { markers: ['/'] }],
 		},
+	},
+	// Design system (see DESIGN_SYSTEM.md and /design). Warnings while pages are migrated.
+	{
+		files: ['**/*.{ts,tsx}'],
+		plugins: { 'design-system': designSystem },
+		rules: {
+			'design-system/no-hex-colors': 'warn',
+			'design-system/no-arbitrary-values': 'warn',
+			'design-system/no-default-palette': 'warn',
+			'design-system/no-legacy-shadcn-colors': 'warn',
+			'design-system/no-off-scale-spacing': 'warn',
+			'design-system/no-inline-style': 'warn',
+		},
+	},
+	{
+		// The Evergreen theme maps Evergreen's own color scales; brand colors there already use tokens.
+		files: ['lib/hoagie-ui/Theme/themes.tsx'],
+		rules: { 'design-system/no-hex-colors': 'off' },
 	},
 	prettier,
 ]);
