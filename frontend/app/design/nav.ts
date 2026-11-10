@@ -23,6 +23,8 @@ export const DESIGN_NAV: NavGroup[] = [
 			{ href: '/design/components/button', label: 'Button' },
 			{ href: '/design/components/tag', label: 'Tag' },
 			{ href: '/design/components/input', label: 'Input' },
+			{ href: '/design/components/message', label: 'Message' },
+			{ href: '/design/components/question-card', label: 'Question card' },
 		],
 	},
 	{

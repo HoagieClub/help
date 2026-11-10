@@ -2,7 +2,17 @@ import type { ReactNode } from 'react';
 
 import Link from 'next/link';
 
-import { Button, Card, Heading, Input, Stack, Tag, Text } from '@/components/ui';
+import {
+	Button,
+	Card,
+	Heading,
+	Input,
+	Message,
+	QuestionCard,
+	Stack,
+	Tag,
+	Text,
+} from '@/components/ui';
 
 /** One entry per /design/components/[name] page: live variants and one code block. */
 export type ComponentDoc = { title: string; preview: ReactNode; code: string };
@@ -70,6 +80,61 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 <Input label='With hint' hint='Optional' />
 <Input label='With error' error='Must be at least 2' />
 <Input label='Disabled' disabled />`,
+	},
+
+	message: {
+		title: 'Message',
+		preview: (
+			<Stack gap='3'>
+				<Message variant='success'>Answer posted.</Message>
+				<Message variant='error'>
+					Couldn&apos;t post your answer. Check your connection and try again.
+				</Message>
+				<Message variant='warning'>This question is from last semester.</Message>
+			</Stack>
+		),
+		code: `<Message variant='success'>Answer posted.</Message>
+<Message variant='error'>Couldn't post your answer. Check your connection and try again.</Message>
+<Message variant='warning'>This question is from last semester.</Message>`,
+	},
+
+	'question-card': {
+		title: 'Question card',
+		preview: (
+			<div className='rounded-md bg-surface-gray p-6'>
+				<Stack gap='4'>
+					<QuestionCard
+						course='COS 226'
+						meta='Asked by Ava · 2h ago'
+						title='How do I handle the two-children case in BST delete?'
+						preview='I get insertion, but deletion breaks when the node has two children. Do I swap with the successor or the predecessor, and how do I fix the parent pointers afterward?'
+						hearts={12}
+						answers={3}
+						liked
+						href='/design/components/question-card'
+					/>
+					<QuestionCard
+						course='ORF 309'
+						meta='Asked by Sam · 1d ago'
+						title='Best way to review for the midterm?'
+						preview='Looking for practice problems beyond the problem sets.'
+						hearts={4}
+						answers={1}
+						liked={false}
+					/>
+				</Stack>
+			</div>
+		),
+		code: `<QuestionCard
+  course='COS 226'
+  meta='Asked by Ava · 2h ago'
+  title='How do I handle the two-children case in BST delete?'
+  preview='I get insertion, but deletion breaks when…'
+  hearts={12}
+  answers={3}
+  liked
+  href='/questions/1'
+/>`,
 	},
 
 	card: {
