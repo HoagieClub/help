@@ -43,6 +43,35 @@ A **token** is a named design value: a color, a spacing step, a corner radius, a
 
 Props only accept the options listed on `/design`; there's no `className` or `style`. If you need a variant that doesn't exist, add it to the component in `components/ui/` in its own PR.
 
+## Writing a component
+
+Every component in `components/` follows the same shape, so you can open any file and know where things are.
+
+**Where it goes**
+
+```
+components/
+  ui/              base pieces: no data, no API calls (Button, Tag, Avatar…)
+  question/        question feature (QuestionPanel, QuestionCard, AskQuestionForm)
+  answer/  comment/  study-group/  notification/  user/  search/
+hooks/             shared hooks (useHeart, useAction, useDebounce)
+lib/format.ts      formatting helpers (formatTimePassed, formatDateTime)
+```
+
+One component per `PascalCase.tsx` file, in the folder of the feature it belongs to. No folder per component and no CSS modules.
+
+**What the file looks like**
+
+1. `'use client'` at the top only if the component uses state, effects or event handlers.
+2. `export type ThingProps = { … }`: always `type`, always named `<Component>Props`.
+3. A short JSDoc comment with an `@example`.
+4. `export function Thing({ … }: ThingProps)`: a named export. No `export default`, no `React.FC`.
+5. Built only from `@/components/ui` pieces and token classes. No `evergreen-ui`, CSS modules, `style={{}}` or hex colors.
+6. No API calls inside components. Data comes in through props; actions go through a hook in `hooks/` (for example `useHeart`), so loading, rollback and error handling are written once.
+7. Icons come from `lucide-react` only.
+
+`npm run lint` warns when a file in `components/` or `hooks/` breaks rules 4–7.
+
 ## Adding or changing a token
 
 1. Add it in Figma first (or get a designer to).

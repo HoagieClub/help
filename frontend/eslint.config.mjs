@@ -146,6 +146,81 @@ export default defineConfig([
 			'design-system/no-inline-style': 'warn',
 		},
 	},
+	// Component conventions (see "Writing a component" in DESIGN_SYSTEM.md).
+	{
+		files: ['components/**/*.{ts,tsx}', 'hooks/**/*.{ts,tsx}'],
+		rules: {
+			'import/no-default-export': 'warn',
+			'no-restricted-imports': [
+				'warn',
+				{
+					paths: [
+						{
+							name: 'evergreen-ui',
+							message:
+								'Build components from @/components/ui instead of Evergreen. See DESIGN_SYSTEM.md.',
+						},
+					],
+					patterns: [
+						{
+							group: [
+								'@mui/icons-material',
+								'@mui/icons-material/*',
+								'react-icons',
+								'react-icons/*',
+								'@phosphor-icons/*',
+							],
+							message: 'Use icons from lucide-react only. See DESIGN_SYSTEM.md.',
+						},
+					],
+				},
+			],
+			'no-restricted-syntax': [
+				'warn',
+				{
+					selector:
+						"TSTypeReference[typeName.right.name='FC'], TSTypeReference[typeName.name='FC']",
+					message:
+						'Write `export function Thing({ … }: ThingProps)` instead of React.FC. See DESIGN_SYSTEM.md.',
+				},
+			],
+		},
+	},
+	{
+		// Feature components get data through props and hooks; only hooks call the API.
+		files: ['components/**/*.{ts,tsx}'],
+		rules: {
+			'no-restricted-imports': [
+				'warn',
+				{
+					paths: [
+						{
+							name: 'evergreen-ui',
+							message:
+								'Build components from @/components/ui instead of Evergreen. See DESIGN_SYSTEM.md.',
+						},
+					],
+					patterns: [
+						{
+							group: [
+								'@mui/icons-material',
+								'@mui/icons-material/*',
+								'react-icons',
+								'react-icons/*',
+								'@phosphor-icons/*',
+							],
+							message: 'Use icons from lucide-react only. See DESIGN_SYSTEM.md.',
+						},
+						{
+							group: ['@/api/*', '../api/*', '../../api/*'],
+							message:
+								"Components don't call the API directly: use or add a hook in hooks/ (e.g. useHeart). See DESIGN_SYSTEM.md.",
+						},
+					],
+				},
+			],
+		},
+	},
 	{
 		// The Evergreen theme maps Evergreen's own color scales; brand colors there already use tokens.
 		files: ['lib/hoagie-ui/Theme/themes.tsx'],
