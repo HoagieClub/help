@@ -29,7 +29,7 @@ import {
 import { heartComment } from '@/api/heartService';
 import type { Comment } from '@/types';
 
-import { formatTimePassed } from '../utils';
+import { formatTimePassed } from '@/lib/format';
 
 const MAX_LENGTH_BEFORE_TRUNCATE = 200;
 

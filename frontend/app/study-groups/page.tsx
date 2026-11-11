@@ -18,7 +18,7 @@ import { Button, Heading, Pane, Text, majorScale, useTheme } from 'evergreen-ui'
 import Link from 'next/link';
 
 import { getAllStudyGroup } from '@/api/studyGroupService';
-import StudyGroupCard from '@/components/StudyGroupCard/StudyGroupCard';
+import StudyGroupCard from '@/components/study-group/StudyGroupCard';
 
 export function StudyGroups() {
 	const theme = useTheme();

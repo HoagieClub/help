@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 
-import { Tag } from './Tag';
+import { Tag } from '@/components/ui';
 
 export type QuestionCardProps = {
 	/** Course code, shown as a tag, e.g. "COS 226". */

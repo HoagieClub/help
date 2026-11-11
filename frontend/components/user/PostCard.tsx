@@ -3,7 +3,7 @@
 import { EyeIcon, HeartIcon } from '@phosphor-icons/react';
 import { Card, Heading, majorScale, minorScale, Pane, Text } from 'evergreen-ui';
 
-import { formatTimePassed } from '@/components/utils';
+import { formatTimePassed } from '@/lib/format';
 
 export type UserPost = {
 	id: number;

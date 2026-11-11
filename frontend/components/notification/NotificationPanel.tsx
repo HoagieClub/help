@@ -3,7 +3,7 @@ import { MdOutlineQuestionAnswer, MdQuestionAnswer } from 'react-icons/md';
 
 import type { Notification } from '@/types';
 
-import { formatTimePassed } from '../utils';
+import { formatTimePassed } from '@/lib/format';
 
 import styles from './NotificationPanel.module.css';
 

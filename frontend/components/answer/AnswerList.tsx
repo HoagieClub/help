@@ -2,7 +2,7 @@
 
 import { Heading, majorScale, Pane } from 'evergreen-ui';
 
-import AnswerBox from '@/components/answer/AnswerBox';
+import AnswerBox from '@/components/answer/AnswerItem';
 import type { Answer } from '@/types';
 
 type AnswerPanelProps = {

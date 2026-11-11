@@ -17,7 +17,7 @@ import {
 } from 'evergreen-ui';
 import Link from 'next/link';
 
-import { createNewQuestion } from '../api/questionService';
+import { createNewQuestion } from '@/api/questionService';
 
 interface FormState {
 	questionTitle: string;

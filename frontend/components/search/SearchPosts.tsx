@@ -7,8 +7,8 @@ import React, { useState } from 'react';
 
 import { Post, type PostProps } from '@/components/ui/Post';
 
-import { useDebounce } from './hooks/useDebounce';
-import { useSearchPosts } from './hooks/useSearchPosts';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useSearchPosts } from '@/hooks/useSearchPosts';
 import { SearchBar } from './SearchBar';
 
 interface SearchPostsProps {

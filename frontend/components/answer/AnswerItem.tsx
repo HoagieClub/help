@@ -14,10 +14,10 @@ import {
 } from 'evergreen-ui';
 
 import { heartAnswer } from '@/api/heartService';
-import CommentsPanel from '@/components/comment/CommentsPanel';
+import CommentsPanel from '@/components/comment/CommentList';
 import type { Answer } from '@/types';
 
-import { formatTimePassed } from '../utils';
+import { formatTimePassed } from '@/lib/format';
 
 const MAX_LENGTH_BEFORE_TRUNCATE = 2000;
 

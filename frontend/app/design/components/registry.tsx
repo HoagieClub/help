@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Calendar, Search } from 'lucide-react';
 import Link from 'next/link';
 
+import { QuestionCard } from '@/components/question/QuestionCard';
 import {
 	Avatar,
 	Button,
@@ -16,7 +17,6 @@ import {
 	Input,
 	Message,
 	PageHeader,
-	QuestionCard,
 	Select,
 	Spinner,
 	Stack,

@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 
 import { createNewAnswer } from '@/api/answerService';
 import { heartQuestion } from '@/api/heartService';
-import { formatTimePassed } from '@/components/utils';
+import { formatTimePassed } from '@/lib/format';
 
 interface QuestionPanelProps {
 	questionId: string;

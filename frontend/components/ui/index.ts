@@ -18,7 +18,6 @@ export { IconButton, type IconButtonProps } from './IconButton';
 export { Input, type InputProps } from './Input';
 export { Message, type MessageProps } from './Message';
 export { PageHeader, type PageHeaderProps } from './PageHeader';
-export { QuestionCard, type QuestionCardProps } from './QuestionCard';
 export { Select, type SelectOption, type SelectProps } from './Select';
 export { Spinner, type SpinnerProps } from './Spinner';
 export { Stack, type StackProps } from './Stack';

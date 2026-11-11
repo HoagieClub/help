@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import { getAllAnswers } from '@/api/answerService';
 import { getAllComments } from '@/api/commentService';
 import { getQuestionDetails } from '@/api/questionService';
-import AnswerPanel from '@/components/answer/AnswerPanel';
+import AnswerPanel from '@/components/answer/AnswerList';
 import QuestionPanel from '@/components/question/QuestionPanel';
 import type { Answer, Comment } from '@/types';
 

@@ -1,4 +1,4 @@
-import AskQuestion from '@/components/AskQuestion';
+import AskQuestion from '@/components/question/AskQuestionForm';
 
 export default function AskQuestionPage() {
 	return <AskQuestion />;
