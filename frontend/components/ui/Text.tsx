@@ -60,5 +60,3 @@ export function Text({ as: Tag = 'p', variant, tone, children, ...props }: TextP
 		</Tag>
 	);
 }
-
-export default Text;

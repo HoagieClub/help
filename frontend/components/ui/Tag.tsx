@@ -52,5 +52,3 @@ export function Tag({ variant, asChild = false, children, ...props }: TagProps) 
 		</Comp>
 	);
 }
-
-export default Tag;

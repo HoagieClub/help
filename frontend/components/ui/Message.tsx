@@ -47,5 +47,3 @@ export function Message({ variant, children }: MessageProps) {
 		</div>
 	);
 }
-
-export default Message;

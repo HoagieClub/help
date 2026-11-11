@@ -86,5 +86,3 @@ export function Stack({
 		</Tag>
 	);
 }
-
-export default Stack;

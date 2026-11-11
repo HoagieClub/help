@@ -87,5 +87,3 @@ export function QuestionCard({
 	}
 	return <article className={cn(cardClasses)}>{content}</article>;
 }
-
-export default QuestionCard;

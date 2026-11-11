@@ -1,21 +1,40 @@
 import type { ReactNode } from 'react';
 
+import { Calendar, Search } from 'lucide-react';
 import Link from 'next/link';
 
 import {
+	Avatar,
 	Button,
 	Card,
+	Checkbox,
+	Divider,
+	EmptyState,
+	ExpandableText,
 	Heading,
+	IconButton,
 	Input,
 	Message,
+	PageHeader,
 	QuestionCard,
+	Select,
+	Spinner,
 	Stack,
 	Tag,
 	Text,
+	Textarea,
 } from '@/components/ui';
 
+import { HeartDemo, TabsDemo } from './demos';
+
 /** One entry per /design/components/[name] page: live variants and one code block. */
-export type ComponentDoc = { title: string; preview: ReactNode; code: string };
+export type ComponentDoc = {
+	title: string;
+	preview: ReactNode;
+	code: string;
+	/** false for components a designer still needs to add to the Figma kit. */
+	inFigma?: boolean;
+};
 
 export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 	button: {
@@ -205,5 +224,196 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 		code: `<Heading variant='h1'>Heading</Heading>
 <Heading variant='h2' tone='ink'>Ink</Heading>
 <Heading variant='display' tone='brand'>Brand</Heading>`,
+	},
+
+	avatar: {
+		title: 'Avatar',
+		inFigma: false,
+		preview: (
+			<Stack direction='row' gap='4' align='center' wrap>
+				<Avatar name='Ava Fonss' />
+				<Avatar name='Sam Patel' size='md' />
+				<Avatar name='Jordan Lee' size='lg' />
+				<Avatar name='Anonymous' anonymous size='md' />
+			</Stack>
+		),
+		code: `<Avatar name='Ava Fonss' />
+<Avatar name='Sam Patel' size='md' />
+<Avatar name='Jordan Lee' size='lg' />
+<Avatar name='Anonymous' anonymous />`,
+	},
+
+	textarea: {
+		title: 'Textarea',
+		inFigma: false,
+		preview: (
+			<Stack gap='4'>
+				<Textarea label='Details' placeholder='Add details…' />
+				<Textarea label='With error' error='Please add some details' />
+			</Stack>
+		),
+		code: `<Textarea label='Details' rows={6} placeholder='Add details…' />
+<Textarea label='Write a comment' hideLabel rows={3} />
+<Textarea label='With error' error='Please add some details' />`,
+	},
+
+	select: {
+		title: 'Select',
+		inFigma: false,
+		preview: (
+			<Select
+				label='Category'
+				placeholder='Select a category'
+				options={[
+					{ value: 'cs', label: 'Computer Science' },
+					{ value: 'math', label: 'Mathematics' },
+				]}
+			/>
+		),
+		code: `<Select
+  label='Category'
+  placeholder='Select a category'
+  options={[{ value: 'cs', label: 'Computer Science' }]}
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+/>`,
+	},
+
+	checkbox: {
+		title: 'Checkbox',
+		inFigma: false,
+		preview: (
+			<Stack gap='2'>
+				<Checkbox label='Post anonymously' />
+				<Checkbox label='Checked' defaultChecked />
+				<Checkbox label='Disabled' disabled />
+			</Stack>
+		),
+		code: `<Checkbox
+  label='Post anonymously'
+  checked={anonymous}
+  onChange={(e) => setAnonymous(e.target.checked)}
+/>`,
+	},
+
+	'icon-button': {
+		title: 'Icon button',
+		inFigma: false,
+		preview: (
+			<Stack direction='row' gap='3' align='center'>
+				<IconButton icon={Calendar} label='Pick a date' />
+				<IconButton icon={Search} label='Search' variant='secondary' />
+				<IconButton icon={Calendar} label='Pick a date' size='sm' />
+			</Stack>
+		),
+		code: `import { Calendar } from 'lucide-react';
+
+<IconButton icon={Calendar} label='Pick a date' onClick={openPicker} />
+<IconButton icon={Search} label='Search' variant='secondary' />
+<IconButton icon={Calendar} label='Pick a date' size='sm' />`,
+	},
+
+	'heart-button': {
+		title: 'Heart button',
+		inFigma: false,
+		preview: (
+			<Stack direction='row' gap='6' align='center'>
+				<HeartDemo initialHearted={false} />
+				<HeartDemo initialHearted />
+			</Stack>
+		),
+		code: `const heart = useHeart({ kind: 'answer', id: answer.id, initialCount: answer.hearts });
+
+<HeartButton {...heart} thing='answer' />`,
+	},
+
+	tabs: {
+		title: 'Tabs',
+		inFigma: false,
+		preview: <TabsDemo />,
+		code: `const [tab, setTab] = useState<'questions' | 'answers'>('questions');
+
+<Tabs
+  label='Posts'
+  items={[
+    { value: 'questions', label: 'Questions' },
+    { value: 'answers', label: 'Answers' },
+  ]}
+  value={tab}
+  onChange={setTab}
+/>`,
+	},
+
+	spinner: {
+		title: 'Spinner',
+		inFigma: false,
+		preview: (
+			<Stack direction='row' gap='8' align='center'>
+				<Spinner />
+				<Spinner size='sm' label='Posting…' />
+			</Stack>
+		),
+		code: `<Spinner />
+<Spinner size='sm' label='Posting…' />`,
+	},
+
+	'empty-state': {
+		title: 'Empty state',
+		inFigma: false,
+		preview: (
+			<EmptyState
+				title='No study groups yet'
+				description='Start one for your next exam.'
+				action={<Button>Create Study Group</Button>}
+			/>
+		),
+		code: `<EmptyState
+  title='No study groups yet'
+  description='Start one for your next exam.'
+  action={<Button asChild><Link href='/study-groups/form'>Create Study Group</Link></Button>}
+/>`,
+	},
+
+	'expandable-text': {
+		title: 'Expandable text',
+		inFigma: false,
+		preview: (
+			<ExpandableText
+				limit={120}
+				text="I get insertion, but deletion breaks when the node has two children. Do I swap with the in-order successor or the predecessor? And afterward, how do I fix the parent pointers so the rest of the tree stays connected? I've drawn it out three times and keep losing a subtree."
+			/>
+		),
+		code: `<ExpandableText text={answer.text} />
+<ExpandableText text={comment.text} limit={120} />`,
+	},
+
+	'page-header': {
+		title: 'Page header',
+		inFigma: false,
+		preview: (
+			<PageHeader
+				title='Study Groups'
+				description='Find classmates and form study groups'
+				action={<Button>Create Study Group</Button>}
+			/>
+		),
+		code: `<PageHeader
+  title='Study Groups'
+  description='Find classmates and form study groups'
+  action={<Button asChild><Link href='/study-groups/form'>Create Study Group</Link></Button>}
+/>`,
+	},
+
+	divider: {
+		title: 'Divider',
+		inFigma: false,
+		preview: (
+			<Stack gap='3'>
+				<Text>Above</Text>
+				<Divider />
+				<Text>Below</Text>
+			</Stack>
+		),
+		code: `<Divider />`,
 	},
 };

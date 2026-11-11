@@ -47,5 +47,3 @@ export function Card({ as: Tag = 'div', padding, interactive, children, ...props
 		</Tag>
 	);
 }
-
-export default Card;

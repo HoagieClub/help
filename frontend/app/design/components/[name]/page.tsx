@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { Stack } from '@/components/ui';
+import { Stack, Tag } from '@/components/ui';
 
 import { CodeBlock, PageHeader, Preview } from '../../design-ui';
 import { COMPONENT_DOCS } from '../registry';
@@ -21,7 +21,10 @@ export default async function ComponentPage({ params }: { params: Promise<{ name
 
 	return (
 		<Stack gap='6'>
-			<PageHeader title={doc.title} />
+			<Stack direction='row' gap='3' align='center' wrap>
+				<PageHeader title={doc.title} />
+				{doc.inFigma === false && <Tag variant='warning'>Not in Figma yet</Tag>}
+			</Stack>
 			<Preview>{doc.preview}</Preview>
 			<CodeBlock code={doc.code} />
 		</Stack>

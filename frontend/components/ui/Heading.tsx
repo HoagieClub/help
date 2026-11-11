@@ -60,5 +60,3 @@ export function Heading({ variant, tone, as, children, ...props }: HeadingProps)
 		</Tag>
 	);
 }
-
-export default Heading;
