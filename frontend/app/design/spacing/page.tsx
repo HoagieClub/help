@@ -4,6 +4,7 @@ import { Stack, Text } from '@/components/ui';
 import { RADIUS_NAMES, SHADOW_NAMES, SPACING_STEPS } from '@/lib/design-tokens';
 
 import { PageHeader, TokenValue } from '../design-ui';
+import { findItem } from '../nav';
 
 // Listed literally so Tailwind generates them.
 const BAR: Record<string, string> = {
@@ -38,6 +39,7 @@ export default function SpacingPage() {
 	return (
 		<Stack gap='10'>
 			<PageHeader
+				figma={findItem('/design/spacing').item?.figma}
 				title='Spacing & radius'
 				summary='A 4px grid. These steps only (9 is for small buttons, 20 and 28 for avatars).'
 			/>

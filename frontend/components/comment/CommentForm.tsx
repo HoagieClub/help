@@ -13,7 +13,7 @@ export type CommentFormProps = {
 
 /**
  * "Add a comment" under an answer. Opens a box with the text, "Post anonymously",
- * Submit and Cancel.
+ * Post comment and Cancel.
  *
  * @example
  * <CommentForm answerId={String(answer.id)} />
@@ -77,7 +77,7 @@ export function CommentForm({ answerId, onPosted }: CommentFormProps) {
 						Cancel
 					</Button>
 					<Button onClick={submit} disabled={!text.trim() || createComment.pending}>
-						{createComment.pending ? 'Posting…' : 'Submit'}
+						{createComment.pending ? 'Posting…' : 'Post comment'}
 					</Button>
 				</Stack>
 			</Stack>

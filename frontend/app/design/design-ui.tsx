@@ -2,7 +2,11 @@
 
 import { useState, useSyncExternalStore, type ReactNode } from 'react';
 
+import { ExternalLink } from 'lucide-react';
+
 import { Button, Heading, Stack, Text } from '@/components/ui';
+
+import { BRAND_KIT_URL, figmaUrl } from './nav';
 
 /** Helpers for the /design pages only. Not part of the app's component library. */
 
@@ -37,10 +41,43 @@ export function TokenValue({ name }: { name: string }) {
 	);
 }
 
-export function PageHeader({ title, summary }: { title: string; summary?: string }) {
+/** "Open in Figma" for a Brand Kit frame (or the whole file when there's no frame). */
+export function FigmaLink({
+	nodeId,
+	label = 'Open in Figma',
+}: {
+	nodeId?: string;
+	label?: string;
+}) {
+	return (
+		<a
+			href={nodeId ? figmaUrl(nodeId) : BRAND_KIT_URL}
+			target='_blank'
+			rel='noreferrer'
+			className='inline-flex items-center gap-1 font-body text-label text-brand hover:text-brand-hover'
+		>
+			{label}
+			<ExternalLink aria-hidden='true' className='h-4 w-4' />
+		</a>
+	);
+}
+
+export function PageHeader({
+	title,
+	summary,
+	figma,
+}: {
+	title: string;
+	summary?: string;
+	/** Brand Kit node-id; shows "Open in Figma" on the right. */
+	figma?: string;
+}) {
 	return (
 		<Stack gap='2'>
-			<Heading variant='h1'>{title}</Heading>
+			<Stack direction='row' justify='between' align='center' gap='4' wrap>
+				<Heading variant='h1'>{title}</Heading>
+				{figma && <FigmaLink nodeId={figma} />}
+			</Stack>
 			{summary && <Text tone='muted'>{summary}</Text>}
 		</Stack>
 	);

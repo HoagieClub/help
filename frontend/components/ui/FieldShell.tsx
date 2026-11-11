@@ -29,7 +29,7 @@ export function FieldShell({ id, label, hideLabel, hint, error, children }: Fiel
 				</Text>
 			)}
 			{children}
-			{hint && (
+			{hint && !error && (
 				<Text as='span' variant='small' tone='muted' id={`${id}-hint`}>
 					{hint}
 				</Text>

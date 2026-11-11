@@ -154,7 +154,7 @@ export function QuestionPanel({
 								onClick={submitAnswer}
 								disabled={!answer.trim() || createAnswer.pending}
 							>
-								{createAnswer.pending ? 'Posting…' : 'Submit'}
+								{createAnswer.pending ? 'Posting…' : 'Post answer'}
 							</Button>
 						</Stack>
 					</Stack>

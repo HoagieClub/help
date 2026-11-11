@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { StudyGroupCard } from '@/components/study-group/StudyGroupCard';
 import { FilterGroup, Tabs, UpvoteButton } from '@/components/ui';
 
 /** Small stateful wrappers so /design can show interactive components working. */
@@ -49,6 +50,21 @@ export function UpvoteDemo({ initialUpvoted }: { initialUpvoted: boolean }) {
 				setUpvoted(!upvoted);
 				setCount(upvoted ? count - 1 : count + 1);
 			}}
+		/>
+	);
+}
+
+export function StudyGroupCardDemo({ full = false }: { full?: boolean }) {
+	const [joined, setJoined] = useState(full ? 15 : 12);
+	return (
+		<StudyGroupCard
+			title='COS 226 Study Group'
+			description='Deep dive into graph algorithms and data structures.'
+			leader='Alex Chen'
+			meetsAt='2025-03-28T18:00:00'
+			joined={joined}
+			spots={15}
+			onJoin={() => setJoined(joined + 1)}
 		/>
 	);
 }

@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import { Input, Stack, Text } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
+import { FigmaLink } from './design-ui';
 import { DESIGN_NAV, START_HERE, type NavItem } from './nav';
 
 function NavLink({ item, active }: { item: NavItem; active: boolean }) {
@@ -74,6 +75,10 @@ export function DesignSidebar() {
 						</Stack>
 					</Stack>
 				))}
+
+				<div className='px-2'>
+					<FigmaLink label='Brand Kit in Figma' />
+				</div>
 
 				{groups.length === 0 && (
 					<div className='px-2'>

@@ -3,6 +3,7 @@
 import { Heading, Stack, Text } from '@/components/ui';
 
 import { PageHeader, TokenValue } from '../design-ui';
+import { findItem } from '../nav';
 
 const ROWS = [
 	{ name: 'h1', sample: <Heading variant='h1'>Ask a Question</Heading> },
@@ -23,6 +24,7 @@ export default function TypePage() {
 	return (
 		<Stack gap='8'>
 			<PageHeader
+				figma={findItem('/design/type').item?.figma}
 				title='Typography'
 				summary='Inter for everything. Use the class text-{name}, e.g. text-body-sm.'
 			/>

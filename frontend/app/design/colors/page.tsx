@@ -4,6 +4,7 @@ import { Stack, Text } from '@/components/ui';
 import { COLOR_GROUPS } from '@/lib/design-tokens';
 
 import { PageHeader, TokenValue } from '../design-ui';
+import { findItem } from '../nav';
 
 // Tailwind only generates classes it can see written in full, so swatch classes are listed literally.
 const SWATCH: Record<string, string> = {
@@ -29,6 +30,7 @@ export default function ColorsPage() {
 	return (
 		<Stack gap='8'>
 			<PageHeader
+				figma={findItem('/design/colors').item?.figma}
 				title='Colors'
 				summary='Write them as classes: bg-brand for a background, text-muted for text, border-line for a border.'
 			/>

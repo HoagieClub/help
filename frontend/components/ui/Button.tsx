@@ -30,12 +30,12 @@ export const buttonVariants = cva(
 				destructive: 'bg-danger text-surface hover:opacity-90',
 			},
 			size: {
-				/** 36px tall: filters, Back, Sign In. */
+				/** 36px tall: filters, Back, buttons inside cards. */
 				sm: 'h-9 px-3',
-				/** 40px tall: form buttons, Join Group, Ask Question. */
+				/** 40px tall (default): form buttons, the page header action. */
 				md: 'h-10 px-4',
 				/** No height or padding, for text actions inside a post. */
-				inline: 'h-auto gap-1 rounded-sm p-0 text-body-sm',
+				inline: 'h-auto gap-1 rounded-sm p-0',
 			},
 			fullWidth: {
 				true: 'w-full',

@@ -63,7 +63,7 @@ export function QuestionCard({
 	layout = 'feed',
 	href,
 }: QuestionCardProps) {
-	const metaRow = <MetaRow items={meta} tone={layout === 'profile' ? 'default' : 'muted'} />;
+	const metaRow = <MetaRow items={meta} />;
 
 	const content = (
 		<div className='flex flex-col gap-3'>
@@ -72,7 +72,7 @@ export function QuestionCard({
 				<div className='flex items-start justify-between gap-4'>
 					<Heading variant='title'>{title}</Heading>
 					{layout === 'feed' && answers !== undefined && (
-						<span className='shrink-0 font-body text-body-sm text-muted'>
+						<span className='shrink-0 font-body text-small text-muted'>
 							{answersLabel(answers)}
 						</span>
 					)}
@@ -81,7 +81,9 @@ export function QuestionCard({
 			</div>
 			{preview && (
 				<div className='line-clamp-2'>
-					<Text variant='small'>{preview}</Text>
+					<Text variant='small' tone='muted'>
+						{preview}
+					</Text>
 				</div>
 			)}
 			{(course || tags.length > 0) && (

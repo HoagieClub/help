@@ -24,7 +24,7 @@ export function Byline({ name, anonymous = false, meta = [] }: BylineProps) {
 			<Avatar name={displayName} anonymous={anonymous} size='lg' />
 			<div className='flex flex-col gap-1'>
 				<span className='font-body text-h3 text-ink'>{displayName}</span>
-				{meta.length > 0 && <MetaRow items={meta} tone='default' />}
+				{meta.length > 0 && <MetaRow items={meta} />}
 			</div>
 		</div>
 	);

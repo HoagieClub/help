@@ -3,16 +3,16 @@ import Image from 'next/image';
 import { Stack, Text } from '@/components/ui';
 
 import { PageHeader, Preview, Wordmark } from '../design-ui';
+import { findItem } from '../nav';
 
 const WORDMARK_RULES = [
-	'“hoagie” in ink, “help” in brand.',
-	'Inter bold, all lowercase, no space.',
+	'Always lowercase and one word: hoagiehelp.',
+	'“hoagie” in ink, “help” in brand, Inter Bold.',
 ];
 
 const MASCOT_RULES = [
-	'Always purple.',
-	'Clear space of half its width on every side.',
-	'Never recolor or crop.',
+	'These are Hoagie Club files kept for the rebrand.',
+	'Don’t use them in HoagieHelp screens yet.',
 ];
 
 // Shown 160px tall; widths keep each file's own proportions.
@@ -53,7 +53,7 @@ function RuleList({ rules }: { rules: string[] }) {
 export default function LogoPage() {
 	return (
 		<Stack gap='10'>
-			<PageHeader title='Logo & mascot' />
+			<PageHeader figma={findItem('/design/logo').item?.figma} title='Logo & mascot' />
 
 			<Stack gap='4'>
 				<Text variant='label'>Wordmark</Text>

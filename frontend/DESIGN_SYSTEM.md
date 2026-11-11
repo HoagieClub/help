@@ -1,6 +1,8 @@
 # HoagieHelp design system
 
-So every page looks like HoagieHelp without you having to think about it. To see everything live, run `npm run dev` and open **[localhost:3000/design](http://localhost:3000/design)**. New here? Its **Start here** page is the quickest way in.
+So every page looks like HoagieHelp without you having to think about it. To see everything live, run `npm run dev` and open **[localhost:3000/design](http://localhost:3000/design)**. New here? Its **Start here** page is the quickest way in. `/design` only exists while running `npm run dev`; on preview and production it's a 404.
+
+Every `/design` page has an **Open in Figma** link to its frame in the [HoagieHelp Brand Kit](https://www.figma.com/design/owWm8GwkMf2pu7zBGahNCZ/HoagieHelp-Brand-Kit), and the frames use the same names. Use Figma to see the design, `/design` to copy the code.
 
 The tokens and components come from the **current HoagieHelp designs** in Figma (the Main Q&A, Question View, Ask a Question and User pages, plus the Study Group frames on V2). The HoagieHelp Brand Kit file mirrors them, with one frame per `/design` page:
 

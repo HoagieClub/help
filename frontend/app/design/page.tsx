@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Card, Heading, Stack, Text } from '@/components/ui';
 
-import { CodeBlock, PageHeader } from './design-ui';
+import { CodeBlock, FigmaLink, PageHeader } from './design-ui';
 import { DESIGN_NAV } from './nav';
 
 const STEPS = [
@@ -144,6 +144,18 @@ export default function DesignStartPage() {
 					Colors, type and spacing are under Foundations in the sidebar. The full guide is
 					frontend/DESIGN_SYSTEM.md.
 				</Text>
+			</Stack>
+
+			<Stack gap='3'>
+				<Heading variant='h3' as='h2'>
+					Working from Figma
+				</Heading>
+				<Text variant='body-sm'>
+					The HoagieHelp Brand Kit has the same pieces with the same names. Every page
+					here has an “Open in Figma” link to its frame, and each Figma frame’s name
+					matches a page here. Designers work in Figma; you copy the code from here.
+				</Text>
+				<FigmaLink label='Open the Brand Kit' />
 			</Stack>
 		</Stack>
 	);

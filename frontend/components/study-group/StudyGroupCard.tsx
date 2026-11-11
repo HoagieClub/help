@@ -1,4 +1,4 @@
-import { CalendarDays, Plus, User, Users } from 'lucide-react';
+import { CalendarDays, User } from 'lucide-react';
 
 import { Button, Card, Divider, Heading, Stack, Text } from '@/components/ui';
 import { formatDateTime } from '@/lib/format';
@@ -57,32 +57,24 @@ export function StudyGroupCard({
 					<Stack gap='2'>
 						<Stack direction='row' gap='2' align='center'>
 							<User aria-hidden='true' className='h-4 w-4 text-muted' />
-							<Text variant='small'>Group leader: {leader}</Text>
+							<Text variant='body-sm' tone='muted'>
+								Led by {leader}
+							</Text>
 						</Stack>
 						<Stack direction='row' gap='2' align='center'>
 							<CalendarDays aria-hidden='true' className='h-4 w-4 text-muted' />
-							<Text variant='small' tone='muted'>
+							<Text variant='body-sm' tone='muted'>
 								{formatDateTime(meetsAt)}
 							</Text>
 						</Stack>
 					</Stack>
 
 					<Stack direction='row' justify='between' align='center'>
-						<Stack direction='row' gap='2' align='center'>
-							<Users aria-hidden='true' className='h-4 w-4 text-muted' />
-							<Text variant='small' tone='muted'>
-								{joined}/{spots} spots filled
-							</Text>
-						</Stack>
-						<Button onClick={onJoin} disabled={isFull}>
-							{isFull ? (
-								'Full'
-							) : (
-								<>
-									<Plus aria-hidden='true' className='h-4 w-4' />
-									Join
-								</>
-							)}
+						<Text variant='body-sm' tone='muted'>
+							{joined}/{spots} spots filled
+						</Text>
+						<Button size='sm' onClick={onJoin} disabled={isFull}>
+							{isFull ? 'Full' : 'Join'}
 						</Button>
 					</Stack>
 				</Stack>

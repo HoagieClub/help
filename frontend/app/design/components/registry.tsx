@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import { Calendar, Eye, Search, Triangle } from 'lucide-react';
 
 import { QuestionCard } from '@/components/question/QuestionCard';
-import { StudyGroupCard } from '@/components/study-group/StudyGroupCard';
 import {
 	Avatar,
 	BackLink,
@@ -30,7 +29,7 @@ import {
 	ThreadItem,
 } from '@/components/ui';
 
-import { FilterDemo, TabsDemo, UpvoteDemo } from './demos';
+import { FilterDemo, StudyGroupCardDemo, TabsDemo, UpvoteDemo } from './demos';
 
 /** One entry per /design/components/[name] page: live variants and one code block. */
 export type ComponentDoc = {
@@ -244,7 +243,6 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 		preview: (
 			<Stack gap='2'>
 				<MetaRow items={['Sarah Park', '2h ago']} />
-				<MetaRow items={['Q&A', '2h ago']} tone='default' />
 				<MetaRow
 					size='lg'
 					items={['7 posts in Q&A', 'Class of 2026', 'Computer Science']}
@@ -252,7 +250,6 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 			</Stack>
 		),
 		code: `<MetaRow items={['Sarah Park', '2h ago']} />
-<MetaRow items={['Q&A', '2h ago']} tone='default' />
 <MetaRow size='lg' items={['7 posts in Q&A', 'Class of 2026', 'Computer Science']} />`,
 	},
 
@@ -369,15 +366,10 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 	'study-group-card': {
 		title: 'Study group card',
 		preview: (
-			<StudyGroupCard
-				title='COS 226 Study Group'
-				description='Deep dive into graph algorithms and data structures.'
-				leader='Alex Chen'
-				meetsAt='2025-03-28T18:00:00'
-				joined={12}
-				spots={15}
-				onJoin={() => {}}
-			/>
+			<Stack direction='row' gap='4' wrap>
+				<StudyGroupCardDemo />
+				<StudyGroupCardDemo full />
+			</Stack>
 		),
 		code: `<StudyGroupCard
   title='COS 226 Study Group'

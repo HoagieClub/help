@@ -40,10 +40,12 @@ export default async function ComponentPage({ params }: { params: Promise<{ name
 	return (
 		<Stack gap='8'>
 			<Stack gap='3'>
-				<Stack direction='row' gap='3' align='center' wrap>
-					<PageHeader title={doc.title} />
-					{item?.notInFigma && <Tag>Not in Figma yet</Tag>}
-				</Stack>
+				<PageHeader title={doc.title} figma={item?.figma} />
+				{item?.notInFigma && (
+					<div>
+						<Tag>Not in Figma yet</Tag>
+					</div>
+				)}
 				{item?.summary && <Text tone='muted'>{item.summary}</Text>}
 			</Stack>
 

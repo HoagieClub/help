@@ -30,17 +30,19 @@ export function formatTimePassed(input: Date | string | number): string {
 }
 
 /**
- * Date and time for events, e.g. "Nov 11, 2026 · 9:58 AM".
+ * Date and time for events, e.g. "Thu, Nov 14 · 7:00 PM". Adds the year when it isn't this year.
  */
 export function formatDateTime(input: Date | string | number): string {
 	const date = new Date(input);
 	if (isNaN(date.getTime())) {
 		return '';
 	}
+	const sameYear = date.getFullYear() === new Date().getFullYear();
 	const day = date.toLocaleDateString('en-US', {
+		weekday: 'short',
 		month: 'short',
 		day: 'numeric',
-		year: 'numeric',
+		year: sameYear ? undefined : 'numeric',
 	});
 	const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 	return `${day} · ${time}`;

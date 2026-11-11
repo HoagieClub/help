@@ -15,9 +15,9 @@ const avatarVariants = cva(
 				/** 40px: answers and comments. */
 				md: 'h-10 w-10 text-body-sm',
 				/** 80px: the question author. */
-				lg: 'h-20 w-20 text-h2 font-normal',
+				lg: 'h-20 w-20 text-h2',
 				/** 112px: a profile page. */
-				xl: 'h-28 w-28 text-h1 font-normal',
+				xl: 'h-28 w-28 text-h1',
 			},
 		},
 		defaultVariants: { size: 'md' },

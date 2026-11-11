@@ -49,7 +49,7 @@ export function ThreadItem({
 			<div className='flex min-w-0 flex-1 flex-col gap-2 pt-1'>
 				<div className='flex flex-col'>
 					<span className='font-body text-label font-bold text-ink'>{displayName}</span>
-					{meta && <span className='font-body text-small text-ink'>{meta}</span>}
+					{meta && <span className='font-body text-small text-muted'>{meta}</span>}
 				</div>
 				{children}
 				{actions && <div className='flex items-center gap-4'>{actions}</div>}
