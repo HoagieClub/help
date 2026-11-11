@@ -146,13 +146,14 @@ export default defineConfig([
 			'design-system/no-inline-style': 'warn',
 		},
 	},
-	// Component conventions (see "Writing a component" in DESIGN_SYSTEM.md).
+	// Component conventions (see "Writing a component" in DESIGN_SYSTEM.md). Errors: components/
+	// and hooks/ are fully migrated, so new code there must follow them.
 	{
 		files: ['components/**/*.{ts,tsx}', 'hooks/**/*.{ts,tsx}'],
 		rules: {
-			'import/no-default-export': 'warn',
+			'import/no-default-export': 'error',
 			'no-restricted-imports': [
-				'warn',
+				'error',
 				{
 					paths: [
 						{
@@ -176,7 +177,7 @@ export default defineConfig([
 				},
 			],
 			'no-restricted-syntax': [
-				'warn',
+				'error',
 				{
 					selector:
 						"TSTypeReference[typeName.right.name='FC'], TSTypeReference[typeName.name='FC']",
@@ -191,7 +192,7 @@ export default defineConfig([
 		files: ['components/**/*.{ts,tsx}'],
 		rules: {
 			'no-restricted-imports': [
-				'warn',
+				'error',
 				{
 					paths: [
 						{
@@ -219,6 +220,18 @@ export default defineConfig([
 					],
 				},
 			],
+		},
+	},
+	{
+		// components/ and hooks/ are fully on the design system; keep them that way.
+		files: ['components/**/*.{ts,tsx}', 'hooks/**/*.{ts,tsx}'],
+		rules: {
+			'design-system/no-hex-colors': 'error',
+			'design-system/no-arbitrary-values': 'error',
+			'design-system/no-default-palette': 'error',
+			'design-system/no-legacy-shadcn-colors': 'error',
+			'design-system/no-off-scale-spacing': 'error',
+			'design-system/no-inline-style': 'error',
 		},
 	},
 	{

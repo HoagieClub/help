@@ -2,13 +2,22 @@
 
 import { useState } from 'react';
 
-import { Avatar, Heading, majorScale, minorScale, Pane, Text } from 'evergreen-ui';
+import { QuestionCard } from '@/components/question/QuestionCard';
+import { Avatar, EmptyState, Heading, Stack, Tabs, Text } from '@/components/ui';
+import { formatTimePassed } from '@/lib/format';
 
-import PostCard from './PostCard';
+export type UserPost = {
+	id: number;
+	title: string;
+	body: string;
+	/** "Question", "Answer" or "Comment". */
+	type: string;
+	course?: string;
+	hearts: number;
+	createdAt: string;
+};
 
-import type { UserPost } from './PostCard';
-
-type UserProfile = {
+export type UserProfileInfo = {
 	name: string;
 	email: string;
 	postsCount: number;
@@ -16,118 +25,75 @@ type UserProfile = {
 	major: string;
 };
 
-type UserPostsProps = {
-	user: UserProfile;
+export type UserProfileProps = {
+	user: UserProfileInfo;
 	questions: UserPost[];
 	answers: UserPost[];
 	comments: UserPost[];
 };
 
-const TABS = ['Questions', 'Answers', 'Comments'] as const;
-type TabName = (typeof TABS)[number];
+type Tab = 'questions' | 'answers' | 'comments';
 
-export default function UserPostsPage({ user, questions, answers, comments }: UserPostsProps) {
-	const [selectedTab, setSelectedTab] = useState<TabName>('Questions');
+const TABS: { value: Tab; label: string }[] = [
+	{ value: 'questions', label: 'Questions' },
+	{ value: 'answers', label: 'Answers' },
+	{ value: 'comments', label: 'Comments' },
+];
 
-	const postsForTab: Record<TabName, UserPost[]> = {
-		Questions: questions,
-		Answers: answers,
-		Comments: comments,
-	};
+/**
+ * A person's profile: who they are, then their questions, answers and comments in tabs.
+ *
+ * @example
+ * <UserProfile user={user} questions={questions} answers={[]} comments={[]} />
+ */
+export function UserProfile({ user, questions, answers, comments }: UserProfileProps) {
+	const [tab, setTab] = useState<Tab>('questions');
+	const posts = { questions, answers, comments }[tab];
 
 	return (
-		<Pane minHeight='100vh' backgroundColor='#fafafa'>
-			<Pane maxWidth={702} marginX='auto' paddingTop={majorScale(5)} paddingX={majorScale(2)}>
-				{/* User profile header */}
-				<Pane
-					display='flex'
-					alignItems='center'
-					gap={majorScale(3)}
-					marginBottom={majorScale(4)}
-				>
-					<Avatar name={user.name} size={80} backgroundColor='#e2e4e9' color='#737b8c' />
-					<Pane>
-						<Heading size={700} color='#2b303b' marginBottom={minorScale(1)}>
+		<div className='mx-auto max-w-2xl px-4 py-10'>
+			<Stack gap='8'>
+				<Stack direction='row' gap='6' align='center'>
+					<Avatar name={user.name} size='lg' />
+					<Stack gap='1'>
+						<Heading variant='h2' tone='ink'>
 							{user.name}
 						</Heading>
-						<Text
-							size={400}
-							color='#737b8c'
-							display='block'
-							marginBottom={minorScale(2)}
-						>
-							<a href={`mailto:${user.email}`} style={{ color: '#737b8c' }}>
+						<a href={`mailto:${user.email}`}>
+							<Text as='span' tone='muted'>
 								{user.email}
-							</a>
+							</Text>
+						</a>
+						<Text variant='small' tone='muted'>
+							{user.postsCount} posts in Q&amp;A · Class of {user.classYear} ·{' '}
+							{user.major}
 						</Text>
-						<Pane display='flex' alignItems='center' gap={minorScale(2)}>
-							<Text size={300} color='#737b8c'>
-								{user.postsCount} posts in Q&amp;A
-							</Text>
-							<Pane
-								width={6}
-								height={6}
-								borderRadius='50%'
-								backgroundColor='#737b8c'
-							/>
-							<Text size={300} color='#737b8c'>
-								Class of {user.classYear}
-							</Text>
-							<Pane
-								width={6}
-								height={6}
-								borderRadius='50%'
-								backgroundColor='#737b8c'
-							/>
-							<Text size={300} color='#737b8c'>
-								{user.major}
-							</Text>
-						</Pane>
-					</Pane>
-				</Pane>
+					</Stack>
+				</Stack>
 
-				{/* Tab navigation */}
-				<Pane display='flex' borderBottom='1px solid #e2e4e9'>
-					{TABS.map((tab) => {
-						const isActive = selectedTab === tab;
-						return (
-							<Pane
-								key={tab}
-								role='tab'
-								cursor='pointer'
-								paddingX={minorScale(3)}
-								paddingBottom={minorScale(2)}
-								marginBottom='-1px'
-								borderBottom={
-									isActive ? '2px solid #f04242' : '2px solid transparent'
-								}
-								onClick={() => setSelectedTab(tab)}
-							>
-								<Text
-									size={400}
-									color={isActive ? '#f04242' : '#737b8c'}
-									fontWeight={isActive ? 600 : 400}
-								>
-									{tab}
-								</Text>
-							</Pane>
-						);
-					})}
-				</Pane>
-
-				{/* Posts list */}
-				<Pane marginTop={majorScale(3)}>
-					{postsForTab[selectedTab].length === 0 ? (
-						<Text size={400} color='#737b8c'>
-							No {selectedTab.toLowerCase()} yet.
-						</Text>
+				<Stack gap='4'>
+					<Tabs label='Posts' items={TABS} value={tab} onChange={setTab} />
+					{posts.length === 0 ? (
+						<EmptyState title={`No ${tab} yet`} />
 					) : (
-						postsForTab[selectedTab].map((post) => (
-							<PostCard key={post.id} post={post} />
-						))
+						<div className='rounded-md bg-surface-gray p-4'>
+							<Stack gap='3'>
+								{posts.map((post) => (
+									<QuestionCard
+										key={post.id}
+										course={post.course}
+										meta={`${post.type} · ${formatTimePassed(post.createdAt)}`}
+										title={post.title}
+										preview={post.body}
+										hearts={post.hearts}
+										liked={false}
+									/>
+								))}
+							</Stack>
+						</div>
 					)}
-				</Pane>
-			</Pane>
-		</Pane>
+				</Stack>
+			</Stack>
+		</div>
 	);
 }

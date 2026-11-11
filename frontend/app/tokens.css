@@ -64,20 +64,6 @@
 	--color-mascot-mint: #73ffd3;
 	--color-mascot-orange: #ff6708;
 
-	/*
-	 * ---------- Color: DEPRECATED shadcn aliases ----------
-	 * Kept with their old values so sonner.tsx, Post.tsx and SearchBar.tsx look the same.
-	 * Don't use these in new code; a migration ticket replaces them and deletes this block.
-	 * (shadcn's "muted" background is gone: the brand kit owns the name "muted".)
-	 */
-	--color-background: #ffffff;
-	--color-foreground: #020817;
-	--color-card: #ffffff;
-	--color-primary: #0f172a;
-	--color-primary-foreground: #f8fafc;
-	--color-muted-foreground: #64748b;
-	--color-border: #e2e8f0;
-
 	/* ---------- Spacing (4px grid; these values only) ---------- */
 	--spacing-0: 0px;
 	--spacing-1: 4px;

@@ -14,7 +14,7 @@
 		"format": "prettier --check .",
 		"format:fix": "prettier --write .",
 		"type-check": "tsc --noEmit",
-		"lint:css": "stylelint \"**/*.module.css\""
+		"lint:css": "stylelint \"**/*.module.css\" --allow-empty-input"
 	},
 	"engines": {
 		"node": "^22.9.0"

@@ -19,7 +19,7 @@ import { Auth0Provider } from '@auth0/nextjs-auth0';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/Toaster';
 import { auth0 } from '@/lib/auth0';
 import Layout from '@/lib/hoagie-ui/Layout';
 import Nav from '@/lib/hoagie-ui/Nav';

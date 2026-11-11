@@ -1,111 +1,69 @@
-import { Pane, Heading, Button, Text } from 'evergreen-ui';
-import { MdOutlineQuestionAnswer, MdQuestionAnswer } from 'react-icons/md';
+import { MessageCircle, MessageSquare } from 'lucide-react';
 
+import { Button, Card, Heading, Stack, Text } from '@/components/ui';
+import { formatTimePassed } from '@/lib/format';
 import type { Notification } from '@/types';
 
-import { formatTimePassed } from '@/lib/format';
+const MAX_SHOWN = 4;
 
-import styles from './NotificationPanel.module.css';
-
-import type { IconType } from 'react-icons';
-
-const MAX_NOTIFICATIONS = 4;
-
-const ICON_MAP: Record<NotificationType, IconType> = {
-	answer: MdQuestionAnswer,
-	comment: MdOutlineQuestionAnswer,
-};
-
-const TITLE_MAP: Record<NotificationType, string> = {
-	answer: 'Someone answered your question',
-	comment: 'Someone commented on your answer',
-};
-
-type NotificationType = 'answer' | 'comment';
-
-type ProcessedNotification = {
-	id: number;
-	Icon: IconType;
-	title: string;
-	subtitle: string | undefined;
-	time: string;
-};
-
-function getNotificationType(notification: Notification): NotificationType {
-	return notification.comment !== null ? 'comment' : 'answer';
-}
-
-function processNotifications(notifications: Notification[]): ProcessedNotification[] {
-	return notifications.map((notification) => {
-		const type = getNotificationType(notification);
-		const Icon = ICON_MAP[type];
-		const title = TITLE_MAP[type];
-
-		const questionTitle = notification.question.title;
-
-		return {
-			id: notification.id,
-			Icon,
-			title,
-			subtitle: questionTitle,
-			time: formatTimePassed(notification.createdAt),
-		};
-	});
-}
-
-interface NotificationPanelProps {
+export type NotificationPanelProps = {
 	notifications: Notification[];
 	onViewAll: () => void;
-}
-
-const NotificationPanel = ({ notifications, onViewAll }: NotificationPanelProps) => {
-	const hasNotifications = notifications.length > 0;
-
-	const visible = notifications.slice(0, MAX_NOTIFICATIONS);
-	const processedNotifications = processNotifications(visible);
-
-	return (
-		<Pane className={styles.notificationsCard}>
-			<Pane className={styles.notificationsCardHeader}>
-				<Heading className={styles.notificationsCardTitle}>Notifications</Heading>
-			</Pane>
-
-			<Pane className={styles.notificationsCardList}>
-				{hasNotifications ? (
-					processedNotifications.map(({ id, Icon, title, subtitle, time }) => (
-						<Pane key={id} className={styles.notificationItem}>
-							<Pane className={styles.notificationIcon}>
-								<Icon className={styles.notificationIconSVG} />
-							</Pane>
-
-							<Pane className={styles.notificationContent}>
-								<Text className={styles.notificationText}>
-									<>
-										{title}{' '}
-										<span className={styles.notificationHighlight}>
-											{subtitle}
-										</span>
-									</>
-								</Text>
-
-								<Text className={styles.notificationTime}>{time}</Text>
-							</Pane>
-						</Pane>
-					))
-				) : (
-					<Pane className={styles.emptyState}>
-						<Text className={styles.emptyStateText}>No notifications</Text>
-					</Pane>
-				)}
-			</Pane>
-
-			{hasNotifications && (
-				<Button className={styles.viewAllButton} onClick={onViewAll}>
-					View All
-				</Button>
-			)}
-		</Pane>
-	);
 };
 
-export default NotificationPanel;
+/**
+ * The latest few notifications (answers to your questions, comments on your answers).
+ *
+ * @example
+ * <NotificationPanel notifications={notifications} onViewAll={() => router.push('/notifications')} />
+ */
+export function NotificationPanel({ notifications, onViewAll }: NotificationPanelProps) {
+	const shown = notifications.slice(0, MAX_SHOWN);
+
+	return (
+		<div className='w-full max-w-sm'>
+			<Card padding='sm'>
+				<Stack gap='4'>
+					<Heading variant='h3' tone='ink'>
+						Notifications
+					</Heading>
+
+					{shown.length === 0 ? (
+						<Text tone='muted'>No notifications</Text>
+					) : (
+						<Stack as='ul' gap='3'>
+							{shown.map((notification) => {
+								const isComment = notification.comment !== null;
+								const Icon = isComment ? MessageCircle : MessageSquare;
+								return (
+									<li key={notification.id} className='flex items-start gap-3'>
+										<span className='flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-brand-tint text-brand'>
+											<Icon aria-hidden='true' className='h-4 w-4' />
+										</span>
+										<Stack gap='0'>
+											<Text>
+												{isComment
+													? 'Someone commented on your answer '
+													: 'Someone answered your question '}
+												<b>{notification.question.title}</b>
+											</Text>
+											<Text variant='small' tone='muted'>
+												{formatTimePassed(notification.createdAt)}
+											</Text>
+										</Stack>
+									</li>
+								);
+							})}
+						</Stack>
+					)}
+
+					{shown.length > 0 && (
+						<Button variant='secondary' fullWidth onClick={onViewAll}>
+							View all
+						</Button>
+					)}
+				</Stack>
+			</Card>
+		</div>
+	);
+}
