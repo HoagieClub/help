@@ -31,17 +31,34 @@ A **token** is a named design value: a color, a spacing step, a corner radius, a
 
 ## Components
 
-| Component | Use it for                                                   |
-| --------- | ------------------------------------------------------------ |
-| `Button`  | Every button. `asChild` wraps a `Link` so it looks like one. |
-| `Tag`     | Courses, topics, filters, statuses.                          |
-| `Input`   | Labeled text fields with hint and error messages.            |
-| `Card`    | White boxes with the brand border.                           |
-| `Stack`   | Rows and columns with a gap. Use it instead of margins.      |
-| `Text`    | Anything you read.                                           |
-| `Heading` | Titles and section headings.                                 |
+Import base pieces from `@/components/ui`. Each has a page on `/design` with every variant.
 
-Props only accept the options listed on `/design`; there's no `className` or `style`. If you need a variant that doesn't exist, add it to the component in `components/ui/` in its own PR.
+| Component        | Use it for                                                          |
+| ---------------- | ------------------------------------------------------------------- |
+| `Button`         | Every button. `asChild` wraps a `Link` so it looks like one.        |
+| `IconButton`     | A button that is only an icon (needs a `label` for screen readers). |
+| `HeartButton`    | Heart toggle with its count; pair with the `useHeart` hook.         |
+| `Tag`            | Courses, topics, filter chips, statuses.                            |
+| `Input`          | Labeled text fields with hint, error and an optional icon.          |
+| `Textarea`       | Multi-line fields, same states as Input.                            |
+| `Select`         | Dropdowns, same states as Input.                                    |
+| `Checkbox`       | A checkbox with its label.                                          |
+| `Message`        | Success, error and warning banners.                                 |
+| `Tabs`           | Switching between views on one page.                                |
+| `Avatar`         | Initials badge for a person.                                        |
+| `Byline`         | Avatar + name + time, for who wrote something.                      |
+| `ExpandableText` | Long text with Read more / Read less.                               |
+| `Spinner`        | Loading.                                                            |
+| `EmptyState`     | A list with nothing in it (uses the pointing mascot).               |
+| `PageHeader`     | The h1, description and main action at the top of a page.           |
+| `Card`           | White boxes with the brand border.                                  |
+| `Stack`          | Rows and columns with a gap. Use it instead of margins.             |
+| `Divider`        | A line between sections.                                            |
+| `Text`           | Anything you read.                                                  |
+| `Heading`        | Titles and section headings.                                        |
+| `Toaster`        | Mounted once in the layout; call `toast()` from `sonner`.           |
+
+Props only accept the options listed on `/design`; there's no `className` or `style`. If you need a variant that doesn't exist, add it to the component in `components/ui/` in its own PR. Pages marked **Not in Figma yet** on `/design` still need a Figma frame.
 
 ## Writing a component
 
@@ -70,7 +87,9 @@ One component per `PascalCase.tsx` file, in the folder of the feature it belongs
 6. No API calls inside components. Data comes in through props; actions go through a hook in `hooks/` (for example `useHeart`), so loading, rollback and error handling are written once.
 7. Icons come from `lucide-react` only.
 
-`npm run lint` warns when a file in `components/` or `hooks/` breaks rules 4–7.
+In `components/` and `hooks/`, `npm run lint` **fails** if a file breaks rules 4–7 or uses hex colors, made-up values or `style={{}}`.
+
+**A worked example to copy:** [`components/comment/CommentItem.tsx`](components/comment/CommentItem.tsx). It's short and shows every rule: a `<Component>Props` type, a JSDoc example, a named export, only `components/ui` pieces, and a hook (`useHeart`) for the API call. For a form, see [`components/comment/CommentForm.tsx`](components/comment/CommentForm.tsx) (state, a create hook from `hooks/mutations.ts`, and an error `Message`).
 
 ## Adding or changing a token
 
@@ -82,12 +101,11 @@ One component per `PascalCase.tsx` file, in the folder of the feature it belongs
 
 ## Migrating existing code
 
-30 of the 39 `.tsx` files use Evergreen (`evergreen-ui`) and many use hex colors and inline styles. **New code uses `components/ui`.** Old code is migrated **one file at a time when you touch it**, not in one big rewrite. Each file has a migration ticket; `npm run lint` shows what's left.
+Every component in `components/` is migrated. What's left is the **pages** in `app/` (their headers, buttons and layout still use Evergreen, hex colors and inline styles) and the shared Hoagie shell in `lib/hoagie-ui/`. **New code uses `components/ui`.** Pages are migrated **one file at a time when you touch them**; each has a ticket, and `npm run lint` shows what's left as warnings.
 
 Still around for now so old pages keep their look. **Don't use these in new code** (ESLint warns):
 
 - **Tailwind's default palette and spacing** (`text-gray-500`, `mb-12`). The last migration ticket turns them off by uncommenting `--color-*: initial` and `--spacing-*: initial` in `tokens.css`.
-- **Old shadcn colors** (`bg-background`, `text-foreground`, `bg-card`, `text-primary`, `text-muted-foreground`, `border-border`): deprecated aliases at the bottom of the `@theme` block.
 - **`p { font-size: 14pt }`** in `lib/hoagie-ui/Theme/theme.css`, which makes any `<p>` without classes about 18.67px. `<Text>` isn't affected, because Tailwind classes are `!important`; `theme.css` loads outside any CSS layer.
 - **Evergreen components** (`Pane`, `Text`, `Heading`, `Button` from `evergreen-ui`). Replace them when you touch a page.
 - **Off-scale spacing** like `mb-12`, `py-16`, `gap-1.5`: the lint warning names the nearest allowed step.
