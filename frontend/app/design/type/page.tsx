@@ -6,7 +6,10 @@ import { PageHeader, TokenValue } from '../design-ui';
 
 const ROWS = [
 	{ name: 'h1', sample: <Heading variant='h1'>Ask a Question</Heading> },
-	{ name: 'h2', sample: <Heading variant='h2'>Best strategies for COS226 midterm prep?</Heading> },
+	{
+		name: 'h2',
+		sample: <Heading variant='h2'>Best strategies for COS226 midterm prep?</Heading>,
+	},
 	{ name: 'h3', sample: <Heading variant='h3'>Alex Chen</Heading> },
 	{ name: 'title', sample: <Heading variant='title'>2 Answers</Heading> },
 	{ name: 'body', sample: <Text>I have my midterm coming up in two weeks.</Text> },

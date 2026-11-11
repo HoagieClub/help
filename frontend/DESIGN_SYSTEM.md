@@ -1,18 +1,16 @@
 # HoagieHelp design system
 
-So every page looks like HoagieHelp without you having to think about it. To see everything live, run `npm run dev` and open **[localhost:3000/design](http://localhost:3000/design)**.
+So every page looks like HoagieHelp without you having to think about it. To see everything live, run `npm run dev` and open **[localhost:3000/design](http://localhost:3000/design)**. New here? Its **Start here** page is the quickest way in.
 
 The tokens and components come from the **current HoagieHelp designs** in Figma (the Main Q&A, Question View, Ask a Question and User pages, plus the Study Group frames on V2). The HoagieHelp Brand Kit file mirrors them, with one frame per `/design` page:
 
-| Page                                                  | Brand Kit frame                 |
-| ----------------------------------------------------- | ------------------------------- |
-| `/design/colors`                                      | Foundations / Colors            |
-| `/design/type`                                        | Foundations / Typography        |
-| `/design/spacing`                                     | Foundations / Spacing & radius  |
-| `/design/logo`                                        | Foundations / Logo & mascot     |
-| `/design/components/*` under Components               | Components / one frame each     |
-| `/design/components/*` under Not in Figma yet         | (no frame yet)                  |
-| `/design/components/card`, `stack`, `text`, `heading` | (no frame; listed under Layout) |
+| Page                        | Brand Kit frame                                                           |
+| --------------------------- | ------------------------------------------------------------------------- |
+| `/design/colors`            | Foundations / Colors                                                      |
+| `/design/type`              | Foundations / Typography                                                  |
+| `/design/spacing`           | Foundations / Spacing & radius                                            |
+| `/design/logo`              | Foundations / Logo & mascot                                               |
+| `/design/components/<name>` | Components / one frame each (pages tagged **Not in Figma yet** have none) |
 
 A bolder rebrand (Poppins, purple headings, mascots) is planned for next semester. It's saved on the local branch `rebrand/brand-kit`.
 

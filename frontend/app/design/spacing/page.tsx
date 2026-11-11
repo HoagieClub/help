@@ -37,7 +37,10 @@ const SHADOW: Record<string, string> = {
 export default function SpacingPage() {
 	return (
 		<Stack gap='10'>
-			<PageHeader title='Spacing & radius' summary='A 4px grid. These steps only (9 is for small buttons, 20 and 28 for avatars).' />
+			<PageHeader
+				title='Spacing & radius'
+				summary='A 4px grid. These steps only (9 is for small buttons, 20 and 28 for avatars).'
+			/>
 
 			<Stack gap='3'>
 				<Text variant='label'>Spacing</Text>

@@ -28,7 +28,10 @@ const SWATCH: Record<string, string> = {
 export default function ColorsPage() {
 	return (
 		<Stack gap='8'>
-			<PageHeader title='Colors' summary='Use as bg-brand, text-brand or var(--brand).' />
+			<PageHeader
+				title='Colors'
+				summary='Write them as classes: bg-brand for a background, text-muted for text, border-line for a border.'
+			/>
 			{COLOR_GROUPS.map((group) => (
 				<Stack key={group.title} gap='3'>
 					<Text variant='label'>{group.title}</Text>
@@ -41,6 +44,9 @@ export default function ColorsPage() {
 								/>
 								<Stack gap='0'>
 									<Text variant='label'>{t.name}</Text>
+									<Text variant='small' tone='muted'>
+										{t.use}
+									</Text>
 									<TokenValue name={`--color-${t.name}`} />
 								</Stack>
 							</Stack>
