@@ -6,15 +6,15 @@ import { cva } from 'class-variance-authority';
  */
 export const fieldVariants = cva(
 	[
-		'w-full rounded-md border bg-surface font-body text-body text-ink',
-		'placeholder:text-placeholder',
+		'w-full rounded-md border bg-surface-gray font-body text-body-sm text-ink',
+		'placeholder:text-muted',
 		'focus:outline-none focus:ring-2',
-		'disabled:cursor-not-allowed disabled:bg-surface-gray disabled:opacity-50',
+		'disabled:cursor-not-allowed disabled:opacity-50',
 	],
 	{
 		variants: {
 			invalid: {
-				false: 'border-control-border focus:border-focus focus:ring-brand-soft',
+				false: 'border-line focus:border-focus focus:ring-brand-soft',
 				true: 'border-danger focus:border-danger focus:ring-danger-soft',
 			},
 		},

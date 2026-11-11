@@ -22,6 +22,8 @@ export type InputProps = Omit<
 	error?: string;
 	/** Optional lucide icon shown inside the field on the left. */
 	icon?: LucideIcon;
+	/** `search` is the round white search box from the Q&A page. */
+	variant?: 'default' | 'search';
 	/** Optional id; one is generated if you leave it out. */
 	id?: string;
 };
@@ -33,7 +35,7 @@ export type InputProps = Omit<
  * <Input label='Question title' name='title' placeholder='e.g. How do I…' required />
  * <Input label='Course' hint='Optional' />
  * <Input label='Max participants' type='number' error='Must be at least 2' />
- * <Input label='Search' hideLabel type='search' icon={Search} placeholder='Search…' />
+ * <Input label='Search' hideLabel type='search' variant='search' icon={Search} placeholder='Search Q&A' />
  *
  * See every state on /design.
  */
@@ -44,6 +46,7 @@ export function Input({
 	hint,
 	error,
 	icon: Icon,
+	variant = 'default',
 	id,
 	...props
 }: InputProps) {
@@ -56,7 +59,12 @@ export function Input({
 			type={type}
 			aria-invalid={error ? true : undefined}
 			aria-describedby={describedBy(inputId, hint, error)}
-			className={cn(fieldVariants({ invalid: Boolean(error) }), 'h-10 px-3', Icon && 'pl-10')}
+			className={cn(
+				fieldVariants({ invalid: Boolean(error) }),
+				'h-10 px-3',
+				variant === 'search' && 'rounded-pill border-neutral bg-surface px-4',
+				Icon && 'pl-10'
+			)}
 			{...props}
 		/>
 	);
@@ -67,7 +75,7 @@ export function Input({
 				<div className='relative'>
 					<Icon
 						aria-hidden='true'
-						className='pointer-events-none absolute top-3 left-3 h-4 w-4 text-placeholder'
+						className='pointer-events-none absolute top-3 left-4 h-4 w-4 text-ink'
 					/>
 					{input}
 				</div>

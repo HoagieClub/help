@@ -15,15 +15,15 @@ const iconButtonVariants = cva(
 	{
 		variants: {
 			variant: {
-				minimal: 'bg-transparent text-muted hover:bg-brand-tint hover:text-brand',
-				secondary: 'border border-control-border bg-surface text-ink hover:bg-surface-gray',
+				ghost: 'bg-transparent text-muted hover:bg-line hover:text-ink',
+				secondary: 'border border-line bg-surface-gray text-ink hover:bg-line',
 			},
 			size: {
 				sm: 'h-8 w-8',
 				md: 'h-10 w-10',
 			},
 		},
-		defaultVariants: { variant: 'minimal', size: 'md' },
+		defaultVariants: { variant: 'ghost', size: 'md' },
 	}
 );
 

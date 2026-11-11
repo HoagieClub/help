@@ -1,78 +1,102 @@
+import { Eye, Triangle } from 'lucide-react';
 import Link from 'next/link';
 
-import { Tag } from '@/components/ui';
+import { Heading, MetaRow, Stat, Tag, Text, cardVariants } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 export type QuestionCardProps = {
-	/** Course code, shown as a tag, e.g. "COS 226". Leave out if there isn't one. */
-	course?: string;
-	/** Who posted and when, e.g. "Asked by Ava · 2h ago". */
-	meta: string;
 	title: string;
 	/** Start of the body; clamped to two lines. */
 	preview: string;
-	hearts: number;
-	/** Number of answers. Leave out to hide it (e.g. when the API doesn't send it yet). */
+	/** Facts shown with the title, e.g. ['Sarah Park', '2h ago'] or ['Q&A', '2h ago']. */
+	meta: string[];
+	/** Course code, shown as a red tag, e.g. "COS 226". */
+	course?: string | null;
+	/** Topic tags, shown as gray tags. */
+	tags?: string[];
+	upvotes: number;
+	views?: number;
+	/** Number of answers, shown top right. Leave out to hide it. */
 	answers?: number;
-	/** Whether the viewer has hearted this. */
-	liked: boolean;
+	/**
+	 * `feed` (Q&A page): title, then meta, answer count top right.
+	 * `profile` (user page): meta above the title, no answer count.
+	 */
+	layout?: 'feed' | 'profile';
 	/** When set, the whole card links here. */
 	href?: string;
 };
 
-const cardClasses = [
-	'flex flex-col gap-2 rounded-md border border-line-neutral bg-surface p-4',
-	'transition-shadow hover:shadow-card-hover',
-];
+function answersLabel(answers: number) {
+	if (answers === 0) {
+		return 'No answers yet';
+	}
+	return `${answers} ${answers === 1 ? 'answer' : 'answers'}`;
+}
 
 /**
- * The card for one question in a list: the Q&A feed, search results and profile posts.
- * Put it on a bg-surface-gray background.
+ * A question in a list: the Q&A feed, search results, a profile.
  *
  * @example
  * <QuestionCard
+ *   title='Best strategies for COS226 midterm prep?'
+ *   preview='I have my midterm coming up in two weeks…'
+ *   meta={['Sarah Park', '2h ago']}
  *   course='COS 226'
- *   meta='Asked by Ava · 2h ago'
- *   title='How do I handle the two-children case in BST delete?'
- *   preview='I get insertion, but deletion breaks when the node has two children…'
- *   hearts={12}
- *   answers={3}
- *   liked={false}
+ *   tags={['exam prep', 'study tips']}
+ *   upvotes={12}
+ *   views={45}
+ *   answers={2}
  *   href='/questions/1'
  * />
  */
 export function QuestionCard({
-	course,
-	meta,
 	title,
 	preview,
-	hearts,
+	meta,
+	course,
+	tags = [],
+	upvotes,
+	views,
 	answers,
-	liked,
+	layout = 'feed',
 	href,
 }: QuestionCardProps) {
+	const metaRow = <MetaRow items={meta} tone={layout === 'profile' ? 'default' : 'muted'} />;
+
 	const content = (
-		<>
-			<div className='flex flex-wrap items-center gap-2'>
-				{course && <Tag variant='selected'>{course}</Tag>}
-				<span className='font-body text-small text-muted'>{meta}</span>
+		<div className='flex flex-col gap-3'>
+			<div className='flex flex-col gap-1'>
+				{layout === 'profile' && metaRow}
+				<div className='flex items-start justify-between gap-4'>
+					<Heading variant='title'>{title}</Heading>
+					{layout === 'feed' && answers !== undefined && (
+						<span className='shrink-0 font-body text-body-sm text-muted'>
+							{answersLabel(answers)}
+						</span>
+					)}
+				</div>
+				{layout === 'feed' && metaRow}
 			</div>
-			<h3 className='m-0 font-heading text-h3 text-ink'>{title}</h3>
-			<p className='m-0 line-clamp-2 font-body text-body text-ink'>{preview}</p>
-			<div className='flex items-center gap-4 font-body text-small'>
-				<span className={liked ? 'font-semibold text-brand' : 'text-muted'}>
-					<span aria-hidden='true'>{liked ? '♥' : '♡'}</span> {hearts}
-					<span className='sr-only'>
-						{liked ? ' hearts, including yours' : ' hearts'}
-					</span>
-				</span>
-				{answers !== undefined && (
-					<span className='text-muted'>
-						{answers} {answers === 1 ? 'answer' : 'answers'}
-					</span>
-				)}
+			<div className='line-clamp-2'>
+				<Text variant='small'>{preview}</Text>
 			</div>
-		</>
+			{(course || tags.length > 0) && (
+				<div className='flex flex-wrap gap-2'>
+					{course && <Tag variant='course'>{course}</Tag>}
+					{tags.map((tag) => (
+						<Tag key={tag}>{tag}</Tag>
+					))}
+				</div>
+			)}
+			<div className='flex items-center gap-4'>
+				<Stat icon={Triangle} filled>
+					{upvotes}
+					<span className='sr-only'> upvotes</span>
+				</Stat>
+				{views !== undefined && <Stat icon={Eye}>{views} views</Stat>}
+			</div>
+		</div>
 	);
 
 	if (href) {
@@ -80,13 +104,13 @@ export function QuestionCard({
 			<Link
 				href={href}
 				className={cn(
-					cardClasses,
-					'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus'
+					cardVariants({ interactive: true }),
+					'block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus'
 				)}
 			>
 				{content}
 			</Link>
 		);
 	}
-	return <article className={cn(cardClasses)}>{content}</article>;
+	return <article className={cn(cardVariants())}>{content}</article>;
 }

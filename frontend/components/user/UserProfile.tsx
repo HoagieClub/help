@@ -3,17 +3,19 @@
 import { useState } from 'react';
 
 import { QuestionCard } from '@/components/question/QuestionCard';
-import { Avatar, EmptyState, Heading, Stack, Tabs, Text } from '@/components/ui';
+import { Avatar, EmptyState, Heading, MetaRow, Stack, Tabs } from '@/components/ui';
 import { formatTimePassed } from '@/lib/format';
 
 export type UserPost = {
 	id: number;
 	title: string;
 	body: string;
-	/** "Question", "Answer" or "Comment". */
+	/** Where it was posted, e.g. "Q&A". */
 	type: string;
 	course?: string;
-	hearts: number;
+	tags?: string[];
+	upvotes: number;
+	views?: number;
 	createdAt: string;
 };
 
@@ -41,7 +43,8 @@ const TABS: { value: Tab; label: string }[] = [
 ];
 
 /**
- * A person's profile: who they are, then their questions, answers and comments in tabs.
+ * A person's profile (User Page, Option #1 in Figma): avatar, name, email and facts,
+ * then their questions, answers and comments in tabs.
  *
  * @example
  * <UserProfile user={user} questions={questions} answers={[]} comments={[]} />
@@ -54,43 +57,46 @@ export function UserProfile({ user, questions, answers, comments }: UserProfileP
 		<div className='mx-auto max-w-2xl px-4 py-10'>
 			<Stack gap='8'>
 				<Stack direction='row' gap='6' align='center'>
-					<Avatar name={user.name} size='lg' />
+					<Avatar name={user.name} size='xl' />
 					<Stack gap='1'>
-						<Heading variant='h2' tone='ink'>
-							{user.name}
-						</Heading>
-						<a href={`mailto:${user.email}`}>
-							<Text as='span' tone='muted'>
-								{user.email}
-							</Text>
+						<Heading variant='h1'>{user.name}</Heading>
+						<a
+							href={`mailto:${user.email}`}
+							className='font-body text-body text-muted underline'
+						>
+							{user.email}
 						</a>
-						<Text variant='small' tone='muted'>
-							{user.postsCount} posts in Q&amp;A · Class of {user.classYear} ·{' '}
-							{user.major}
-						</Text>
+						<MetaRow
+							size='lg'
+							items={[
+								`${user.postsCount} posts in Q&A`,
+								`Class of ${user.classYear}`,
+								user.major,
+							]}
+						/>
 					</Stack>
 				</Stack>
 
-				<Stack gap='4'>
+				<Stack gap='6'>
 					<Tabs label='Posts' items={TABS} value={tab} onChange={setTab} />
 					{posts.length === 0 ? (
 						<EmptyState title={`No ${tab} yet`} />
 					) : (
-						<div className='rounded-md bg-surface-gray p-4'>
-							<Stack gap='3'>
-								{posts.map((post) => (
-									<QuestionCard
-										key={post.id}
-										course={post.course}
-										meta={`${post.type} · ${formatTimePassed(post.createdAt)}`}
-										title={post.title}
-										preview={post.body}
-										hearts={post.hearts}
-										liked={false}
-									/>
-								))}
-							</Stack>
-						</div>
+						<Stack gap='6'>
+							{posts.map((post) => (
+								<QuestionCard
+									key={post.id}
+									layout='profile'
+									meta={[post.type, formatTimePassed(post.createdAt)]}
+									title={post.title}
+									preview={post.body}
+									course={post.course}
+									tags={post.tags}
+									upvotes={post.upvotes}
+									views={post.views}
+								/>
+							))}
+						</Stack>
 					)}
 				</Stack>
 			</Stack>

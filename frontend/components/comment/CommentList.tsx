@@ -1,27 +1,25 @@
-import { Stack } from '@/components/ui';
 import type { Comment } from '@/types';
 
-import { CommentForm } from './CommentForm';
 import { CommentItem } from './CommentItem';
 
 export type CommentListProps = {
 	comments: Comment[];
-	answerId: string;
+	/** Called when someone presses Reply on a comment. Opens the answer's comment box. */
+	onReply: () => void;
 };
 
 /**
- * All comments on one answer, followed by the "Add a comment" form.
+ * The comments under one answer.
  *
  * @example
- * <CommentList comments={answer.comments} answerId={String(answer.id)} />
+ * <CommentList comments={answer.comments} onReply={() => setIsReplying(true)} />
  */
-export function CommentList({ comments, answerId }: CommentListProps) {
+export function CommentList({ comments, onReply }: CommentListProps) {
 	return (
-		<Stack gap='4'>
+		<>
 			{comments.map((comment) => (
-				<CommentItem key={comment.id} comment={comment} />
+				<CommentItem key={comment.id} comment={comment} onReply={onReply} />
 			))}
-			<CommentForm answerId={answerId} />
-		</Stack>
+		</>
 	);
 }

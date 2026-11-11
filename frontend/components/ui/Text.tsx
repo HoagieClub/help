@@ -4,20 +4,21 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-const textVariants = cva('m-0', {
+const textVariants = cva('m-0 font-body', {
 	variants: {
-		/** Type style from the brand kit. */
+		/** Type style from app/tokens.css. */
 		variant: {
-			lead: 'font-body text-lead',
-			'body-lg': 'font-body text-body-lg',
-			body: 'font-body text-body',
-			label: 'font-body text-label',
-			small: 'font-body text-small',
-			caption: 'font-body text-caption',
-			eyebrow: 'font-mono text-eyebrow',
+			/** 16px: question and answer text, page descriptions. */
+			body: 'text-body',
+			/** 14px: meta rows, tabs, inputs. */
+			'body-sm': 'text-body-sm',
+			/** 14px medium: form labels, names. */
+			label: 'text-label',
+			/** 12px: tags, card previews, hints. */
+			small: 'text-small',
+			/** Monospace, for code samples. */
 			code: 'font-mono text-code',
 		},
-		/** Text color. mascot-mint and mascot-orange are fills only, so they aren't options. */
 		tone: {
 			default: 'text-ink',
 			muted: 'text-muted',
@@ -43,15 +44,11 @@ export type TextProps = Omit<HTMLAttributes<HTMLElement>, 'className' | 'style' 
 	};
 
 /**
- * Any text you read: paragraphs, labels, timestamps, captions.
- * Sizes and colors come from the brand kit; there's no way to pass your own.
+ * Any text that isn't a heading.
  *
  * @example
- * <Text>Ask questions and help classmates.</Text>
- * <Text variant='small' tone='muted'>3 hrs ago</Text>
- * <Text as='span' variant='eyebrow' tone='brand'>STUDY GROUP</Text>
- *
- * See every variant on /design.
+ * <Text>I have my midterm coming up in two weeks…</Text>
+ * <Text variant='body-sm' tone='muted'>2h ago</Text>
  */
 export function Text({ as: Tag = 'p', variant, tone, children, ...props }: TextProps) {
 	return (

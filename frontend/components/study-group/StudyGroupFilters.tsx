@@ -4,41 +4,47 @@ import { useState } from 'react';
 
 import { Search } from 'lucide-react';
 
-import { Input, Stack, Tag } from '@/components/ui';
+import { FilterGroup, Input, Select, Stack } from '@/components/ui';
 
 const CATEGORIES = [
-	'All Groups',
-	'Science',
-	'Mathematics',
-	'Humanities',
-	'Engineering',
-	'Social Sciences',
+	{ value: 'all', label: 'All Groups' },
+	{ value: 'science', label: 'Science' },
+	{ value: 'mathematics', label: 'Mathematics' },
+	{ value: 'humanities', label: 'Humanities' },
+	{ value: 'engineering', label: 'Engineering' },
+	{ value: 'social-sciences', label: 'Social Sciences' },
+];
+
+const SORT_OPTIONS = [
+	{ value: 'date', label: 'Date' },
+	{ value: 'spots', label: 'Open spots' },
 ];
 
 export type StudyGroupFiltersProps = {
 	onSearchChange?: (query: string) => void;
-	onDateChange?: (date: string) => void;
+	onSortChange?: (sort: string) => void;
 	onCategoryChange?: (category: string) => void;
 };
 
 /**
- * Search box, date filter and category chips above the study group list.
+ * Search, sort and category filters above the study group grid.
+ * Not wired to the API yet: the parent gets the values through the callbacks.
  *
  * @example
  * <StudyGroupFilters onSearchChange={setQuery} onCategoryChange={setCategory} />
  */
 export function StudyGroupFilters({
 	onSearchChange,
-	onDateChange,
+	onSortChange,
 	onCategoryChange,
 }: StudyGroupFiltersProps) {
 	const [query, setQuery] = useState('');
-	const [date, setDate] = useState('');
-	const [category, setCategory] = useState(CATEGORIES[0]);
+	const [sort, setSort] = useState(SORT_OPTIONS[0].value);
+	const [category, setCategory] = useState(CATEGORIES[0].value);
 
 	return (
 		<Stack gap='4'>
-			<Stack direction='row' gap='4' wrap>
+			<Stack direction='row' gap='3' wrap>
 				<div className='min-w-0 flex-1'>
 					<Input
 						label='Search study groups'
@@ -54,35 +60,28 @@ export function StudyGroupFilters({
 					/>
 				</div>
 				<div>
-					<Input
-						label='Date'
+					<Select
+						label='Sort by'
 						hideLabel
-						type='date'
-						value={date}
+						options={SORT_OPTIONS}
+						value={sort}
 						onChange={(e) => {
-							setDate(e.target.value);
-							onDateChange?.(e.target.value);
+							setSort(e.target.value);
+							onSortChange?.(e.target.value);
 						}}
 					/>
 				</div>
 			</Stack>
 
-			<Stack direction='row' gap='2' wrap>
-				{CATEGORIES.map((name) => (
-					<Tag key={name} asChild variant={category === name ? 'selected' : 'idle'}>
-						<button
-							type='button'
-							aria-pressed={category === name}
-							onClick={() => {
-								setCategory(name);
-								onCategoryChange?.(name);
-							}}
-						>
-							{name}
-						</button>
-					</Tag>
-				))}
-			</Stack>
+			<FilterGroup
+				label='Filter by category'
+				options={CATEGORIES}
+				value={category}
+				onChange={(value) => {
+					setCategory(value);
+					onCategoryChange?.(value);
+				}}
+			/>
 		</Stack>
 	);
 }

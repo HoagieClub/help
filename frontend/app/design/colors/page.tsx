@@ -9,30 +9,20 @@ import { PageHeader, TokenValue } from '../design-ui';
 const SWATCH: Record<string, string> = {
 	brand: 'bg-brand',
 	'brand-hover': 'bg-brand-hover',
-	'brand-deep': 'bg-brand-deep',
-	'brand-bright': 'bg-brand-bright',
 	'brand-soft': 'bg-brand-soft',
-	'brand-wash': 'bg-brand-wash',
-	'brand-tint': 'bg-brand-tint',
 	focus: 'bg-focus',
 	ink: 'bg-ink',
-	heading: 'bg-heading',
 	muted: 'bg-muted',
-	placeholder: 'bg-placeholder',
 	surface: 'bg-surface',
 	'surface-gray': 'bg-surface-gray',
 	line: 'bg-line',
-	'line-neutral': 'bg-line-neutral',
-	'control-border': 'bg-control-border',
+	neutral: 'bg-neutral',
 	success: 'bg-success',
 	'success-soft': 'bg-success-soft',
 	warning: 'bg-warning',
 	'warning-soft': 'bg-warning-soft',
 	danger: 'bg-danger',
 	'danger-soft': 'bg-danger-soft',
-	'club-purple': 'bg-club-purple',
-	'mascot-mint': 'bg-mascot-mint',
-	'mascot-orange': 'bg-mascot-orange',
 };
 
 export default function ColorsPage() {
@@ -47,7 +37,7 @@ export default function ColorsPage() {
 							<Stack key={t.name} gap='2'>
 								<div
 									title={t.use}
-									className={`h-15 w-full rounded-md border border-line-neutral ${SWATCH[t.name]}`}
+									className={`h-15 w-full rounded-md border border-line ${SWATCH[t.name]}`}
 								/>
 								<Stack gap='0'>
 									<Text variant='label'>{t.name}</Text>

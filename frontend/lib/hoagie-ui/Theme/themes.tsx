@@ -4,7 +4,7 @@ import Tab from './Tab';
 
 /**
  * Brand colors come from app/tokens.css so Evergreen and Tailwind agree.
- * Only colors that exactly match a token use it; the rest of Evergreen's scales keep their hex values.
+ * Colors that have a token use it; the rest of Evergreen's scales keep their hex values.
  */
 const token = (name: string) => `var(--color-${name})`;
 
@@ -16,11 +16,11 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 
 		gray900: '#000000',
 		gray800: '#343434',
-		gray700: token('placeholder'),
-		gray600: token('placeholder'),
+		gray700: token('muted'),
+		gray600: token('muted'),
 		gray500: '#D2D2D2',
 		gray400: '#D2D2D2',
-		gray300: token('line-neutral'),
+		gray300: token('line'),
 		gray200: '#F1F1F1',
 		gray100: token('surface-gray'),
 		gray90: '#FBFBFB',
@@ -51,13 +51,13 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		purple50: '#F5F0FF',
 		purple25: '#F9F5FF',
 
-		red700: token('brand-deep'),
+		red700: token('brand-hover'),
 		red600: token('brand-hover'),
 		red500: token('brand'),
 		red300: '#EE9191',
 		red200: '#ffafafff',
 		red100: token('brand-soft'),
-		red25: token('brand-tint'),
+		red25: token('brand-soft'),
 
 		green900: '#10261E',
 		green800: '#214C3C',
@@ -99,20 +99,20 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		yellowTint: token('warning-soft'),
 		greenTint: '#F5FBF8',
 		orangeTint: '#FFFAF2',
-		redTint: token('brand-tint'),
+		redTint: token('brand-soft'),
 		blueTint: '#F3F6FF',
 		purpleTint: '#E7E4F9',
 		tealTint: '#D3F5F7',
 
 		// Borders
 		border: {
-			default: token('line-neutral'),
+			default: token('line'),
 			muted: '#F1F1F1',
 		},
 
 		// Icon colors
 		icon: {
-			default: token('placeholder'),
+			default: token('muted'),
 			muted: '#D2D2D2',
 			disabled: '#D2D2D2',
 			selected: '#3366FF',
@@ -139,7 +139,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 			backgroundColor: '#D6E0FF',
 		},
 		red: {
-			color: token('brand-deep'),
+			color: token('brand-hover'),
 			backgroundColor: token('brand-soft'),
 		},
 		orange: {
@@ -184,7 +184,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 			icon: '#FFB020',
 		},
 		danger: {
-			background: token('brand-tint'),
+			background: token('brand-soft'),
 			border: token('brand'),
 			text: token('danger'),
 			icon: token('brand'),
@@ -202,7 +202,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		1: 'var(--shadow-card-hover)',
 		2: 'var(--shadow-dropdown)',
 		3: '0 0 1px rgba(100, 100, 100, 0.3), 0 8px 10px -4px rgba(100, 100, 100, 0.47)',
-		4: 'var(--shadow-dialog)',
+		4: '0 0 1px rgba(100, 100, 100, 0.3), 0 16px 24px -8px rgba(100, 100, 100, 0.47)',
 		focusRing: '0 0 0 2px #D6E0FF',
 	},
 	fontFamilies: {
@@ -244,19 +244,19 @@ export const hoagieHelp = mergeTheme(hoagieUI, {
 	colors: {
 		...hoagieUI.colors,
 		// red color palette - primary brand color
-		red700: token('brand-deep'),
+		red700: token('brand-hover'),
 		red600: token('brand-hover'),
 		red500: token('brand'),
 		red300: '#EE9191',
 		red200: '#ffafafff',
 		red100: token('brand-soft'),
-		red25: token('brand-tint'),
+		red25: token('brand-soft'),
 
 		// Override the selected color to use primary red
 		selected: token('brand'),
 
 		// Set the tints for custom theme
-		tint1: token('brand-tint'),
+		tint1: token('surface-gray'),
 		tint2: '#F9FCFC',
 
 		icon: {
@@ -283,9 +283,9 @@ export const hoagieHelp = mergeTheme(hoagieUI, {
 	intents: {
 		...hoagieUI.intents,
 		info: {
-			background: token('brand-tint'),
+			background: token('brand-soft'),
 			border: token('brand'),
-			text: token('brand-deep'),
+			text: token('brand-hover'),
 			icon: token('brand'),
 		},
 	},
@@ -307,7 +307,7 @@ export const hoagieHelp = mergeTheme(hoagieUI, {
 							backgroundColor: token('brand-hover'),
 						},
 						_active: {
-							backgroundColor: token('brand-deep'),
+							backgroundColor: token('brand-hover'),
 						},
 						_focus: {
 							boxShadow: `0 0 0 2px ${token('brand-soft')}`,
@@ -332,7 +332,7 @@ export const hoagieHelp = mergeTheme(hoagieUI, {
 							backgroundColor: token('brand'),
 						},
 						_hover: {
-							color: token('brand-deep'),
+							color: token('brand-hover'),
 						},
 						_current: {
 							color: token('brand'),

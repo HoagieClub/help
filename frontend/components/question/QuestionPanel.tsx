@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { Triangle } from 'lucide-react';
 import { toast } from 'sonner';
 
 import {
@@ -9,20 +10,20 @@ import {
 	Byline,
 	Checkbox,
 	Heading,
-	HeartButton,
 	Message,
 	Stack,
+	Stat,
 	Tag,
 	Text,
 	Textarea,
+	UpvoteButton,
 } from '@/components/ui';
 import { useCreateAnswer } from '@/hooks/mutations';
-import { useHeart } from '@/hooks/useHeart';
+import { useUpvote } from '@/hooks/useUpvote';
 import { formatTimePassed } from '@/lib/format';
 
 export type QuestionPanelProps = {
 	questionId: string;
-	/** Display name of the asker. Ignored when `anonymous` is true. */
 	author: string;
 	anonymous: boolean;
 	title: string;
@@ -30,25 +31,26 @@ export type QuestionPanelProps = {
 	tags: string[];
 	details: string;
 	createdAt: string;
-	hearts: number;
+	/** The current upvote count (`hearts` in the API). */
+	upvotes: number;
 	/** Called after an answer is posted, so the page can reload its answers. */
 	onAnswerPosted?: () => void;
 };
 
 /**
- * The top of a question page: title, asker, tags, body, heart and the answer box.
+ * The top of a question page: title, asker, tags, body, Upvote and Reply, and the answer box.
  *
  * @example
  * <QuestionPanel
  *   questionId='1'
- *   author='Jordan Lee'
+ *   author='Alex Chen'
  *   anonymous={false}
- *   title='How do I implement a BST?'
+ *   title='Best strategies for COS226 midterm prep?'
  *   course='COS 226'
- *   tags={['python']}
- *   details='…'
+ *   tags={['exam prep']}
+ *   details='I have my midterm coming up…'
  *   createdAt={question.create_time}
- *   hearts={42}
+ *   upvotes={12}
  * />
  */
 export function QuestionPanel({
@@ -60,14 +62,21 @@ export function QuestionPanel({
 	tags,
 	details,
 	createdAt,
-	hearts,
+	upvotes,
 	onAnswerPosted,
 }: QuestionPanelProps) {
-	const heart = useHeart({ kind: 'question', id: questionId, initialCount: hearts });
+	const upvote = useUpvote({ kind: 'question', id: questionId, initialCount: upvotes });
 	const createAnswer = useCreateAnswer();
 	const [isAnswering, setIsAnswering] = useState(false);
 	const [answer, setAnswer] = useState('');
 	const [answerAnonymous, setAnswerAnonymous] = useState(false);
+
+	function closeAnswerBox() {
+		setAnswer('');
+		setAnswerAnonymous(false);
+		createAnswer.clearError();
+		setIsAnswering(false);
+	}
 
 	async function submitAnswer() {
 		if (!answer.trim()) {
@@ -79,50 +88,50 @@ export function QuestionPanel({
 		});
 		if (created) {
 			toast.success('Answer posted.');
-			setAnswer('');
-			setAnswerAnonymous(false);
-			setIsAnswering(false);
+			closeAnswerBox();
 			onAnswerPosted?.();
 		}
 	}
 
 	return (
-		<Stack gap='6'>
-			<Heading variant='h1' tone='ink'>
+		<Stack gap='4'>
+			<Heading variant='h2' as='h1'>
 				{title}
 			</Heading>
 
 			<Byline
 				name={author}
 				anonymous={anonymous}
-				meta={`Asked ${formatTimePassed(createdAt)}`}
-				size='lg'
+				meta={['Q&A', formatTimePassed(createdAt)]}
 			/>
 
-			{(course || tags.length > 0) && (
-				<Stack direction='row' gap='2' align='center' wrap>
-					{course && <Tag variant='label'>{course}</Tag>}
-					{tags.map((tag) => (
-						<Tag key={tag}>{tag}</Tag>
-					))}
+			<Stack direction='row' gap='3' align='center' wrap>
+				{course && <Tag variant='course'>{course}</Tag>}
+				{tags.map((tag) => (
+					<Tag key={tag}>{tag}</Tag>
+				))}
+				<Stat icon={Triangle} filled>
+					{upvote.count} {upvote.count === 1 ? 'Upvote' : 'Upvotes'}
+				</Stat>
+			</Stack>
+
+			<Stack gap='2'>
+				<div className='break-words whitespace-pre-wrap'>
+					<Text>{details}</Text>
+				</div>
+				<Stack direction='row' gap='4' align='center'>
+					<UpvoteButton {...upvote} thing='question' />
+					{!isAnswering && (
+						<Button variant='link' size='inline' onClick={() => setIsAnswering(true)}>
+							Reply
+						</Button>
+					)}
 				</Stack>
-			)}
-
-			<div className='break-words whitespace-pre-wrap'>
-				<Text variant='body-lg'>{details}</Text>
-			</div>
-
-			<Stack direction='row' gap='4' align='center'>
-				<HeartButton {...heart} thing='question' />
-				{!isAnswering && (
-					<Button variant='minimal' onClick={() => setIsAnswering(true)}>
-						Answer
-					</Button>
-				)}
 			</Stack>
 
 			{isAnswering && (
 				<Stack gap='3'>
+					{/* TODO: Figma shows a rich text editor (Paragraph, bold, italic, link, list) here. */}
 					<Textarea
 						label='Your answer'
 						hideLabel
@@ -139,14 +148,14 @@ export function QuestionPanel({
 							onChange={(e) => setAnswerAnonymous(e.target.checked)}
 						/>
 						<Stack direction='row' gap='2'>
-							<Button variant='secondary' onClick={() => setIsAnswering(false)}>
+							<Button variant='secondary' onClick={closeAnswerBox}>
 								Cancel
 							</Button>
 							<Button
 								onClick={submitAnswer}
 								disabled={!answer.trim() || createAnswer.pending}
 							>
-								{createAnswer.pending ? 'Posting…' : 'Post answer'}
+								{createAnswer.pending ? 'Posting…' : 'Submit'}
 							</Button>
 						</Stack>
 					</Stack>

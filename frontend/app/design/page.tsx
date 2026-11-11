@@ -16,7 +16,7 @@ const RULES = [
 export default function DesignOverviewPage() {
 	return (
 		<Stack gap='8'>
-			<PageHeader title='Design system' summary='HoagieHelp tokens and components.' />
+			<PageHeader title='Design system' summary='HoagieHelp tokens and components, taken from the current designs in Figma.' />
 
 			<Stack gap='3'>
 				<Text variant='label'>The five rules</Text>
@@ -35,7 +35,7 @@ export default function DesignOverviewPage() {
 				{DESIGN_NAV.slice(1).map((group) => (
 					<Card key={group.title} padding='sm'>
 						<Stack gap='2'>
-							<Text variant='eyebrow' tone='muted'>
+							<Text variant='small' tone='muted'>
 								{group.title.toUpperCase()}
 							</Text>
 							{group.items.map((item) => (

@@ -24,12 +24,12 @@ export function NotificationPanel({ notifications, onViewAll }: NotificationPane
 		<div className='w-full max-w-sm'>
 			<Card padding='sm'>
 				<Stack gap='4'>
-					<Heading variant='h3' tone='ink'>
-						Notifications
-					</Heading>
+					<Heading variant='title'>Notifications</Heading>
 
 					{shown.length === 0 ? (
-						<Text tone='muted'>No notifications</Text>
+						<Text variant='body-sm' tone='muted'>
+							No notifications
+						</Text>
 					) : (
 						<Stack as='ul' gap='3'>
 							{shown.map((notification) => {
@@ -37,11 +37,11 @@ export function NotificationPanel({ notifications, onViewAll }: NotificationPane
 								const Icon = isComment ? MessageCircle : MessageSquare;
 								return (
 									<li key={notification.id} className='flex items-start gap-3'>
-										<span className='flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-brand-tint text-brand'>
+										<span className='flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-brand-soft text-brand'>
 											<Icon aria-hidden='true' className='h-4 w-4' />
 										</span>
 										<Stack gap='0'>
-											<Text>
+											<Text variant='body-sm'>
 												{isComment
 													? 'Someone commented on your answer '
 													: 'Someone answered your question '}

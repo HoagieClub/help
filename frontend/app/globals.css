@@ -23,12 +23,12 @@
 
 @layer base {
 	body {
-		@apply bg-surface text-ink;
-		font-family: 'Inter', Arial, Helvetica, sans-serif;
+		@apply bg-surface-gray text-ink;
+		@apply font-body;
 	}
 
 	* {
-		@apply border-line-neutral;
+		@apply border-line;
 	}
 
 	html,

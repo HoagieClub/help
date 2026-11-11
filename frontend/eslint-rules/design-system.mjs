@@ -16,7 +16,7 @@
 const DOCS = 'See /design and frontend/DESIGN_SYSTEM.md.';
 
 /** Allowed spacing steps (app/tokens.css). Keep in sync with lib/design-tokens.ts. */
-const SPACING_STEPS = [0, 1, 2, 3, 4, 6, 8, 10, 15];
+const SPACING_STEPS = [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 15, 20, 28];
 
 const HEX = /#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})\b/;
 

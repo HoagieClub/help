@@ -15,7 +15,7 @@ export default function DesignLayout({ children }: { children: ReactNode }) {
 					</div>
 				</div>
 				<main className='md:col-span-3'>
-					<Card padding='lg'>{children}</Card>
+					<Card>{children}</Card>
 				</main>
 			</div>
 		</div>

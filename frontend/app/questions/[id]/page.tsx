@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-import { Heading, Pane, Spinner, Text, majorScale } from 'evergreen-ui';
 import { useParams } from 'next/navigation';
 
 import { getAllAnswers } from '@/api/answerService';
@@ -10,6 +9,7 @@ import { getAllComments } from '@/api/commentService';
 import { getQuestionDetails } from '@/api/questionService';
 import { AnswerList } from '@/components/answer/AnswerList';
 import { QuestionPanel } from '@/components/question/QuestionPanel';
+import { EmptyState, Spinner, Stack } from '@/components/ui';
 import type { Answer, Comment } from '@/types';
 
 type ApiAnswer = NonNullable<Awaited<ReturnType<typeof getAllAnswers>>>[number];
@@ -53,6 +53,8 @@ function QuestionPage() {
 	const [question, setQuestion] = useState<LoadedQuestion | null | undefined>(undefined);
 	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [loadError, setLoadError] = useState<string | null>(null);
+	/** Bumped after an answer is posted, to load the answers again. */
+	const [reloadKey, setReloadKey] = useState(0);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -65,7 +67,9 @@ function QuestionPage() {
 			}
 
 			setLoadError(null);
-			setQuestion(undefined);
+			if (reloadKey === 0) {
+				setQuestion(undefined);
+			}
 
 			const q = await getQuestionDetails(questionId);
 			if (cancelled) return;
@@ -94,62 +98,45 @@ function QuestionPage() {
 		return () => {
 			cancelled = true;
 		};
-	}, [questionId]);
+	}, [questionId, reloadKey]);
 
 	if (question === undefined) {
 		return (
-			<Pane
-				display='flex'
-				flexDirection='column'
-				alignItems='center'
-				justifyContent='center'
-				minHeight={320}
-				marginX='auto'
-				padding={majorScale(2)}
-			>
-				<Spinner size={48} />
-				<Text marginTop={majorScale(2)} size={400} color='muted'>
-					Loading question…
-				</Text>
-			</Pane>
+			<div className='flex justify-center px-4 py-15'>
+				<Spinner label='Loading question…' />
+			</div>
 		);
 	}
 
 	if (question === null) {
 		return (
-			<Pane marginX='auto' padding={majorScale(2)} marginTop={majorScale(8)}>
-				<Heading size={700} marginBottom={majorScale(2)}>
-					Question unavailable
-				</Heading>
-				<Text size={500} color='muted'>
-					{loadError ?? 'We could not load this question.'}
-				</Text>
-			</Pane>
+			<EmptyState
+				title='Question unavailable'
+				description={loadError ?? 'We could not load this question.'}
+			/>
 		);
 	}
 
 	return (
-		<Pane
-			padding={majorScale(2)}
-			marginLeft={majorScale(16)}
-			marginTop={majorScale(8)}
-			marginRight={majorScale(16)}
-		>
-			<QuestionPanel
-				questionId={questionId}
-				author={`User ${question.user}`}
-				anonymous={question.user_is_anonymous}
-				title={question.title}
-				course={question.course}
-				tags={question.tags.map(String)}
-				details={question.details}
-				createdAt={question.create_time}
-				hearts={question.hearts}
-			/>
-			<Pane marginTop={majorScale(6)} maxWidth='700px' marginX='auto'>
+		<div className='mx-auto max-w-2xl px-4 py-10'>
+			<Stack gap='8'>
+				<QuestionPanel
+					questionId={questionId}
+					// TODO: show the asker's name once the API sends it (it only sends a user id).
+					author={`User ${question.user}`}
+					anonymous={question.user_is_anonymous}
+					title={question.title}
+					course={question.course}
+					// TODO: the API sends tag ids; show tag names once there's a tags endpoint.
+					tags={[]}
+					details={question.details}
+					createdAt={question.create_time}
+					upvotes={question.hearts}
+					onAnswerPosted={() => setReloadKey((key) => key + 1)}
+				/>
 				<AnswerList answers={answers} />
-			</Pane>
-		</Pane>
+			</Stack>
+		</div>
 	);
 }
 

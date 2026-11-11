@@ -2,10 +2,10 @@
 
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 
-import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 import {
+	BackLink,
 	Button,
 	Card,
 	Checkbox,
@@ -89,23 +89,16 @@ export function AskQuestionForm({ backHref = '/questions' }: AskQuestionFormProp
 	}
 
 	return (
-		<div className='mx-auto max-w-2xl px-4 py-8'>
+		<div className='mx-auto max-w-3xl px-4 py-8'>
 			<Stack gap='6'>
-				<div>
-					<Button variant='minimal' asChild>
-						<Link href={backHref}>
-							<ArrowLeft aria-hidden='true' className='h-4 w-4' />
-							Back
-						</Link>
-					</Button>
-				</div>
+				<BackLink href={backHref} />
 
 				<PageHeader
 					title='Ask a Question'
-					description='Get help from the Hoagie academics community'
+					description='Get help from the Hoagie Academics community'
 				/>
 
-				<Card padding='lg'>
+				<Card>
 					{submitted ? (
 						<Stack gap='4' align='start'>
 							<Message variant='success'>
@@ -116,9 +109,9 @@ export function AskQuestionForm({ backHref = '/questions' }: AskQuestionFormProp
 							</Button>
 						</Stack>
 					) : (
-						<form className='flex flex-col gap-6' onSubmit={submit}>
+						<form className='flex flex-col gap-5' onSubmit={submit}>
 							<Input
-								label='Question title'
+								label='Question Title'
 								name='title'
 								value={form.title}
 								onChange={update}
@@ -139,25 +132,25 @@ export function AskQuestionForm({ backHref = '/questions' }: AskQuestionFormProp
 								}
 							/>
 							<Input
-								label='Course'
+								label='Course (Optional)'
 								name='course'
-								hint='Optional'
 								value={form.course}
 								onChange={update}
 								placeholder='e.g. COS 226'
 							/>
+							{/* TODO: Figma has a "Tags (Optional)" picker here. The API takes tag ids, so it needs a tags endpoint first. */}
 							<Textarea
 								label='Details'
 								name='details'
-								rows={6}
+								rows={8}
 								value={form.details}
 								onChange={update}
 								required
-								hint='Tip: add specific details and context to get better answers'
+								hint='Tip: Add specific details and context to get better answers'
 								placeholder='Provide more details about your question…'
 							/>
 							<Checkbox
-								label='Post anonymously'
+								label='Post Anonymously'
 								checked={form.anonymous}
 								onChange={(e) =>
 									setForm((previous) => ({
@@ -169,10 +162,16 @@ export function AskQuestionForm({ backHref = '/questions' }: AskQuestionFormProp
 							{createQuestion.error && (
 								<Message variant='error'>{createQuestion.error}</Message>
 							)}
-							<Stack direction='row' gap='2'>
-								<Button type='submit' disabled={createQuestion.pending}>
-									{createQuestion.pending ? 'Posting…' : 'Post Question'}
-								</Button>
+							<Stack direction='row' gap='3'>
+								<div className='flex-1'>
+									<Button
+										type='submit'
+										fullWidth
+										disabled={createQuestion.pending}
+									>
+										{createQuestion.pending ? 'Posting…' : 'Post Question'}
+									</Button>
+								</div>
 								<Button variant='secondary' asChild>
 									<Link href={backHref}>Cancel</Link>
 								</Button>

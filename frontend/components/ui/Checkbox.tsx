@@ -30,10 +30,10 @@ export function Checkbox({ label, id, ...props }: CheckboxProps) {
 			<input
 				id={boxId}
 				type='checkbox'
-				className='h-4 w-4 cursor-pointer rounded-sm border-control-border text-brand focus:ring-2 focus:ring-brand-soft disabled:cursor-not-allowed disabled:opacity-50'
+				className='h-4 w-4 cursor-pointer rounded-sm border-line text-ink focus:ring-2 focus:ring-brand-soft disabled:cursor-not-allowed disabled:opacity-50'
 				{...props}
 			/>
-			<Text as='label' htmlFor={boxId}>
+			<Text as='label' variant='body-sm' htmlFor={boxId}>
 				{label}
 			</Text>
 		</div>

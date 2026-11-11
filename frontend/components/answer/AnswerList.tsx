@@ -8,24 +8,26 @@ export type AnswerListProps = {
 };
 
 /**
- * Every answer to a question, with a count heading, or an empty state when there are none.
+ * Every answer to a question under an "n Answers" heading, or an empty state when there are none.
  *
  * @example
  * <AnswerList answers={answers} />
  */
 export function AnswerList({ answers }: AnswerListProps) {
 	if (answers.length === 0) {
-		return <EmptyState title='No answers yet' description='Be the first to answer.' />;
+		return <EmptyState title='No answers yet' description='Be the first to reply.' />;
 	}
 
 	return (
-		<Stack gap='0'>
-			<Heading variant='h2' tone='ink'>
+		<Stack gap='4'>
+			<Heading variant='title' as='h2'>
 				{answers.length} {answers.length === 1 ? 'Answer' : 'Answers'}
 			</Heading>
-			{answers.map((answer) => (
-				<AnswerItem key={answer.id} answer={answer} />
-			))}
+			<Stack gap='6'>
+				{answers.map((answer) => (
+					<AnswerItem key={answer.id} answer={answer} />
+				))}
+			</Stack>
 		</Stack>
 	);
 }

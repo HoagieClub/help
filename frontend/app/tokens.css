@@ -1,8 +1,9 @@
 /**
  * @overview HoagieHelp design tokens. The ONLY file where raw colors, sizes and shadows live.
  *
- * Every value here matches the HoagieHelp brand kit in Figma, using the same names.
- * Change Figma and this file in the same PR. See frontend/DESIGN_SYSTEM.md and /design.
+ * Every value here comes from the current HoagieHelp designs in Figma (the Q&A, Question View,
+ * Ask a Question and User pages). Change Figma and this file in the same PR.
+ * See frontend/DESIGN_SYSTEM.md and /design.
  *
  * Tailwind v4 turns each token into utilities: --color-brand → bg-brand, text-brand, border-brand;
  * --spacing-4 → p-4, gap-4; --radius-card → rounded-card; --text-h1 → text-h1; and so on.
@@ -31,38 +32,26 @@
 	 */
 
 	/* ---------- Color: brand ---------- */
-	--color-brand: #d14343;
-	--color-brand-hover: #a73636;
-	--color-brand-deep: #7d2828;
-	--color-brand-bright: #ea4040; /* display text 24px+ only */
-	--color-brand-soft: #f9dada;
-	--color-brand-wash: #fdecec;
-	--color-brand-tint: #fdf4f4;
-	--color-focus: #d14343;
+	--color-brand: #f04242; /* primary buttons, course tags, "help" in the wordmark, active tab */
+	--color-brand-hover: #d63838;
+	--color-brand-soft: #fee2e2; /* focus rings, light red backgrounds */
+	--color-focus: #f04242;
 
 	/* ---------- Color: text and surfaces ---------- */
-	--color-ink: #190c30;
-	--color-heading: #57309b;
-	--color-muted: #58427f;
-	--color-placeholder: #808080;
-	--color-surface: #ffffff;
-	--color-surface-gray: #f7f7f7;
-	--color-line: #e4daf5;
-	--color-line-neutral: #eeeeee;
-	--color-control-border: #808080;
+	--color-ink: #2b303b; /* headings, names, labels, body text */
+	--color-muted: #737b8c; /* timestamps, placeholders, secondary text */
+	--color-surface: #ffffff; /* cards, nav */
+	--color-surface-gray: #fafafa; /* page background, input fill */
+	--color-line: #e2e4e9; /* card, input and nav borders */
+	--color-neutral: #d9d9d9; /* topic tags, search box border */
 
 	/* ---------- Color: status ---------- */
-	--color-success: #317159;
-	--color-success-soft: #dcf2ea;
-	--color-warning: #996a13;
-	--color-warning-soft: #ffefd2;
-	--color-danger: #a73636;
-	--color-danger-soft: #f9dada;
-
-	/* ---------- Color: club and mascot (mint and orange are fills only, never text) ---------- */
-	--color-club-purple: #57309b;
-	--color-mascot-mint: #73ffd3;
-	--color-mascot-orange: #ff6708;
+	--color-success: #248723; /* Ask Question button, category badges */
+	--color-success-soft: #dcfce7;
+	--color-warning: #a16207;
+	--color-warning-soft: #fef9c3;
+	--color-danger: #b91c1c;
+	--color-danger-soft: #fee2e2;
 
 	/* ---------- Spacing (4px grid; these values only) ---------- */
 	--spacing-0: 0px;
@@ -70,64 +59,58 @@
 	--spacing-2: 8px;
 	--spacing-3: 12px;
 	--spacing-4: 16px;
+	--spacing-5: 20px;
 	--spacing-6: 24px;
 	--spacing-8: 32px;
+	--spacing-9: 36px; /* small buttons */
 	--spacing-10: 40px;
 	--spacing-15: 60px;
+	--spacing-20: 80px; /* large avatar (question author) */
+	--spacing-28: 112px; /* profile avatar */
 
 	/* ---------- Radius ---------- */
-	--radius-sm: 4px;
-	--radius-md: 8px;
-	--radius-tag: 10px;
-	--radius-card: 20px;
-	--radius-pill: 9999px;
+	--radius-sm: 4px; /* checkboxes */
+	--radius-md: 6px; /* buttons, inputs */
+	--radius-card: 8px; /* cards */
+	--radius-tag: 10px; /* tags */
+	--radius-pill: 9999px; /* search box, avatars */
 
-	/* ---------- Shadows (all share the 0 0 1px base layer) ---------- */
-	--shadow-card-hover: 0 0 1px rgba(100, 100, 100, 0.3), 0 2px 4px -2px rgba(100, 100, 100, 0.47);
-	--shadow-dropdown: 0 0 1px rgba(100, 100, 100, 0.3), 0 5px 8px -4px rgba(100, 100, 100, 0.47);
-	--shadow-dialog: 0 0 1px rgba(100, 100, 100, 0.3), 0 16px 24px -8px rgba(100, 100, 100, 0.47);
+	/* ---------- Shadows ---------- */
+	--shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-card-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	--shadow-dropdown: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 
 	/* ---------- Fonts ---------- */
-	--font-heading: 'Poppins', sans-serif; /* wordmark, titles, headings (600) */
-	--font-body: 'Inter', Arial, Helvetica, sans-serif; /* everything you read (400/500) */
-	--font-mono: 'JetBrains Mono', monospace; /* eyebrow labels and code (400) */
+	--font-body: 'Inter', Arial, Helvetica, sans-serif; /* everything */
+	--font-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace; /* code samples on /design */
 
 	/* ---------- Type scale: size / line-height / weight ---------- */
-	--text-display: 48px;
-	--text-display--line-height: 1.1;
-	--text-display--font-weight: 600;
-	--text-h1: 32px;
-	--text-h1--line-height: 1.2;
-	--text-h1--font-weight: 600;
-	--text-h2: 24px;
-	--text-h2--line-height: 1.3;
+	--text-h1: 30px; /* page titles: Q&A, Ask a Question, profile name */
+	--text-h1--line-height: 36px;
+	--text-h1--font-weight: 700;
+	--text-h2: 24px; /* question title on the question page */
+	--text-h2--line-height: 32px;
 	--text-h2--font-weight: 600;
-	--text-h3: 18px;
-	--text-h3--line-height: 1.4;
-	--text-h3--font-weight: 600;
-	--text-lead: 18px;
-	--text-lead--line-height: 1.55;
-	--text-lead--font-weight: 400;
-	--text-body-lg: 16px;
-	--text-body-lg--line-height: 1.5;
-	--text-body-lg--font-weight: 400;
-	--text-body: 14px;
-	--text-body--line-height: 1.55;
+	--text-h3: 20px; /* author name on the question page */
+	--text-h3--line-height: 28px;
+	--text-h3--font-weight: 700;
+	--text-title: 16px; /* card titles, "2 Answers" */
+	--text-title--line-height: 24px;
+	--text-title--font-weight: 600;
+	--text-body: 16px; /* question and answer text, page descriptions */
+	--text-body--line-height: 24px;
 	--text-body--font-weight: 400;
-	--text-label: 14px;
-	--text-label--line-height: 1.4;
+	--text-body-sm: 14px; /* inputs, tabs, meta rows */
+	--text-body-sm--line-height: 20px;
+	--text-body-sm--font-weight: 400;
+	--text-label: 14px; /* form labels, buttons, names in threads */
+	--text-label--line-height: 20px;
 	--text-label--font-weight: 500;
-	--text-small: 12px;
-	--text-small--line-height: 1.5;
+	--text-small: 12px; /* tags, card previews, hints */
+	--text-small--line-height: 16px;
 	--text-small--font-weight: 400;
-	--text-caption: 10px;
-	--text-caption--line-height: 1.4;
-	--text-caption--font-weight: 500;
-	--text-eyebrow: 12px;
-	--text-eyebrow--line-height: 1.4;
-	--text-eyebrow--font-weight: 400;
 	--text-code: 13px;
-	--text-code--line-height: 1.5;
+	--text-code--line-height: 20px;
 	--text-code--font-weight: 400;
 }
 
@@ -138,37 +121,31 @@
 :root {
 	--brand: var(--color-brand);
 	--brand-hover: var(--color-brand-hover);
-	--brand-deep: var(--color-brand-deep);
-	--brand-bright: var(--color-brand-bright);
 	--brand-soft: var(--color-brand-soft);
-	--brand-wash: var(--color-brand-wash);
-	--brand-tint: var(--color-brand-tint);
 	--focus: var(--color-focus);
 	--ink: var(--color-ink);
-	--heading: var(--color-heading);
 	--muted: var(--color-muted);
-	--placeholder: var(--color-placeholder);
 	--surface: var(--color-surface);
 	--surface-gray: var(--color-surface-gray);
 	--line: var(--color-line);
-	--line-neutral: var(--color-line-neutral);
-	--control-border: var(--color-control-border);
+	--neutral: var(--color-neutral);
 	--success: var(--color-success);
 	--success-soft: var(--color-success-soft);
 	--warning: var(--color-warning);
 	--warning-soft: var(--color-warning-soft);
 	--danger: var(--color-danger);
 	--danger-soft: var(--color-danger-soft);
-	--club-purple: var(--color-club-purple);
-	--mascot-mint: var(--color-mascot-mint);
-	--mascot-orange: var(--color-mascot-orange);
 
 	--space-1: var(--spacing-1);
 	--space-2: var(--spacing-2);
 	--space-3: var(--spacing-3);
 	--space-4: var(--spacing-4);
+	--space-5: var(--spacing-5);
 	--space-6: var(--spacing-6);
 	--space-8: var(--spacing-8);
+	--space-9: var(--spacing-9);
 	--space-10: var(--spacing-10);
 	--space-15: var(--spacing-15);
+	--space-20: var(--spacing-20);
+	--space-28: var(--spacing-28);
 }

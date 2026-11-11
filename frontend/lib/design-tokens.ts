@@ -20,72 +20,48 @@ export const COLOR_GROUPS: { title: string; tokens: ColorToken[] }[] = [
 	{
 		title: 'Brand',
 		tokens: [
-			{ name: 'brand', use: 'Primary buttons, links, selected states' },
+			{ name: 'brand', use: 'Primary buttons, course tags, active tab' },
 			{ name: 'brand-hover', use: 'Hover on brand-colored things' },
-			{ name: 'brand-deep', use: 'Pressed state, text on brand-soft' },
-			{ name: 'brand-bright', use: 'Display text 24px and up only' },
-			{ name: 'brand-soft', use: 'Soft fills, focus rings' },
-			{ name: 'brand-wash', use: 'Large light backgrounds' },
-			{ name: 'brand-tint', use: 'Hover background for minimal buttons' },
+			{ name: 'brand-soft', use: 'Focus rings, light red backgrounds' },
 			{ name: 'focus', use: 'Keyboard focus outline' },
 		],
 	},
 	{
 		title: 'Text and surfaces',
 		tokens: [
-			{ name: 'ink', use: 'Default text' },
-			{ name: 'heading', use: 'Headings' },
-			{ name: 'muted', use: 'Secondary text, timestamps' },
-			{ name: 'placeholder', use: 'Input placeholder text' },
-			{ name: 'surface', use: 'Cards, inputs, page content' },
-			{ name: 'surface-gray', use: 'Subtle gray backgrounds' },
-			{ name: 'line', use: 'Card and section borders' },
-			{ name: 'line-neutral', use: 'Neutral dividers' },
-			{ name: 'control-border', use: 'Input and secondary button borders' },
+			{ name: 'ink', use: 'Headings, names, labels, body text' },
+			{ name: 'muted', use: 'Timestamps, placeholders, secondary text' },
+			{ name: 'surface', use: 'Cards and the nav bar' },
+			{ name: 'surface-gray', use: 'Page background, input fill' },
+			{ name: 'line', use: 'Card, input and nav borders' },
+			{ name: 'neutral', use: 'Topic tags, search box border' },
 		],
 	},
 	{
 		title: 'Status',
 		tokens: [
-			{ name: 'success', use: 'Success text' },
-			{ name: 'success-soft', use: 'Success background' },
+			{ name: 'success', use: 'Ask Question button, category badges' },
+			{ name: 'success-soft', use: 'Success message background' },
 			{ name: 'warning', use: 'Warning text' },
 			{ name: 'warning-soft', use: 'Warning background' },
-			{ name: 'danger', use: 'Errors, destructive buttons' },
+			{ name: 'danger', use: 'Error text, destructive buttons' },
 			{ name: 'danger-soft', use: 'Error background' },
-		],
-	},
-	{
-		title: 'Club and mascot',
-		tokens: [
-			{ name: 'club-purple', use: 'Hoagie Club accents' },
-			{ name: 'mascot-mint', use: 'Fills only, never text' },
-			{ name: 'mascot-orange', use: 'Fills only, never text' },
 		],
 	},
 ];
 
 export const COLOR_NAMES = COLOR_GROUPS.flatMap((g) => g.tokens.map((t) => t.name));
 
-/** Spacing scale keys: p-4 = 16px. Only these exist. */
-export const SPACING_STEPS = ['0', '1', '2', '3', '4', '6', '8', '10', '15'] as const;
+/** Spacing scale keys: p-4 = 16px. Only these exist. 9 is for small buttons, 20 and 28 for avatar sizes. */
+export const SPACING_STEPS = ['0', '1', '2', '3', '4', '5', '6', '8', '9', '10', '15', '20', '28'] as const;
 export type SpacingStep = (typeof SPACING_STEPS)[number];
 
-export const RADIUS_NAMES = ['sm', 'md', 'tag', 'card', 'pill'] as const;
+export const RADIUS_NAMES = ['sm', 'md', 'card', 'tag', 'pill'] as const;
 
-export const SHADOW_NAMES = ['card-hover', 'dropdown', 'dialog'] as const;
+export const SHADOW_NAMES = ['card', 'card-hover', 'dropdown'] as const;
 
-export const FONT_NAMES = ['heading', 'body', 'mono'] as const;
+export const FONT_NAMES = ['body', 'mono'] as const;
 
-export const HEADING_STYLES = ['display', 'h1', 'h2', 'h3'] as const;
-export const TEXT_STYLES = [
-	'lead',
-	'body-lg',
-	'body',
-	'label',
-	'small',
-	'caption',
-	'eyebrow',
-	'code',
-] as const;
+export const HEADING_STYLES = ['h1', 'h2', 'h3', 'title'] as const;
+export const TEXT_STYLES = ['body', 'body-sm', 'label', 'small', 'code'] as const;
 export const TYPE_STYLES = [...HEADING_STYLES, ...TEXT_STYLES] as const;

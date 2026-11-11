@@ -4,33 +4,29 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-const headingVariants = cva('m-0 font-heading', {
+const headingVariants = cva('m-0 font-body text-ink', {
 	variants: {
-		/** Type style from the brand kit (all Poppins 600). */
 		variant: {
-			display: 'text-display',
+			/** 30px bold: page titles (Q&A, Ask a Question, a profile name). */
 			h1: 'text-h1',
+			/** 24px semibold: the question title on the question page. */
 			h2: 'text-h2',
+			/** 20px bold: the author name on the question page. */
 			h3: 'text-h3',
-		},
-		/** brand uses brand-bright, which the brand kit allows only at 24px and up. */
-		tone: {
-			heading: 'text-heading',
-			ink: 'text-ink',
-			brand: 'text-brand-bright',
+			/** 16px semibold: card titles, "2 Answers". */
+			title: 'text-title',
 		},
 	},
-	compoundVariants: [{ variant: 'h3', tone: 'brand', className: 'text-brand' }],
-	defaultVariants: { variant: 'h2', tone: 'heading' },
+	defaultVariants: { variant: 'h2' },
 });
 
 type HeadingVariant = NonNullable<VariantProps<typeof headingVariants>['variant']>;
 
 const DEFAULT_TAG: Record<HeadingVariant, 'h1' | 'h2' | 'h3'> = {
-	display: 'h1',
 	h1: 'h1',
 	h2: 'h2',
 	h3: 'h3',
+	title: 'h3',
 };
 
 export type HeadingProps = Omit<
@@ -44,18 +40,16 @@ export type HeadingProps = Omit<
 	};
 
 /**
- * Titles and section headings. Use one `h1` per page.
+ * Titles and headings, in the four sizes the designs use.
  *
  * @example
- * <Heading variant='h1'>Study Groups</Heading>
- * <Heading variant='h3' as='h2'>Upcoming</Heading>
- *
- * See every variant on /design.
+ * <Heading variant='h1'>Q&amp;A</Heading>
+ * <Heading variant='title' as='h2'>2 Answers</Heading>
  */
-export function Heading({ variant, tone, as, children, ...props }: HeadingProps) {
+export function Heading({ variant, as, children, ...props }: HeadingProps) {
 	const Tag = as ?? DEFAULT_TAG[variant ?? 'h2'];
 	return (
-		<Tag className={cn(headingVariants({ variant, tone }))} {...props}>
+		<Tag className={cn(headingVariants({ variant }))} {...props}>
 			{children}
 		</Tag>
 	);

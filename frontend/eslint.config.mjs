@@ -215,7 +215,7 @@ export default defineConfig([
 						{
 							group: ['@/api/*', '../api/*', '../../api/*'],
 							message:
-								"Components don't call the API directly: use or add a hook in hooks/ (e.g. useHeart). See DESIGN_SYSTEM.md.",
+								"Components don't call the API directly: use or add a hook in hooks/ (e.g. useUpvote). See DESIGN_SYSTEM.md.",
 						},
 					],
 				},

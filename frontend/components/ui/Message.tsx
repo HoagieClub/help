@@ -43,7 +43,7 @@ export function Message({ variant, children }: MessageProps) {
 			<span aria-hidden='true' className='font-body text-label font-bold'>
 				{ICON[v]}
 			</span>
-			<span className='min-w-0 font-body text-body'>{children}</span>
+			<span className='min-w-0 font-body text-body-sm'>{children}</span>
 		</div>
 	);
 }

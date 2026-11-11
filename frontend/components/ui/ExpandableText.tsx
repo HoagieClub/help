@@ -33,7 +33,7 @@ export function ExpandableText({ text, limit = 200 }: ExpandableTextProps) {
 					type='button'
 					onClick={() => setExpanded((value) => !value)}
 					aria-expanded={expanded}
-					className='cursor-pointer rounded-sm font-body text-small text-brand hover:text-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus'
+					className='cursor-pointer rounded-sm font-body text-body-sm text-brand hover:text-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus'
 				>
 					{expanded ? 'Read less' : 'Read more'}
 				</button>

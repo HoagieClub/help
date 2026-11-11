@@ -15,7 +15,7 @@ export function DesignSidebar() {
 			<Stack gap='6'>
 				{DESIGN_NAV.map((group) => (
 					<Stack key={group.title} gap='2'>
-						<Text variant='eyebrow' tone='muted'>
+						<Text variant='small' tone='muted'>
 							{group.title.toUpperCase()}
 						</Text>
 						<Stack as='ul' gap='1'>

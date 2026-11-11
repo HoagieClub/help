@@ -5,18 +5,15 @@ import { Heading, Stack, Text } from '@/components/ui';
 import { PageHeader, TokenValue } from '../design-ui';
 
 const ROWS = [
-	{ name: 'display', sample: <Heading variant='display'>Display</Heading> },
-	{ name: 'h1', sample: <Heading variant='h1'>Heading 1</Heading> },
-	{ name: 'h2', sample: <Heading variant='h2'>Heading 2</Heading> },
-	{ name: 'h3', sample: <Heading variant='h3'>Heading 3</Heading> },
-	{ name: 'lead', sample: <Text variant='lead'>Lead</Text> },
-	{ name: 'body-lg', sample: <Text variant='body-lg'>Body large</Text> },
-	{ name: 'body', sample: <Text>Body</Text> },
-	{ name: 'label', sample: <Text variant='label'>Label</Text> },
-	{ name: 'small', sample: <Text variant='small'>Small</Text> },
-	{ name: 'caption', sample: <Text variant='caption'>Caption</Text> },
-	{ name: 'eyebrow', sample: <Text variant='eyebrow'>EYEBROW</Text> },
-	{ name: 'code', sample: <Text variant='code'>code</Text> },
+	{ name: 'h1', sample: <Heading variant='h1'>Ask a Question</Heading> },
+	{ name: 'h2', sample: <Heading variant='h2'>Best strategies for COS226 midterm prep?</Heading> },
+	{ name: 'h3', sample: <Heading variant='h3'>Alex Chen</Heading> },
+	{ name: 'title', sample: <Heading variant='title'>2 Answers</Heading> },
+	{ name: 'body', sample: <Text>I have my midterm coming up in two weeks.</Text> },
+	{ name: 'body-sm', sample: <Text variant='body-sm'>Sarah Park • 2h ago</Text> },
+	{ name: 'label', sample: <Text variant='label'>Question Title</Text> },
+	{ name: 'small', sample: <Text variant='small'>exam prep</Text> },
+	{ name: 'code', sample: <Text variant='code'>text-body</Text> },
 ];
 
 export default function TypePage() {
@@ -24,13 +21,13 @@ export default function TypePage() {
 		<Stack gap='8'>
 			<PageHeader
 				title='Typography'
-				summary='Poppins for headings, Inter for reading, JetBrains Mono for eyebrows and code.'
+				summary='Inter for everything. Use the class text-{name}, e.g. text-body-sm.'
 			/>
 			<Stack gap='0'>
 				{ROWS.map((row) => (
 					<div
 						key={row.name}
-						className='grid grid-cols-3 items-center gap-4 border-t border-line-neutral py-3'
+						className='grid grid-cols-3 items-center gap-4 border-t border-line py-3'
 					>
 						<Text variant='label'>{row.name}</Text>
 						<div>{row.sample}</div>

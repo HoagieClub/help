@@ -14,16 +14,17 @@
 
 import { useEffect, useState } from 'react';
 
-import { Button, Heading, Pane, Text, majorScale, useTheme } from 'evergreen-ui';
 import Link from 'next/link';
 
 import { getAllStudyGroup } from '@/api/studyGroupService';
 import { StudyGroupCard } from '@/components/study-group/StudyGroupCard';
+import { StudyGroupFilters } from '@/components/study-group/StudyGroupFilters';
+import { Button, EmptyState, Message, PageHeader, Spinner, Stack } from '@/components/ui';
 
-export function StudyGroups() {
-	const theme = useTheme();
-	const [studyGroups, setStudyGroups] =
-		useState<Awaited<ReturnType<typeof getAllStudyGroup>>>(null);
+type StudyGroup = NonNullable<Awaited<ReturnType<typeof getAllStudyGroup>>>[number];
+
+export default function StudyGroupsPage() {
+	const [studyGroups, setStudyGroups] = useState<StudyGroup[] | null | undefined>(undefined);
 
 	useEffect(() => {
 		void (async () => {
@@ -31,60 +32,53 @@ export function StudyGroups() {
 		})();
 	}, []);
 
-	function renderStudyGroups() {
-		if (studyGroups === null) {
-			return <Text>Loading study groups...</Text>;
-		}
-
-		if (studyGroups.length === 0) {
-			return <Text>No study groups found.</Text>;
-		}
-
-		return studyGroups.map((group) => (
-			<StudyGroupCard
-				key={group.id}
-				title={group.title}
-				description={group.description}
-				leader={String(group.leader)}
-				meetsAt={group.meeting_datetime}
-				joined={group.members.length}
-				spots={group.max_spots}
-				// TODO: there's no join endpoint yet (see the backend tickets)
-				onJoin={() => {}}
-			/>
-		));
-	}
-
 	return (
-		<Pane
-			maxWidth={majorScale(100)}
-			marginX='auto'
-			padding={majorScale(2)}
-			marginTop={majorScale(8)}
-		>
-			<Heading size={900} marginBottom={8}>
-				Study Groups
-			</Heading>
+		<div className='mx-auto max-w-5xl px-4 py-8'>
+			<Stack gap='6'>
+				<PageHeader
+					title='Study Groups'
+					description='Collaborate with peers on coursework and exam preparation'
+					action={
+						<Button asChild>
+							<Link href='/study-groups/form'>Create Study Group</Link>
+						</Button>
+					}
+				/>
 
-			<Text size={500}>Find classmates and form study groups</Text>
+				{/* TODO: the filters aren't wired up yet; the API has no search or category fields. */}
+				<StudyGroupFilters />
 
-			<Pane display='flex' gap={majorScale(2)} marginY={majorScale(3)}>
-				<Link href='/study-groups/form'>
-					<Button
-						appearance='primary'
-						backgroundColor={theme.colors.red500}
-						color='black'
-					>
-						Create Study Group
-					</Button>
-				</Link>
-			</Pane>
-
-			<Pane display='flex' flexWrap='wrap' gap={majorScale(3)}>
-				{renderStudyGroups()}
-			</Pane>
-		</Pane>
+				{studyGroups === undefined && <Spinner label='Loading study groups…' />}
+				{studyGroups === null && (
+					<Message variant='error'>
+						Couldn’t load study groups. Please refresh to try again.
+					</Message>
+				)}
+				{studyGroups?.length === 0 && (
+					<EmptyState
+						title='No study groups yet'
+						description='Start one for your next exam.'
+					/>
+				)}
+				{studyGroups && studyGroups.length > 0 && (
+					<div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+						{studyGroups.map((group) => (
+							<StudyGroupCard
+								key={group.id}
+								title={group.title}
+								description={group.description}
+								// TODO: show the leader's name once the API sends it (it only sends a user id).
+								leader={`User ${group.leader}`}
+								meetsAt={group.meeting_datetime}
+								joined={group.members.length}
+								spots={group.max_spots}
+								// TODO: there's no join endpoint yet (see the backend tickets).
+								onJoin={() => {}}
+							/>
+						))}
+					</div>
+				)}
+			</Stack>
+		</div>
 	);
 }
-
-export default StudyGroups;

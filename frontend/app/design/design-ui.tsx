@@ -48,7 +48,7 @@ export function PageHeader({ title, summary }: { title: string; summary?: string
 
 /** Bordered box that holds live examples. */
 export function Preview({ children }: { children: ReactNode }) {
-	return <div className='rounded-md border border-line-neutral p-6'>{children}</div>;
+	return <div className='rounded-md border border-line bg-surface-gray p-6'>{children}</div>;
 }
 
 /** A copyable code example. */
@@ -66,14 +66,14 @@ export function CodeBlock({ code }: { code: string }) {
 	}
 
 	return (
-		<div className='relative rounded-md border border-line-neutral bg-surface-gray'>
+		<div className='relative rounded-md border border-line bg-surface-gray'>
 			<pre className='m-0 overflow-x-auto p-4 pr-15'>
 				<Text as='code' variant='code'>
 					{code}
 				</Text>
 			</pre>
 			<div className='absolute top-2 right-2'>
-				<Button variant='minimal' onClick={copy}>
+				<Button variant='ghost' size='sm' onClick={copy}>
 					{copied ? 'Copied' : 'Copy'}
 				</Button>
 			</div>
@@ -81,9 +81,10 @@ export function CodeBlock({ code }: { code: string }) {
 	);
 }
 
-export function Wordmark({ size = 'h1' }: { size?: 'h1' | 'display' }) {
+/** "hoagiehelp" in Inter bold, with "help" in brand red, as in the Figma nav bar. */
+export function Wordmark({ size = 'h3' }: { size?: 'h3' | 'h1' }) {
 	return (
-		<span className={size === 'display' ? 'font-heading text-display' : 'font-heading text-h1'}>
+		<span className={size === 'h1' ? 'font-body text-h1' : 'font-body text-h3'}>
 			<span className='text-ink'>hoagie</span>
 			<span className='text-brand'>help</span>
 		</span>

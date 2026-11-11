@@ -16,14 +16,14 @@ export type PageHeaderProps = {
  * @example
  * <PageHeader
  *   title='Study Groups'
- *   description='Find classmates and form study groups'
+ *   description='Collaborate with peers on coursework and exam preparation'
  *   action={<Button asChild><Link href='/study-groups/form'>Create Study Group</Link></Button>}
  * />
  */
 export function PageHeader({ title, description, action }: PageHeaderProps) {
 	return (
 		<div className='flex flex-wrap items-start justify-between gap-4'>
-			<div className='flex flex-col gap-1'>
+			<div className='flex flex-col gap-2'>
 				<Heading variant='h1'>{title}</Heading>
 				{description && <Text tone='muted'>{description}</Text>}
 			</div>

@@ -24,7 +24,7 @@ export function Toaster(props: ToasterProps) {
 			theme={theme as ToasterProps['theme']}
 			toastOptions={{
 				classNames: {
-					toast: 'border border-line bg-surface font-body text-ink shadow-dropdown',
+					toast: 'rounded-card border border-line bg-surface font-body text-ink shadow-dropdown',
 					description: 'text-muted',
 					actionButton: 'bg-brand text-surface',
 					cancelButton: 'bg-surface-gray text-muted',

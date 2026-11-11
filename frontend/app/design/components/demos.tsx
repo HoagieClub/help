@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { HeartButton, Tabs } from '@/components/ui';
+import { FilterGroup, Tabs, UpvoteButton } from '@/components/ui';
 
 /** Small stateful wrappers so /design can show interactive components working. */
 
@@ -22,17 +22,33 @@ export function TabsDemo() {
 	);
 }
 
-export function HeartDemo({ initialHearted }: { initialHearted: boolean }) {
-	const [hearted, setHearted] = useState(initialHearted);
-	const [count, setCount] = useState(initialHearted ? 13 : 12);
+export function FilterDemo() {
+	const [filter, setFilter] = useState<'all' | 'popular' | 'unanswered'>('all');
 	return (
-		<HeartButton
-			hearted={hearted}
+		<FilterGroup
+			label='Filter questions'
+			options={[
+				{ value: 'all', label: 'All Questions' },
+				{ value: 'popular', label: 'Popular' },
+				{ value: 'unanswered', label: 'Unanswered' },
+			]}
+			value={filter}
+			onChange={setFilter}
+		/>
+	);
+}
+
+export function UpvoteDemo({ initialUpvoted }: { initialUpvoted: boolean }) {
+	const [upvoted, setUpvoted] = useState(initialUpvoted);
+	const [count, setCount] = useState(initialUpvoted ? 13 : 12);
+	return (
+		<UpvoteButton
+			upvoted={upvoted}
 			count={count}
 			thing='answer'
 			onToggle={() => {
-				setHearted(!hearted);
-				setCount(hearted ? count - 1 : count + 1);
+				setUpvoted(!upvoted);
+				setCount(upvoted ? count - 1 : count + 1);
 			}}
 		/>
 	);

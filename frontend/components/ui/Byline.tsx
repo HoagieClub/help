@@ -1,52 +1,31 @@
 import { Avatar } from './Avatar';
-import { Text } from './Text';
+import { MetaRow } from './MetaRow';
 
 export type BylineProps = {
 	/** Display name. Shown as "Anonymous" when `anonymous` is true. */
 	name: string;
 	anonymous?: boolean;
-	/** Usually the time, e.g. "2 hrs ago". */
-	meta?: string;
-	size?: 'sm' | 'lg';
+	/** Facts under the name, e.g. ['Q&A', '2h ago']. */
+	meta?: string[];
 };
 
 /**
- * Who wrote something and when: avatar, name and a muted meta line.
+ * The author block at the top of a question: big avatar, name, and "Q&A • 2h ago".
+ * For answers and comments, ThreadItem has its own smaller version.
  *
  * @example
- * <Byline name='Alex Chen' meta='1 hr ago' />
- * <Byline name='Jordan Lee' anonymous meta='Asked 3 hrs ago' size='lg' />
+ * <Byline name='Alex Chen' meta={['Q&A', '2h ago']} />
  */
-export function Byline({ name, anonymous = false, meta, size = 'sm' }: BylineProps) {
+export function Byline({ name, anonymous = false, meta = [] }: BylineProps) {
 	const displayName = anonymous ? 'Anonymous' : name;
 
-	if (size === 'lg') {
-		return (
-			<div className='flex items-center gap-3'>
-				<Avatar name={displayName} anonymous={anonymous} size='lg' />
-				<div className='flex flex-col'>
-					<Text variant='label'>{displayName}</Text>
-					{meta && (
-						<Text variant='small' tone='muted'>
-							{meta}
-						</Text>
-					)}
-				</div>
-			</div>
-		);
-	}
-
 	return (
-		<div className='flex items-center gap-2'>
-			<Avatar name={displayName} anonymous={anonymous} size='sm' />
-			<Text as='span' variant='label'>
-				{displayName}
-			</Text>
-			{meta && (
-				<Text as='span' variant='small' tone='muted'>
-					{meta}
-				</Text>
-			)}
+		<div className='flex items-center gap-4'>
+			<Avatar name={displayName} anonymous={anonymous} size='lg' />
+			<div className='flex flex-col gap-1'>
+				<span className='font-body text-h3 text-ink'>{displayName}</span>
+				{meta.length > 0 && <MetaRow items={meta} tone='default' />}
+			</div>
 		</div>
 	);
 }

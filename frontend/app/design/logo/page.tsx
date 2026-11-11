@@ -6,14 +6,13 @@ import { PageHeader, Preview, Wordmark } from '../design-ui';
 
 const WORDMARK_RULES = [
 	'“hoagie” in ink, “help” in brand.',
-	'Poppins 600, all lowercase, no space.',
+	'Inter bold, all lowercase, no space.',
 ];
 
 const MASCOT_RULES = [
 	'Always purple.',
 	'Clear space of half its width on every side.',
 	'Never recolor or crop.',
-	'Mascot mint and orange are fills only, never text.',
 ];
 
 // Shown 160px tall; widths keep each file's own proportions.
@@ -36,7 +35,7 @@ const MASCOTS = [
 		width: 80,
 		use: 'Doc covers, small sizes',
 	},
-	{ file: 'hoagie-point.svg', alt: 'Hoagie pointing', width: 140, use: 'Empty states' },
+	{ file: 'hoagie-point.svg', alt: 'Hoagie pointing', width: 140, use: 'Club materials' },
 ];
 
 function RuleList({ rules }: { rules: string[] }) {
@@ -59,7 +58,7 @@ export default function LogoPage() {
 			<Stack gap='4'>
 				<Text variant='label'>Wordmark</Text>
 				<Preview>
-					<Wordmark size='display' />
+					<Wordmark size='h1' />
 				</Preview>
 				<RuleList rules={WORDMARK_RULES} />
 			</Stack>
@@ -89,7 +88,8 @@ export default function LogoPage() {
 				</div>
 				<RuleList rules={MASCOT_RULES} />
 				<Text variant='small' tone='muted'>
-					Files are in frontend/public/brand/.
+					Hoagie Club mascots, in frontend/public/brand/. The current HoagieHelp designs
+					don&apos;t use them yet; they&apos;re here for the rebrand.
 				</Text>
 			</Stack>
 		</Stack>

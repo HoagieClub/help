@@ -1,54 +1,43 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 
-import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
 const tagVariants = cva(
-	'inline-flex items-center gap-1 rounded-tag px-3 py-1 font-body text-small whitespace-nowrap',
+	'inline-flex h-6 items-center rounded-tag px-2 font-body text-small whitespace-nowrap',
 	{
 		variants: {
 			variant: {
-				/** A filter or choice that is turned on. */
-				selected: 'bg-brand text-surface',
-				/** A filter or choice that is turned off, or a plain topic tag. */
-				idle: 'border border-line bg-surface text-ink',
-				/** A course or category label, like COS 226. */
-				label: 'bg-brand-soft text-brand-deep',
-				success: 'bg-success-soft text-success',
-				warning: 'bg-warning-soft text-warning',
+				/** A course code, like COS 226. */
+				course: 'bg-brand text-surface',
+				/** A topic tag, like "exam prep". */
+				topic: 'bg-neutral text-ink',
+				/** A category badge, like "Algorithms" on a study group. */
+				category: 'bg-success text-surface',
 			},
 		},
-		defaultVariants: { variant: 'idle' },
+		defaultVariants: { variant: 'topic' },
 	}
 );
 
 export type TagProps = Omit<HTMLAttributes<HTMLSpanElement>, 'className' | 'style' | 'color'> &
 	VariantProps<typeof tagVariants> & {
-		/** Render the child (for example a <button> for a clickable filter) with tag styles. */
-		asChild?: boolean;
 		children: ReactNode;
 	};
 
 /**
- * Small rounded label for courses, topics, filters and statuses.
+ * A small rounded label for courses, topics and categories. Not clickable; for filters use
+ * FilterGroup.
  *
  * @example
- * <Tag variant='label'>COS 226</Tag>
- * <Tag>python</Tag>
- * <Tag variant='success'>Joined</Tag>
- *
- * // A clickable filter chip:
- * <Tag asChild variant={isOn ? 'selected' : 'idle'}>
- *   <button type='button' onClick={toggle}>Math</button>
- * </Tag>
+ * <Tag variant='course'>COS 226</Tag>
+ * <Tag>exam prep</Tag>
  */
-export function Tag({ variant, asChild = false, children, ...props }: TagProps) {
-	const Comp = asChild ? Slot : 'span';
+export function Tag({ variant, children, ...props }: TagProps) {
 	return (
-		<Comp className={cn(tagVariants({ variant }))} {...props}>
+		<span className={cn(tagVariants({ variant }))} {...props}>
 			{children}
-		</Comp>
+		</span>
 	);
 }

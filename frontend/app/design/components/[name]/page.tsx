@@ -23,7 +23,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ name
 		<Stack gap='6'>
 			<Stack direction='row' gap='3' align='center' wrap>
 				<PageHeader title={doc.title} />
-				{doc.inFigma === false && <Tag variant='warning'>Not in Figma yet</Tag>}
+				{doc.inFigma === false && <Tag>Not in Figma yet</Tag>}
 			</Stack>
 			<Preview>{doc.preview}</Preview>
 			<CodeBlock code={doc.code} />

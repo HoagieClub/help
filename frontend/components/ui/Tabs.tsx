@@ -43,7 +43,7 @@ export function Tabs<T extends string>({ items, value, onChange, label }: TabsPr
 			role='tablist'
 			aria-label={label}
 			onKeyDown={onKeyDown}
-			className='flex gap-6 border-b border-line-neutral'
+			className='flex gap-4 border-b border-line'
 		>
 			{items.map((item) => {
 				const selected = item.value === value;
@@ -56,7 +56,7 @@ export function Tabs<T extends string>({ items, value, onChange, label }: TabsPr
 						tabIndex={selected ? 0 : -1}
 						onClick={() => onChange(item.value)}
 						className={cn(
-							'-mb-px cursor-pointer border-b-2 pb-2 font-body text-label transition-colors',
+							'-mb-px cursor-pointer border-b-2 pb-2 font-body text-body-sm transition-colors',
 							'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
 							selected
 								? 'border-brand text-brand'
