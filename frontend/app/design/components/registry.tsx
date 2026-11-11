@@ -82,16 +82,16 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 	'filter-group': {
 		title: 'Filter group',
 		preview: <FilterDemo />,
-		code: `const [filter, setFilter] = useState<'all' | 'popular'>('all');
+		code: `const [sort, setSort] = useState<'recent' | 'popular'>('recent');
 
 <FilterGroup
-  label='Filter questions'
+  label='Sort questions'
   options={[
-    { value: 'all', label: 'All Questions' },
+    { value: 'recent', label: 'Recent' },
     { value: 'popular', label: 'Popular' },
   ]}
-  value={filter}
-  onChange={setFilter}
+  value={sort}
+  onChange={setSort}
 />`,
 	},
 
@@ -294,14 +294,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 			<ThreadItem
 				name='Shannon Huang'
 				meta='45m ago'
-				actions={
-					<>
-						<UpvoteDemo initialUpvoted={false} />
-						<Button variant='link' size='inline'>
-							Reply
-						</Button>
-					</>
-				}
+				actions={<UpvoteDemo initialUpvoted={false} />}
 				replies={
 					<ThreadItem
 						name='Annie O’Brien'
@@ -322,8 +315,8 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   name={answer.user.name}
   anonymous={answer.isAnonymous}
   meta={formatTimePassed(answer.createdAt)}
-  actions={<><UpvoteButton {...upvote} thing='answer' /><Button variant='link' size='inline'>Reply</Button></>}
-  replies={<CommentList comments={answer.comments} onReply={openReply} />}
+  actions={<UpvoteButton {...upvote} thing='answer' />}
+  replies={<CommentList comments={answer.comments} answerId={String(answer.id)} />}
 >
   <ExpandableText text={answer.text} limit={2000} />
 </ThreadItem>`,
@@ -368,6 +361,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   href='/questions/1'
 />
 
+// preview, upvotes, views and answers are optional; leave one out to hide it.
 // On a profile: meta above the title, no answer count
 <QuestionCard layout='profile' meta={['Q&A', '3d ago']} … />`,
 	},
@@ -375,27 +369,21 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 	'study-group-card': {
 		title: 'Study group card',
 		preview: (
-			<div className='max-w-sm'>
-				<StudyGroupCard
-					title='COS 226 Study Group'
-					category='Algorithms'
-					description='Deep dive into graph algorithms and data structures. Preparing for upcoming quiz on shortest paths.'
-					leader='Alex Chen'
-					meetsAt='2025-03-28T18:00:00'
-					location='Fine Library, Room 304'
-					joined={12}
-					spots={15}
-					onJoin={() => {}}
-				/>
-			</div>
+			<StudyGroupCard
+				title='COS 226 Study Group'
+				description='Deep dive into graph algorithms and data structures.'
+				leader='Alex Chen'
+				meetsAt='2025-03-28T18:00:00'
+				joined={12}
+				spots={15}
+				onJoin={() => {}}
+			/>
 		),
 		code: `<StudyGroupCard
   title='COS 226 Study Group'
-  category='Algorithms'
   description='Deep dive into graph algorithms…'
   leader='Alex Chen'
   meetsAt={group.meeting_datetime}
-  location='Fine Library, Room 304'
   joined={12}
   spots={15}
   onJoin={() => join(group.id)}

@@ -20,7 +20,7 @@ export function useSearchQuestions<T extends QuestionCardProps>(
 			return questions;
 		}
 		return questions.filter((question) =>
-			[question.title, question.course ?? '', question.preview, ...question.meta].some((field) =>
+			[question.title, question.course ?? '', question.preview ?? '', ...question.meta].some((field) =>
 				field.toLowerCase().includes(q)
 			)
 		);

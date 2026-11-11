@@ -1,25 +1,26 @@
 import type { Comment } from '@/types';
 
+import { CommentForm } from './CommentForm';
 import { CommentItem } from './CommentItem';
 
 export type CommentListProps = {
 	comments: Comment[];
-	/** Called when someone presses Reply on a comment. Opens the answer's comment box. */
-	onReply: () => void;
+	answerId: string;
 };
 
 /**
- * The comments under one answer.
+ * The comments under one answer, followed by the "Add a comment" box.
  *
  * @example
- * <CommentList comments={answer.comments} onReply={() => setIsReplying(true)} />
+ * <CommentList comments={answer.comments} answerId={String(answer.id)} />
  */
-export function CommentList({ comments, onReply }: CommentListProps) {
+export function CommentList({ comments, answerId }: CommentListProps) {
 	return (
 		<>
 			{comments.map((comment) => (
-				<CommentItem key={comment.id} comment={comment} onReply={onReply} />
+				<CommentItem key={comment.id} comment={comment} />
 			))}
+			<CommentForm answerId={answerId} />
 		</>
 	);
 }

@@ -4,7 +4,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 
 import Link from 'next/link';
 
-import { BackLink, Button, Card, Heading, Input, Message, Stack, Textarea } from '@/components/ui';
+import { Button, Card, Input, Message, PageHeader, Stack, Textarea } from '@/components/ui';
 import { useCreateStudyGroup } from '@/hooks/mutations';
 
 type FormState = {
@@ -18,9 +18,6 @@ type FormState = {
 	description: string;
 };
 
-/** Used when Max Participants is left empty; the API requires a number. */
-const DEFAULT_MAX_SPOTS = 10;
-
 const EMPTY_FORM: FormState = {
 	title: '',
 	category: '',
@@ -28,12 +25,12 @@ const EMPTY_FORM: FormState = {
 	date: '',
 	time: '',
 	location: '',
-	maxParticipants: '',
+	maxParticipants: '5',
 	description: '',
 };
 
 export type StudyGroupFormProps = {
-	/** Where Back and Cancel go. */
+	/** Where Cancel goes. */
 	backHref?: string;
 };
 
@@ -62,7 +59,7 @@ export function StudyGroupForm({ backHref = '/study-groups' }: StudyGroupFormPro
 			title: form.title,
 			description: form.description,
 			meeting_datetime: `${form.date} ${form.time}`,
-			max_spots: Number(form.maxParticipants) || DEFAULT_MAX_SPOTS,
+			max_spots: Number(form.maxParticipants),
 			members: [],
 		});
 		if (result) {
@@ -72,25 +69,25 @@ export function StudyGroupForm({ backHref = '/study-groups' }: StudyGroupFormPro
 	}
 
 	return (
-		<div className='mx-auto max-w-xl px-4 py-8'>
+		<div className='mx-auto max-w-2xl px-4 py-8'>
 			<Stack gap='6'>
-				<BackLink href={backHref} />
+				<PageHeader
+					title='Create a Study Group'
+					description='Meet up with classmates to study, discuss course material, and more.'
+				/>
 
 				<Card>
-					<form className='flex flex-col gap-4' onSubmit={submit}>
-						<Heading variant='h3' as='h1'>
-							Create Study Group
-						</Heading>
+					<form className='flex flex-col gap-6' onSubmit={submit}>
 						{created && (
 							<Message variant='success'>Study group created successfully!</Message>
 						)}
 						<Input
-							label='Study Group Title'
+							label='Study group title'
 							name='title'
 							value={form.title}
 							onChange={update}
 							required
-							placeholder='e.g., COS 226 Algorithms Study Session'
+							placeholder='e.g. COS 226 Midterm Study Session'
 						/>
 						<Input
 							label='Category'
@@ -98,52 +95,59 @@ export function StudyGroupForm({ backHref = '/study-groups' }: StudyGroupFormPro
 							value={form.category}
 							onChange={update}
 							required
-							placeholder='e.g., Computer Science'
+							placeholder='e.g. Computer Science'
 						/>
 						<Input
-							label='Course (Optional)'
+							label='Course'
 							name='course'
+							hint='Optional'
 							value={form.course}
 							onChange={update}
-							placeholder='e.g., COS 226'
+							placeholder='e.g. COS 226'
 						/>
-						<Input
-							label='Date'
-							name='date'
-							type='date'
-							value={form.date}
-							onChange={update}
-							required
-						/>
-						<Input
-							label='Time'
-							name='time'
-							type='time'
-							value={form.time}
-							onChange={update}
-							required
-						/>
+						<Stack direction='row' gap='4' wrap>
+							<div className='min-w-0 flex-1'>
+								<Input
+									label='Date'
+									name='date'
+									type='date'
+									value={form.date}
+									onChange={update}
+									required
+								/>
+							</div>
+							<div className='min-w-0 flex-1'>
+								<Input
+									label='Time'
+									name='time'
+									type='time'
+									value={form.time}
+									onChange={update}
+									required
+								/>
+							</div>
+						</Stack>
 						<Input
 							label='Location'
 							name='location'
 							value={form.location}
 							onChange={update}
 							required
-							placeholder='e.g., Frist Campus Center, Room 302'
+							placeholder='e.g. Frist Campus Center, Room 302'
 						/>
 						<Input
-							label='Max Participants (Optional)'
+							label='Max participants'
 							name='maxParticipants'
 							type='number'
 							min={2}
 							value={form.maxParticipants}
 							onChange={update}
-							placeholder='e.g., 8'
+							required
 						/>
 						<Textarea
 							label='Description'
 							name='description'
-							rows={4}
+							rows={6}
 							value={form.description}
 							onChange={update}
 							required
@@ -152,12 +156,10 @@ export function StudyGroupForm({ backHref = '/study-groups' }: StudyGroupFormPro
 						{createStudyGroup.error && (
 							<Message variant='error'>{createStudyGroup.error}</Message>
 						)}
-						<Stack direction='row' gap='3'>
-							<div className='flex-1'>
-								<Button type='submit' fullWidth disabled={createStudyGroup.pending}>
-									{createStudyGroup.pending ? 'Creating…' : 'Create Study Group'}
-								</Button>
-							</div>
+						<Stack direction='row' gap='2'>
+							<Button type='submit' disabled={createStudyGroup.pending}>
+								{createStudyGroup.pending ? 'Creating…' : 'Create Study Group'}
+							</Button>
 							<Button variant='secondary' asChild>
 								<Link href={backHref}>Cancel</Link>
 							</Button>

@@ -53,8 +53,6 @@ function QuestionPage() {
 	const [question, setQuestion] = useState<LoadedQuestion | null | undefined>(undefined);
 	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [loadError, setLoadError] = useState<string | null>(null);
-	/** Bumped after an answer is posted, to load the answers again. */
-	const [reloadKey, setReloadKey] = useState(0);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -67,9 +65,7 @@ function QuestionPage() {
 			}
 
 			setLoadError(null);
-			if (reloadKey === 0) {
-				setQuestion(undefined);
-			}
+			setQuestion(undefined);
 
 			const q = await getQuestionDetails(questionId);
 			if (cancelled) return;
@@ -98,7 +94,7 @@ function QuestionPage() {
 		return () => {
 			cancelled = true;
 		};
-	}, [questionId, reloadKey]);
+	}, [questionId]);
 
 	if (question === undefined) {
 		return (
@@ -122,17 +118,16 @@ function QuestionPage() {
 			<Stack gap='8'>
 				<QuestionPanel
 					questionId={questionId}
-					// TODO: show the asker's name once the API sends it (it only sends a user id).
+					// TODO: the API sends a user id, not a name.
 					author={`User ${question.user}`}
 					anonymous={question.user_is_anonymous}
 					title={question.title}
 					course={question.course}
-					// TODO: the API sends tag ids; show tag names once there's a tags endpoint.
+					// TODO: the API sends tag ids, not names.
 					tags={[]}
 					details={question.details}
 					createdAt={question.create_time}
 					upvotes={question.hearts}
-					onAnswerPosted={() => setReloadKey((key) => key + 1)}
 				/>
 				<AnswerList answers={answers} />
 			</Stack>

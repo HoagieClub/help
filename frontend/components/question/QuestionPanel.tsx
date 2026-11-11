@@ -131,7 +131,6 @@ export function QuestionPanel({
 
 			{isAnswering && (
 				<Stack gap='3'>
-					{/* TODO: Figma shows a rich text editor (Paragraph, bold, italic, link, list) here. */}
 					<Textarea
 						label='Your answer'
 						hideLabel

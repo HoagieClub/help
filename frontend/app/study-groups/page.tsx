@@ -18,7 +18,6 @@ import Link from 'next/link';
 
 import { getAllStudyGroup } from '@/api/studyGroupService';
 import { StudyGroupCard } from '@/components/study-group/StudyGroupCard';
-import { StudyGroupFilters } from '@/components/study-group/StudyGroupFilters';
 import { Button, EmptyState, Message, PageHeader, Spinner, Stack } from '@/components/ui';
 
 type StudyGroup = NonNullable<Awaited<ReturnType<typeof getAllStudyGroup>>>[number];
@@ -37,16 +36,13 @@ export default function StudyGroupsPage() {
 			<Stack gap='6'>
 				<PageHeader
 					title='Study Groups'
-					description='Collaborate with peers on coursework and exam preparation'
+					description='Find classmates and form study groups'
 					action={
 						<Button asChild>
 							<Link href='/study-groups/form'>Create Study Group</Link>
 						</Button>
 					}
 				/>
-
-				{/* TODO: the filters aren't wired up yet; the API has no search or category fields. */}
-				<StudyGroupFilters />
 
 				{studyGroups === undefined && <Spinner label='Loading study groups…' />}
 				{studyGroups === null && (
@@ -61,13 +57,13 @@ export default function StudyGroupsPage() {
 					/>
 				)}
 				{studyGroups && studyGroups.length > 0 && (
-					<div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+					<div className='flex flex-wrap gap-6'>
 						{studyGroups.map((group) => (
 							<StudyGroupCard
 								key={group.id}
 								title={group.title}
 								description={group.description}
-								// TODO: show the leader's name once the API sends it (it only sends a user id).
+								// TODO: the API sends a user id, not a name.
 								leader={`User ${group.leader}`}
 								meetsAt={group.meeting_datetime}
 								joined={group.members.length}

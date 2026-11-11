@@ -42,7 +42,7 @@ Import base pieces from `@/components/ui`. Each has a page on `/design` with eve
 | ---------------- | --------------------------------------------------------------------------- |
 | `Button`         | Every button: primary, success (Ask Question), secondary, ghost, link.      |
 | `BackLink`       | "← Back" above a page title.                                                |
-| `FilterGroup`    | A row of filters where one is on (All Questions / Popular).                 |
+| `FilterGroup`    | A row of filters where one is on (Recent / Popular).                        |
 | `IconButton`     | A button that is only an icon (needs a `label` for screen readers).         |
 | `UpvoteButton`   | "▲ Upvote (12)" under a post; pair with the `useUpvote` hook.               |
 | `Tag`            | Course (red), topic (gray) and category (green) labels.                     |
@@ -79,8 +79,8 @@ Every component in `components/` follows the same shape, so you can open any fil
 ```
 components/
   ui/              base pieces: no data, no API calls (Button, Tag, Avatar…)
-  question/        question feature (QuestionFeed, QuestionCard, QuestionPanel, AskQuestionForm)
-  answer/  comment/  study-group/  notification/  user/
+  question/        question feature (QuestionCard, QuestionPanel, AskQuestionForm)
+  answer/  comment/  study-group/  notification/  user/  search/
 hooks/             shared hooks (useUpvote, useAction, useDebounce, useSearchQuestions)
 lib/format.ts      formatting helpers (formatTimePassed, formatDateTime)
 ```

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Search } from 'lucide-react';
 
-import { FilterGroup, Input, Select, Stack } from '@/components/ui';
+import { FilterGroup, Input, Stack } from '@/components/ui';
 
 const CATEGORIES = [
 	{ value: 'all', label: 'All Groups' },
@@ -15,36 +15,30 @@ const CATEGORIES = [
 	{ value: 'social-sciences', label: 'Social Sciences' },
 ];
 
-const SORT_OPTIONS = [
-	{ value: 'date', label: 'Date' },
-	{ value: 'spots', label: 'Open spots' },
-];
-
 export type StudyGroupFiltersProps = {
 	onSearchChange?: (query: string) => void;
-	onSortChange?: (sort: string) => void;
+	onDateChange?: (date: string) => void;
 	onCategoryChange?: (category: string) => void;
 };
 
 /**
- * Search, sort and category filters above the study group grid.
- * Not wired to the API yet: the parent gets the values through the callbacks.
+ * Search box, date filter and category chips above the study group list.
  *
  * @example
  * <StudyGroupFilters onSearchChange={setQuery} onCategoryChange={setCategory} />
  */
 export function StudyGroupFilters({
 	onSearchChange,
-	onSortChange,
+	onDateChange,
 	onCategoryChange,
 }: StudyGroupFiltersProps) {
 	const [query, setQuery] = useState('');
-	const [sort, setSort] = useState(SORT_OPTIONS[0].value);
+	const [date, setDate] = useState('');
 	const [category, setCategory] = useState(CATEGORIES[0].value);
 
 	return (
 		<Stack gap='4'>
-			<Stack direction='row' gap='3' wrap>
+			<Stack direction='row' gap='4' wrap>
 				<div className='min-w-0 flex-1'>
 					<Input
 						label='Search study groups'
@@ -60,14 +54,14 @@ export function StudyGroupFilters({
 					/>
 				</div>
 				<div>
-					<Select
-						label='Sort by'
+					<Input
+						label='Date'
 						hideLabel
-						options={SORT_OPTIONS}
-						value={sort}
+						type='date'
+						value={date}
 						onChange={(e) => {
-							setSort(e.target.value);
-							onSortChange?.(e.target.value);
+							setDate(e.target.value);
+							onDateChange?.(e.target.value);
 						}}
 					/>
 				</div>

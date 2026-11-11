@@ -7,22 +7,29 @@ import { useCreateComment } from '@/hooks/mutations';
 
 export type CommentFormProps = {
 	answerId: string;
-	/** Called after posting or cancelling, so the parent can close the box. */
-	onDone: () => void;
 	/** Called after a comment is posted, so the page can reload its comments. */
 	onPosted?: () => void;
 };
 
 /**
- * The reply box under an answer: text, "Post anonymously", Cancel and Submit.
+ * "Add a comment" under an answer. Opens a box with the text, "Post anonymously",
+ * Submit and Cancel.
  *
  * @example
- * {isReplying && <CommentForm answerId={answer.id} onDone={() => setIsReplying(false)} />}
+ * <CommentForm answerId={String(answer.id)} />
  */
-export function CommentForm({ answerId, onDone, onPosted }: CommentFormProps) {
+export function CommentForm({ answerId, onPosted }: CommentFormProps) {
+	const [isOpen, setIsOpen] = useState(false);
 	const [text, setText] = useState('');
 	const [anonymous, setAnonymous] = useState(false);
 	const createComment = useCreateComment();
+
+	function close() {
+		setText('');
+		setAnonymous(false);
+		createComment.clearError();
+		setIsOpen(false);
+	}
 
 	async function submit() {
 		if (!text.trim()) {
@@ -33,18 +40,28 @@ export function CommentForm({ answerId, onDone, onPosted }: CommentFormProps) {
 			is_anonymous: anonymous,
 		});
 		if (created) {
-			onDone();
+			close();
 			onPosted?.();
 		}
+	}
+
+	if (!isOpen) {
+		return (
+			<div>
+				<Button variant='link' size='inline' onClick={() => setIsOpen(true)}>
+					Add a comment
+				</Button>
+			</div>
+		);
 	}
 
 	return (
 		<Stack gap='3'>
 			<Textarea
-				label='Write a reply'
+				label='Write a comment'
 				hideLabel
 				rows={3}
-				placeholder='Write your reply here…'
+				placeholder='Write a comment…'
 				value={text}
 				onChange={(e) => setText(e.target.value)}
 			/>
@@ -56,7 +73,7 @@ export function CommentForm({ answerId, onDone, onPosted }: CommentFormProps) {
 					onChange={(e) => setAnonymous(e.target.checked)}
 				/>
 				<Stack direction='row' gap='2'>
-					<Button variant='secondary' onClick={onDone}>
+					<Button variant='secondary' onClick={close}>
 						Cancel
 					</Button>
 					<Button onClick={submit} disabled={!text.trim() || createComment.pending}>

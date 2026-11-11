@@ -13,15 +13,15 @@ export type FilterGroupProps<T extends string> = {
 };
 
 /**
- * A row of filter buttons where one is on: "All Questions / Popular / Unanswered".
+ * A row of filter buttons where one is on: "Recent / Popular" or study group categories.
  * The selected one is red, the rest are ghost buttons.
  *
  * @example
  * <FilterGroup
- *   label='Filter questions'
- *   options={[{ value: 'all', label: 'All Questions' }, { value: 'popular', label: 'Popular' }]}
- *   value={filter}
- *   onChange={setFilter}
+ *   label='Sort questions'
+ *   options={[{ value: 'recent', label: 'Recent' }, { value: 'popular', label: 'Popular' }]}
+ *   value={sort}
+ *   onChange={setSort}
  * />
  */
 export function FilterGroup<T extends string>({

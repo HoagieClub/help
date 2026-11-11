@@ -138,7 +138,6 @@ export function AskQuestionForm({ backHref = '/questions' }: AskQuestionFormProp
 								onChange={update}
 								placeholder='e.g. COS 226'
 							/>
-							{/* TODO: Figma has a "Tags (Optional)" picker here. The API takes tag ids, so it needs a tags endpoint first. */}
 							<Textarea
 								label='Details'
 								name='details'

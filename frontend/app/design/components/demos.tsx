@@ -23,17 +23,16 @@ export function TabsDemo() {
 }
 
 export function FilterDemo() {
-	const [filter, setFilter] = useState<'all' | 'popular' | 'unanswered'>('all');
+	const [sort, setSort] = useState<'recent' | 'popular'>('recent');
 	return (
 		<FilterGroup
-			label='Filter questions'
+			label='Sort questions'
 			options={[
-				{ value: 'all', label: 'All Questions' },
+				{ value: 'recent', label: 'Recent' },
 				{ value: 'popular', label: 'Popular' },
-				{ value: 'unanswered', label: 'Unanswered' },
 			]}
-			value={filter}
-			onChange={setFilter}
+			value={sort}
+			onChange={setSort}
 		/>
 	);
 }

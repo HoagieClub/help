@@ -6,15 +6,16 @@ import { cn } from '@/lib/utils';
 
 export type QuestionCardProps = {
 	title: string;
-	/** Start of the body; clamped to two lines. */
-	preview: string;
+	/** Start of the body; clamped to two lines. Leave out to hide it. */
+	preview?: string;
 	/** Facts shown with the title, e.g. ['Sarah Park', '2h ago'] or ['Q&A', '2h ago']. */
 	meta: string[];
 	/** Course code, shown as a red tag, e.g. "COS 226". */
 	course?: string | null;
 	/** Topic tags, shown as gray tags. */
 	tags?: string[];
-	upvotes: number;
+	/** Leave out to hide it. */
+	upvotes?: number;
 	views?: number;
 	/** Number of answers, shown top right. Leave out to hide it. */
 	answers?: number;
@@ -78,9 +79,11 @@ export function QuestionCard({
 				</div>
 				{layout === 'feed' && metaRow}
 			</div>
-			<div className='line-clamp-2'>
-				<Text variant='small'>{preview}</Text>
-			</div>
+			{preview && (
+				<div className='line-clamp-2'>
+					<Text variant='small'>{preview}</Text>
+				</div>
+			)}
 			{(course || tags.length > 0) && (
 				<div className='flex flex-wrap gap-2'>
 					{course && <Tag variant='course'>{course}</Tag>}
@@ -89,13 +92,21 @@ export function QuestionCard({
 					))}
 				</div>
 			)}
-			<div className='flex items-center gap-4'>
-				<Stat icon={Triangle} filled>
-					{upvotes}
-					<span className='sr-only'> upvotes</span>
-				</Stat>
-				{views !== undefined && <Stat icon={Eye}>{views} views</Stat>}
-			</div>
+			{(upvotes !== undefined || views !== undefined) && (
+				<div className='flex items-center gap-4'>
+					{upvotes !== undefined && (
+						<Stat icon={Triangle} filled>
+							{upvotes}
+							<span className='sr-only'> upvotes</span>
+						</Stat>
+					)}
+					{views !== undefined && (
+						<Stat icon={Eye}>
+							{views} {views === 1 ? 'view' : 'views'}
+						</Stat>
+					)}
+				</div>
+			)}
 		</div>
 	);
 
