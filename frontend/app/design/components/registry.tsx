@@ -7,6 +7,7 @@ import { QuestionCard } from '@/components/question/QuestionCard';
 import {
 	Avatar,
 	Button,
+	Byline,
 	Card,
 	Checkbox,
 	Divider,
@@ -241,6 +242,21 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 <Avatar name='Sam Patel' size='md' />
 <Avatar name='Jordan Lee' size='lg' />
 <Avatar name='Anonymous' anonymous />`,
+	},
+
+	byline: {
+		title: 'Byline',
+		inFigma: false,
+		preview: (
+			<Stack gap='4'>
+				<Byline name='Alex Chen' meta='1 hr ago' />
+				<Byline name='Sam Patel' anonymous meta='45 mins ago' />
+				<Byline name='Jordan Lee' meta='Asked 3 hrs ago' size='lg' />
+			</Stack>
+		),
+		code: `<Byline name='Alex Chen' meta='1 hr ago' />
+<Byline name='Sam Patel' anonymous meta='45 mins ago' />
+<Byline name='Jordan Lee' meta='Asked 3 hrs ago' size='lg' />`,
 	},
 
 	textarea: {

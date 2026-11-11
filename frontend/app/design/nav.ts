@@ -31,6 +31,7 @@ export const DESIGN_NAV: NavGroup[] = [
 		title: 'Not in Figma yet',
 		items: [
 			{ href: '/design/components/avatar', label: 'Avatar' },
+			{ href: '/design/components/byline', label: 'Byline' },
 			{ href: '/design/components/textarea', label: 'Textarea' },
 			{ href: '/design/components/select', label: 'Select' },
 			{ href: '/design/components/checkbox', label: 'Checkbox' },

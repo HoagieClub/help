@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import { getAllAnswers } from '@/api/answerService';
 import { getAllComments } from '@/api/commentService';
 import { getQuestionDetails } from '@/api/questionService';
-import AnswerPanel from '@/components/answer/AnswerList';
+import { AnswerList } from '@/components/answer/AnswerList';
 import { QuestionPanel } from '@/components/question/QuestionPanel';
 import type { Answer, Comment } from '@/types';
 
@@ -147,7 +147,7 @@ function QuestionPage() {
 				hearts={question.hearts}
 			/>
 			<Pane marginTop={majorScale(6)} maxWidth='700px' marginX='auto'>
-				<AnswerPanel answers={answers} />
+				<AnswerList answers={answers} />
 			</Pane>
 		</Pane>
 	);

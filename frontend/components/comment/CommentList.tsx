@@ -1,32 +1,27 @@
-'use client';
-
-import React from 'react';
-
-import { Pane } from 'evergreen-ui';
-
-import { CommentBox } from '@/components/comment/CommentItem';
-import { CommentForm } from '@/components/comment/CommentForm';
+import { Stack } from '@/components/ui';
 import type { Comment } from '@/types';
 
-type CommentsPanelProps = {
+import { CommentForm } from './CommentForm';
+import { CommentItem } from './CommentItem';
+
+export type CommentListProps = {
 	comments: Comment[];
 	answerId: string;
 };
 
-const CommentsPanel: React.FC<CommentsPanelProps> = ({ comments, answerId }) => {
+/**
+ * All comments on one answer, followed by the "Add a comment" form.
+ *
+ * @example
+ * <CommentList comments={answer.comments} answerId={String(answer.id)} />
+ */
+export function CommentList({ comments, answerId }: CommentListProps) {
 	return (
-		<Pane className='comments-panel flex flex-col gap-6'>
-			{/* List of existing comments */}
-			{comments.map((comment, idx) => (
-				<Pane key={comment.id}>
-					<CommentBox comment={comment} showThreadLine={idx < comments.length - 1} />
-				</Pane>
+		<Stack gap='4'>
+			{comments.map((comment) => (
+				<CommentItem key={comment.id} comment={comment} />
 			))}
-
-			{/* Comment form */}
 			<CommentForm answerId={answerId} />
-		</Pane>
+		</Stack>
 	);
-};
-
-export default CommentsPanel;
+}

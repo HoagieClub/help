@@ -1,34 +1,31 @@
-'use client';
-
-import { Heading, majorScale, Pane } from 'evergreen-ui';
-
-import AnswerBox from '@/components/answer/AnswerItem';
+import { EmptyState, Heading, Stack } from '@/components/ui';
 import type { Answer } from '@/types';
 
-type AnswerPanelProps = {
+import { AnswerItem } from './AnswerItem';
+
+export type AnswerListProps = {
 	answers: Answer[];
 };
 
-export default function AnswerPanel(props: AnswerPanelProps) {
+/**
+ * Every answer to a question, with a count heading, or an empty state when there are none.
+ *
+ * @example
+ * <AnswerList answers={answers} />
+ */
+export function AnswerList({ answers }: AnswerListProps) {
+	if (answers.length === 0) {
+		return <EmptyState title='No answers yet' description='Be the first to answer.' />;
+	}
+
 	return (
-		<Pane>
-			{/* Main header */}
-			<Pane
-				display='flex'
-				justifyContent='space-between'
-				alignItems='center'
-				marginBottom={majorScale(1)}
-			>
-				<Heading size={700} marginBottom={12} fontWeight={800}>
-					{props.answers.length} Answers
-				</Heading>
-			</Pane>
-			{/* Answers list */}
-			<Pane marginBottom={majorScale(2)}>
-				{props.answers.map((answer, index) => (
-					<AnswerBox key={index} answer={answer} />
-				))}
-			</Pane>
-		</Pane>
+		<Stack gap='0'>
+			<Heading variant='h2' tone='ink'>
+				{answers.length} {answers.length === 1 ? 'Answer' : 'Answers'}
+			</Heading>
+			{answers.map((answer) => (
+				<AnswerItem key={answer.id} answer={answer} />
+			))}
+		</Stack>
 	);
 }

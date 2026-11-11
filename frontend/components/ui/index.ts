@@ -7,6 +7,7 @@
  */
 export { Avatar, type AvatarProps } from './Avatar';
 export { Button, type ButtonProps } from './Button';
+export { Byline, type BylineProps } from './Byline';
 export { Card, type CardProps } from './Card';
 export { Checkbox, type CheckboxProps } from './Checkbox';
 export { Divider } from './Divider';

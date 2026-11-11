@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 import {
-	Avatar,
 	Button,
+	Byline,
 	Checkbox,
 	Heading,
 	HeartButton,
@@ -63,7 +63,6 @@ export function QuestionPanel({
 	hearts,
 	onAnswerPosted,
 }: QuestionPanelProps) {
-	const displayName = anonymous ? 'Anonymous' : author;
 	const heart = useHeart({ kind: 'question', id: questionId, initialCount: hearts });
 	const createAnswer = useCreateAnswer();
 	const [isAnswering, setIsAnswering] = useState(false);
@@ -93,15 +92,12 @@ export function QuestionPanel({
 				{title}
 			</Heading>
 
-			<Stack direction='row' gap='3' align='center'>
-				<Avatar name={displayName} anonymous={anonymous} size='lg' />
-				<Stack gap='0'>
-					<Text variant='label'>{displayName}</Text>
-					<Text variant='small' tone='muted'>
-						Asked {formatTimePassed(createdAt)}
-					</Text>
-				</Stack>
-			</Stack>
+			<Byline
+				name={author}
+				anonymous={anonymous}
+				meta={`Asked ${formatTimePassed(createdAt)}`}
+				size='lg'
+			/>
 
 			{(course || tags.length > 0) && (
 				<Stack direction='row' gap='2' align='center' wrap>

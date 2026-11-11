@@ -1,113 +1,85 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import { Button, Checkbox, Pane, Textarea, useTheme } from 'evergreen-ui';
+import { Button, Card, Checkbox, Message, Stack, Textarea } from '@/components/ui';
+import { useCreateComment } from '@/hooks/mutations';
 
-import { createNewComment } from '@/api/commentService';
-
-interface CommentFormProps {
+export type CommentFormProps = {
 	answerId: string;
-}
+	/** Called after a comment is posted, so the page can reload its comments. */
+	onPosted?: () => void;
+};
 
 /**
- * Renders an "Add Comment" button that expands into a form
- * with a textarea, anonymous toggle, and submit/cancel actions.
+ * "Add a comment" button that opens a small form under an answer.
+ *
+ * @example
+ * <CommentForm answerId={String(answer.id)} />
  */
-export function CommentForm({ answerId }: CommentFormProps) {
-	const theme = useTheme();
+export function CommentForm({ answerId, onPosted }: CommentFormProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [text, setText] = useState('');
-	const [isAnonymous, setIsAnonymous] = useState(false);
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [anonymous, setAnonymous] = useState(false);
+	const createComment = useCreateComment();
 
-	const handleSubmit = async () => {
-		if (!text.trim() || isSubmitting) return;
-
-		setIsSubmitting(true);
-		const result = await createNewComment(answerId, {
-			text: text.trim(),
-			is_anonymous: isAnonymous,
-		});
-		setIsSubmitting(false);
-
-		if (result) {
-			setText('');
-			setIsAnonymous(false);
-			setIsOpen(false);
-			// TODO: refresh comment list in AnswerBox after successful submission
-		}
-		// TODO: handle error for failed submissions
-	};
-
-	const handleCancel = () => {
+	function close() {
 		setText('');
-		setIsAnonymous(false);
+		setAnonymous(false);
+		createComment.clearError();
 		setIsOpen(false);
-	};
+	}
 
-	// If the form is not open, show the "Add Comment" button
+	async function submit() {
+		if (!text.trim()) {
+			return;
+		}
+		const created = await createComment.run(answerId, {
+			text: text.trim(),
+			is_anonymous: anonymous,
+		});
+		if (created) {
+			close();
+			onPosted?.();
+		}
+	}
+
 	if (!isOpen) {
 		return (
-			<Button
-				appearance='primary'
-				backgroundColor={theme.colors.red500}
-				color='white'
-				onClick={() => setIsOpen(true)}
-			>
-				Add Comment
-			</Button>
+			<div>
+				<Button variant='minimal' onClick={() => setIsOpen(true)}>
+					Add a comment
+				</Button>
+			</div>
 		);
 	}
 
-	// If the form is open, show the comment form
 	return (
-		<Pane
-			display='flex'
-			flexDirection='column'
-			gap={12}
-			padding={16}
-			border
-			borderRadius={8}
-			borderColor={theme.colors.gray400}
-			backgroundColor={theme.colors.gray50}
-		>
-			{/* Comment text input */}
-			<Textarea
-				placeholder='Write a comment...'
-				value={text}
-				onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
-				rows={3}
-			/>
-
-			{/* Anonymous posting toggle */}
-			<Checkbox
-				label='Post anonymously'
-				checked={isAnonymous}
-				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					setIsAnonymous(e.target.checked)
-				}
-				margin={0}
-			/>
-
-			{/* Form action buttons */}
-			<Pane display='flex' alignItems='center' gap={8}>
-				<Button
-					appearance='primary'
-					backgroundColor={theme.colors.red500}
-					color='white'
-					onClick={handleSubmit}
-					isLoading={isSubmitting}
-					disabled={!text.trim()}
-				>
-					Submit
-				</Button>
-				<Button appearance='minimal' color={theme.colors.gray700} onClick={handleCancel}>
-					Cancel
-				</Button>
-			</Pane>
-		</Pane>
+		<Card padding='sm'>
+			<Stack gap='3'>
+				<Textarea
+					label='Write a comment'
+					hideLabel
+					rows={3}
+					placeholder='Write a comment…'
+					value={text}
+					onChange={(e) => setText(e.target.value)}
+				/>
+				<Checkbox
+					label='Post anonymously'
+					checked={anonymous}
+					onChange={(e) => setAnonymous(e.target.checked)}
+				/>
+				{createComment.error && <Message variant='error'>{createComment.error}</Message>}
+				<Stack direction='row' gap='2'>
+					<Button onClick={submit} disabled={!text.trim() || createComment.pending}>
+						{createComment.pending ? 'Posting…' : 'Post comment'}
+					</Button>
+					<Button variant='secondary' onClick={close}>
+						Cancel
+					</Button>
+				</Stack>
+			</Stack>
+		</Card>
 	);
 }
-
-export default CommentForm;
