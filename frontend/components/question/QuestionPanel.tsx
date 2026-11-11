@@ -1,161 +1,161 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import { CaretUpIcon } from '@phosphor-icons/react';
-import { Avatar, Checkbox, Heading, Pane, Text } from 'evergreen-ui';
 import { toast } from 'sonner';
 
-import { createNewAnswer } from '@/api/answerService';
-import { heartQuestion } from '@/api/heartService';
+import {
+	Avatar,
+	Button,
+	Checkbox,
+	Heading,
+	HeartButton,
+	Message,
+	Stack,
+	Tag,
+	Text,
+	Textarea,
+} from '@/components/ui';
+import { useCreateAnswer } from '@/hooks/mutations';
+import { useHeart } from '@/hooks/useHeart';
 import { formatTimePassed } from '@/lib/format';
 
-interface QuestionPanelProps {
+export type QuestionPanelProps = {
 	questionId: string;
-	user: string;
+	/** Display name of the asker. Ignored when `anonymous` is true. */
+	author: string;
+	anonymous: boolean;
 	title: string;
-	tags: string[];
 	course: string | null;
+	tags: string[];
 	details: string;
-	create_time: string;
-	user_is_anonymous: boolean;
-	initialHearts: number;
-}
+	createdAt: string;
+	hearts: number;
+	/** Called after an answer is posted, so the page can reload its answers. */
+	onAnswerPosted?: () => void;
+};
 
-const QuestionPanel = ({
+/**
+ * The top of a question page: title, asker, tags, body, heart and the answer box.
+ *
+ * @example
+ * <QuestionPanel
+ *   questionId='1'
+ *   author='Jordan Lee'
+ *   anonymous={false}
+ *   title='How do I implement a BST?'
+ *   course='COS 226'
+ *   tags={['python']}
+ *   details='…'
+ *   createdAt={question.create_time}
+ *   hearts={42}
+ * />
+ */
+export function QuestionPanel({
 	questionId,
-	user,
+	author,
+	anonymous,
 	title,
-	tags,
 	course,
+	tags,
 	details,
-	create_time,
-	user_is_anonymous,
-	initialHearts,
-}: QuestionPanelProps) => {
-	const displayName = user_is_anonymous ? 'Anonymous' : user;
-	const timeAgo = formatTimePassed(create_time);
-	const [hearts, setHearts] = useState(initialHearts);
-	const [showAnswerBox, setShowAnswerBox] = useState(false);
+	createdAt,
+	hearts,
+	onAnswerPosted,
+}: QuestionPanelProps) {
+	const displayName = anonymous ? 'Anonymous' : author;
+	const heart = useHeart({ kind: 'question', id: questionId, initialCount: hearts });
+	const createAnswer = useCreateAnswer();
+	const [isAnswering, setIsAnswering] = useState(false);
 	const [answer, setAnswer] = useState('');
 	const [answerAnonymous, setAnswerAnonymous] = useState(false);
 
-	async function handleHeart() {
-		const response = await heartQuestion(questionId);
-		if (response) {
-			setHearts(response.hearts);
+	async function submitAnswer() {
+		if (!answer.trim()) {
+			return;
+		}
+		const created = await createAnswer.run(questionId, {
+			text: answer.trim(),
+			is_anonymous: answerAnonymous,
+		});
+		if (created) {
+			toast.success('Answer posted.');
+			setAnswer('');
+			setAnswerAnonymous(false);
+			setIsAnswering(false);
+			onAnswerPosted?.();
 		}
 	}
 
-	const handleReply = () => {
-		setShowAnswerBox(true);
-	};
-
-	const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setAnswer(event.target.value);
-	};
-
-	// TODO: Add error handling (try/catch) and show an error toast if the API call fails
-	// TODO: Refresh the answers list after successful submission
-	const handleSubmitAnswer = async () => {
-		if (answer.trim()) {
-			await createNewAnswer(questionId.toString(), {
-				text: answer,
-				is_anonymous: answerAnonymous,
-			});
-			toast.success('Answer Submitted!', {
-				description: 'Your answer has been posted successfully.',
-			});
-			setAnswer('');
-			setShowAnswerBox(false);
-		}
-	};
-
 	return (
-		<Pane className='max-w-[700px] mx-auto justify-center'>
-			{/* Title */}
-			<Heading className='text-3xl font-bold text-gray-900 mb-6'>{title}</Heading>
+		<Stack gap='6'>
+			<Heading variant='h1' tone='ink'>
+				{title}
+			</Heading>
 
-			{/* Author row */}
-			<Pane className='flex items-center gap-3 mb-6'>
-				<Avatar name={displayName} size={78} color='black' backgroundColor='#e6e8f0' />
-				<Pane>
-					<Text className='text-xl font-bold text-gray-900 block'>{displayName}</Text>
-					<Text className='text-sm text-gray-500'>Q&A • {timeAgo}</Text>
-				</Pane>
-			</Pane>
-
-			{/* Tags + upvotes row */}
-			<Pane className='flex items-center gap-2 mb-6 flex-wrap'>
-				{course && (
-					<Text className='px-3 py-1 rounded-[10px] bg-[#EF4343] text-white text-xs font-medium'>
-						{course}
+			<Stack direction='row' gap='3' align='center'>
+				<Avatar name={displayName} anonymous={anonymous} size='lg' />
+				<Stack gap='0'>
+					<Text variant='label'>{displayName}</Text>
+					<Text variant='small' tone='muted'>
+						Asked {formatTimePassed(createdAt)}
 					</Text>
+				</Stack>
+			</Stack>
+
+			{(course || tags.length > 0) && (
+				<Stack direction='row' gap='2' align='center' wrap>
+					{course && <Tag variant='label'>{course}</Tag>}
+					{tags.map((tag) => (
+						<Tag key={tag}>{tag}</Tag>
+					))}
+				</Stack>
+			)}
+
+			<div className='break-words whitespace-pre-wrap'>
+				<Text variant='body-lg'>{details}</Text>
+			</div>
+
+			<Stack direction='row' gap='4' align='center'>
+				<HeartButton {...heart} thing='question' />
+				{!isAnswering && (
+					<Button variant='minimal' onClick={() => setIsAnswering(true)}>
+						Answer
+					</Button>
 				)}
-				{tags.map((tag) => (
-					<Text
-						key={tag}
-						className='px-3 py-1 rounded-[10px] bg-[#D9D9D9] text-gray-600 text-xs'
-					>
-						{tag}
-					</Text>
-				))}
-				<Pane className='flex items-center gap-1 ml-2'>
-					<CaretUpIcon size={14} weight='fill' color='#6b7280' />
-					<Text className='text-sm text-gray-500'>{hearts} Upvotes</Text>
-				</Pane>
-			</Pane>
+			</Stack>
 
-			{/* Question body */}
-			<Text className='text-gray-900 leading-relaxed mb-4 whitespace-pre-wrap break-words block'>
-				{details}
-			</Text>
-
-			{/* Action buttons */}
-			<Pane className='flex items-center gap-6'>
-				<Pane
-					className='flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 cursor-pointer'
-					onClick={handleHeart}
-				>
-					<CaretUpIcon size={14} weight='fill' />
-					<Text className='text-sm text-gray-600'>Upvote ({hearts})</Text>
-				</Pane>
-				{!showAnswerBox && (
-					<Text
-						className='text-sm text-gray-600 hover:text-gray-900 cursor-pointer'
-						onClick={handleReply}
-					>
-						Reply
-					</Text>
-				)}
-			</Pane>
-
-			{showAnswerBox && (
-				<Pane className='mt-6 flex flex-col items-end gap-3'>
-					<textarea
-						value={answer}
-						onChange={handleInputChange}
-						placeholder='Write your answer here...'
+			{isAnswering && (
+				<Stack gap='3'>
+					<Textarea
+						label='Your answer'
+						hideLabel
 						rows={4}
-						className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EF4343] focus:border-transparent text-gray-900 resize-none'
+						placeholder='Write your answer here…'
+						value={answer}
+						onChange={(e) => setAnswer(e.target.value)}
 					/>
-					<Pane className='flex items-center justify-between w-full'>
+					{createAnswer.error && <Message variant='error'>{createAnswer.error}</Message>}
+					<Stack direction='row' justify='between' align='center' wrap>
 						<Checkbox
 							label='Post anonymously'
 							checked={answerAnonymous}
 							onChange={(e) => setAnswerAnonymous(e.target.checked)}
 						/>
-						<button
-							onClick={handleSubmitAnswer}
-							className='px-6 py-2 bg-[#EF4343] text-white rounded-lg hover:bg-[#d63838] transition-colors duration-200 text-sm font-medium'
-						>
-							Submit
-						</button>
-					</Pane>
-				</Pane>
+						<Stack direction='row' gap='2'>
+							<Button variant='secondary' onClick={() => setIsAnswering(false)}>
+								Cancel
+							</Button>
+							<Button
+								onClick={submitAnswer}
+								disabled={!answer.trim() || createAnswer.pending}
+							>
+								{createAnswer.pending ? 'Posting…' : 'Post answer'}
+							</Button>
+						</Stack>
+					</Stack>
+				</Stack>
 			)}
-		</Pane>
+		</Stack>
 	);
-};
-
-export default QuestionPanel;
+}

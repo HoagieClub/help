@@ -28,3 +28,31 @@ export function formatTimePassed(input: Date | string | number): string {
 
 	return `${years} yr${years === 1 ? '' : 's'} ago`;
 }
+
+/**
+ * Date and time for events, e.g. "Nov 11, 2026 · 9:58 AM".
+ */
+export function formatDateTime(input: Date | string | number): string {
+	const date = new Date(input);
+	if (isNaN(date.getTime())) {
+		return '';
+	}
+	const day = date.toLocaleDateString('en-US', {
+		month: 'short',
+		day: 'numeric',
+		year: 'numeric',
+	});
+	const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+	return `${day} · ${time}`;
+}
+
+/**
+ * Date only, e.g. "Nov 11, 2026".
+ */
+export function formatDate(input: Date | string | number): string {
+	const date = new Date(input);
+	if (isNaN(date.getTime())) {
+		return '';
+	}
+	return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}

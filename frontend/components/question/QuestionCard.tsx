@@ -1,20 +1,20 @@
 import Link from 'next/link';
 
+import { Tag } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
-import { Tag } from '@/components/ui';
-
 export type QuestionCardProps = {
-	/** Course code, shown as a tag, e.g. "COS 226". */
-	course: string;
-	/** Who asked and when, e.g. "Asked by Ava · 2h ago". */
+	/** Course code, shown as a tag, e.g. "COS 226". Leave out if there isn't one. */
+	course?: string;
+	/** Who posted and when, e.g. "Asked by Ava · 2h ago". */
 	meta: string;
 	title: string;
-	/** Start of the question body; clamped to two lines. */
+	/** Start of the body; clamped to two lines. */
 	preview: string;
 	hearts: number;
-	answers: number;
-	/** Whether the viewer has hearted this question. */
+	/** Number of answers. Leave out to hide it (e.g. when the API doesn't send it yet). */
+	answers?: number;
+	/** Whether the viewer has hearted this. */
 	liked: boolean;
 	/** When set, the whole card links here. */
 	href?: string;
@@ -26,7 +26,8 @@ const cardClasses = [
 ];
 
 /**
- * The feed card for one question. Put it on a bg-surface-gray page.
+ * The card for one question in a list: the Q&A feed, search results and profile posts.
+ * Put it on a bg-surface-gray background.
  *
  * @example
  * <QuestionCard
@@ -52,8 +53,8 @@ export function QuestionCard({
 }: QuestionCardProps) {
 	const content = (
 		<>
-			<div className='flex items-center gap-2'>
-				<Tag variant='selected'>{course}</Tag>
+			<div className='flex flex-wrap items-center gap-2'>
+				{course && <Tag variant='selected'>{course}</Tag>}
 				<span className='font-body text-small text-muted'>{meta}</span>
 			</div>
 			<h3 className='m-0 font-heading text-h3 text-ink'>{title}</h3>
@@ -65,9 +66,11 @@ export function QuestionCard({
 						{liked ? ' hearts, including yours' : ' hearts'}
 					</span>
 				</span>
-				<span className='text-muted'>
-					{answers} {answers === 1 ? 'answer' : 'answers'}
-				</span>
+				{answers !== undefined && (
+					<span className='text-muted'>
+						{answers} {answers === 1 ? 'answer' : 'answers'}
+					</span>
+				)}
 			</div>
 		</>
 	);

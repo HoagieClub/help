@@ -9,7 +9,8 @@ import { Pane, Text, majorScale, Spinner } from 'evergreen-ui';
 import Link from 'next/link';
 
 import { getAllQuestions } from '@/api/questionService';
-import { Post } from '@/components/ui/Post';
+import { QuestionCard } from '@/components/question/QuestionCard';
+import { formatTimePassed } from '@/lib/format';
 
 type Question = NonNullable<Awaited<ReturnType<typeof getAllQuestions>>>[number];
 
@@ -157,15 +158,15 @@ export function QAPage() {
 				{!isLoading &&
 					questions.length > 0 &&
 					questions.map((q) => (
-						<Post
+						<QuestionCard
 							key={q.id}
+							course={q.course || undefined}
+							meta={`Asked by ${q.user_is_anonymous ? 'Anonymous' : `User ${q.user}`} · ${formatTimePassed(q.create_time)}`}
 							title={q.title}
-							author={q.user_is_anonymous ? 'Anonymous' : `User ${q.user}`}
-							date={new Date(q.create_time).toLocaleDateString()}
-							tags={q.tags.map(String)}
-							replies={0}
-							views={q.view}
-							courseTag={q.course || undefined}
+							preview={q.details}
+							hearts={q.hearts}
+							liked={false}
+							href={`/questions/${q.id}`}
 						/>
 					))}
 			</Pane>

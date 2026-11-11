@@ -1,39 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
 
-import {
-	ArrowLeftIcon,
-	Button,
-	Checkbox,
-	Heading,
-	Label,
-	Pane,
-	SelectMenu,
-	Text,
-	TextInput,
-	Textarea,
-	majorScale,
-} from 'evergreen-ui';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { createNewQuestion } from '@/api/questionService';
-
-interface FormState {
-	questionTitle: string;
-	category: string;
-	course: string;
-	questionDetails: string;
-	postAnonymously: boolean;
-}
-
-const initialFormState: FormState = {
-	questionTitle: '',
-	category: '',
-	course: '',
-	questionDetails: '',
-	postAnonymously: false,
-};
+import {
+	Button,
+	Card,
+	Checkbox,
+	Input,
+	Message,
+	PageHeader,
+	Select,
+	Stack,
+	Textarea,
+} from '@/components/ui';
+import { useCreateQuestion } from '@/hooks/mutations';
 
 const CATEGORY_OPTIONS = [
 	{ label: 'Assignments and PSETs', value: 'Assignments and PSETs' },
@@ -42,232 +25,162 @@ const CATEGORY_OPTIONS = [
 	{ label: 'Other', value: 'Other' },
 ];
 
-export default function AskQuestion(): React.ReactElement {
-	const [form, setForm] = useState<FormState>(initialFormState);
+type FormState = {
+	title: string;
+	category: string;
+	course: string;
+	details: string;
+	anonymous: boolean;
+};
+
+const EMPTY_FORM: FormState = {
+	title: '',
+	category: '',
+	course: '',
+	details: '',
+	anonymous: false,
+};
+
+export type AskQuestionFormProps = {
+	/** Where Back and Cancel go. */
+	backHref?: string;
+};
+
+/**
+ * The full "Ask a Question" page: title, category, course, details and anonymous toggle.
+ *
+ * @example
+ * <AskQuestionForm />
+ */
+export function AskQuestionForm({ backHref = '/questions' }: AskQuestionFormProps) {
+	const [form, setForm] = useState<FormState>(EMPTY_FORM);
+	const [categoryMissing, setCategoryMissing] = useState(false);
 	const [submitted, setSubmitted] = useState(false);
-	const [categoryError, setCategoryError] = useState(false);
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [submitError, setSubmitError] = useState<string | null>(null);
+	const createQuestion = useCreateQuestion();
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const { name, value } = e.target;
-		setForm((prevForm) => ({
-			...prevForm,
-			[name]: value,
-		}));
-	};
+	function update(
+		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+	) {
+		const { name, value } = event.target;
+		setForm((previous) => ({ ...previous, [name]: value }));
+		if (name === 'category') {
+			setCategoryMissing(false);
+		}
+	}
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	async function submit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
 		if (!form.category) {
-			setCategoryError(true);
+			setCategoryMissing(true);
 			return;
 		}
-
-		setSubmitError(null);
-		setIsSubmitting(true);
-
-		const created = await createNewQuestion({
-			title: form.questionTitle,
+		const created = await createQuestion.run({
+			title: form.title,
 			tags: [],
-			course: form.course.trim() ? form.course.trim() : null,
-			details: form.questionDetails,
+			course: form.course.trim() || null,
+			details: form.details,
 			hearts: 0,
 			view: 0,
-			user_is_anonymous: form.postAnonymously,
+			user_is_anonymous: form.anonymous,
 		});
-
-		setIsSubmitting(false);
-
-		if (created === null) {
-			setSubmitError('Something went wrong submitting your question. Please try again.');
-			return;
+		if (created) {
+			setSubmitted(true);
 		}
-
-		setSubmitted(true);
-	};
+	}
 
 	return (
-		<Pane
-			display='flex'
-			flexDirection='column'
-			alignItems='center'
-			paddingTop={majorScale(4)}
-			paddingBottom={majorScale(6)}
-			paddingX={majorScale(2)}
-		>
-			{/* Back button */}
-			<Pane width='100%' maxWidth='720px' marginBottom={majorScale(2)}>
-				<Link href='/questions' style={{ textDecoration: 'none' }}>
-					<Button
-						appearance='minimal'
-						iconBefore={ArrowLeftIcon}
-						paddingLeft={0}
-						fontWeight={500}
-					>
-						Back
-					</Button>
-				</Link>
-			</Pane>
-
-			{/* Header */}
-			<Pane width='100%' maxWidth='720px' marginBottom={majorScale(3)}>
-				<Heading size={800} fontWeight={700} marginBottom={4}>
-					Ask a Question
-				</Heading>
-				<Text size={400} color='muted'>
-					Get help from the Hoagie academics community
-				</Text>
-			</Pane>
-
-			{/* Form card */}
-			<Pane
-				width='100%'
-				maxWidth='720px'
-				background='white'
-				border='default'
-				borderRadius={8}
-				padding={majorScale(4)}
-			>
-				{submitted ? (
-					<Pane textAlign='center' paddingY={majorScale(4)}>
-						<Heading size={600} marginBottom={majorScale(2)}>
-							Thank you for submitting your question!
-						</Heading>
-						<Link href='/questions' style={{ textDecoration: 'none' }}>
-							<Button appearance='primary'>Back to Q&A</Button>
+		<div className='mx-auto max-w-2xl px-4 py-8'>
+			<Stack gap='6'>
+				<div>
+					<Button variant='minimal' asChild>
+						<Link href={backHref}>
+							<ArrowLeft aria-hidden='true' className='h-4 w-4' />
+							Back
 						</Link>
-					</Pane>
-				) : (
-					<form onSubmit={handleSubmit}>
-						<Pane display='flex' flexDirection='column' gap={majorScale(3)}>
-							{/* Question Title */}
-							<Pane>
-								<Label htmlFor='questionTitle' display='block' marginBottom={4}>
-									Question Title
-								</Label>
-								<TextInput
-									id='questionTitle'
-									name='questionTitle'
-									value={form.questionTitle}
-									onChange={handleChange}
-									required
-									placeholder='e.g. How do I approach the graph algorithms in COS 226?'
-									width='100%'
-								/>
-							</Pane>
+					</Button>
+				</div>
 
-							{/* Category */}
-							<Pane>
-								<Label htmlFor='category' display='block' marginBottom={4}>
-									Category
-								</Label>
-								<SelectMenu
-									options={CATEGORY_OPTIONS}
-									selected={form.category}
-									onSelect={(item) => {
-										setCategoryError(false);
-										setForm((prev) => ({
-											...prev,
-											category: item.value as string,
-										}));
-									}}
-									hasTitle={false}
-									hasFilter={false}
-								>
-									<Button id='category' type='button' width='100%'>
-										{form.category || 'Select a category'}
-									</Button>
-								</SelectMenu>
-								{categoryError && (
-									<Text size={300} color='danger' marginTop={4} display='block'>
-										Please select a category before submitting.
-									</Text>
-								)}
-							</Pane>
+				<PageHeader
+					title='Ask a Question'
+					description='Get help from the Hoagie academics community'
+				/>
 
-							{/* Course */}
-							<Pane>
-								<Label htmlFor='course' display='block' marginBottom={4}>
-									Course (Optional)
-								</Label>
-								<TextInput
-									id='course'
-									name='course'
-									value={form.course}
-									onChange={handleChange}
-									placeholder='e.g. COS 226'
-									width='100%'
-								/>
-							</Pane>
-
-							{/* Details */}
-							<Pane>
-								<Label htmlFor='questionDetails' display='block' marginBottom={4}>
-									Details
-								</Label>
-								<Textarea
-									id='questionDetails'
-									name='questionDetails'
-									value={form.questionDetails}
-									onChange={handleChange}
-									required
-									rows={6}
-									width='100%'
-									placeholder='Provide more details about your question...'
-									style={{
-										borderRadius: 6,
-										fontSize: '14px',
-										resize: 'vertical',
-									}}
-								/>
-								<Text size={300} color='muted' marginTop={4} display='block'>
-									Tip: Add specific details and context to get better answers
-								</Text>
-							</Pane>
-
-							{/* Post anonymously */}
-							<Pane>
-								<Checkbox
-									label='Post anonymously'
-									checked={form.postAnonymously}
-									onChange={(e) =>
-										setForm((prev) => ({
-											...prev,
-											postAnonymously: e.target.checked,
-										}))
-									}
-								/>
-							</Pane>
-
-							{/* Submit error */}
-							{submitError && (
-								<Text size={300} color='danger' display='block'>
-									{submitError}
-								</Text>
+				<Card padding='lg'>
+					{submitted ? (
+						<Stack gap='4' align='start'>
+							<Message variant='success'>
+								Thank you for submitting your question!
+							</Message>
+							<Button asChild>
+								<Link href={backHref}>Back to Q&amp;A</Link>
+							</Button>
+						</Stack>
+					) : (
+						<form className='flex flex-col gap-6' onSubmit={submit}>
+							<Input
+								label='Question title'
+								name='title'
+								value={form.title}
+								onChange={update}
+								required
+								placeholder='e.g. How do I approach the graph algorithms in COS 226?'
+							/>
+							<Select
+								label='Category'
+								name='category'
+								placeholder='Select a category'
+								options={CATEGORY_OPTIONS}
+								value={form.category}
+								onChange={update}
+								error={
+									categoryMissing
+										? 'Please select a category before submitting.'
+										: undefined
+								}
+							/>
+							<Input
+								label='Course'
+								name='course'
+								hint='Optional'
+								value={form.course}
+								onChange={update}
+								placeholder='e.g. COS 226'
+							/>
+							<Textarea
+								label='Details'
+								name='details'
+								rows={6}
+								value={form.details}
+								onChange={update}
+								required
+								hint='Tip: add specific details and context to get better answers'
+								placeholder='Provide more details about your question…'
+							/>
+							<Checkbox
+								label='Post anonymously'
+								checked={form.anonymous}
+								onChange={(e) =>
+									setForm((previous) => ({
+										...previous,
+										anonymous: e.target.checked,
+									}))
+								}
+							/>
+							{createQuestion.error && (
+								<Message variant='error'>{createQuestion.error}</Message>
 							)}
-
-							{/* Buttons */}
-							<Pane display='flex' gap={majorScale(1)} marginTop={majorScale(1)}>
-								<Button
-									type='submit'
-									appearance='primary'
-									flex={1}
-									disabled={isSubmitting}
-									isLoading={isSubmitting}
-								>
-									Post Question
+							<Stack direction='row' gap='2'>
+								<Button type='submit' disabled={createQuestion.pending}>
+									{createQuestion.pending ? 'Posting…' : 'Post Question'}
 								</Button>
-								<Link href='/questions' style={{ textDecoration: 'none' }}>
-									<Button type='button' disabled={isSubmitting}>
-										Cancel
-									</Button>
-								</Link>
-							</Pane>
-						</Pane>
-					</form>
-				)}
-			</Pane>
-		</Pane>
+								<Button variant='secondary' asChild>
+									<Link href={backHref}>Cancel</Link>
+								</Button>
+							</Stack>
+						</form>
+					)}
+				</Card>
+			</Stack>
+		</div>
 	);
 }

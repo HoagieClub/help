@@ -9,7 +9,7 @@ import { getAllAnswers } from '@/api/answerService';
 import { getAllComments } from '@/api/commentService';
 import { getQuestionDetails } from '@/api/questionService';
 import AnswerPanel from '@/components/answer/AnswerList';
-import QuestionPanel from '@/components/question/QuestionPanel';
+import { QuestionPanel } from '@/components/question/QuestionPanel';
 import type { Answer, Comment } from '@/types';
 
 type ApiAnswer = NonNullable<Awaited<ReturnType<typeof getAllAnswers>>>[number];
@@ -137,14 +137,14 @@ function QuestionPage() {
 		>
 			<QuestionPanel
 				questionId={questionId}
-				user={`User ${question.user}`}
+				author={`User ${question.user}`}
+				anonymous={question.user_is_anonymous}
 				title={question.title}
-				tags={question.tags.map(String)}
 				course={question.course}
+				tags={question.tags.map(String)}
 				details={question.details}
-				create_time={question.create_time}
-				user_is_anonymous={question.user_is_anonymous}
-				initialHearts={question.hearts}
+				createdAt={question.create_time}
+				hearts={question.hearts}
 			/>
 			<Pane marginTop={majorScale(6)} maxWidth='700px' marginX='auto'>
 				<AnswerPanel answers={answers} />
