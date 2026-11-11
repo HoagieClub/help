@@ -99,6 +99,17 @@ In `components/` and `hooks/`, `npm run lint` **fails** if a file breaks rules 4
 
 **A worked example to copy:** [`components/comment/CommentItem.tsx`](components/comment/CommentItem.tsx). It's short and shows every rule: a `<Component>Props` type, a JSDoc example, a named export, only `components/ui` pieces, and a hook (`useUpvote`) for the API call. For a form, see [`components/comment/CommentForm.tsx`](components/comment/CommentForm.tsx) (state, a create hook from `hooks/mutations.ts`, and an error `Message`).
 
+## Test your component on the playground
+
+See what you're building before you put it on a real page.
+
+1. `npm run playground` (once). It creates your own test page.
+2. `npm run dev`, then open [localhost:3000/playground](http://localhost:3000/playground).
+3. In `app/playground/page.tsx`, import your component and render it a few ways (normal, long text, empty). Save, look, adjust, repeat.
+4. When it looks right, use it on the real page.
+
+The playground is gitignored, so it never shows up in `git status` and can't be committed or cause merge conflicts. You don't need to delete or exclude anything. To start over: `npm run playground -- --reset`.
+
 ## Adding or changing a token
 
 1. Add it in Figma first (or get a designer to).

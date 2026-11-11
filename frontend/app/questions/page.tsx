@@ -48,7 +48,12 @@ export default function QAPage() {
 						</Button>
 					}
 				/>
-				<FilterGroup label='Sort questions' options={SORTS} value={sort} onChange={setSort} />
+				<FilterGroup
+					label='Sort questions'
+					options={SORTS}
+					value={sort}
+					onChange={setSort}
+				/>
 
 				{questions === undefined && <Spinner label='Loading questions…' />}
 				{questions === null && (

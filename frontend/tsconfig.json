@@ -42,6 +42,7 @@
 		".next/types/**/*.ts",
 		"eslint.config.mjs",
 		"eslint-rules/**/*.mjs",
+		"scripts/**/*.mjs",
 		"stylelint.config.mjs",
 		".prettierrc",
 		".next/dev/types/**/*.ts"

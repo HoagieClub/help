@@ -53,7 +53,21 @@ export const COLOR_GROUPS: { title: string; tokens: ColorToken[] }[] = [
 export const COLOR_NAMES = COLOR_GROUPS.flatMap((g) => g.tokens.map((t) => t.name));
 
 /** Spacing scale keys: p-4 = 16px. Only these exist. 9 is for small buttons, 20 and 28 for avatar sizes. */
-export const SPACING_STEPS = ['0', '1', '2', '3', '4', '5', '6', '8', '9', '10', '15', '20', '28'] as const;
+export const SPACING_STEPS = [
+	'0',
+	'1',
+	'2',
+	'3',
+	'4',
+	'5',
+	'6',
+	'8',
+	'9',
+	'10',
+	'15',
+	'20',
+	'28',
+] as const;
 export type SpacingStep = (typeof SPACING_STEPS)[number];
 
 export const RADIUS_NAMES = ['sm', 'md', 'card', 'tag', 'pill'] as const;

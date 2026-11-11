@@ -14,6 +14,7 @@
 		"format": "prettier --check .",
 		"format:fix": "prettier --write .",
 		"type-check": "tsc --noEmit",
+		"playground": "node scripts/playground.mjs",
 		"lint:css": "stylelint \"**/*.module.css\" --allow-empty-input"
 	},
 	"engines": {

@@ -15,6 +15,10 @@ const STEPS = [
 		body: 'Stack puts things in a row or a column with an even gap, so you never write margins.',
 	},
 	{
+		title: 'Try it on the playground',
+		body: 'Run npm run playground, then open /playground. It’s your private test page and is never committed.',
+	},
+	{
 		title: 'Run npm run lint',
 		body: 'If you used a raw color, a made-up size or style={{}}, lint tells you what to use instead.',
 	},
@@ -53,9 +57,9 @@ export default function DesignStartPage() {
 
 			<Stack gap='4'>
 				<Heading variant='h3' as='h2'>
-					Build something in 3 steps
+					Build something in 4 steps
 				</Heading>
-				<ol className='m-0 grid list-none gap-4 p-0 sm:grid-cols-3'>
+				<ol className='m-0 grid list-none gap-4 p-0 sm:grid-cols-2'>
 					{STEPS.map((step, index) => (
 						<li key={step.title}>
 							<Card padding='sm'>
