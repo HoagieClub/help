@@ -18,7 +18,7 @@ import { Button, Heading, Pane, Text, majorScale, useTheme } from 'evergreen-ui'
 import Link from 'next/link';
 
 import { getAllStudyGroup } from '@/api/studyGroupService';
-import StudyGroupCard from '@/components/study-group/StudyGroupCard';
+import { StudyGroupCard } from '@/components/study-group/StudyGroupCard';
 
 export function StudyGroups() {
 	const theme = useTheme();
@@ -45,10 +45,11 @@ export function StudyGroups() {
 				key={group.id}
 				title={group.title}
 				description={group.description}
-				groupLeader={String(group.leader)}
-				dateTime={new Date(group.meeting_datetime)}
-				joinedCount={group.members.length}
-				totalSpots={group.max_spots}
+				leader={String(group.leader)}
+				meetsAt={group.meeting_datetime}
+				joined={group.members.length}
+				spots={group.max_spots}
+				// TODO: there's no join endpoint yet (see the backend tickets)
 				onJoin={() => {}}
 			/>
 		));

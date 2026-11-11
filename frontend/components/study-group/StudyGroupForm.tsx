@@ -1,196 +1,172 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
 
-import { Pane, Textarea, Button, majorScale, minorScale } from 'evergreen-ui';
+import Link from 'next/link';
 
-import { createNewStudyGroup } from '@/api/studyGroupService';
-interface FormState {
+import { Button, Card, Input, Message, PageHeader, Stack, Textarea } from '@/components/ui';
+import { useCreateStudyGroup } from '@/hooks/mutations';
+
+type FormState = {
 	title: string;
 	category: string;
 	course: string;
 	date: string;
 	time: string;
 	location: string;
-	maxParticipants: number;
+	maxParticipants: string;
 	description: string;
-}
+};
 
-const initialFormState: FormState = {
+const EMPTY_FORM: FormState = {
 	title: '',
 	category: '',
 	course: '',
 	date: '',
 	time: '',
 	location: '',
-	maxParticipants: 5,
+	maxParticipants: '5',
 	description: '',
 };
 
-export default function StudyGroupForm(): React.ReactElement {
-	const [form, setForm] = useState<FormState>(initialFormState);
-	const [submitted, setSubmitted] = useState(false);
-	const [canceled, setCanceled] = useState(false);
+export type StudyGroupFormProps = {
+	/** Where Cancel goes. */
+	backHref?: string;
+};
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const { name, value } = e.target as HTMLInputElement;
-		setForm((prevForm) => ({
-			...prevForm,
-			[name]: value,
-		}));
-	};
+/**
+ * The full "Create a Study Group" page.
+ *
+ * Category, course and location are collected but not saved yet: the backend has no fields
+ * for them (see the backend tickets).
+ *
+ * @example
+ * <StudyGroupForm />
+ */
+export function StudyGroupForm({ backHref = '/study-groups' }: StudyGroupFormProps) {
+	const [form, setForm] = useState<FormState>(EMPTY_FORM);
+	const [created, setCreated] = useState(false);
+	const createStudyGroup = useCreateStudyGroup();
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setSubmitted(true);
-		setCanceled(false);
-		await createNewStudyGroup({
+	function update(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+		const { name, value } = event.target;
+		setForm((previous) => ({ ...previous, [name]: value }));
+	}
+
+	async function submit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const result = await createStudyGroup.run({
 			title: form.title,
 			description: form.description,
-			meeting_datetime: form.date + ' ' + form.time,
-			max_spots: form.maxParticipants,
+			meeting_datetime: `${form.date} ${form.time}`,
+			max_spots: Number(form.maxParticipants),
 			members: [],
 		});
-		setForm(initialFormState);
-	};
-
-	const handleCancel = () => {
-		setForm(initialFormState);
-		setSubmitted(false);
-		setCanceled(true);
-	};
+		if (result) {
+			setCreated(true);
+			setForm(EMPTY_FORM);
+		}
+	}
 
 	return (
-		<>
-			<Pane padding={majorScale(2)} marginTop={minorScale(2)} marginBottom={minorScale(2)}>
-				<h2 className='text-3xl font-bold mb-2 text-left'>Create a Study Group</h2>
-				<h3 className='text-base font-normal mb-12 text-left'>
-					Meet up with classmates to study, discuss course material, and more.
-				</h3>
-				<form className='flex flex-col gap-6' onSubmit={handleSubmit}>
-					<div style={{ marginBottom: minorScale(2) }}>
-						<label style={{ display: 'block' }}>Study Group Title</label>
-						<input
+		<div className='mx-auto max-w-2xl px-4 py-8'>
+			<Stack gap='6'>
+				<PageHeader
+					title='Create a Study Group'
+					description='Meet up with classmates to study, discuss course material, and more.'
+				/>
+
+				<Card padding='lg'>
+					<form className='flex flex-col gap-6' onSubmit={submit}>
+						{created && (
+							<Message variant='success'>Study group created successfully!</Message>
+						)}
+						<Input
+							label='Study group title'
 							name='title'
 							value={form.title}
-							onChange={handleChange}
+							onChange={update}
 							required
-							style={{ width: '100%', padding: 8 }}
-							placeholder='e.g., COS 226 Midterm Study Session'
-							className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
+							placeholder='e.g. COS 226 Midterm Study Session'
 						/>
-					</div>
-					<div style={{ marginBottom: minorScale(2) }}>
-						<label style={{ display: 'block' }}>Category</label>
-						<input
+						<Input
+							label='Category'
 							name='category'
 							value={form.category}
-							onChange={handleChange}
+							onChange={update}
 							required
-							style={{ width: '100%', padding: 8 }}
-							placeholder='e.g., Computer Science'
-							className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
+							placeholder='e.g. Computer Science'
 						/>
-					</div>
-					<div style={{ marginBottom: minorScale(2) }}>
-						<label style={{ display: 'block' }}>Course (Optional)</label>
-						<input
+						<Input
+							label='Course'
 							name='course'
+							hint='Optional'
 							value={form.course}
-							onChange={handleChange}
-							style={{ width: '100%', padding: 8 }}
-							placeholder='e.g., COS 226'
-							className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
+							onChange={update}
+							placeholder='e.g. COS 226'
 						/>
-					</div>
-					<div style={{ marginBottom: minorScale(2) }}>
-						<label style={{ display: 'block' }}>Date</label>
-						<input
-							name='date'
-							value={form.date}
-							onChange={handleChange}
-							required
-							style={{ width: '100%', padding: 8 }}
-							type='date'
-							className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
-						/>
-					</div>
-					<div style={{ marginBottom: minorScale(2) }}>
-						<label style={{ display: 'block' }}>Time</label>
-						<input
-							name='time'
-							value={form.time}
-							onChange={handleChange}
-							required
-							style={{ width: '100%', padding: 8 }}
-							type='time'
-							className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
-						/>
-					</div>
-					<div style={{ marginBottom: minorScale(2) }}>
-						<label style={{ display: 'block' }}>Location</label>
-						<input
+						<Stack direction='row' gap='4' wrap>
+							<div className='min-w-0 flex-1'>
+								<Input
+									label='Date'
+									name='date'
+									type='date'
+									value={form.date}
+									onChange={update}
+									required
+								/>
+							</div>
+							<div className='min-w-0 flex-1'>
+								<Input
+									label='Time'
+									name='time'
+									type='time'
+									value={form.time}
+									onChange={update}
+									required
+								/>
+							</div>
+						</Stack>
+						<Input
+							label='Location'
 							name='location'
 							value={form.location}
-							onChange={handleChange}
+							onChange={update}
 							required
-							style={{ width: '100%', padding: 8 }}
-							placeholder='e.g., Frist Campus Center, Room 302'
-							className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
+							placeholder='e.g. Frist Campus Center, Room 302'
 						/>
-					</div>
-					<div style={{ marginBottom: minorScale(2) }}>
-						<label style={{ display: 'block' }}>Max Participants</label>
-						<input
+						<Input
+							label='Max participants'
 							name='maxParticipants'
-							value={form.maxParticipants}
-							onChange={handleChange}
-							required
-							style={{ width: '100%', padding: 8 }}
-							placeholder='e.g., 8'
 							type='number'
-							className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
-						/>
-					</div>
-					<div style={{ marginBottom: minorScale(2) }}>
-						<label style={{ display: 'block' }}>Description</label>
-						<Textarea
-							name='description'
-							value={form.description}
-							onChange={handleChange}
-							style={{ borderRadius: 8, fontSize: '16px' }}
+							min={2}
+							value={form.maxParticipants}
+							onChange={update}
 							required
-							rows={10}
-							width='100%'
-							placeholder='Describe your study group, topics to cover, what to bring, etc.'
-							className='w-full p-2 rounded-md border border-gray-300 bg-gray-100'
 						/>
-					</div>
-					<div
-						style={{
-							display: 'flex',
-							gap: 12,
-							width: '100%',
-						}}
-					>
-						<Button appearance='primary' type='submit' size='large' style={{ flex: 8 }}>
-							Create Study Group
-						</Button>
-						<Button
-							onClick={handleCancel}
-							type='button'
-							size='large'
-							style={{ flex: 2 }}
-						>
-							Cancel
-						</Button>
-					</div>
-				</form>
-				{submitted && (
-					<Pane marginTop={minorScale(2)}>Study Group created successfully!</Pane>
-				)}
-				{canceled && <Pane marginTop={minorScale(2)}>Edit canceled.</Pane>}
-			</Pane>
-		</>
+						<Textarea
+							label='Description'
+							name='description'
+							rows={6}
+							value={form.description}
+							onChange={update}
+							required
+							placeholder='Describe your study group, topics to cover, what to bring, etc.'
+						/>
+						{createStudyGroup.error && (
+							<Message variant='error'>{createStudyGroup.error}</Message>
+						)}
+						<Stack direction='row' gap='2'>
+							<Button type='submit' disabled={createStudyGroup.pending}>
+								{createStudyGroup.pending ? 'Creating…' : 'Create Study Group'}
+							</Button>
+							<Button variant='secondary' asChild>
+								<Link href={backHref}>Cancel</Link>
+							</Button>
+						</Stack>
+					</form>
+				</Card>
+			</Stack>
+		</div>
 	);
 }
