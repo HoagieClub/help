@@ -6,7 +6,7 @@ import { ExternalLink } from 'lucide-react';
 
 import { Button, Heading, Stack, Text } from '@/components/ui';
 
-import { BRAND_KIT_URL, figmaUrl } from './nav';
+import { figmaUrl } from './nav';
 
 /** Helpers for the /design pages only. Not part of the app's component library. */
 
@@ -41,7 +41,7 @@ export function TokenValue({ name }: { name: string }) {
 	);
 }
 
-/** "Open in Figma" for a Brand Kit frame (or the whole file when there's no frame). */
+/** "Open in Figma" for a Brand Kit frame, or the Brand Kit page when there's no frame. */
 export function FigmaLink({
 	nodeId,
 	label = 'Open in Figma',
@@ -51,7 +51,7 @@ export function FigmaLink({
 }) {
 	return (
 		<a
-			href={nodeId ? figmaUrl(nodeId) : BRAND_KIT_URL}
+			href={figmaUrl(nodeId)}
 			target='_blank'
 			rel='noreferrer'
 			className='inline-flex items-center gap-1 font-body text-label text-brand hover:text-brand-hover'

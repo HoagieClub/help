@@ -2,17 +2,16 @@
 
 So every page looks like HoagieHelp without you having to think about it. To see everything live, run `npm run dev` and open **[localhost:3000/design](http://localhost:3000/design)**. New here? Its **Start here** page is the quickest way in. `/design` only exists while running `npm run dev`; on preview and production it's a 404.
 
-Every `/design` page has an **Open in Figma** link to its frame in the [HoagieHelp Brand Kit](https://www.figma.com/design/owWm8GwkMf2pu7zBGahNCZ/HoagieHelp-Brand-Kit), and the frames use the same names. Use Figma to see the design, `/design` to copy the code.
+Every `/design` page has an **Open in Figma** link to its frame on the [Brand Kit page of HoagieHelp Designs](https://www.figma.com/design/Y58NbLfzxMkKy1uRlwTspX/HoagieHelp-Designs?node-id=2666-48), and the frames use the same names. Use Figma to see the design, `/design` to copy the code.
 
-The tokens and components come from the **current HoagieHelp designs** in Figma (the Main Q&A, Question View, Ask a Question and User pages, plus the Study Group frames on V2). The HoagieHelp Brand Kit file mirrors them, with one frame per `/design` page:
+The tokens and components come from the **current HoagieHelp designs** in Figma. The file's first page, **Brand Kit**, documents them: one Section per sidebar group on `/design`, one frame per `/design` page.
 
-| Page                        | Brand Kit frame                                                           |
-| --------------------------- | ------------------------------------------------------------------------- |
-| `/design/colors`            | Foundations / Colors                                                      |
-| `/design/type`              | Foundations / Typography                                                  |
-| `/design/spacing`           | Foundations / Spacing & radius                                            |
-| `/design/logo`              | Foundations / Logo & mascot                                               |
-| `/design/components/<name>` | Components / one frame each (pages tagged **Not in Figma yet** have none) |
+| `/design` page                | Brand Kit page in Figma                                                    |
+| ----------------------------- | -------------------------------------------------------------------------- |
+| Start here                    | Start here › How to use this page, Index                                   |
+| Colors, Typography, …         | Foundations › Colors, Typography, Spacing + radius, Logo + mascot          |
+| `/design/components/<name>`   | The Section with the same name as its sidebar group, e.g. Actions › Button |
+| Pages tagged Not in Figma yet | Not in Figma yet                                                           |
 
 A bolder rebrand (Poppins, purple headings, mascots) is planned for next semester. It's saved on the local branch `rebrand/brand-kit`.
 

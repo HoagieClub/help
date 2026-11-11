@@ -151,9 +151,9 @@ export default function DesignStartPage() {
 					Working from Figma
 				</Heading>
 				<Text variant='body-sm'>
-					The HoagieHelp Brand Kit has the same pieces with the same names. Every page
-					here has an “Open in Figma” link to its frame, and each Figma frame’s name
-					matches a page here. Designers work in Figma; you copy the code from here.
+					The Brand Kit page in our HoagieHelp Designs Figma file has the same pieces,
+					grouped and named like this sidebar. Every page here has an “Open in Figma” link
+					to its frame. Designers work in Figma; you copy the code from here.
 				</Text>
 				<FigmaLink label='Open the Brand Kit' />
 			</Stack>
