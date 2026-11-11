@@ -110,7 +110,7 @@ See what you're building before you put it on a real page.
 3. In `app/playground/page.tsx`, import your component and render it a few ways (normal, long text, empty). Save, look, adjust, repeat.
 4. When it looks right, use it on the real page.
 
-The playground is gitignored, so it never shows up in `git status` and can't be committed or cause merge conflicts. You don't need to delete or exclude anything. To start over: `npm run playground -- --reset`.
+The playground is gitignored, so it never shows up in `git status` and can't be committed or cause merge conflicts. Like `/design`, it only works with `npm run dev`; anywhere else it's a 404. You don't need to delete or exclude anything. To start over: `npm run playground -- --reset`.
 
 ## Adding or changing a token
 
