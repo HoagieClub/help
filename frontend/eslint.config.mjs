@@ -21,6 +21,8 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
+import designSystem from './eslint-rules/design-system.mjs';
+
 export default defineConfig([
 	...nextVitals,
 	...nextTs,
@@ -130,6 +132,112 @@ export default defineConfig([
 			'no-unneeded-ternary': 'error',
 			'spaced-comment': ['error', 'always', { markers: ['/'] }],
 		},
+	},
+	// Design system (see DESIGN_SYSTEM.md and /design). Warnings while pages are migrated.
+	{
+		files: ['**/*.{ts,tsx}'],
+		plugins: { 'design-system': designSystem },
+		rules: {
+			'design-system/no-hex-colors': 'warn',
+			'design-system/no-arbitrary-values': 'warn',
+			'design-system/no-default-palette': 'warn',
+			'design-system/no-legacy-shadcn-colors': 'warn',
+			'design-system/no-off-scale-spacing': 'warn',
+			'design-system/no-inline-style': 'warn',
+		},
+	},
+	// Component conventions (see "Writing a component" in DESIGN_SYSTEM.md). Errors: components/
+	// and hooks/ are fully migrated, so new code there must follow them.
+	{
+		files: ['components/**/*.{ts,tsx}', 'hooks/**/*.{ts,tsx}'],
+		rules: {
+			'import/no-default-export': 'error',
+			'no-restricted-imports': [
+				'error',
+				{
+					paths: [
+						{
+							name: 'evergreen-ui',
+							message:
+								'Build components from @/components/ui instead of Evergreen. See DESIGN_SYSTEM.md.',
+						},
+					],
+					patterns: [
+						{
+							group: [
+								'@mui/icons-material',
+								'@mui/icons-material/*',
+								'react-icons',
+								'react-icons/*',
+								'@phosphor-icons/*',
+							],
+							message: 'Use icons from lucide-react only. See DESIGN_SYSTEM.md.',
+						},
+					],
+				},
+			],
+			'no-restricted-syntax': [
+				'error',
+				{
+					selector:
+						"TSTypeReference[typeName.right.name='FC'], TSTypeReference[typeName.name='FC']",
+					message:
+						'Write `export function Thing({ … }: ThingProps)` instead of React.FC. See DESIGN_SYSTEM.md.',
+				},
+			],
+		},
+	},
+	{
+		// Feature components get data through props and hooks; only hooks call the API.
+		files: ['components/**/*.{ts,tsx}'],
+		rules: {
+			'no-restricted-imports': [
+				'error',
+				{
+					paths: [
+						{
+							name: 'evergreen-ui',
+							message:
+								'Build components from @/components/ui instead of Evergreen. See DESIGN_SYSTEM.md.',
+						},
+					],
+					patterns: [
+						{
+							group: [
+								'@mui/icons-material',
+								'@mui/icons-material/*',
+								'react-icons',
+								'react-icons/*',
+								'@phosphor-icons/*',
+							],
+							message: 'Use icons from lucide-react only. See DESIGN_SYSTEM.md.',
+						},
+						{
+							group: ['@/api/*', '../api/*', '../../api/*'],
+							message:
+								"Components don't call the API directly: use or add a hook in hooks/ (e.g. useUpvote). See DESIGN_SYSTEM.md.",
+						},
+					],
+				},
+			],
+		},
+	},
+	{
+		// components/ and hooks/ are fully on the design system; keep them that way.
+		files: ['components/**/*.{ts,tsx}', 'hooks/**/*.{ts,tsx}'],
+		rules: {
+			'design-system/no-hex-colors': 'error',
+			'design-system/no-arbitrary-values': 'error',
+			'design-system/no-default-palette': 'error',
+			'design-system/no-legacy-shadcn-colors': 'error',
+			'design-system/no-off-scale-spacing': 'error',
+			'design-system/no-inline-style': 'error',
+		},
+	},
+	{
+		// The Evergreen theme maps Evergreen's own color scales; brand colors there already use tokens.
+		files: ['lib/hoagie-ui/Theme/themes.tsx'],
+		rules: { 'design-system/no-hex-colors': 'off' },
 	},
 	prettier,
 ]);

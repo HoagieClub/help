@@ -25,7 +25,7 @@ export function Layout({ children }: { children: ReactNode }) {
 			display='flex'
 			flexDirection='column'
 			minHeight='100vh'
-			background={theme.colors.red100}
+			background={theme.colors.gray100}
 		>
 			<Pane flex='1'>{children}</Pane>
 			<Pane>

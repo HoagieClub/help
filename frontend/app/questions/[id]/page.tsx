@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
-import { Heading, Pane, Spinner, Text, majorScale } from 'evergreen-ui';
 import { useParams } from 'next/navigation';
 
 import { getAllAnswers } from '@/api/answerService';
 import { getAllComments } from '@/api/commentService';
 import { getQuestionDetails } from '@/api/questionService';
-import AnswerPanel from '@/components/answer/AnswerPanel';
-import QuestionPanel from '@/components/question/QuestionPanel';
+import { AnswerList } from '@/components/answer/AnswerList';
+import { QuestionPanel } from '@/components/question/QuestionPanel';
+import { EmptyState, Spinner, Stack } from '@/components/ui';
 import type { Answer, Comment } from '@/types';
 
 type ApiAnswer = NonNullable<Awaited<ReturnType<typeof getAllAnswers>>>[number];
@@ -98,58 +98,40 @@ function QuestionPage() {
 
 	if (question === undefined) {
 		return (
-			<Pane
-				display='flex'
-				flexDirection='column'
-				alignItems='center'
-				justifyContent='center'
-				minHeight={320}
-				marginX='auto'
-				padding={majorScale(2)}
-			>
-				<Spinner size={48} />
-				<Text marginTop={majorScale(2)} size={400} color='muted'>
-					Loading question…
-				</Text>
-			</Pane>
+			<div className='flex justify-center px-4 py-15'>
+				<Spinner label='Loading question…' />
+			</div>
 		);
 	}
 
 	if (question === null) {
 		return (
-			<Pane marginX='auto' padding={majorScale(2)} marginTop={majorScale(8)}>
-				<Heading size={700} marginBottom={majorScale(2)}>
-					Question unavailable
-				</Heading>
-				<Text size={500} color='muted'>
-					{loadError ?? 'We could not load this question.'}
-				</Text>
-			</Pane>
+			<EmptyState
+				title='Question unavailable'
+				description={loadError ?? 'We could not load this question.'}
+			/>
 		);
 	}
 
 	return (
-		<Pane
-			padding={majorScale(2)}
-			marginLeft={majorScale(16)}
-			marginTop={majorScale(8)}
-			marginRight={majorScale(16)}
-		>
-			<QuestionPanel
-				questionId={questionId}
-				user={`User ${question.user}`}
-				title={question.title}
-				tags={question.tags.map(String)}
-				course={question.course}
-				details={question.details}
-				create_time={question.create_time}
-				user_is_anonymous={question.user_is_anonymous}
-				initialHearts={question.hearts}
-			/>
-			<Pane marginTop={majorScale(6)} maxWidth='700px' marginX='auto'>
-				<AnswerPanel answers={answers} />
-			</Pane>
-		</Pane>
+		<div className='mx-auto max-w-2xl px-4 py-10'>
+			<Stack gap='8'>
+				<QuestionPanel
+					questionId={questionId}
+					// TODO: the API sends a user id, not a name.
+					author={`User ${question.user}`}
+					anonymous={question.user_is_anonymous}
+					title={question.title}
+					course={question.course}
+					// TODO: the API sends tag ids, not names.
+					tags={[]}
+					details={question.details}
+					createdAt={question.create_time}
+					upvotes={question.hearts}
+				/>
+				<AnswerList answers={answers} />
+			</Stack>
+		</div>
 	);
 }
 

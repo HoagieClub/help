@@ -202,3 +202,9 @@ temp/
 # Custom Ignored Files
 # ===============================
 # Add any additional files or directories you wish to ignore here
+
+# Your personal component test page (made by `npm run playground`). Never committed.
+/frontend/app/playground/
+
+# TypeScript build cache
+*.tsbuildinfo

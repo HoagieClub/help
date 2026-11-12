@@ -1,5 +1,5 @@
-import StudyGroupFormPage from '@/components/StudyGroupForm';
+import { StudyGroupForm } from '@/components/study-group/StudyGroupForm';
 
 export default function FormPage() {
-	return <StudyGroupFormPage />;
+	return <StudyGroupForm />;
 }
