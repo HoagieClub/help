@@ -6,6 +6,7 @@ from rest_framework import status
 from hoagiehelp.models.question import Question
 from django.db.models import Count
 
+
 class QuestionSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Question
@@ -27,11 +28,11 @@ class QuestionSerializer(serializers.ModelSerializer):
 		read_only_fields = ["user", "answer_count"]
 		extra_kwargs = {"tags": {"required": False, "allow_empty": True}}
 		answer_count = serializers.IntegerField(read_only=True)
-		
+
 	def get_answer_count(self, obj):
-			if hasattr(obj, "answer_count"):
-				return obj.answer_count
-			return obj.answer_set.count()
+		if hasattr(obj, "answer_count"):
+			return obj.answer_count
+		return obj.answer_set.count()
 
 
 class QuestionListView(APIView):
@@ -62,14 +63,9 @@ class QuestionListView(APIView):
 		if serializer.is_valid():
 			question = serializer.save(user=request.user)
 
-			question = Question.objects.annotate(
-				answer_count=Count("answer", distinct=True)
-			).get(id=question.id)
+			question = Question.objects.annotate(answer_count=Count("answer", distinct=True)).get(id=question.id)
 
-			return Response(
-				QuestionSerializer(question).data,
-				status=status.HTTP_201_CREATED
-			)
+			return Response(QuestionSerializer(question).data, status=status.HTTP_201_CREATED)
 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -80,9 +76,7 @@ class QuestionDetailView(APIView):
 	def get(self, request, question_id: str) -> Response:
 		"""Get all details associated with a given question."""
 		try:
-			question = Question.objects.annotate(
-				answer_count=Count("answer", distinct=True)
-			).get(id=question_id)
+			question = Question.objects.annotate(answer_count=Count("answer", distinct=True)).get(id=question_id)
 		except Question.DoesNotExist:
 			return Response({"detail": "Question not found"}, status=status.HTTP_404_NOT_FOUND)
 		serializer = QuestionSerializer(question)
@@ -98,9 +92,7 @@ class QuestionDetailView(APIView):
 		if serializer.is_valid():
 			question = serializer.save()
 
-			question = Question.objects.annotate(
-				answer_count=Count("answer", distinct=True)
-			).get(id=question.id)
+			question = Question.objects.annotate(answer_count=Count("answer", distinct=True)).get(id=question.id)
 
 			return Response(QuestionSerializer(question).data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
