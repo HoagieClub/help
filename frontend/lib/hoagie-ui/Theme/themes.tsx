@@ -2,24 +2,30 @@ import { defaultTheme, mergeTheme } from 'evergreen-ui';
 
 import Tab from './Tab';
 
+/**
+ * Brand colors come from app/tokens.css so Evergreen and Tailwind agree.
+ * Colors that have a token use it; the rest of Evergreen's scales keep their hex values.
+ */
+const token = (name: string) => `var(--color-${name})`;
+
 export const hoagieUI = mergeTheme(defaultTheme, {
 	title: 'default',
 	colors: {
 		...defaultTheme.colors,
-		white: '#FFFFFF',
+		white: token('surface'),
 
 		gray900: '#000000',
 		gray800: '#343434',
-		gray700: '#808080',
-		gray600: '#808080',
+		gray700: token('muted'),
+		gray600: token('muted'),
 		gray500: '#D2D2D2',
 		gray400: '#D2D2D2',
-		gray300: '#EEEEEE',
+		gray300: token('line'),
 		gray200: '#F1F1F1',
-		gray100: '#F7F7F7',
+		gray100: token('surface-gray'),
 		gray90: '#FBFBFB',
 		gray75: '#FCFCFC',
-		gray50: '#FFFFFF',
+		gray50: token('surface'),
 
 		blue900: '#0A1433',
 		blue800: '#142966',
@@ -33,9 +39,9 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		blue50: '#EBF0FF',
 		blue25: '#F3F6FF',
 
-		purple900: '#190C30',
+		purple900: token('ink'),
 		purple800: '#351E5C',
-		purple700: '#58427F',
+		purple700: token('muted'),
 		purple600: '#6C47AE',
 		purple500: '#8F59EF',
 		purple400: '#A472FC',
@@ -45,25 +51,26 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		purple50: '#F5F0FF',
 		purple25: '#F9F5FF',
 
-		red700: '#7D2828',
-		red600: '#A73636',
-		red500: '#D14343',
+		red700: token('brand-hover'),
+		red600: token('brand-hover'),
+		red500: token('brand'),
 		red300: '#EE9191',
-		red100: '#F9DADA',
-		red25: '#FDF4F4',
+		red200: '#ffafafff',
+		red100: token('brand-soft'),
+		red25: token('brand-soft'),
 
 		green900: '#10261E',
 		green800: '#214C3C',
-		green700: '#317159',
+		green700: token('success'),
 		green600: '#429777',
 		green500: '#52BD95',
 		green400: '#75CAAA',
 		green300: '#97D7BF',
 		green200: '#BAE5D5',
-		green100: '#DCF2EA',
+		green100: token('success-soft'),
 		green25: '#F5FBF8',
 
-		orange700: '#996A13',
+		orange700: token('warning'),
 		orange500: '#FFB020',
 		orange100: '#F8E3DA',
 		orange25: '#FFFAF2',
@@ -75,7 +82,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		yellow800: '#66460D',
 		yellow300: '#FFD079',
 		yellow200: '#FFDFA6',
-		yellow100: '#FFEFD2',
+		yellow100: token('warning-soft'),
 
 		realBlue300: '#85A3FF',
 
@@ -89,23 +96,23 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		overlay: 'rgba(67, 90, 111, 0.7)',
 
 		// Tint colors for consistency
-		yellowTint: '#FFEFD2',
+		yellowTint: token('warning-soft'),
 		greenTint: '#F5FBF8',
 		orangeTint: '#FFFAF2',
-		redTint: '#FDF4F4',
+		redTint: token('brand-soft'),
 		blueTint: '#F3F6FF',
 		purpleTint: '#E7E4F9',
 		tealTint: '#D3F5F7',
 
 		// Borders
 		border: {
-			default: '#EEEEEE',
+			default: token('line'),
 			muted: '#F1F1F1',
 		},
 
 		// Icon colors
 		icon: {
-			default: '#808080',
+			default: token('muted'),
 			muted: '#D2D2D2',
 			disabled: '#D2D2D2',
 			selected: '#3366FF',
@@ -113,7 +120,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 
 		// Text colors based on context
 		text: {
-			danger: '#D14343',
+			danger: token('brand'),
 			success: '#52BD95',
 			info: '#3366FF',
 		},
@@ -132,8 +139,8 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 			backgroundColor: '#D6E0FF',
 		},
 		red: {
-			color: '#7D2828',
-			backgroundColor: '#F9DADA',
+			color: token('brand-hover'),
+			backgroundColor: token('brand-soft'),
 		},
 		orange: {
 			color: '#BC5E00',
@@ -141,11 +148,11 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		},
 		yellow: {
 			color: '#66460D',
-			backgroundColor: '#FFEFD2',
+			backgroundColor: token('warning-soft'),
 		},
 		green: {
-			color: '#317159',
-			backgroundColor: '#DCF2EA',
+			color: token('success'),
+			backgroundColor: token('success-soft'),
 		},
 		teal: {
 			color: '#0F5156',
@@ -167,20 +174,20 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 		success: {
 			background: '#F5FBF8',
 			border: '#52BD95',
-			text: '#317159',
+			text: token('success'),
 			icon: '#52BD95',
 		},
 		warning: {
 			background: '#FFFAF2',
 			border: '#FFB020',
-			text: '#996A13',
+			text: token('warning'),
 			icon: '#FFB020',
 		},
 		danger: {
-			background: '#FDF4F4',
-			border: '#D14343',
-			text: '#A73636',
-			icon: '#D14343',
+			background: token('brand-soft'),
+			border: token('brand'),
+			text: token('danger'),
+			icon: token('brand'),
 		},
 	},
 	radii: {
@@ -192,8 +199,8 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 	shadows: {
 		...defaultTheme.shadows,
 		0: '0 0 1px rgba(100, 100, 100, 0.3)',
-		1: '0 0 1px rgba(100, 100, 100, 0.3), 0 2px 4px -2px rgba(100, 100, 100, 0.47)',
-		2: '0 0 1px rgba(100, 100, 100, 0.3), 0 5px 8px -4px rgba(100, 100, 100, 0.47)',
+		1: 'var(--shadow-card-hover)',
+		2: 'var(--shadow-dropdown)',
 		3: '0 0 1px rgba(100, 100, 100, 0.3), 0 8px 10px -4px rgba(100, 100, 100, 0.47)',
 		4: '0 0 1px rgba(100, 100, 100, 0.3), 0 16px 24px -8px rgba(100, 100, 100, 0.47)',
 		focusRing: '0 0 0 2px #D6E0FF',
@@ -232,65 +239,54 @@ export const hoagieUI = mergeTheme(defaultTheme, {
 	},
 });
 
-/**
- * hoagieTemplate - Example theme that extends the base hoagieUI theme
- *
- * This template demonstrates how to create a custom theme by extending
- * the base hoagieUI theme with a new color palette. You can use this
- * as a starting point for creating your own branded themes.
- */
-export const hoagieTemplate = mergeTheme(hoagieUI, {
-	title: 'template',
+export const hoagieHelp = mergeTheme(hoagieUI, {
+	title: 'help',
 	colors: {
 		...hoagieUI.colors,
-		// Teal color palette - primary brand color
-		blue900: '#0A2E2F',
-		blue800: '#0F5156',
-		blue700: '#146D73',
-		blue600: '#198A91',
-		blue500: '#1EA7AE',
-		blue400: '#4BBDC3',
-		blue300: '#7CE0E6',
-		blue200: '#A9EDF1',
-		blue100: '#D3F5F7',
-		blue50: '#E9FAFB',
-		blue25: '#F4FDFD',
+		// red color palette - primary brand color
+		red700: token('brand-hover'),
+		red600: token('brand-hover'),
+		red500: token('brand'),
+		red300: '#EE9191',
+		red200: '#ffafafff',
+		red100: token('brand-soft'),
+		red25: token('brand-soft'),
 
-		// Override the selected color to use primary blue
-		selected: '#1EA7AE',
+		// Override the selected color to use primary red
+		selected: token('brand'),
 
 		// Set the tints for custom theme
-		tint1: '#F4FDFD',
+		tint1: token('surface-gray'),
 		tint2: '#F9FCFC',
 
 		icon: {
 			...hoagieUI.colors.icon,
-			selected: '#1EA7AE',
+			selected: token('brand'),
 		},
 
 		text: {
 			...hoagieUI.colors.text,
-			info: '#1EA7AE',
+			info: token('brand'),
 		},
 
 		// Add a custom brand color
-		'hoagie-teal': '#1EA7AE',
+		'hoagie-red': token('brand'),
 	},
 
 	// Have the shadows use our brand color for focus rings
 	shadows: {
 		...hoagieUI.shadows,
-		focusRing: '0 0 0 2px #D3F5F7',
+		focusRing: `0 0 0 2px ${token('brand-soft')}`,
 	},
 
 	// Have the intents use our teal colors
 	intents: {
 		...hoagieUI.intents,
 		info: {
-			background: '#F4FDFD',
-			border: '#1EA7AE',
-			text: '#0F5156',
-			icon: '#1EA7AE',
+			background: token('brand-soft'),
+			border: token('brand'),
+			text: token('brand-hover'),
+			icon: token('brand'),
 		},
 	},
 
@@ -304,17 +300,17 @@ export const hoagieTemplate = mergeTheme(hoagieUI, {
 				...hoagieUI.components.Button.appearances,
 				primary: {
 					...hoagieUI.components.Button.appearances.primary,
-					backgroundColor: '#1EA7AE',
+					backgroundColor: token('brand'),
 					// Use pseudoSelectors instead of _hover
 					pseudoSelectors: {
 						_hover: {
-							backgroundColor: '#198A91',
+							backgroundColor: token('brand-hover'),
 						},
 						_active: {
-							backgroundColor: '#146D73',
+							backgroundColor: token('brand-hover'),
 						},
 						_focus: {
-							boxShadow: '0 0 0 2px #D3F5F7',
+							boxShadow: `0 0 0 2px ${token('brand-soft')}`,
 						},
 					},
 				},
@@ -328,19 +324,24 @@ export const hoagieTemplate = mergeTheme(hoagieUI, {
 				primary: {
 					...hoagieUI.components.Tab.appearances.primary,
 
-					// color: '#1EA7AE',
-
-					// Use pseudoSelectors instead of _hover
-					pseudoSelectors: {
-						_hover: {
-							color: '#198A91',
+					// selectors
+					selectors: {
+						...hoagieUI.components.Tab.appearances.primary.selectors,
+						_before: {
+							...hoagieUI.components.Tab.appearances.primary.selectors?._before,
+							backgroundColor: token('brand'),
 						},
-						_active: {
-							color: '#146D73',
+						_hover: {
+							color: token('brand-hover'),
 						},
 						_current: {
-							color: '#1EA7AE',
-							fontWeight: '500', // Use string instead of number
+							color: token('brand'),
+							'&:before': {
+								transform: 'scaleY(1)',
+							},
+							'&:focus': {
+								color: token('brand'),
+							},
 						},
 					},
 				},

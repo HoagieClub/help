@@ -1,0 +1,151 @@
+/**
+ * @overview HoagieHelp design tokens. The ONLY file where raw colors, sizes and shadows live.
+ *
+ * Every value here comes from the current HoagieHelp designs in Figma (the Q&A, Question View,
+ * Ask a Question and User pages). Change Figma and this file in the same PR.
+ * See frontend/DESIGN_SYSTEM.md and /design.
+ *
+ * Tailwind v4 turns each token into utilities: --color-brand → bg-brand, text-brand, border-brand;
+ * --spacing-4 → p-4, gap-4; --radius-card → rounded-card; --text-h1 → text-h1; and so on.
+ *
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE.
+ *
+ * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
+ */
+
+/* `static` keeps every token in the CSS output, even ones only used from JS (the Evergreen theme). */
+@theme static {
+	/*
+	 * Tailwind's default palette (text-gray-500, bg-white…) and its "any number" spacing (p-13)
+	 * are still ON while existing pages are migrated. ESLint warns when new code uses them.
+	 * The last migration ticket turns them off by uncommenting these two lines:
+	 *
+	 * --color-*: initial;
+	 * --spacing-*: initial;
+	 *
+	 * bg-transparent, text-current and bg-inherit keep working after the flip (they don't use
+	 * the --color namespace).
+	 */
+
+	/* ---------- Color: brand ---------- */
+	--color-brand: #f04242; /* primary buttons, course tags, "help" in the wordmark, active tab */
+	--color-brand-hover: #d63838;
+	--color-brand-soft: #fee2e2; /* focus rings, light red backgrounds */
+	--color-focus: #f04242;
+
+	/* ---------- Color: text and surfaces ---------- */
+	--color-ink: #2b303b; /* headings, names, labels, body text */
+	--color-muted: #737b8c; /* timestamps, placeholders, secondary text */
+	--color-surface: #ffffff; /* cards, nav */
+	--color-surface-gray: #fafafa; /* page background, input fill */
+	--color-line: #e2e4e9; /* card, input and nav borders */
+	--color-neutral: #d9d9d9; /* topic tags, search box border */
+
+	/* ---------- Color: status ---------- */
+	--color-success: #248723; /* Ask Question button, category badges */
+	--color-success-soft: #dcfce7;
+	--color-warning: #a16207;
+	--color-warning-soft: #fef9c3;
+	--color-danger: #b91c1c;
+	--color-danger-soft: #fee2e2;
+
+	/* ---------- Spacing (4px grid; these values only) ---------- */
+	--spacing-0: 0px;
+	--spacing-1: 4px;
+	--spacing-2: 8px;
+	--spacing-3: 12px;
+	--spacing-4: 16px;
+	--spacing-5: 20px;
+	--spacing-6: 24px;
+	--spacing-8: 32px;
+	--spacing-9: 36px; /* small buttons */
+	--spacing-10: 40px;
+	--spacing-15: 60px;
+	--spacing-20: 80px; /* large avatar (question author) */
+	--spacing-28: 112px; /* profile avatar */
+
+	/* ---------- Radius ---------- */
+	--radius-sm: 4px; /* checkboxes */
+	--radius-md: 6px; /* buttons, inputs */
+	--radius-card: 8px; /* cards */
+	--radius-tag: 10px; /* tags */
+	--radius-pill: 9999px; /* search box, avatars */
+
+	/* ---------- Shadows ---------- */
+	--shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-card-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	--shadow-dropdown: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+	/* ---------- Fonts ---------- */
+	--font-body: 'Inter', Arial, Helvetica, sans-serif; /* everything */
+	--font-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace; /* code samples on /design */
+
+	/* ---------- Type scale: size / line-height / weight ---------- */
+	--text-h1: 30px; /* page titles: Q&A, Ask a Question, profile name */
+	--text-h1--line-height: 36px;
+	--text-h1--font-weight: 700;
+	--text-h2: 24px; /* question title on the question page */
+	--text-h2--line-height: 32px;
+	--text-h2--font-weight: 600;
+	--text-h3: 20px; /* author name on the question page */
+	--text-h3--line-height: 28px;
+	--text-h3--font-weight: 700;
+	--text-title: 16px; /* card titles, "2 Answers" */
+	--text-title--line-height: 24px;
+	--text-title--font-weight: 600;
+	--text-body: 16px; /* question and answer text, page descriptions */
+	--text-body--line-height: 24px;
+	--text-body--font-weight: 400;
+	--text-body-sm: 14px; /* inputs, tabs, meta rows */
+	--text-body-sm--line-height: 20px;
+	--text-body-sm--font-weight: 400;
+	--text-label: 14px; /* form labels, buttons, names in threads */
+	--text-label--line-height: 20px;
+	--text-label--font-weight: 500;
+	--text-small: 12px; /* tags, card previews, hints */
+	--text-small--line-height: 16px;
+	--text-small--font-weight: 400;
+	--text-code: 13px;
+	--text-code--line-height: 20px;
+	--text-code--font-weight: 400;
+}
+
+/*
+ * Short aliases so values copied from Figma Dev Mode (var(--brand), var(--space-3)) work as-is.
+ * They point at the Tailwind tokens above; never give them their own values.
+ */
+:root {
+	--brand: var(--color-brand);
+	--brand-hover: var(--color-brand-hover);
+	--brand-soft: var(--color-brand-soft);
+	--focus: var(--color-focus);
+	--ink: var(--color-ink);
+	--muted: var(--color-muted);
+	--surface: var(--color-surface);
+	--surface-gray: var(--color-surface-gray);
+	--line: var(--color-line);
+	--neutral: var(--color-neutral);
+	--success: var(--color-success);
+	--success-soft: var(--color-success-soft);
+	--warning: var(--color-warning);
+	--warning-soft: var(--color-warning-soft);
+	--danger: var(--color-danger);
+	--danger-soft: var(--color-danger-soft);
+
+	--space-1: var(--spacing-1);
+	--space-2: var(--spacing-2);
+	--space-3: var(--spacing-3);
+	--space-4: var(--spacing-4);
+	--space-5: var(--spacing-5);
+	--space-6: var(--spacing-6);
+	--space-8: var(--spacing-8);
+	--space-9: var(--spacing-9);
+	--space-10: var(--spacing-10);
+	--space-15: var(--spacing-15);
+	--space-20: var(--spacing-20);
+	--space-28: var(--spacing-28);
+}

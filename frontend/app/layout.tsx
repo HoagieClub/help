@@ -1,10 +1,10 @@
 /**
- * @overview Root layout component for the template app. Styles apply to all children.
+ * @overview Root layout component for the Help app. Styles apply to all children.
  *
  * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE
  *
  * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
@@ -13,13 +13,13 @@
 import '@/app/globals.css';
 import '@/lib/hoagie-ui/Theme/theme.css';
 
-import { type ReactNode, type JSX } from 'react';
+import { type JSX, type ReactNode } from 'react';
 
 import { Auth0Provider } from '@auth0/nextjs-auth0';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/Toaster';
 import { auth0 } from '@/lib/auth0';
 import Layout from '@/lib/hoagie-ui/Layout';
 import Nav from '@/lib/hoagie-ui/Nav';
@@ -28,7 +28,7 @@ import Theme from '@/lib/hoagie-ui/Theme';
 import { hoagie } from './hoagie';
 
 export const metadata = {
-	title: 'Template App by Hoagie',
+	title: 'Help App by Hoagie',
 	description: 'Build the next big thing.',
 };
 
@@ -49,15 +49,14 @@ async function Content({ children }: ContentProps): Promise<JSX.Element> {
 
 	const tabs = [
 		{ title: 'About', href: '/about' },
-		{ title: 'Feature 1', href: '/feature1' },
-		{ title: 'Feature 2', href: '/feature2' },
-		{ title: 'Feature 3', href: '/feature3' },
+		{ title: 'Study Groups', href: '/study-groups' },
+		{ title: 'Q&A', href: '/questions' },
 	];
 
 	return (
-		<Theme palette='template'>
+		<Theme palette='help'>
 			<Layout>
-				<Nav name='template' tabs={tabs} user={user} />
+				<Nav name='help' tabs={tabs} user={user} />
 				{children}
 				<Toaster />
 			</Layout>
@@ -77,7 +76,7 @@ export function RootLayout({
 	children: ReactNode;
 }>) {
 	return (
-		<html lang='en' className='bg-hoagie-teal'>
+		<html lang='en' className='bg-hoagie-red'>
 			<head>
 				<script
 					dangerouslySetInnerHTML={{

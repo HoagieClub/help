@@ -27,6 +27,7 @@
 **/.next/
 **/out/
 **/.empty/
+/frontend/next-env.d.ts
 
 # Vercel serverless functions cache
 /frontend/.vercel/
@@ -51,6 +52,7 @@
 
 # Backend environment variables
 /backend/.env
+/backend/.env.local
 
 # ===============================
 # Databases (Backend)
@@ -110,9 +112,12 @@ backend/.venv/
 # Bun lock file (Frontend)
 /frontend/bun.lockb
 
-# Uncomment the following lines if you want to ignore lock files (not generally recommended)
-# package-lock.json
-# yarn.lock
+# Yarn / pnpm (Frontend) - we use npm; package-lock.json is the only lockfile
+/frontend/.pnp.*
+/frontend/.yarn/
+/frontend/.yarnrc.yml
+/frontend/yarn.lock
+/frontend/pnpm-lock.yaml
 
 # ===============================
 # IDE & Editor Settings
@@ -179,13 +184,6 @@ temp/
 
 # Heroku-specific files (Backend)
 /backend/.heroku/
-/backend/Procfile
-
-# ===============================
-# Migrations (Backend)
-# ===============================
-# Django migrations (optional)
-/backend/**/migrations/
 
 # ===============================
 # Miscellaneous
@@ -193,9 +191,6 @@ temp/
 # Build scripts and directories
 /frontend/build/
 /frontend/public/static/
-
-# Ignore static files generated during build (Backend)
-/backend/hoagiemeal/static/
 
 # Ignore mock files (if not to be committed)
 /frontend/mock/
@@ -207,3 +202,9 @@ temp/
 # Custom Ignored Files
 # ===============================
 # Add any additional files or directories you wish to ignore here
+
+# Your personal component test page (made by `npm run playground`). Never committed.
+/frontend/app/playground/
+
+# TypeScript build cache
+*.tsbuildinfo

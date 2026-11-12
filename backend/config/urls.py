@@ -1,0 +1,81 @@
+"""URL configuration for hoagiehelp project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+
+from django.contrib import admin
+from django.urls import path
+from hoagiehelp.api.answer_views import AnswerDetailView, AnswerListView
+from hoagiehelp.api.comment_views import CommentDetailView, CommentListView
+from hoagiehelp.api.heart_views import heart_answer, heart_comment, heart_question
+from hoagiehelp.api.notification_views import (
+	NotificationView,
+	get_notifications,
+)
+from hoagiehelp.api.question_views import QuestionDetailView, QuestionListView
+from hoagiehelp.api.study_group_views import StudyGroupDetailView, StudyGroupListView
+from hoagiehelp.api.user_views import (
+	UserView,
+	get_answers_for_user,
+	get_comments_for_user,
+	get_questions_for_user,
+)
+
+urlpatterns = [
+	path("admin/", admin.site.urls),
+	# Questions
+	path("questions/", QuestionListView.as_view(), name="question-list"),
+	path(
+		"questions/<str:question_id>/",
+		QuestionDetailView.as_view(),
+		name="question-detail",
+	),
+	# Answers
+	path(
+		"questions/<str:question_id>/answers/",
+		AnswerListView.as_view(),
+		name="answer-list",
+	),
+	path("answers/<str:answer_id>/", AnswerDetailView.as_view(), name="answer-detail"),
+	# Comments
+	path(
+		"answers/<str:answer_id>/comments/",
+		CommentListView.as_view(),
+		name="comment-list",
+	),
+	path("comments/<str:comment_id>/", CommentDetailView.as_view(), name="comment-detail"),
+	# Study Groups
+	path("study-groups/", StudyGroupListView.as_view(), name="studygroup-list"),
+	path(
+		"study-groups/<str:studygroup_id>/",
+		StudyGroupDetailView.as_view(),
+		name="studygroup-detail",
+	),
+	# Users
+	path("users/me/", UserView.as_view(), name="user-me"),
+	path("users/<str:user_id>/questions/", get_questions_for_user, name="user-questions"),
+	path("users/<str:user_id>/answers/", get_answers_for_user, name="user-answers"),
+	path("users/<str:user_id>/comments/", get_comments_for_user, name="user-comments"),
+	# Notifications
+	path("notifications/", get_notifications, name="get-notifications"),
+	path(
+		"notifications/<str:notification_id>/",
+		NotificationView.as_view(),
+		name="notification-detail",
+	),
+	# Hearts
+	path("questions/<str:question_id>/heart/", heart_question, name="heart_question"),
+	path("answers/<str:answer_id>/heart/", heart_answer, name="heart_answer"),
+	path("comments/<str:comment_id>/heart/", heart_comment, name="heart_comment"),
+]

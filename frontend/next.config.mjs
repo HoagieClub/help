@@ -2,6 +2,8 @@ import withPWA from 'next-pwa';
 
 const nextConfig = {
 	reactStrictMode: true,
+	// Don't let `next dev` create AGENTS.md and CLAUDE.md in this folder.
+	agentRules: false,
 	...withPWA({
 		dest: 'public',
 		register: true,
@@ -18,6 +20,14 @@ const nextConfig = {
 			{
 				protocol: 'https',
 				hostname: 'media.licdn.com',
+			},
+			{
+				protocol: 'https',
+				hostname: 'avatars.githubusercontent.com',
+			},
+			{
+				protocol: 'https',
+				hostname: 'i.imgur.com',
 			},
 		],
 	},

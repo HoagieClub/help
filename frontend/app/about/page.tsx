@@ -22,7 +22,7 @@ const SocialIcon = ({ href, children }: { href: string; children: React.ReactNod
 		href={href}
 		target='_blank'
 		rel='noopener noreferrer'
-		className='text-gray-400 hover:text-emerald-500 transition-colors duration-300'
+		className='text-gray-400 hover:text-red-500 transition-colors duration-300'
 	>
 		{children}
 	</a>
@@ -49,32 +49,159 @@ const LinkedinIcon = () => (
 
 // Team data organized for easier management
 const teamLeads: member[] = [
+	// {
+	// 	name: 'Spencer Doyle',
+	// 	role: 'Team Lead',
+	// 	imgSrc: 'https://i.imgur.com/c0UVvJQ.jpeg',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/spencer-doyle3/',
+	// 	},
+	// },
+	// {
+	// 	name: 'Issac Li',
+	// 	role: 'Team Lead',
+	// 	imgSrc: 'https://i.imgur.com/otc6I8r.jpeg',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/issactli/',
+	// 	},
+	// },
 	{
-		name: 'Spencer Doyle',
+		name: 'Maribel Crespo',
 		role: 'Team Lead',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D4E03AQFgKlbpu5PV9Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1710630696392?e=1762992000&v=beta&t=0BKZ_8Nv9L8OgZbItbsoHfuUL1xlXTTOMDpTzuU5a_w',
+		imgSrc: 'https://i.imgur.com/AKrqIVf.jpeg',
 		socials: {
-			linkedin: 'https://www.linkedin.com/in/spencer-doyle3/',
+			linkedin: 'https://www.linkedin.com/in/maribel-crespo-134a33284/',
 		},
 	},
 	{
-		name: 'Issac Li',
+		name: 'Eric Guo',
 		role: 'Team Lead',
-		imgSrc: 'https://media.licdn.com/dms/image/v2/D5603AQEDK7V3q61jAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1690434142044?e=1762992000&v=beta&t=Xf393UgOpXgB_WpSMMNOUZazRfOsF7JMdKaHBvxNqIY',
+		imgSrc: 'https://i.imgur.com/NkONjut.png',
 		socials: {
-			linkedin: 'https://www.linkedin.com/in/issactli/',
+			linkedin: 'https://www.linkedin.com/in/eric-guo1',
+		},
+	},
+	{
+		name: 'Ray Kong',
+		role: 'Team Lead',
+		imgSrc: 'https://i.imgur.com/AnBUc2F.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/raykongcs/',
 		},
 	},
 ];
 
 const teamMembers = [
-	// Add your name, role, and image here!
 	{
-		name: 'Hoagie Member',
-		role: 'Frontend Developer',
-		imgSrc: 'https://github.com/HoagieClub/club/raw/refs/heads/source/src/assets/hoagie-hi.svg',
+		name: 'Ava Fonss',
+		role: 'Product Manager',
+		imgSrc: 'https://i.imgur.com/Xi5yu3I.jpeg',
 		socials: {
-			linkedin: 'https://www.linkedin.com',
+			linkedin: 'https://www.linkedin.com/in/avafonss/',
+		},
+	},
+	// {
+	// 	name: 'Samantha Nosanchuk',
+	// 	role: 'Product Manager',
+	// 	imgSrc: 'https://i.imgur.com/bVPQZND.jpeg',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/samanthanicolenosanchuk/',
+	// 	},
+	// },
+	{
+		name: 'Hellen Luo',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/C6xKJWC.png',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/hellen-luo',
+		},
+	},
+	{
+		name: 'Timothy Li',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/pAb7Amj.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/timli5823/',
+		},
+	},
+	{
+		name: 'Adam Belouad',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/6t7TwGU.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/adambelouad/',
+		},
+	},
+	{
+		name: 'David Liu',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/EzXKE9B.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/david-liu-71398523a/',
+		},
+	},
+	// {
+	// 	name: 'Ryan Jensen',
+	// 	role: 'Developer',
+	// 	imgSrc: 'https://i.imgur.com/WxoQ4Kg.jpeg',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/ryan-avery-jensen/',
+	// 	},
+	// },
+	// {
+	// 	name: 'Laahini Addagatla',
+	// 	role: 'Developer',
+	// 	imgSrc: 'https://i.imgur.com/DUWtHcR.png',
+	// 	socials: {
+	// 		linkedin: 'https://www.linkedin.com/in/laahini-a-277906271/',
+	// 	},
+	// },
+	{
+		name: 'Ethan Wen',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/SdAZWIc.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/wen-ethan/',
+		},
+	},
+	{
+		name: 'Faylinn Wong',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/pZxmcGJ.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/faylinnwong/',
+		},
+	},
+	{
+		name: 'Andrew Wu',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/QDwARGQ.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/andrew-wu-b833052a6/',
+		},
+	},
+	{
+		name: 'Wilson Yi',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/NpgAt8b.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/wilson-yi-456212328/',
+		},
+	},
+	{
+		name: 'Jon Dong',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/LdljV01.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/jon-dong-876725291/',
+		},
+	},
+	{
+		name: 'Henry Cantor',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/jiFAWwh.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/henry-cantor123/',
 		},
 	},
 ];
@@ -97,8 +224,8 @@ export function App() {
 						marginBottom={majorScale(4)}
 					>
 						Meet the{' '}
-						<Text size={900} fontSize='3rem' color={theme.colors.blue500}>
-							HoagieSparks
+						<Text size={900} fontSize='3rem' color={theme.colors.red500}>
+							HoagieHelp
 						</Text>{' '}
 						Team
 					</Heading>
@@ -127,7 +254,7 @@ export function App() {
 										width={128}
 										height={128}
 										borderRadius='50%'
-										border={`4px solid ${theme.colors.blue200}`}
+										border={`4px solid ${theme.colors.red300}`}
 										boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
 										overflow='hidden'
 									>
@@ -136,13 +263,14 @@ export function App() {
 											alt={lead.name}
 											height={128}
 											width={128}
+											style={{ objectFit: 'cover' }}
 										/>
 									</Pane>
 									<div className='text-center sm:text-left'>
 										<h3 className='text-2xl font-bold text-slate-900'>
 											{lead.name}
 										</h3>
-										<p className='text-md font-semibold text-emerald-600 mb-2'>
+										<p className='text-md font-semibold text-red-600 mb-2'>
 											{lead.role}
 										</p>
 										<div className='flex justify-center sm:justify-start space-x-4'>
@@ -171,12 +299,13 @@ export function App() {
 								<Image
 									src={member.imgSrc}
 									alt={member.name}
-									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-emerald-300 transition-colors duration-300'
-									height={0}
-									width={0}
+									className='w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 group-hover:border-red-300 transition-colors duration-300'
+									height={128}
+									width={128}
+									style={{ objectFit: 'cover' }}
 								/>
 								<h4 className='font-bold text-slate-800 text-lg'>{member.name}</h4>
-								<p className='text-emerald-600 text-sm'>{member.role}</p>
+								<p className='text-red-600 text-sm'>{member.role}</p>
 								<div className='flex mx-auto w-min mt-2 justify-center sm:justify-start space-x-4'>
 									<SocialIcon href={member.socials.linkedin}>
 										<LinkedinIcon />
