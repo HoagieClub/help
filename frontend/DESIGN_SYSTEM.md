@@ -37,35 +37,35 @@ A **token** is a named design value: a color, a spacing step, a corner radius, a
 
 Import base pieces from `@/components/ui`. Each has a page on `/design` with every variant.
 
-| Component        | Use it for                                                                  |
-| ---------------- | --------------------------------------------------------------------------- |
-| `Button`         | Every button: primary, success (Ask Question), secondary, ghost, link.      |
-| `BackLink`       | "← Back" above a page title.                                                |
-| `FilterGroup`    | A row of filters where one is on (Recent / Popular).                        |
-| `IconButton`     | A button that is only an icon (needs a `label` for screen readers).         |
-| `UpvoteButton`   | "▲ Upvote (12)" under a post; pair with the `useUpvote` hook.               |
-| `Tag`            | Course (red), topic (gray) and category (green) labels.                     |
-| `Input`          | Labeled text fields with hint, error, icon, and the round `search` variant. |
-| `Textarea`       | Multi-line fields, same states as Input.                                    |
-| `Select`         | Dropdowns, same states as Input.                                            |
-| `Checkbox`       | A checkbox with its label.                                                  |
-| `Tabs`           | Switching between views on one page (Questions / Answers / Comments).       |
-| `Avatar`         | Initials in a circle, sm to xl.                                             |
-| `Byline`         | Big avatar + name + "Q&A • 2h ago", at the top of a question.               |
-| `MetaRow`        | Facts separated by dots: "Sarah Park • 2h ago".                             |
-| `Stat`           | A read-only icon + count: "▲ 12", "👁 45 views".                             |
-| `ThreadItem`     | One answer or comment: avatar, name, text, actions, nested replies.         |
-| `Message`        | Success, error and warning banners.                                         |
-| `ExpandableText` | Long text with Read more / Read less.                                       |
-| `Spinner`        | Loading.                                                                    |
-| `EmptyState`     | A list with nothing in it.                                                  |
-| `PageHeader`     | The h1, description and main action at the top of a page.                   |
-| `Card`           | White boxes with a light border.                                            |
-| `Stack`          | Rows and columns with a gap. Use it instead of margins.                     |
-| `Divider`        | A line between sections.                                                    |
-| `Text`           | Anything you read.                                                          |
-| `Heading`        | Titles and section headings.                                                |
-| `Toaster`        | Mounted once in the layout; call `toast()` from `sonner`.                   |
+| Component        | Use it for                                                                                                                                                                                                |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Button`         | Every button: primary, success (Ask Question), secondary, ghost, link. `shape='pill'` and `pressed` for tag-like filters; Tag is display only, anything clickable that looks like a tag is a pill Button. |
+| `BackLink`       | "← Back" above a page title.                                                                                                                                                                              |
+| `FilterGroup`    | A row of filters where one is on (Recent / Popular).                                                                                                                                                      |
+| `IconButton`     | A button that is only an icon (needs a `label` for screen readers).                                                                                                                                       |
+| `UpvoteButton`   | "▲ Upvote (12)" under a post; pair with the `useUpvote` hook.                                                                                                                                             |
+| `Tag`            | Course (red), topic (gray) and category (green) labels.                                                                                                                                                   |
+| `Input`          | Labeled text fields with hint, error, icon, and the round `search` variant.                                                                                                                               |
+| `Textarea`       | Multi-line fields, same states as Input.                                                                                                                                                                  |
+| `Select`         | Dropdowns, same states as Input.                                                                                                                                                                          |
+| `Checkbox`       | A checkbox with its label.                                                                                                                                                                                |
+| `Tabs`           | Switching between views on one page (Questions / Answers / Comments).                                                                                                                                     |
+| `Avatar`         | Initials in a circle, sm to xl.                                                                                                                                                                           |
+| `Byline`         | Big avatar + name + "Q&A • 2h ago", at the top of a question.                                                                                                                                             |
+| `MetaRow`        | Facts separated by dots: "Sarah Park • 2h ago".                                                                                                                                                           |
+| `Stat`           | A read-only icon + count: "▲ 12", "👁 45 views".                                                                                                                                                           |
+| `ThreadItem`     | One answer or comment: avatar, name, text, actions, nested replies.                                                                                                                                       |
+| `Message`        | Success, error and warning banners.                                                                                                                                                                       |
+| `ExpandableText` | Long text with Read more / Read less.                                                                                                                                                                     |
+| `Spinner`        | Loading.                                                                                                                                                                                                  |
+| `EmptyState`     | A list with nothing in it.                                                                                                                                                                                |
+| `PageHeader`     | The h1, description and main action at the top of a page.                                                                                                                                                 |
+| `Card`           | White boxes with a light border.                                                                                                                                                                          |
+| `Stack`          | Rows and columns with a gap. Use it instead of margins.                                                                                                                                                   |
+| `Divider`        | A line between sections.                                                                                                                                                                                  |
+| `Text`           | Anything you read.                                                                                                                                                                                        |
+| `Heading`        | Titles and section headings.                                                                                                                                                                              |
+| `Toaster`        | Mounted once in the layout; call `toast()` from `sonner`.                                                                                                                                                 |
 
 Props only accept the options listed on `/design`; there's no `className` or `style`. If you need a variant that doesn't exist, add it to the component in `components/ui/` in its own PR. Pages marked **Not in Figma yet** on `/design` still need a Figma frame.
 

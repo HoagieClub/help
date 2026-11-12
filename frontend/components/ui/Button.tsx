@@ -37,17 +37,33 @@ export const buttonVariants = cva(
 				/** No height or padding, for text actions inside a post. */
 				inline: 'h-auto gap-1 rounded-sm p-0',
 			},
+			/** Pill is fully rounded: clickable tags and on/off filters. */
+			shape: {
+				default: '',
+				pill: 'rounded-pill',
+			},
+			pressed: {
+				/** Selected look for a toggle button (set by the `pressed` prop). */
+				true: 'border border-brand bg-brand-soft text-brand hover:bg-brand-soft',
+				false: '',
+			},
 			fullWidth: {
 				true: 'w-full',
 				false: '',
 			},
 		},
-		defaultVariants: { variant: 'primary', size: 'md', fullWidth: false },
+		defaultVariants: { variant: 'primary', size: 'md', shape: 'default', fullWidth: false },
 	}
 );
 
 export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'style'> &
-	VariantProps<typeof buttonVariants> & {
+	Omit<VariantProps<typeof buttonVariants>, 'pressed'> & {
+		/**
+		 * Makes the button an on/off toggle: sets aria-pressed and shows the
+		 * selected look (brand-soft background, brand text). Leave undefined for
+		 * a normal button.
+		 */
+		pressed?: boolean;
 		/**
 		 * Render the child element (for example a Next.js Link) with button styles,
 		 * instead of nesting a <button> inside a link.
@@ -64,6 +80,9 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'classNa
  * <Button variant='secondary'>Cancel</Button>
  * <Button variant='link' size='inline' onClick={reply}>Reply</Button>
  *
+ * // A clickable tag, or an on/off filter, is a pill:
+ * <Button variant='secondary' shape='pill' size='sm' pressed={on} onClick={toggle}>COS 126</Button>
+ *
  * // A link that looks like a button (no <button> inside <a>):
  * <Button variant='success' asChild>
  *   <Link href='/questions/ask'>Ask Question</Link>
@@ -72,22 +91,24 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'classNa
 export function Button({
 	variant,
 	size,
+	shape,
+	pressed,
 	fullWidth,
 	asChild = false,
 	type,
 	children,
 	...props
 }: ButtonProps) {
-	const classes = cn(buttonVariants({ variant, size, fullWidth }));
+	const classes = cn(buttonVariants({ variant, size, shape, pressed, fullWidth }));
 	if (asChild) {
 		return (
-			<Slot className={classes} {...props}>
+			<Slot className={classes} aria-pressed={pressed} {...props}>
 				{children}
 			</Slot>
 		);
 	}
 	return (
-		<button type={type ?? 'button'} className={classes} {...props}>
+		<button type={type ?? 'button'} className={classes} aria-pressed={pressed} {...props}>
 			{children}
 		</button>
 	);
