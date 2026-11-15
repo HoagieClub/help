@@ -8,6 +8,9 @@ from django.db.models import Count
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+	# Number of answers. Views annotate it in the query; get_answer_count falls back to a count.
+	answer_count = serializers.SerializerMethodField()
+
 	class Meta:
 		model = Question
 		fields = [
@@ -25,9 +28,8 @@ class QuestionSerializer(serializers.ModelSerializer):
 			"answer_count",
 		]
 		# The author is always the authenticated user, never client-supplied
-		read_only_fields = ["user", "answer_count"]
+		read_only_fields = ["user"]
 		extra_kwargs = {"tags": {"required": False, "allow_empty": True}}
-		answer_count = serializers.IntegerField(read_only=True)
 
 	def get_answer_count(self, obj):
 		if hasattr(obj, "answer_count"):
