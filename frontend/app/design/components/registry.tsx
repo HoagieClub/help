@@ -60,6 +60,17 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 						Reply
 					</Button>
 				</Stack>
+				<Stack direction='row' gap='3' align='center' wrap>
+					<Button variant='secondary' shape='pill' size='sm'>
+						COS 126
+					</Button>
+					<Button variant='secondary' shape='pill' size='sm' pressed>
+						COS 226
+					</Button>
+					<Button shape='pill' size='sm'>
+						Primary pill
+					</Button>
+				</Stack>
 			</Stack>
 		),
 		code: `<Button>Post Question</Button>
@@ -69,7 +80,9 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 <Button variant='secondary'>Cancel</Button>
 <Button variant='ghost' size='sm'>Sign In</Button>
 <Button variant='destructive'>Delete</Button>
-<Button variant='link' size='inline'>Reply</Button>`,
+<Button variant='link' size='inline'>Reply</Button>
+// Clickable tag or on/off filter: a pill. pressed sets aria-pressed.
+<Button variant='secondary' shape='pill' size='sm' pressed={on}>COS 226</Button>`,
 	},
 
 	'back-link': {
