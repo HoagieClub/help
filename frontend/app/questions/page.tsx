@@ -76,6 +76,7 @@ export default function QAPage() {
 								]}
 								course={q.course}
 								views={q.view}
+								answers={q.answer_count}
 								href={`/questions/${q.id}`}
 							/>
 						))}
