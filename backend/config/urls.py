@@ -76,7 +76,9 @@ urlpatterns = [
 	),
 	# Hearts
 	path("questions/<str:question_id>/heart/", heart_question, name="heart_question"),
-	path("questions/<str:question_id>/view/", add_question_view, name="question_view"),
 	path("answers/<str:answer_id>/heart/", heart_answer, name="heart_answer"),
 	path("comments/<str:comment_id>/heart/", heart_comment, name="heart_comment"),
+
+	# Views
+    path("questions/<str:question_id>/view/", add_question_view, name="question_view"),
 ]
