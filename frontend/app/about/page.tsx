@@ -204,6 +204,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/henry-cantor123/',
 		},
 	},
+	{
+		name: 'Akshita Khanna',
+		role: 'Developer',
+		imgSrc: 'https://i.imgur.com/ytyZtEm.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/akshita-khanna-b66643385/',
+		},
+	}
 ];
 
 /**
