@@ -41,7 +41,8 @@
 	--color-ink: #2b303b; /* headings, names, labels, body text */
 	--color-muted: #737b8c; /* timestamps, placeholders, secondary text */
 	--color-surface: #ffffff; /* cards, nav */
-	--color-surface-gray: #fafafa; /* page background, input fill */
+	--color-surface-gray: #fafafa; /* input fill, secondary buttons */
+	--color-page: #fce4e4; /* page background behind the cards (light red) */
 	--color-line: #e2e4e9; /* card, input and nav borders */
 	--color-neutral: #d9d9d9; /* topic tags, search box border */
 
@@ -127,6 +128,7 @@
 	--muted: var(--color-muted);
 	--surface: var(--color-surface);
 	--surface-gray: var(--color-surface-gray);
+	--page: var(--color-page);
 	--line: var(--color-line);
 	--neutral: var(--color-neutral);
 	--success: var(--color-success);

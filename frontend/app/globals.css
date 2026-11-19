@@ -23,7 +23,7 @@
 
 @layer base {
 	body {
-		@apply bg-surface-gray text-ink;
+		@apply bg-page text-ink;
 		@apply font-body;
 	}
 
