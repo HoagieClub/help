@@ -163,6 +163,45 @@ export async function deleteQuestion(questionId: string): Promise<boolean> {
 	}
 }
 
+// Matches the backend response: {"view": <updated_count>}
+const QuestionViewResponseSchema = z.object({
+	view: z.number().min(0),
+});
+
+type QuestionViewResponse = z.infer<typeof QuestionViewResponseSchema>;
+
+export async function addQuestionView(questionId: string): Promise<QuestionViewResponse | null> {
+	// POST /questions/{questionId}/view
+	try {
+		const response = await fetch(`${buildQuestionDetailsUrl(questionId)}/view`, api.post());
+
+		if (!response.ok) {
+			console.error(
+				`Failed to count a view of question ${questionId}:`,
+				response.status,
+				response.statusText
+			);
+			return null;
+		}
+
+		const data = await response.json();
+		const parsed = QuestionViewResponseSchema.safeParse(data);
+
+		if (!parsed.success) {
+			console.error(
+				`Failed to parse view count for question ${questionId}:`,
+				parsed.error.issues
+			);
+			return null;
+		}
+
+		return parsed.data;
+	} catch (error) {
+		console.error(`Error counting a view of question ${questionId}:`, error);
+		return null;
+	}
+}
+
 function buildQuestionDetailsUrl(questionId: string): string {
 	const encodedQuestionId = encodeURIComponent(questionId.toString());
 	return `${QUESTIONS_URL}/${encodedQuestionId}`;

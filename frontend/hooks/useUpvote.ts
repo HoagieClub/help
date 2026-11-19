@@ -1,17 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useHeart, type HeartKind } from './useHeart';
 
-import { heartAnswer, heartComment, heartQuestion } from '@/api/heartService';
-
-export type UpvoteKind = 'question' | 'answer' | 'comment';
-
-/** The backend calls upvotes "hearts"; the designs call them upvotes. */
-const TOGGLE: Record<UpvoteKind, (id: string) => ReturnType<typeof heartQuestion>> = {
-	question: heartQuestion,
-	answer: heartAnswer,
-	comment: heartComment,
-};
+export type UpvoteKind = HeartKind;
 
 export type UseUpvoteOptions = {
 	kind: UpvoteKind;
@@ -23,37 +14,19 @@ export type UseUpvoteOptions = {
 };
 
 /**
- * Upvote or un-upvote a question, answer or comment.
- * Updates the count right away, then uses the server's answer, or rolls back if the request fails.
+ * Props for the older UpvoteButton. Same as useHeart, with `upvoted` instead of `hearted`.
+ * New code should use useHeart with HeartButton.
  *
  * @example
  * const upvote = useUpvote({ kind: 'answer', id: answer.id, initialCount: answer.hearts });
  * <UpvoteButton {...upvote} thing='answer' />
  */
 export function useUpvote({ kind, id, initialCount, initialUpvoted = false }: UseUpvoteOptions) {
-	const [upvoted, setUpvoted] = useState(initialUpvoted);
-	const [count, setCount] = useState(initialCount);
-	const [pending, setPending] = useState(false);
-
-	async function onToggle() {
-		if (pending) {
-			return;
-		}
-		const before = { upvoted, count };
-		setUpvoted(!upvoted);
-		setCount(upvoted ? count - 1 : count + 1);
-		setPending(true);
-
-		const result = await TOGGLE[kind](String(id));
-		if (result) {
-			setUpvoted(result.is_hearted);
-			setCount(result.hearts);
-		} else {
-			setUpvoted(before.upvoted);
-			setCount(before.count);
-		}
-		setPending(false);
-	}
-
-	return { upvoted, count, pending, onToggle };
+	const { hearted, ...rest } = useHeart({
+		kind,
+		id,
+		initialCount,
+		initialHearted: initialUpvoted,
+	});
+	return { upvoted: hearted, ...rest };
 }
