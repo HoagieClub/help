@@ -133,3 +133,33 @@ class QuestionViewsTests(APITestCase):
 		response = self.client.get(missing_url)
 
 		self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+	def test_add_view_counts_one(self):
+		view_url = reverse("question_view", args=[self.question.id])
+
+		response = self.client.post(view_url)
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+		# The response carries the new count, and the database agrees.
+		self.assertEqual(response.data, {"view": 1})
+		self.question.refresh_from_db()
+		self.assertEqual(self.question.view, 1)
+
+		# Every open counts, even by the same user.
+		response = self.client.post(view_url)
+		self.assertEqual(response.data, {"view": 2})
+
+	def test_add_view_missing_question_returns_404(self):
+		missing_url = reverse("question_view", args=[999999])
+
+		response = self.client.post(missing_url)
+
+		self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+	def test_get_does_not_add_views(self):
+		# Reading a question or the list must not count as a view.
+		self.client.get(self.detail_url)
+		self.client.get(self.list_url)
+
+		self.question.refresh_from_db()
+		self.assertEqual(self.question.view, 0)
