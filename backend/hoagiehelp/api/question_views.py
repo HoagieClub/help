@@ -1,10 +1,12 @@
 from rest_framework import serializers
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
 from hoagiehelp.models.question import Question
-from django.db.models import Count
+from django.db.models import Count, F
+from django.shortcuts import get_object_or_404
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -107,3 +109,14 @@ class QuestionDetailView(APIView):
 			return Response({"detail": "Question not found"}, status=status.HTTP_404_NOT_FOUND)
 		question.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(["POST"])
+def add_question_view(request, question_id: str) -> Response:
+	"""Count one view of a question and return the new view count."""
+	question = get_object_or_404(Question, id=question_id)
+
+	# Add 1 in the database, not in Python, so two opens at once both count
+	Question.objects.filter(id=question_id).update(view=F("view") + 1)
+	question.refresh_from_db(fields=["view"])
+	return Response({"view": question.view}, status=status.HTTP_200_OK)
