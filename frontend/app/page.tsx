@@ -36,7 +36,8 @@ export function Home() {
 	if (isLoading) {
 		Profile = <Spinner />;
 	} else if (error || !user) {
-		Profile = <AuthButton />;
+		// Send users who sign in from the landing page to their feed.
+		Profile = <AuthButton href='/auth/login?returnTo=/questions' />;
 	} else {
 		Profile = (
 			<Pane>
