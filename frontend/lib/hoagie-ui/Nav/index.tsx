@@ -1,10 +1,10 @@
 /**
- * @overview Navigation bar for the template app with a stateful profile.
+ * @overview Navigation bar for the Help app with a stateful profile.
  *
  * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE.
  *
  * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
@@ -15,19 +15,20 @@
 import { type ComponentType } from 'react';
 
 import { type User } from '@auth0/nextjs-auth0/types';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
+	Avatar,
 	majorScale,
 	Pane,
-	Text,
-	Position,
 	Popover,
-	Avatar,
-	TabNavigation,
+	Position,
 	Tab,
+	TabNavigation,
+	Text,
 	useTheme,
 } from 'evergreen-ui';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import ProfileCard from '@/lib/hoagie-ui/ProfileCard';
 
@@ -84,7 +85,7 @@ export function Nav({
 			{HeaderComponent ? (
 				<HeaderComponent />
 			) : (
-				<Pane width='100%' height={20} background={theme.colors.blue500} />
+				<Pane width='100%' height={20} background={theme.colors.red500} />
 			)}
 			<Pane
 				display='flex'
@@ -101,7 +102,7 @@ export function Nav({
 					height='100%'
 					maxWidth={1200}
 					paddingX={majorScale(5)}
-					fontSize={25}
+					fontSize={18}
 				>
 					<Link href='/'>
 						<Pane cursor='pointer' position='relative'>
@@ -121,7 +122,7 @@ export function Nav({
 										is='h2'
 										display='inline-block'
 										className='hoagie logo'
-										color={theme.colors.blue500}
+										color={theme.colors.red500}
 									>
 										{name}
 									</Text>
@@ -147,12 +148,25 @@ export function Nav({
 									isSelected={pathname === tab.href}
 									appearance='primary'
 									onSelect={() => router.push(tab.href)}
-									fontSize={14}
 								>
 									{tab.title}
 								</Tab>
 							))}
 						</TabNavigation>
+						<Pane
+							display='flex'
+							alignItems='center'
+							justifyContent='center'
+							marginLeft={majorScale(4)}
+							cursor='pointer'
+							onClick={() => alert('Notifications clicked!')}
+						>
+							<NotificationsIcon
+								fontSize='medium'
+								style={{ color: theme.colors.red500 }}
+								titleAccess='Open Notifications'
+							/>
+						</Pane>
 						{user && (
 							<Popover
 								content={<ProfileCard user={user} />}
@@ -162,9 +176,9 @@ export function Nav({
 									name={username}
 									style={{
 										cursor: 'pointer',
-										border: `2px solid ${theme.colors.tealTint}`,
+										border: `2px solid ${theme.colors.redTint}`,
 									}}
-									backgroundColor={theme.colors.blue100}
+									backgroundColor={theme.colors.red100}
 									size={40}
 									marginLeft={majorScale(4)}
 								/>

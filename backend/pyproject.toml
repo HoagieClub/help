@@ -1,0 +1,114 @@
+# ===============================
+# Project Metadata
+# ===============================
+[project]
+name = "hoagie-help"
+version = "0.1.0"
+description = "HoagieHelp backend."
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.12"
+
+authors = [
+    { name = "Hoagie Club", email = "hoagie@princeton.edu" },
+]
+
+maintainers = [
+    { name = "Hoagie Club", email = "hoagie@princeton.edu" },
+]
+
+# Project dependencies
+dependencies = [
+    "dj-database-url>=3.0.1",
+    "django>=5.1",
+    "djangorestframework>=3.16.1",
+    "postgres>=4.0",
+    "pyjwt[crypto]>=2.11.0",
+    "python-dotenv>=1.2.1",
+    "requests>=2.32.5",
+]
+
+# ===============================
+# Project URLs
+# ===============================
+[project.urls]
+Homepage = "https://help.hoagie.io/"
+Repository = "https://github.com/hoagieclub/help/"
+
+# ===============================
+# Ruff Configuration
+# ===============================
+
+# Adopting Google-style docstrings for consistency across the project.
+
+[tool.ruff]
+# Exclude commonly ignored directories from linting
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "hoagiehelp/migrations",
+]
+
+# General Ruff settings
+line-length = 119 # Slight deviation from Google style since we are using Django.
+indent-width = 4
+target-version = "py312"
+
+# -------------------------------
+# Ruff Linting Rules
+# -------------------------------
+[tool.ruff.lint]
+
+# Enable pydocstyle rules for Google-style docstrings
+select = ["E4", "E7", "E9", "F", "B", "Q", "D2"] # Flake8 rules, Bugbear, Quotes, etc.
+
+ignore = [
+    "D203",  # Ignore conflicts for one-liner docstring style
+    "D206",  # Ignore docstring being indented with spaces, not tabs
+    "D213",  # Allow Google-style multi-line docstrings with different line breaks
+    "E402", # Allow arbitrary import order to support django.setup() flow
+]
+
+# Define fixable and unfixable rules
+fixable = ["ALL"]
+unfixable = []
+
+# -------------------------------
+# Ruff Flake8-Quotes Settings
+# -------------------------------
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"  # Enforce double quotes for docstrings
+inline-quotes = "double"     # Enforce double quotes for inline strings
+
+# -------------------------------
+# Ruff Formatting Settings
+# -------------------------------
+[tool.ruff.format]
+quote-style = "double"                  # Use double quotes for auto-formatting
+indent-style = "tab"                    # Indent with tabs instead of spaces
+skip-magic-trailing-comma = false       # Respect magic trailing commas
+line-ending = "auto"                    # Automatically detect line endings
+
+[dependency-groups]
+dev = [
+    "ruff==0.15.11",
+]

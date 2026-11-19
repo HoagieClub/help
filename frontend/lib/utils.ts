@@ -1,19 +1,45 @@
 /**
- * @overview Utility functions for the template app.
+ * @overview Utility functions for the Help app.
  *
  * This module provides utility functions that simplify class name manipulation and merging.
  *
  * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/help/LICENSE.
  *
  * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
 import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { extendTailwindMerge } from 'tailwind-merge';
+
+import {
+	COLOR_NAMES,
+	FONT_NAMES,
+	RADIUS_NAMES,
+	SHADOW_NAMES,
+	SPACING_STEPS,
+	TYPE_STYLES,
+} from '@/lib/design-tokens';
+
+/**
+ * tailwind-merge only knows Tailwind's default names. Teach it our tokens so it knows that
+ * `text-body` is a font size and `text-ink` is a color (otherwise it would drop one of them).
+ */
+const twMerge = extendTailwindMerge({
+	extend: {
+		theme: {
+			color: [...COLOR_NAMES],
+			text: [...TYPE_STYLES],
+			font: [...FONT_NAMES],
+			radius: [...RADIUS_NAMES],
+			shadow: [...SHADOW_NAMES],
+			spacing: [...SPACING_STEPS],
+		},
+	},
+});
 
 /**
  * Utility function to combine and merge Tailwind CSS class names.

@@ -1,5 +1,5 @@
 {
-	"name": "sparks",
+	"name": "hoagie-help",
 	"version": "0.9.0",
 	"license": "MIT",
 	"private": true,
@@ -9,45 +9,46 @@
 		"dev-https": "next dev -p 3000 --experimental-https",
 		"build": "next build",
 		"start": "next start",
-		"lint": "eslint .",
+		"lint": "eslint . && npm run lint:css",
 		"lint:fix": "eslint . --fix",
 		"format": "prettier --check .",
 		"format:fix": "prettier --write .",
 		"type-check": "tsc --noEmit",
-		"analyze": "webpack-bundle-analyzer dist/stats.json"
+		"playground": "node scripts/playground.mjs",
+		"lint:css": "stylelint \"**/*.module.css\" --allow-empty-input"
 	},
 	"engines": {
 		"node": "^22.9.0"
 	},
-	"trustedDependencies": [
-		"@vercel/speed-insights",
-		"core-js",
-		"sharp"
-	],
 	"dependencies": {
-		"@auth0/nextjs-auth0": "^4.11.0",
-		"@radix-ui/react-separator": "^1.1.7",
+		"@auth0/nextjs-auth0": "^4.16.1",
+		"@emotion/react": "^11.14.0",
+		"@emotion/styled": "^11.14.1",
+		"@mui/icons-material": "^7.3.7",
+		"@mui/material": "^7.3.7",
 		"@radix-ui/react-slot": "^1.2.3",
 		"@tailwindcss/forms": "^0.5.10",
 		"@tailwindcss/postcss": "^4.1.16",
 		"@types/eslint": "^9.6.1",
 		"@types/next-pwa": "^5.6.9",
-		"@vercel/analytics": "^1.5.0",
-		"@vercel/speed-insights": "^1.2.0",
+		"@vercel/analytics": "^2.0.1",
+		"@vercel/speed-insights": "^2.0.0",
+		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"evergreen-ui": "^7.1.9",
-		"next": "^16.0.0",
+		"lucide-react": "^1.71.0",
+		"next": "^16.2.2",
 		"next-pwa": "^5.6.0",
 		"next-themes": "^0.4.6",
 		"postcss-import": "^16.1.0",
-		"react": "^19.2.0",
-		"react-dom": "^19.2.0",
-		"shadcn-ui": "^0.9.4",
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4",
+		"shadcn-ui": "^0.9.5",
 		"sonner": "^2.0.1",
 		"tailwind-merge": "^3.3.1",
-		"tailwindcss-animate": "^1.0.7",
 		"typescript-eslint": "^8.46.2",
-		"webpack": "^5.98.0"
+		"webpack": "^5.98.0",
+		"zod": "^4.6.5"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.38.0",
@@ -63,7 +64,15 @@
 		"postcss": "^8.5.6",
 		"prettier": "^3.6.2",
 		"prettier-plugin-tailwindcss": "^0.7.1",
+		"stylelint": "^17.16.0",
+		"stylelint-declaration-strict-value": "^1.12.1",
 		"tailwindcss": "^4.1.16",
 		"typescript": "^5.7.3"
+	},
+	"overrides": {
+		"evergreen-ui": {
+			"react": "$react",
+			"react-dom": "$react-dom"
+		}
 	}
 }
