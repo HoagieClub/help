@@ -44,6 +44,8 @@ Import base pieces from `@/components/ui`. Each has a page on `/design` with eve
 | `FilterGroup`    | A row of filters where one is on (Recent / Popular).                                                                                                                                                      |
 | `IconButton`     | A button that is only an icon (needs a `label` for screen readers).                                                                                                                                       |
 | `UpvoteButton`   | "▲ Upvote (12)" under a post; pair with the `useUpvote` hook.                                                                                                                                             |
+| `HeartButton`    | "♡ 12" under a post: outline, filled when hearted, no number at 0; pair with `useHeart`.                                                                                                                  |
+| `ReplyButton`    | "Reply" under a post; opens the reply box. Post the reply with `useReply`.                                                                                                                                |
 | `Tag`            | Course (red), topic (gray) and category (green) labels.                                                                                                                                                   |
 | `Input`          | Labeled text fields with hint, error, icon, and the round `search` variant.                                                                                                                               |
 | `Textarea`       | Multi-line fields, same states as Input.                                                                                                                                                                  |
@@ -54,6 +56,7 @@ Import base pieces from `@/components/ui`. Each has a page on `/design` with eve
 | `Byline`         | Big avatar + name + "Q&A • 2h ago", at the top of a question.                                                                                                                                             |
 | `MetaRow`        | Facts separated by dots: "Sarah Park • 2h ago".                                                                                                                                                           |
 | `Stat`           | A read-only icon + count: "▲ 12", "👁 45 views".                                                                                                                                                           |
+| `ViewCount`      | "👁 45 views" on a question; `useQuestionView` counts a view when the page opens.                                                                                                                          |
 | `ThreadItem`     | One answer or comment: avatar, name, text, actions, nested replies.                                                                                                                                       |
 | `Message`        | Success, error and warning banners.                                                                                                                                                                       |
 | `ExpandableText` | Long text with Read more / Read less.                                                                                                                                                                     |
@@ -80,7 +83,7 @@ components/
   ui/              base pieces: no data, no API calls (Button, Tag, Avatar…)
   question/        question feature (QuestionCard, QuestionPanel, AskQuestionForm)
   answer/  comment/  study-group/  notification/  user/  search/
-hooks/             shared hooks (useUpvote, useAction, useDebounce, useSearchQuestions)
+hooks/             shared hooks (useHeart, useReply, useQuestionView, useUpvote, useAction, useDebounce, useSearchQuestions)
 lib/format.ts      formatting helpers (formatTimePassed, formatDateTime)
 ```
 

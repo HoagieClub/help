@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { StudyGroupCard } from '@/components/study-group/StudyGroupCard';
-import { FilterGroup, Tabs, UpvoteButton } from '@/components/ui';
+import { FilterGroup, HeartButton, ReplyButton, Tabs, UpvoteButton } from '@/components/ui';
 
 /** Small stateful wrappers so /design can show interactive components working. */
 
@@ -51,6 +51,35 @@ export function UpvoteDemo({ initialUpvoted }: { initialUpvoted: boolean }) {
 				setCount(upvoted ? count - 1 : count + 1);
 			}}
 		/>
+	);
+}
+
+export function HeartDemo({
+	initialHearted,
+	initialCount,
+}: {
+	initialHearted: boolean;
+	initialCount: number;
+}) {
+	const [hearted, setHearted] = useState(initialHearted);
+	const [count, setCount] = useState(initialCount);
+	return (
+		<HeartButton
+			hearted={hearted}
+			count={count}
+			thing='answer'
+			onToggle={() => {
+				setHearted(!hearted);
+				setCount(hearted ? count - 1 : count + 1);
+			}}
+		/>
+	);
+}
+
+export function ReplyDemo() {
+	const [replying, setReplying] = useState(false);
+	return (
+		<ReplyButton onClick={() => setReplying(!replying)} expanded={replying} thing='answer' />
 	);
 }
 

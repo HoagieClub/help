@@ -69,6 +69,18 @@ export const DESIGN_NAV: NavGroup[] = [
 				example: 'components/comment/CommentItem.tsx',
 			},
 			{
+				href: c('heart-button'),
+				figma: '2666-1291',
+				label: 'Heart button',
+				summary: '“♡ 12” under a question, answer or comment. Replaces the Upvote button.',
+			},
+			{
+				href: c('reply-button'),
+				label: 'Reply button',
+				summary: '“Reply” under a post; opens the reply box.',
+				notInFigma: true,
+			},
+			{
 				href: c('icon-button'),
 				figma: '2666-1597',
 				label: 'Icon button',
@@ -149,6 +161,12 @@ export const DESIGN_NAV: NavGroup[] = [
 				label: 'Stat',
 				summary: 'An icon with a count: “▲ 12”, “45 views”.',
 				example: 'components/question/QuestionCard.tsx',
+			},
+			{
+				href: c('view-count'),
+				figma: '2666-1402',
+				label: 'View count',
+				summary: '“45 views” on a question.',
 			},
 			{
 				href: c('avatar'),
