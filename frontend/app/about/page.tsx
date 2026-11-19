@@ -204,6 +204,14 @@ const teamMembers = [
 			linkedin: 'https://www.linkedin.com/in/henry-cantor123/',
 		},
 	},
+	{
+		name: 'Adele Ding',
+		role: 'Developer',
+		imgSrc: 'https://imgur.com/McUJrkX.jpeg',
+		socials: {
+			linkedin: 'https://www.linkedin.com/in/adele-ding-profile/',
+		},
+	},
 ];
 
 /**
