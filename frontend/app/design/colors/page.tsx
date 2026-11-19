@@ -16,6 +16,7 @@ const SWATCH: Record<string, string> = {
 	muted: 'bg-muted',
 	surface: 'bg-surface',
 	'surface-gray': 'bg-surface-gray',
+	page: 'bg-page',
 	line: 'bg-line',
 	neutral: 'bg-neutral',
 	success: 'bg-success',

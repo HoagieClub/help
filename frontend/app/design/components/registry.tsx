@@ -27,9 +27,17 @@ import {
 	Text,
 	Textarea,
 	ThreadItem,
+	ViewCount,
 } from '@/components/ui';
 
-import { FilterDemo, StudyGroupCardDemo, TabsDemo, UpvoteDemo } from './demos';
+import {
+	FilterDemo,
+	HeartDemo,
+	ReplyDemo,
+	StudyGroupCardDemo,
+	TabsDemo,
+	UpvoteDemo,
+} from './demos';
 
 /** One entry per /design/components/[name] page: live variants and one code block. */
 export type ComponentDoc = {
@@ -298,6 +306,46 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 <UpvoteButton {...upvote} thing='answer' />`,
 	},
 
+	'heart-button': {
+		title: 'Heart button',
+		preview: (
+			<Stack direction='row' gap='6' align='center'>
+				<HeartDemo initialHearted={false} initialCount={12} />
+				<HeartDemo initialHearted initialCount={13} />
+				<HeartDemo initialHearted={false} initialCount={0} />
+			</Stack>
+		),
+		code: `const heart = useHeart({ kind: 'answer', id: answer.id, initialCount: answer.hearts });
+
+<HeartButton {...heart} thing='answer' />`,
+	},
+
+	'reply-button': {
+		title: 'Reply button',
+		preview: <ReplyDemo />,
+		code: `const [replying, setReplying] = useState(false);
+const reply = useReply({ kind: 'answer', id: answer.id });
+
+<ReplyButton onClick={() => setReplying(!replying)} expanded={replying} thing='answer' />
+// in the reply box: const created = await reply.submit(text, isAnonymous);`,
+	},
+
+	'view-count': {
+		title: 'View count',
+		preview: (
+			<Stack direction='row' gap='4' align='center'>
+				<ViewCount count={45} />
+				<ViewCount count={1} />
+				<ViewCount count={1204} />
+			</Stack>
+		),
+		code: `<ViewCount count={question.view} />
+
+// On the question page, count a view when it opens:
+const views = useQuestionView({ questionId: question.id, initialCount: question.view });
+<ViewCount count={views} />`,
+	},
+
 	'thread-item': {
 		title: 'Thread item',
 		preview: (
@@ -357,6 +405,22 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 					upvotes={5}
 					views={31}
 				/>
+				<QuestionCard
+					title='Why does my AVL tree rotate twice on insert?'
+					preview='I inserted 3, 2, 5, 4 and expected one rotation, but the tree rotated twice.'
+					meta={['Ava Chen', '2h ago']}
+					course='COS 226'
+					tags={['Trees']}
+					answers={3}
+					href='/design/components/question-card'
+					actions={
+						<>
+							<HeartDemo initialHearted={false} initialCount={12} />
+							<ViewCount count={45} />
+							<ReplyDemo />
+						</>
+					}
+				/>
 			</Stack>
 		),
 		code: `<QuestionCard
@@ -373,7 +437,21 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
 
 // preview, upvotes, views and answers are optional; leave one out to hide it.
 // On a profile: meta above the title, no answer count
-<QuestionCard layout='profile' meta={['Q&A', '3d ago']} … />`,
+<QuestionCard layout='profile' meta={['Q&A', '3d ago']} … />
+
+// With buttons (For You page): pass the whole bottom row as actions, and leave out
+// upvotes and views so nothing shows twice
+const heart = useHeart({ kind: 'question', id: question.id, initialCount: question.hearts });
+<QuestionCard
+  …
+  actions={
+    <>
+      <HeartButton {...heart} thing='question' />
+      <ViewCount count={question.view} />
+      <ReplyButton onClick={openReply} thing='question' />
+    </>
+  }
+/>`,
 	},
 
 	'study-group-card': {

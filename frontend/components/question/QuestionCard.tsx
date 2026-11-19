@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { Eye, Triangle } from 'lucide-react';
 import Link from 'next/link';
 
@@ -24,8 +26,14 @@ export type QuestionCardProps = {
 	 * `profile` (user page): meta above the title, no answer count.
 	 */
 	layout?: 'feed' | 'profile';
-	/** When set, the whole card links here. */
+	/** When set, the whole card links here (clicking anywhere except `actions` opens it). */
 	href?: string;
+	/**
+	 * Clickable things in the bottom row, e.g. HeartButton, ViewCount and ReplyButton. Leave out for
+	 * a read-only card (Q&A feed, user page). They go after `upvotes` and `views`, so when you pass
+	 * actions, leave those two out and put the whole row here in the order you want.
+	 */
+	actions?: ReactNode;
 };
 
 function answersLabel(answers: number) {
@@ -50,6 +58,18 @@ function answersLabel(answers: number) {
  *   answers={2}
  *   href='/questions/1'
  * />
+ *
+ * // With buttons (For You page): pass the whole bottom row, and leave out upvotes and views
+ * <QuestionCard
+ *   … href='/questions/1'
+ *   actions={
+ *     <>
+ *       <HeartButton {...heart} thing='question' />
+ *       <ViewCount count={question.view} />
+ *       <ReplyButton onClick={openReply} thing='question' />
+ *     </>
+ *   }
+ * />
  */
 export function QuestionCard({
 	title,
@@ -62,6 +82,7 @@ export function QuestionCard({
 	answers,
 	layout = 'feed',
 	href,
+	actions,
 }: QuestionCardProps) {
 	const metaRow = <MetaRow items={meta} />;
 
@@ -70,7 +91,20 @@ export function QuestionCard({
 			<div className='flex flex-col gap-1'>
 				{layout === 'profile' && metaRow}
 				<div className='flex items-start justify-between gap-4'>
-					<Heading variant='title'>{title}</Heading>
+					<Heading variant='title'>
+						{href ? (
+							// The link stretches over the whole card (after:inset-0), so the card
+							// stays clickable while the buttons in `actions` sit above it.
+							<Link
+								href={href}
+								className='outline-none after:absolute after:inset-0 after:rounded-card focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-focus'
+							>
+								{title}
+							</Link>
+						) : (
+							title
+						)}
+					</Heading>
 					{layout === 'feed' && answers !== undefined && (
 						<span className='shrink-0 font-body text-small text-muted'>
 							{answersLabel(answers)}
@@ -94,7 +128,7 @@ export function QuestionCard({
 					))}
 				</div>
 			)}
-			{(upvotes !== undefined || views !== undefined) && (
+			{(upvotes !== undefined || views !== undefined || actions) && (
 				<div className='flex items-center gap-4'>
 					{upvotes !== undefined && (
 						<Stat icon={Triangle} filled>
@@ -107,23 +141,17 @@ export function QuestionCard({
 							{views} {views === 1 ? 'view' : 'views'}
 						</Stat>
 					)}
+					{actions && (
+						<div className='relative z-10 flex items-center gap-4'>{actions}</div>
+					)}
 				</div>
 			)}
 		</div>
 	);
 
-	if (href) {
-		return (
-			<Link
-				href={href}
-				className={cn(
-					cardVariants({ interactive: true }),
-					'block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus'
-				)}
-			>
-				{content}
-			</Link>
-		);
-	}
-	return <article className={cn(cardVariants())}>{content}</article>;
+	return (
+		<article className={cn(cardVariants({ interactive: Boolean(href) }), 'relative')}>
+			{content}
+		</article>
+	);
 }

@@ -49,7 +49,8 @@ async function Content({ children }: ContentProps): Promise<JSX.Element> {
 
 	const tabs = [
 		{ title: 'About', href: '/about' },
-		{ title: 'Study Groups', href: '/study-groups' },
+		// Hidden for now; we'll add Study Groups back to the nav later. The /study-groups page still exists.
+		// { title: 'Study Groups', href: '/study-groups' },
 		{ title: 'Q&A', href: '/questions' },
 	];
 
