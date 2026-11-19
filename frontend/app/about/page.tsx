@@ -211,7 +211,7 @@ const teamMembers = [
 		socials: {
 			linkedin: 'https://www.linkedin.com/in/akshita-khanna-b66643385/',
 		},
-	}
+	},
 ];
 
 /**
