@@ -17,6 +17,7 @@ const QuestionSchema = z.object({
 	hearts: z.number().min(0),
 	view: z.number().min(0),
 	user_is_anonymous: z.boolean(),
+	answer_count: z.number()
 });
 
 type Question = z.infer<typeof QuestionSchema>;
